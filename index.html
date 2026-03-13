@@ -36,38 +36,46 @@
     }
 
     /* === LAYOUT === */
-    .page{max-width:1100px;margin:0 auto;padding:18px 16px 40px}
-
-    /* === TOP BANNER === */
-    .banner{
-      display:grid;
-      grid-template-columns:1.6fr repeat(4,.7fr);
-      gap:10px;
-      padding:14px;
-      border-radius:24px;
-      background:linear-gradient(180deg,rgba(255,248,235,.92),rgba(255,255,255,.76));
-      border:2px solid rgba(36,42,52,.14);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
-      margin-bottom:16px;
+    .page{max-width:1180px;margin:0 auto;padding:20px 16px 44px}
+    .masthead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:18px;
+      margin-bottom:14px;
+      padding:0 6px;
     }
-    .banner-main,.banner-mini{
-      border-radius:18px;
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(36,42,52,.09);
-      padding:12px 14px;
-    }
+    .masthead-copy{max-width:620px}
     .eyebrow{
       display:inline-flex;align-items:center;gap:6px;
       padding:5px 10px;border-radius:999px;
       font-size:12px;font-weight:700;color:#204162;
       background:rgba(137,235,255,.18);border:1px solid rgba(32,65,98,.12);
     }
-    .banner-title{margin:8px 0 6px;font-size:24px;line-height:1.2;font-family:var(--font-display);letter-spacing:.04em}
-    .banner-copy{font-size:12px;line-height:1.7;color:#43516a}
-    .banner-mini .k{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#68768d;font-weight:700}
-    .banner-mini .v{margin-top:8px;font-size:24px;font-weight:800;line-height:1}
-    .banner-mini .note{margin-top:8px;font-size:10px;color:#596780;line-height:1.5}
+    .masthead-title{
+      margin-top:10px;
+      font-size:31px;
+      line-height:1.08;
+      font-family:var(--font-display);
+      letter-spacing:.05em;
+    }
+    .masthead-sub{
+      margin-top:8px;
+      font-size:13px;
+      line-height:1.7;
+      color:#495771;
+    }
+    .masthead-note{
+      max-width:320px;
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.46);
+      border:1px solid rgba(36,42,52,.10);
+      box-shadow:0 8px 24px rgba(34,44,66,.08);
+      color:#50607b;
+      font-size:12px;
+      line-height:1.7;
+    }
 
     /* === SHIP STAGE === */
     .stage{
@@ -79,9 +87,34 @@
       overflow:hidden;
       padding:14px 14px 18px;
     }
-    .stage-head{margin-bottom:10px}
-    .stage-title{font-size:20px;font-family:var(--font-display);letter-spacing:.05em}
-    .stage-sub{margin-top:4px;color:#50607b;font-size:12px}
+    .stage-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:14px;
+      padding:0 4px;
+    }
+    .stage-kicker{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#66748b;
+    }
+    .stage-title{margin-top:4px;font-size:28px;font-family:var(--font-display);letter-spacing:.05em}
+    .stage-sub{margin-top:6px;max-width:560px;color:#50607b;font-size:13px;line-height:1.65}
+    .stage-side{
+      min-width:220px;
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.44);
+      border:1px solid rgba(36,42,52,.10);
+      box-shadow:0 8px 24px rgba(34,44,66,.08);
+    }
+    .stage-side-k{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6c7a90}
+    .stage-side-v{margin-top:6px;font-size:18px;font-weight:800;line-height:1.2}
+    .stage-side-note{margin-top:6px;color:#596780;font-size:11px;line-height:1.55}
 
     /* === REFERENCE IMAGE CONTAINER === */
     .ship-frame{
@@ -191,17 +224,17 @@
     /* === ROOM STATUS PANELS === */
     .panels{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:10px;
-      margin-top:14px;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:18px;
     }
     .room-panel{
-      padding:10px 12px;
-      border-radius:16px;
-      background:var(--panel);
+      padding:12px 14px;
+      border-radius:20px;
+      background:rgba(255,255,255,.66);
       border:1px solid rgba(36,42,52,.10);
-      box-shadow:0 6px 18px rgba(34,44,66,.10);
-      backdrop-filter:blur(8px);
+      box-shadow:0 10px 26px rgba(34,44,66,.10);
+      backdrop-filter:blur(10px);
     }
     .room-panel .rp-head{
       display:flex;justify-content:space-between;align-items:center;
@@ -228,33 +261,6 @@
       background:rgba(0,0,0,.04);font-size:10px;
     }
     .rp-line span:last-child{font-weight:800}
-
-    /* === BOTTOM STATUS BOARD === */
-    .board{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:16px;
-    }
-    .board-card{
-      padding:12px 14px;
-      border-radius:18px;
-      background:linear-gradient(180deg,rgba(255,250,239,.90),rgba(255,255,255,.72));
-      border:2px solid rgba(36,42,52,.10);
-      box-shadow:var(--shadow);
-    }
-    .board-card h3{margin:0 0 8px;font-size:15px;font-family:var(--font-display);letter-spacing:.04em}
-    .board-line{
-      display:flex;justify-content:space-between;gap:8px;
-      padding:6px 0;border-top:1px dashed rgba(36,42,52,.12);
-      font-size:11px;
-    }
-    .board-line:first-of-type{border-top:0;padding-top:0}
-    .badge{padding:3px 7px;border-radius:999px;font-weight:800;font-size:10px}
-    .badge.ok{background:#d8f7e6;color:#0c7148}
-    .badge.busy{background:#dff5ff;color:#175f88}
-    .badge.warn{background:#fff1cf;color:#936012}
-    .badge.alert{background:#ffdadd;color:#a03047}
 
     /* === FOOTER === */
     .footnote{
@@ -315,55 +321,44 @@
 
     /* === RESPONSIVE === */
     @media(max-width:900px){
-      .banner{grid-template-columns:1fr 1fr}
-      .board{grid-template-columns:1fr 1fr}
+      .masthead,.stage-head{flex-direction:column;align-items:flex-start}
+      .masthead-note,.stage-side{max-width:none;width:100%}
+      .panels{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:600px){
       .page{padding:10px 8px 28px}
-      .banner{grid-template-columns:1fr}
-      .board{grid-template-columns:1fr}
-      .banner-title{font-size:20px}
-      .panels{grid-template-columns:1fr 1fr}
+      .masthead-title{font-size:24px}
+      .stage-title{font-size:22px}
+      .stage{padding:12px 12px 16px}
+      .panels{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- TOP BANNER -->
-  <section class="banner">
-    <article class="banner-main">
+  <header class="masthead">
+    <div class="masthead-copy">
       <div class="eyebrow">🚢 库巴号 / V5 旗舰剖面</div>
-      <div class="banner-title">库巴号运行态 · 全舱实况</div>
-      <div class="banner-copy">基于参考原画的塔楼剖面结构，叠加实时状态面板与角色动态标记。角色是房间的主人，状态是他们汇报的内容。</div>
-    </article>
-    <article class="banner-mini">
-      <div class="k">当前阶段</div>
-      <div class="v">核心图</div>
-      <div class="note">参考原画已作为核心视觉骨架直接嵌入。</div>
-    </article>
-    <article class="banner-mini">
-      <div class="k">角色动画</div>
-      <div class="v">已上线</div>
-      <div class="note">幽灵飘浮、金币旋转、炉心脉冲、角色走动。</div>
-    </article>
-    <article class="banner-mini">
-      <div class="k">数据挂载</div>
-      <div class="v">已接槽</div>
-      <div class="note">每个房间对应一张状态面板，可接真实数据。</div>
-    </article>
-    <article class="banner-mini">
-      <div class="k">下个阶段</div>
-      <div class="v">接真状态</div>
-      <div class="note">把 agent、cron、gateway、消息路由灌进去。</div>
-    </article>
-  </section>
+      <div class="masthead-title">库巴号主船体 · 角色驻舱版</div>
+      <div class="masthead-sub">先把页面框架收轻，让船体重新回到主视觉中心。角色继续留在房间里，外围信息只保留必要的状态卡。</div>
+    </div>
+    <div class="masthead-note">这一步先去掉顶部和底部两个大模块，不抢戏，不碎画面。下一步再继续接真实状态和整页节奏。</div>
+  </header>
 
   <!-- SHIP STAGE -->
   <section class="stage">
     <div class="stage-head">
-      <div class="stage-title">库巴号主船体 · V5 旗舰剖面</div>
-      <div class="stage-sub">原画直出 + 动态标记 + 状态面板。角色驻舱，系统运转，一眼可读。</div>
+      <div>
+        <div class="stage-kicker">Main Visual</div>
+        <div class="stage-title">核心图归中，画面先呼吸</div>
+        <div class="stage-sub">保留原画船体与角色动效，只把外围结构收轻。先把第一眼的视觉顺序拉对，再继续往里接真实运行状态。</div>
+      </div>
+      <div class="stage-side">
+        <div class="stage-side-k">本轮落点</div>
+        <div class="stage-side-v">去掉上下大模块</div>
+        <div class="stage-side-note">顶部 banner 和底部 board 已退场，页面现在由船体主视觉 + 房间状态卡组成。</div>
+      </div>
     </div>
 
     <div class="ship-frame">
@@ -507,35 +502,7 @@
     </div>
   </section>
 
-  <!-- BOTTOM BOARD -->
-  <section class="board">
-    <article class="board-card">
-      <h3>🎯 船长前台</h3>
-      <div class="board-line"><span>当前任务</span><span class="badge busy">V5 重构</span></div>
-      <div class="board-line"><span>对话入口</span><span class="badge ok">统一前台</span></div>
-      <div class="board-line"><span>设计状态</span><span class="badge busy">推进中</span></div>
-    </article>
-    <article class="board-card">
-      <h3>🐢 专业舱室</h3>
-      <div class="board-line"><span>慢慢龟</span><span class="badge warn">待接系统态</span></div>
-      <div class="board-line"><span>小库巴</span><span class="badge warn">待接研究数据</span></div>
-      <div class="board-line"><span>碧琪公主</span><span class="badge ok">可接生活态</span></div>
-    </article>
-    <article class="board-card">
-      <h3>⚡ 系统动力</h3>
-      <div class="board-line"><span>Gateway</span><span class="badge ok">在线</span></div>
-      <div class="board-line"><span>消息回执</span><span class="badge alert">偶发抖动</span></div>
-      <div class="board-line"><span>Token 能源</span><span class="badge ok">73%</span></div>
-    </article>
-    <article class="board-card">
-      <h3>📋 下一步挂载</h3>
-      <div class="board-line"><span>Agent 状态</span><span class="badge warn">优先</span></div>
-      <div class="board-line"><span>Cron 库存</span><span class="badge warn">优先</span></div>
-      <div class="board-line"><span>消息通道</span><span class="badge alert">第二批</span></div>
-    </article>
-  </section>
-
-  <div class="footnote">这版直接用参考原画作为核心视觉骨架，不再用 CSS 重新画船。角色位置、房间层级、整体气质都是原画本身已经验证过的。动画和状态面板叠加在上面，让它既是那张图，又是活的仪表盘。下一步就是把真实运行数据灌进每个面板槽位。</div>
+  <div class="footnote">这版先完成整体框架收口：上方说明模块和下方状态大板都已去掉，主视觉重新交还给船体本身。角色继续驻舱，房间卡片继续承担最必要的信息表达；后面再逐步接入真实运行数据。</div>
 
 </div>
 </body>
