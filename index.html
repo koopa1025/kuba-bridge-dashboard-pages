@@ -204,6 +204,26 @@
       clip-path:inset(0 0 22% 0);
       z-index:4;
     }
+    .alert-badge-layer{
+      position:absolute;
+      width:2.6%;
+      pointer-events:none;
+      z-index:7;
+      opacity:0;
+    }
+    .alert-badge-layer img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .alert-badge-layer.is-visible{
+      opacity:1;
+    }
+    .alert-badge-layer.bowser{left:50.0%;top:12.2%;transform:translateX(-50%)}
+    .alert-badge-layer.peach{left:17.2%;top:26.2%;transform:translateX(-50%)}
+    .alert-badge-layer.ghost-princess{left:51.2%;top:40.0%;transform:translateX(-50%)}
+    .alert-badge-layer.lab-koopa{left:80.6%;top:26.3%;transform:translateX(-50%)}
+    .alert-badge-layer.manmangui{width:2.2%;left:41.2%;top:57.2%;transform:translateX(-50%)}
 
     /* Floating coins in vault */
     .float-coin{
@@ -377,6 +397,22 @@
         <img src="assets/generated/manmangui/manmangui-walk.png" alt="慢慢龟走动动画" />
       </div>
 
+      <div class="alert-badge-layer bowser" data-character="bowser">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer peach" data-character="peach">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer ghost-princess" data-character="ghost-princess">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer lab-koopa" data-character="lab-koopa">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer manmangui" data-character="manmangui">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+
       <!-- Floating coins in vault area -->
       <div class="float-coin c1"></div>
       <div class="float-coin c2"></div>
@@ -508,7 +544,7 @@
       ok: 'default',
       busy: 'default',
       wait: 'fast',
-      alert: 'static',
+      alert: 'alert',
     });
 
     function speedUpDuration(rawValue, factor) {
@@ -530,7 +566,7 @@
       const fastSrc = layer.dataset.fastSrc || defaultSrc;
       const motionDuration = layer.dataset.motionDuration;
 
-      const isStatic = mode === 'static';
+      const isStatic = mode === 'static' || mode === 'alert';
       layer.classList.toggle('is-static', isStatic);
 
       if (motionDuration) {
@@ -538,7 +574,7 @@
         layer.style.setProperty('--motion-duration', nextDuration);
       }
 
-      if (mode === 'static') {
+      if (mode === 'static' || mode === 'alert') {
         img.setAttribute('src', staticSrc);
       } else if (mode === 'fast') {
         img.setAttribute('src', fastSrc);
@@ -556,6 +592,8 @@
         const stateClass = ['ok', 'busy', 'wait', 'alert'].find((name) => pill.classList.contains(name));
         const mode = STATUS_MODE_MAP[stateClass] || 'default';
         const layer = document.querySelector(`.character-layer[data-character="${character}"]`);
+        const badge = document.querySelector(`.alert-badge-layer[data-character="${character}"]`);
+        if (badge) badge.classList.toggle('is-visible', mode === 'alert');
         if (!layer) return;
         applyCharacterMode(layer, mode);
       });
