@@ -314,7 +314,12 @@
       .overview-title{font-size:24px}
       .stage-title{font-size:22px}
       .stage{padding:12px 12px 16px}
-      .panels{grid-template-columns:1fr}
+      .panels{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      .room-panel{padding:10px 10px;border-radius:16px}
+      .room-panel .rp-head{align-items:flex-start}
+      .room-panel .rp-title{font-size:12px}
+      .room-panel .rp-role,.rp-line{font-size:9px}
+      .pill{padding:2px 6px;font-size:9px}
     }
   </style>
 </head>
