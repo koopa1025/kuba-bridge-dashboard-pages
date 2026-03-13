@@ -353,13 +353,13 @@
 
   <section class="overview-card">
     <div class="eyebrow">🚢 库巴号 / 当前核心信息</div>
-    <div class="overview-title">现在的库巴号，已经开始接入真实运行状态</div>
-    <div class="overview-sub">当前正式页已经不再只放概念文案，而是开始把真实系统状态挂进舱室卡：Gateway 在线、Feishu 通道可用、memory 检索已就绪，但 cron 仍全部暂停，expert-1 的任务链路和回执链路仍有明显故障面。</div>
+    <div class="overview-title" data-overview-title>现在的库巴号，已经开始接入真实运行状态</div>
+    <div class="overview-sub" data-overview-subtitle>当前正式页已经不再只放概念文案，而是开始把真实系统状态挂进舱室卡：Gateway 在线、Feishu 通道可用、memory 检索已就绪，但 cron 仍全部暂停，expert-1 的任务链路和回执链路仍有明显故障面。</div>
     <div class="overview-grid">
-      <div class="overview-line"><span class="overview-k">当前阶段</span><span class="overview-v">8 舱室接入真实数据</span></div>
-      <div class="overview-line"><span class="overview-k">正式基线</span><span class="overview-v">20:38 / 9c2bbf2</span></div>
-      <div class="overview-line"><span class="overview-k">系统主状态</span><span class="overview-v">Gateway 在线 · Feishu 2/2</span></div>
-      <div class="overview-line"><span class="overview-k">当前风险</span><span class="overview-v">cron 全停 · expert-1 多处报错</span></div>
+      <div class="overview-line" data-overview-item="0"><span class="overview-k">当前阶段</span><span class="overview-v">8 舱室接入真实数据</span></div>
+      <div class="overview-line" data-overview-item="1"><span class="overview-k">正式基线</span><span class="overview-v">20:38 / 9c2bbf2</span></div>
+      <div class="overview-line" data-overview-item="2"><span class="overview-k">系统主状态</span><span class="overview-v">Gateway 在线 · Feishu 2/2</span></div>
+      <div class="overview-line" data-overview-item="3"><span class="overview-k">当前风险</span><span class="overview-v">cron 全停 · expert-1 多处报错</span></div>
     </div>
   </section>
 
@@ -421,7 +421,7 @@
 
     <!-- Room status panels -->
     <div class="panels">
-      <div class="room-panel" data-character="bowser">
+      <div class="room-panel" data-character="bowser" data-room="throne">
         <div class="rp-head">
           <span class="rp-icon">👑</span>
           <span class="rp-title">王座室</span>
@@ -435,7 +435,7 @@
         </div>
       </div>
 
-      <div class="room-panel" data-character="ghost-princess">
+      <div class="room-panel" data-character="ghost-princess" data-room="captain">
         <div class="rp-head">
           <span class="rp-icon">👻</span>
           <span class="rp-title">船长室</span>
@@ -449,7 +449,7 @@
         </div>
       </div>
 
-      <div class="room-panel" data-character="peach">
+      <div class="room-panel" data-character="peach" data-room="guest">
         <div class="rp-head">
           <span class="rp-icon">🌸</span>
           <span class="rp-title">碧琪贵宾室</span>
@@ -463,7 +463,7 @@
         </div>
       </div>
 
-      <div class="room-panel" data-character="lab-koopa">
+      <div class="room-panel" data-character="lab-koopa" data-room="lab">
         <div class="rp-head">
           <span class="rp-icon">💰</span>
           <span class="rp-title">霸金实验室</span>
@@ -477,7 +477,7 @@
         </div>
       </div>
 
-      <div class="room-panel" data-character="manmangui">
+      <div class="room-panel" data-character="manmangui" data-room="firstmate">
         <div class="rp-head">
           <span class="rp-icon">🐢</span>
           <span class="rp-title">大副室</span>
@@ -491,7 +491,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-room="engine">
         <div class="rp-head">
           <span class="rp-icon">🔥</span>
           <span class="rp-title">动力室</span>
@@ -506,7 +506,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-room="deck">
         <div class="rp-head">
           <span class="rp-icon">⚔️</span>
           <span class="rp-title">前甲板</span>
@@ -520,7 +520,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-room="quarters">
         <div class="rp-head">
           <span class="rp-icon">🛏️</span>
           <span class="rp-title">生活区</span>
@@ -539,7 +539,14 @@
 
 </div>
   <script>
-    // Map room status colors to character animation modes.
+    const STATUS_SOURCE_URL = './data/kuba-status.json';
+    const STATUS_REFRESH_MS = 60000;
+    const STATUS_PILL_LABELS = Object.freeze({
+      ok: '空闲正常',
+      busy: '执行中',
+      wait: '高负荷',
+      alert: '故障',
+    });
     const STATUS_MODE_MAP = Object.freeze({
       ok: 'default',
       busy: 'default',
@@ -583,6 +590,77 @@
       }
     }
 
+    function renderOverview(overview) {
+      if (!overview) return;
+      const titleEl = document.querySelector('[data-overview-title]');
+      const subtitleEl = document.querySelector('[data-overview-subtitle]');
+      if (titleEl && overview.title) titleEl.textContent = overview.title;
+      if (subtitleEl && overview.subtitle) subtitleEl.textContent = overview.subtitle;
+
+      (overview.items || []).forEach((item, index) => {
+        const line = document.querySelector(`[data-overview-item="${index}"]`);
+        if (!line) return;
+        const k = line.querySelector('.overview-k');
+        const v = line.querySelector('.overview-v');
+        if (k) k.textContent = item.label || '';
+        if (v) v.textContent = item.value || '';
+      });
+    }
+
+    function renderRoom(room) {
+      const panel = document.querySelector(`.room-panel[data-room="${room.roomId}"]`);
+      if (!panel) return;
+      const titleEl = panel.querySelector('.rp-title');
+      const roleEl = panel.querySelector('.rp-role');
+      const pillEl = panel.querySelector('.pill');
+      const linesEl = panel.querySelector('.rp-lines');
+
+      if (titleEl) titleEl.textContent = room.title || '';
+      if (roleEl) roleEl.textContent = room.role || '';
+      if (pillEl) {
+        pillEl.classList.remove('ok', 'busy', 'wait', 'alert');
+        const status = room.status || 'ok';
+        pillEl.classList.add(status);
+        pillEl.textContent = STATUS_PILL_LABELS[status] || status;
+      }
+      if (linesEl) {
+        linesEl.innerHTML = '';
+        (room.lines || []).forEach((line) => {
+          const row = document.createElement('div');
+          row.className = 'rp-line';
+          const left = document.createElement('span');
+          const right = document.createElement('span');
+          left.textContent = line.label || '';
+          right.textContent = line.value || '';
+          row.append(left, right);
+          linesEl.appendChild(row);
+        });
+      }
+    }
+
+    function renderStatusPayload(payload) {
+      if (!payload) return;
+      renderOverview(payload.overview);
+      (payload.rooms || []).forEach(renderRoom);
+      syncCharacterStates();
+    }
+
+    async function fetchStatusPayload() {
+      const url = `${STATUS_SOURCE_URL}?ts=${Date.now()}`;
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`status fetch failed: ${response.status}`);
+      return response.json();
+    }
+
+    async function refreshDashboardStatus() {
+      try {
+        const payload = await fetchStatusPayload();
+        renderStatusPayload(payload);
+      } catch (error) {
+        console.warn('[kuba-status] refresh failed', error);
+      }
+    }
+
     function syncCharacterStates() {
       document.querySelectorAll('.room-panel[data-character]').forEach((panel) => {
         const character = panel.dataset.character;
@@ -599,8 +677,10 @@
       });
     }
 
-    syncCharacterStates();
+    refreshDashboardStatus();
+    window.setInterval(refreshDashboardStatus, STATUS_REFRESH_MS);
     window.syncCharacterStates = syncCharacterStates;
+    window.refreshDashboardStatus = refreshDashboardStatus;
   </script>
 </body>
 </html>

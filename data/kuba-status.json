@@ -1,0 +1,196 @@
+{
+  "updatedAt": "2026-03-13T17:22:03.314086+00:00",
+  "source": "scripts/generate_kuba_status.py",
+  "overview": {
+    "title": "现在的库巴号，已经开始接入轻量状态源",
+    "subtitle": "这一版开始从 OpenClaw 本机状态 JSON 生成舱室状态，下一步接前端自动读取。",
+    "items": [
+      {
+        "label": "当前阶段",
+        "value": "低 token 状态源骨架"
+      },
+      {
+        "label": "正式基线",
+        "value": "2026-03-14 00:52 / 8483ac7"
+      },
+      {
+        "label": "系统主状态",
+        "value": "Gateway 在线 · Feishu 2 account(s)"
+      },
+      {
+        "label": "当前风险",
+        "value": "expert-1 error 7 · warn 1"
+      }
+    ]
+  },
+  "rooms": [
+    {
+      "character": "bowser",
+      "roomId": "throne",
+      "title": "王座室",
+      "role": "库巴大王 · 最高决策",
+      "status": "busy",
+      "lines": [
+        {
+          "label": "当前主线",
+          "value": "轻量状态源接入"
+        },
+        {
+          "label": "正式基线",
+          "value": "2026-03-14 00:52"
+        },
+        {
+          "label": "正式版本",
+          "value": "8483ac7"
+        }
+      ]
+    },
+    {
+      "character": "ghost-princess",
+      "roomId": "captain",
+      "title": "船长室",
+      "role": "幽灵公主 · 调度统筹",
+      "status": "wait",
+      "lines": [
+        {
+          "label": "当前任务",
+          "value": "JSON 状态源骨架"
+        },
+        {
+          "label": "会话负载",
+          "value": "165,047 / 200,000"
+        },
+        {
+          "label": "剩余 Token",
+          "value": "17%"
+        }
+      ]
+    },
+    {
+      "character": "peach",
+      "roomId": "guest",
+      "title": "碧琪贵宾室",
+      "role": "碧琪公主 · 生活助理",
+      "status": "ok",
+      "lines": [
+        {
+          "label": "常驻 cron",
+          "value": "0"
+        },
+        {
+          "label": "启用中",
+          "value": "0"
+        },
+        {
+          "label": "当前状态",
+          "value": "待命中"
+        }
+      ]
+    },
+    {
+      "character": "lab-koopa",
+      "roomId": "lab",
+      "title": "霸金实验室",
+      "role": "小库巴 · 研究分析",
+      "status": "alert",
+      "lines": [
+        {
+          "label": "cron 任务",
+          "value": "8 条 / 启用 0"
+        },
+        {
+          "label": "最近状态",
+          "value": "7 error / 0 ok"
+        },
+        {
+          "label": "模型",
+          "value": "gpt-5.4"
+        }
+      ]
+    },
+    {
+      "character": "manmangui",
+      "roomId": "firstmate",
+      "title": "大副室",
+      "role": "慢慢龟 · 系统巡检",
+      "status": "ok",
+      "lines": [
+        {
+          "label": "常驻 cron",
+          "value": "0"
+        },
+        {
+          "label": "启用中",
+          "value": "0"
+        },
+        {
+          "label": "当前工位",
+          "value": "系统管家群"
+        }
+      ]
+    },
+    {
+      "character": "engine",
+      "roomId": "engine",
+      "title": "动力室",
+      "role": "系统核心 · Gateway / 模型与上下文底座",
+      "status": "ok",
+      "lines": [
+        {
+          "label": "Gateway",
+          "value": "reachable 40ms"
+        },
+        {
+          "label": "当前模型",
+          "value": "gpt-5.4"
+        },
+        {
+          "label": "剩余 Token",
+          "value": "17%"
+        }
+      ]
+    },
+    {
+      "character": "deck",
+      "roomId": "deck",
+      "title": "前甲板",
+      "role": "通讯炮位 · 消息与通道",
+      "status": "alert",
+      "lines": [
+        {
+          "label": "Feishu 通道",
+          "value": "configured · 2 account(s)"
+        },
+        {
+          "label": "安全告警",
+          "value": "1"
+        },
+        {
+          "label": "系统事件队列",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "character": "quarters",
+      "roomId": "quarters",
+      "title": "生活区",
+      "role": "内务缓冲 · 记忆底仓",
+      "status": "ok",
+      "lines": [
+        {
+          "label": "Memory",
+          "value": "2 files / 2 chunks"
+        },
+        {
+          "label": "检索状态",
+          "value": "vector + fts ready"
+        },
+        {
+          "label": "缓存状态",
+          "value": "cache on (3)"
+        }
+      ]
+    }
+  ]
+}
