@@ -37,45 +37,55 @@
 
     /* === LAYOUT === */
     .page{max-width:1180px;margin:0 auto;padding:20px 16px 44px}
-    .masthead{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:18px;
-      margin-bottom:14px;
-      padding:0 6px;
-    }
-    .masthead-copy{max-width:620px}
     .eyebrow{
       display:inline-flex;align-items:center;gap:6px;
       padding:5px 10px;border-radius:999px;
       font-size:12px;font-weight:700;color:#204162;
       background:rgba(137,235,255,.18);border:1px solid rgba(32,65,98,.12);
     }
-    .masthead-title{
-      margin-top:10px;
-      font-size:31px;
+    .overview-card{
+      margin-bottom:16px;
+      padding:18px 20px;
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(255,251,244,.92),rgba(255,255,255,.78));
+      border:2px solid rgba(36,42,52,.11);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+    .overview-title{
+      margin-top:12px;
+      font-size:30px;
       line-height:1.08;
       font-family:var(--font-display);
       letter-spacing:.05em;
     }
-    .masthead-sub{
+    .overview-sub{
       margin-top:8px;
+      max-width:760px;
       font-size:13px;
       line-height:1.7;
       color:#495771;
     }
-    .masthead-note{
-      max-width:320px;
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
+    .overview-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
       padding:12px 14px;
       border-radius:18px;
-      background:rgba(255,255,255,.46);
-      border:1px solid rgba(36,42,52,.10);
-      box-shadow:0 8px 24px rgba(34,44,66,.08);
-      color:#50607b;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(36,42,52,.08);
+      color:#233048;
       font-size:12px;
-      line-height:1.7;
     }
+    .overview-k{font-weight:700;color:#5c6880}
+    .overview-v{font-weight:800;text-align:right}
 
     /* === SHIP STAGE === */
     .stage{
@@ -87,14 +97,7 @@
       overflow:hidden;
       padding:14px 14px 18px;
     }
-    .stage-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:16px;
-      margin-bottom:14px;
-      padding:0 4px;
-    }
+    .stage-head{margin-bottom:14px;padding:0 4px}
     .stage-kicker{
       font-size:11px;
       font-weight:800;
@@ -103,18 +106,7 @@
       color:#66748b;
     }
     .stage-title{margin-top:4px;font-size:28px;font-family:var(--font-display);letter-spacing:.05em}
-    .stage-sub{margin-top:6px;max-width:560px;color:#50607b;font-size:13px;line-height:1.65}
-    .stage-side{
-      min-width:220px;
-      padding:12px 14px;
-      border-radius:18px;
-      background:rgba(255,255,255,.44);
-      border:1px solid rgba(36,42,52,.10);
-      box-shadow:0 8px 24px rgba(34,44,66,.08);
-    }
-    .stage-side-k{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6c7a90}
-    .stage-side-v{margin-top:6px;font-size:18px;font-weight:800;line-height:1.2}
-    .stage-side-note{margin-top:6px;color:#596780;font-size:11px;line-height:1.55}
+    .stage-sub{margin-top:6px;max-width:620px;color:#50607b;font-size:13px;line-height:1.65}
 
     /* === REFERENCE IMAGE CONTAINER === */
     .ship-frame{
@@ -224,7 +216,7 @@
     /* === ROOM STATUS PANELS === */
     .panels{
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:12px;
       margin-top:18px;
     }
@@ -261,13 +253,6 @@
       background:rgba(0,0,0,.04);font-size:10px;
     }
     .rp-line span:last-child{font-weight:800}
-
-    /* === FOOTER === */
-    .footnote{
-      margin-top:14px;padding:12px 14px;border-radius:16px;
-      background:rgba(255,255,255,.58);border:1px solid rgba(36,42,52,.10);
-      color:#4a5670;font-size:12px;line-height:1.7;
-    }
 
     /* === KEYFRAMES === */
     @keyframes furnace-glow{
@@ -321,13 +306,12 @@
 
     /* === RESPONSIVE === */
     @media(max-width:900px){
-      .masthead,.stage-head{flex-direction:column;align-items:flex-start}
-      .masthead-note,.stage-side{max-width:none;width:100%}
+      .overview-grid{grid-template-columns:1fr}
       .panels{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:600px){
       .page{padding:10px 8px 28px}
-      .masthead-title{font-size:24px}
+      .overview-title{font-size:24px}
       .stage-title{font-size:22px}
       .stage{padding:12px 12px 16px}
       .panels{grid-template-columns:1fr}
@@ -337,28 +321,24 @@
 <body>
 <div class="page">
 
-  <header class="masthead">
-    <div class="masthead-copy">
-      <div class="eyebrow">🚢 库巴号 / V5 旗舰剖面</div>
-      <div class="masthead-title">库巴号主船体 · 角色驻舱版</div>
-      <div class="masthead-sub">先把页面框架收轻，让船体重新回到主视觉中心。角色继续留在房间里，外围信息只保留必要的状态卡。</div>
+  <section class="overview-card">
+    <div class="eyebrow">🚢 库巴号 / 当前核心信息</div>
+    <div class="overview-title">一张总览卡，先讲清现在的库巴号</div>
+    <div class="overview-sub">当前页面只保留最必要的信息：上部一张总览卡，中部船体结构主视觉，下部 8 个舱室模块。先把框架讲明白，再继续往里接真实数据。</div>
+    <div class="overview-grid">
+      <div class="overview-line"><span class="overview-k">当前阶段</span><span class="overview-v">核心图 + 驻舱角色</span></div>
+      <div class="overview-line"><span class="overview-k">正式发布</span><span class="overview-v">GitHub Pages</span></div>
+      <div class="overview-line"><span class="overview-k">当前焦点</span><span class="overview-v">整体页面框架收口</span></div>
+      <div class="overview-line"><span class="overview-k">下个动作</span><span class="overview-v">逐步接真实状态</span></div>
     </div>
-    <div class="masthead-note">这一步先去掉顶部和底部两个大模块，不抢戏，不碎画面。下一步再继续接真实状态和整页节奏。</div>
-  </header>
+  </section>
 
   <!-- SHIP STAGE -->
   <section class="stage">
     <div class="stage-head">
-      <div>
-        <div class="stage-kicker">Main Visual</div>
-        <div class="stage-title">核心图归中，画面先呼吸</div>
-        <div class="stage-sub">保留原画船体与角色动效，只把外围结构收轻。先把第一眼的视觉顺序拉对，再继续往里接真实运行状态。</div>
-      </div>
-      <div class="stage-side">
-        <div class="stage-side-k">本轮落点</div>
-        <div class="stage-side-v">去掉上下大模块</div>
-        <div class="stage-side-note">顶部 banner 和底部 board 已退场，页面现在由船体主视觉 + 房间状态卡组成。</div>
-      </div>
+      <div class="stage-kicker">Ship Structure</div>
+      <div class="stage-title">库巴号主船体结构</div>
+      <div class="stage-sub">中间只保留船体结构主视觉，角色继续待在各自房间里，所有额外说明尽量退出主画面。</div>
     </div>
 
     <div class="ship-frame">
@@ -502,7 +482,6 @@
     </div>
   </section>
 
-  <div class="footnote">这版先完成整体框架收口：上方说明模块和下方状态大板都已去掉，主视觉重新交还给船体本身。角色继续驻舱，房间卡片继续承担最必要的信息表达；后面再逐步接入真实运行数据。</div>
 
 </div>
 </body>
