@@ -157,10 +157,11 @@
       transform-origin:center bottom;
     }
     .character-layer.ghost-princess{
-      width:12.4%;
-      left:40.2%;
-      top:43.7%;
-      animation:captain-ghost-drift 5.6s ease-in-out infinite;
+      width:10.1%;
+      left:51.0%;
+      top:43.8%;
+      transform:translateX(-50%);
+      animation:captain-ghost-idle 4.8s ease-in-out infinite;
       transform-origin:center center;
       z-index:4;
     }
@@ -305,11 +306,11 @@
       96%{transform:translateX(-12px) scaleX(-1)}
       100%{transform:translateX(-12px) scaleX(1)}
     }
-    @keyframes captain-ghost-drift{
-      0%,100%{transform:translate(0,0)}
-      22%{transform:translate(2px,-4px)}
-      50%{transform:translate(-2px,-6px)}
-      78%{transform:translate(1px,-3px)}
+    @keyframes captain-ghost-idle{
+      0%,100%{transform:translateX(-50%) translateY(0)}
+      25%{transform:translateX(-50%) translateY(-4px)}
+      50%{transform:translateX(-50%) translateY(-7px)}
+      75%{transform:translateX(-50%) translateY(-3px)}
     }
 
     /* === RESPONSIVE === */
@@ -372,7 +373,7 @@
       <div class="hotspot engine"></div>
 
       <div class="character-layer bowser">
-        <img src="assets/generated/bowser-throne-user-set-v3-slower/bowser-throne-user-set-v3-slower.png" alt="库巴王王座动效" />
+        <img src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" alt="库巴王王座动效" />
       </div>
 
       <div class="character-layer peach">
@@ -380,7 +381,7 @@
       </div>
 
       <div class="character-layer ghost-princess">
-        <img src="assets/generated/ghost-princess/ghost-princess-float.png" alt="幽灵公主动效" />
+        <img src="assets/generated/ghost-princess-user-set-v2/ghost-princess-user-set-v2.png" alt="幽灵公主动效" />
       </div>
 
       <div class="character-layer lab-koopa">
