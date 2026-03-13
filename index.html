@@ -195,6 +195,18 @@
     .character-layer.is-static{
       animation:none !important;
     }
+    .character-layer.has-alert::after{
+      content:"❗";
+      position:absolute;
+      left:50%;
+      top:-18px;
+      transform:translateX(-50%);
+      font-size:24px;
+      line-height:1;
+      filter:drop-shadow(0 2px 8px rgba(217,77,89,.45));
+      z-index:6;
+      pointer-events:none;
+    }
     .character-layer.lab-koopa{
       width:9.6%;
       left:80.6%;
@@ -357,23 +369,23 @@
       <!-- Character glow hotspots -->
       <div class="hotspot engine"></div>
 
-      <div class="character-layer bowser" data-character="bowser" data-default-src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" data-static-src="assets/generated/bowser-throne-user-set-v7-no-fire/frame-1.png" data-fast-src="assets/generated/bowser-throne-user-set-v8-fast130/bowser-throne-user-set-v8-fast130.png">
+      <div class="character-layer bowser" data-character="bowser" data-default-src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" data-static-src="assets/generated/bowser-throne-user-set-v7-no-fire/frame-1.png" data-fast-src="assets/generated/bowser-throne-user-set-v9-fast150/bowser-throne-user-set-v9-fast150.png">
         <img src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" alt="库巴王王座动效" />
       </div>
 
-      <div class="character-layer peach" data-character="peach" data-default-src="assets/generated/peach/peach-twirl.png" data-static-src="assets/generated/peach/frame-1.png" data-fast-src="assets/generated/peach-fast130/peach-twirl-fast130.png">
+      <div class="character-layer peach" data-character="peach" data-default-src="assets/generated/peach/peach-twirl.png" data-static-src="assets/generated/peach/frame-1.png" data-fast-src="assets/generated/peach-fast150/peach-twirl-fast150.png">
         <img src="assets/generated/peach/peach-twirl.png" alt="碧琪公主转身动效" />
       </div>
 
-      <div class="character-layer ghost-princess" data-character="ghost-princess" data-default-src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" data-static-src="assets/generated/ghost-princess-user-set-v3-slower30/frame-1.png" data-fast-src="assets/generated/ghost-princess-user-set-v4-fast130/ghost-princess-user-set-v4-fast130.png" data-motion-duration="16s">
+      <div class="character-layer ghost-princess" data-character="ghost-princess" data-default-src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" data-static-src="assets/generated/ghost-princess-user-set-v3-slower30/frame-1.png" data-fast-src="assets/generated/ghost-princess-user-set-v5-fast150/ghost-princess-user-set-v5-fast150.png" data-motion-duration="16s">
         <img src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" alt="幽灵公主动效" />
       </div>
 
-      <div class="character-layer lab-koopa" data-character="lab-koopa" data-default-src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" data-static-src="assets/generated/lab-koopa-user-set-v4-slower/frame-1.png" data-fast-src="assets/generated/lab-koopa-user-set-v5-fast130/lab-koopa-user-set-v5-fast130.png">
+      <div class="character-layer lab-koopa" data-character="lab-koopa" data-default-src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" data-static-src="assets/generated/lab-koopa-user-set-v4-slower/frame-1.png" data-fast-src="assets/generated/lab-koopa-user-set-v6-fast150/lab-koopa-user-set-v6-fast150.png">
         <img src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" alt="小库巴奋笔疾书动效" />
       </div>
 
-      <div class="character-layer manmangui" data-character="manmangui" data-default-src="assets/generated/manmangui/manmangui-walk.png" data-static-src="assets/generated/manmangui/frame-1.png" data-fast-src="assets/generated/manmangui-fast130/manmangui-walk-fast130.png" data-motion-duration="6.2s">
+      <div class="character-layer manmangui" data-character="manmangui" data-default-src="assets/generated/manmangui/manmangui-walk.png" data-static-src="assets/generated/manmangui/frame-1.png" data-fast-src="assets/generated/manmangui-fast150/manmangui-walk-fast150.png" data-motion-duration="6.2s">
         <img src="assets/generated/manmangui/manmangui-walk.png" alt="慢慢龟走动动画" />
       </div>
 
@@ -505,10 +517,10 @@
   <script>
     // Map room status colors to character animation modes.
     const STATUS_MODE_MAP = Object.freeze({
-      ok: 'static',
+      ok: 'default',
       busy: 'default',
       wait: 'fast',
-      alert: 'default',
+      alert: 'alert',
     });
 
     function speedUpDuration(rawValue, factor) {
@@ -530,14 +542,18 @@
       const fastSrc = layer.dataset.fastSrc || defaultSrc;
       const motionDuration = layer.dataset.motionDuration;
 
-      layer.classList.toggle('is-static', mode === 'static');
+      const isStatic = mode === 'static' || mode === 'alert';
+      layer.classList.toggle('is-static', isStatic);
+      layer.classList.toggle('has-alert', mode === 'alert');
 
       if (motionDuration) {
-        const nextDuration = mode === 'fast' ? speedUpDuration(motionDuration, 1.3) : motionDuration;
+        const nextDuration = mode === 'fast' ? speedUpDuration(motionDuration, 1.5) : motionDuration;
         layer.style.setProperty('--motion-duration', nextDuration);
       }
 
-      if (mode === 'static') {
+      if (mode === 'alert') {
+        img.setAttribute('src', staticSrc);
+      } else if (mode === 'static') {
         img.setAttribute('src', staticSrc);
       } else if (mode === 'fast') {
         img.setAttribute('src', fastSrc);
