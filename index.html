@@ -175,20 +175,25 @@
       z-index:4;
     }
     .character-layer.manmangui{
+      --motion-duration:6.2s;
       width:5.6%;
       left:calc(40.8% + 10px);
       top:59.6%;
-      animation:manmangui-room-walk 6.2s linear infinite;
+      animation:manmangui-room-walk var(--motion-duration) linear infinite;
       transform-origin:center bottom;
     }
     .character-layer.ghost-princess{
+      --motion-duration:16s;
       width:17.0%;
       left:51.0%;
       top:calc(43.8% - 10px);
       transform:translateX(-50%);
-      animation:captain-ghost-idle 16s ease-in-out infinite;
+      animation:captain-ghost-idle var(--motion-duration) ease-in-out infinite;
       transform-origin:center center;
       z-index:4;
+    }
+    .character-layer.is-static{
+      animation:none !important;
     }
     .character-layer.lab-koopa{
       width:9.6%;
@@ -352,23 +357,23 @@
       <!-- Character glow hotspots -->
       <div class="hotspot engine"></div>
 
-      <div class="character-layer bowser">
+      <div class="character-layer bowser" data-character="bowser" data-default-src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" data-static-src="assets/generated/bowser-throne-user-set-v7-no-fire/frame-1.png" data-fast-src="assets/generated/bowser-throne-user-set-v8-fast130/bowser-throne-user-set-v8-fast130.png">
         <img src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" alt="库巴王王座动效" />
       </div>
 
-      <div class="character-layer peach">
+      <div class="character-layer peach" data-character="peach" data-default-src="assets/generated/peach/peach-twirl.png" data-static-src="assets/generated/peach/frame-1.png" data-fast-src="assets/generated/peach-fast130/peach-twirl-fast130.png">
         <img src="assets/generated/peach/peach-twirl.png" alt="碧琪公主转身动效" />
       </div>
 
-      <div class="character-layer ghost-princess">
+      <div class="character-layer ghost-princess" data-character="ghost-princess" data-default-src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" data-static-src="assets/generated/ghost-princess-user-set-v3-slower30/frame-1.png" data-fast-src="assets/generated/ghost-princess-user-set-v4-fast130/ghost-princess-user-set-v4-fast130.png" data-motion-duration="16s">
         <img src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" alt="幽灵公主动效" />
       </div>
 
-      <div class="character-layer lab-koopa">
+      <div class="character-layer lab-koopa" data-character="lab-koopa" data-default-src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" data-static-src="assets/generated/lab-koopa-user-set-v4-slower/frame-1.png" data-fast-src="assets/generated/lab-koopa-user-set-v5-fast130/lab-koopa-user-set-v5-fast130.png">
         <img src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" alt="小库巴奋笔疾书动效" />
       </div>
 
-      <div class="character-layer manmangui">
+      <div class="character-layer manmangui" data-character="manmangui" data-default-src="assets/generated/manmangui/manmangui-walk.png" data-static-src="assets/generated/manmangui/frame-1.png" data-fast-src="assets/generated/manmangui-fast130/manmangui-walk-fast130.png" data-motion-duration="6.2s">
         <img src="assets/generated/manmangui/manmangui-walk.png" alt="慢慢龟走动动画" />
       </div>
 
@@ -380,7 +385,7 @@
 
     <!-- Room status panels -->
     <div class="panels">
-      <div class="room-panel">
+      <div class="room-panel" data-character="bowser">
         <div class="rp-head">
           <span class="rp-icon">👑</span>
           <span class="rp-title">王座室</span>
@@ -394,7 +399,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-character="ghost-princess">
         <div class="rp-head">
           <span class="rp-icon">👻</span>
           <span class="rp-title">船长室</span>
@@ -408,7 +413,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-character="peach">
         <div class="rp-head">
           <span class="rp-icon">🌸</span>
           <span class="rp-title">碧琪贵宾室</span>
@@ -422,7 +427,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-character="lab-koopa">
         <div class="rp-head">
           <span class="rp-icon">💰</span>
           <span class="rp-title">霸金实验室</span>
@@ -436,7 +441,7 @@
         </div>
       </div>
 
-      <div class="room-panel">
+      <div class="room-panel" data-character="manmangui">
         <div class="rp-head">
           <span class="rp-icon">🐢</span>
           <span class="rp-title">大副室</span>
@@ -497,5 +502,66 @@
 
 
 </div>
+  <script>
+    // Map room status colors to character animation modes.
+    const STATUS_MODE_MAP = Object.freeze({
+      ok: 'static',
+      busy: 'default',
+      wait: 'fast',
+      alert: 'default',
+    });
+
+    function speedUpDuration(rawValue, factor) {
+      const match = String(rawValue || '').trim().match(/^([\d.]+)(ms|s)$/);
+      if (!match) return rawValue;
+      const value = Number(match[1]);
+      const unit = match[2];
+      const nextValue = value / factor;
+      if (unit === 'ms') return `${Math.round(nextValue)}ms`;
+      return `${nextValue.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}s`;
+    }
+
+    function applyCharacterMode(layer, mode) {
+      const img = layer.querySelector('img');
+      if (!img) return;
+
+      const defaultSrc = layer.dataset.defaultSrc || img.getAttribute('src');
+      const staticSrc = layer.dataset.staticSrc || defaultSrc;
+      const fastSrc = layer.dataset.fastSrc || defaultSrc;
+      const motionDuration = layer.dataset.motionDuration;
+
+      layer.classList.toggle('is-static', mode === 'static');
+
+      if (motionDuration) {
+        const nextDuration = mode === 'fast' ? speedUpDuration(motionDuration, 1.3) : motionDuration;
+        layer.style.setProperty('--motion-duration', nextDuration);
+      }
+
+      if (mode === 'static') {
+        img.setAttribute('src', staticSrc);
+      } else if (mode === 'fast') {
+        img.setAttribute('src', fastSrc);
+      } else {
+        img.setAttribute('src', defaultSrc);
+      }
+    }
+
+    function syncCharacterStates() {
+      document.querySelectorAll('.room-panel[data-character]').forEach((panel) => {
+        const character = panel.dataset.character;
+        const pill = panel.querySelector('.pill');
+        if (!character || !pill) return;
+
+        const stateClass = ['ok', 'busy', 'wait', 'alert'].find((name) => pill.classList.contains(name));
+        const mode = STATUS_MODE_MAP[stateClass] || 'default';
+        const layer = document.querySelector(`.character-layer[data-character="${character}"]`);
+        if (!layer) return;
+        applyCharacterMode(layer, mode);
+      });
+    }
+
+    syncCharacterStates();
+    window.syncCharacterStates = syncCharacterStates;
+  </script>
 </body>
 </html>
