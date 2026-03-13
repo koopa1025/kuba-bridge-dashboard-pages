@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-03-13T17:22:03.314086+00:00",
+  "updatedAt": "2026-03-13T18:00:52.922030+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，已经开始接入轻量状态源",
-    "subtitle": "这一版开始从 OpenClaw 本机状态 JSON 生成舱室状态，下一步接前端自动读取。",
+    "subtitle": "页面已开始直接读取本机状态 JSON，后续刷新只需要更新状态源，不再重写整页。",
     "items": [
       {
         "label": "当前阶段",
-        "value": "低 token 状态源骨架"
+        "value": "前端直连状态 JSON"
       },
       {
         "label": "正式基线",
@@ -54,11 +54,11 @@
       "lines": [
         {
           "label": "当前任务",
-          "value": "JSON 状态源骨架"
+          "value": "状态源自动刷新"
         },
         {
           "label": "会话负载",
-          "value": "165,047 / 200,000"
+          "value": "165,922 / 200,000"
         },
         {
           "label": "剩余 Token",
@@ -138,7 +138,7 @@
       "lines": [
         {
           "label": "Gateway",
-          "value": "reachable 40ms"
+          "value": "reachable 43ms"
         },
         {
           "label": "当前模型",
