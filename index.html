@@ -134,6 +134,14 @@
       display:block;
       width:100%;height:auto;
     }
+    .character-layer.bowser{
+      width:31.6%;
+      left:49.9%;
+      top:14.5%;
+      transform:translateX(-50%);
+      transform-origin:center bottom;
+      z-index:4;
+    }
     .character-layer.peach{
       width:16.1%;
       left:14.7%;
@@ -358,11 +366,14 @@
     </div>
 
     <div class="ship-frame">
-      <img src="assets/kuba-reference-clean-v5.png" alt="库巴号剖面参考原画" />
+      <img src="assets/kuba-reference-clean-v6.png" alt="库巴号剖面参考原画" />
 
       <!-- Character glow hotspots -->
-      <div class="hotspot bowser"></div>
       <div class="hotspot engine"></div>
+
+      <div class="character-layer bowser">
+        <img src="assets/generated/bowser-throne-user-set-v1/bowser-throne-user-set-v1.png" alt="库巴王王座动效" />
+      </div>
 
       <div class="character-layer peach">
         <img src="assets/generated/peach/peach-twirl.png" alt="碧琪公主转身动效" />
