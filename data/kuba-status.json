@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T13:27:18.990576+00:00",
+  "updatedAt": "2026-03-14T13:40:58.687144+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -146,12 +146,12 @@
       "title": "动力室",
       "role": "系统核心 · Gateway / 模型与上下文底座",
       "icon": "🔥",
-      "status": "wait",
+      "status": "alert",
       "detailHref": "./kuba-room-detail.html?room=engine",
       "lines": [
         {
           "label": "Gateway",
-          "value": "reachable 36ms"
+          "value": "unreachable"
         },
         {
           "label": "当前模型",
@@ -164,7 +164,7 @@
         },
         {
           "label": "服务模式",
-          "value": "LaunchAgent running"
+          "value": "degraded"
         }
       ]
     },
