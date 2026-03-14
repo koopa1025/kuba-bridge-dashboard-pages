@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T09:37:44.192156+00:00",
+  "updatedAt": "2026-03-14T09:38:48.272035+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -307,8 +307,8 @@
           "tone": "neutral"
         },
         {
-          "label": "最近 run 状态",
-          "value": "ok 1 / error 0",
+          "label": "已推送",
+          "value": "3",
           "tone": "ok"
         }
       ],
@@ -356,7 +356,257 @@
           ]
         },
         {
-          "title": "历史推送任务",
+          "title": "按天查看推送任务",
+          "layout": "report-days",
+          "note": "先按日期看当天任务列表，再点进单篇报告看完整网页化内容。",
+          "items": [
+            {
+              "dateKey": "2026-03-14",
+              "label": "2026-03-14 · 周六",
+              "count": 1,
+              "deliveredCount": 1,
+              "status": "delivered",
+              "reports": [
+                {
+                  "reportId": "2026-03-14-weekly-full-review",
+                  "title": "一周全市场复盘及量化逻辑迭代（2026-03-14）",
+                  "taskName": "一周全市场复盘及量化逻辑迭代",
+                  "status": "delivered",
+                  "meta": "2026-03-14 · 周六 · 一周全市场复盘及量化逻辑迭代 · 已推送",
+                  "excerpt": "## 0. 首屏 TL;DR",
+                  "href": "./kuba-report-view.html?report=2026-03-14-weekly-full-review&room=lab&day=2026-03-14"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-12",
+              "label": "2026-03-12 · 周四",
+              "count": 1,
+              "deliveredCount": 1,
+              "status": "delivered",
+              "reports": [
+                {
+                  "reportId": "2026-03-12-pre",
+                  "title": "2026-03-12 早盘正式定稿（C 步）",
+                  "taskName": "A股港股早盘推演",
+                  "status": "delivered",
+                  "meta": "2026-03-12 · 周四 · A股港股早盘推演 · 已推送",
+                  "excerpt": "> generated_at: 2026-03-12T08:32:28+08:00",
+                  "href": "./kuba-report-view.html?report=2026-03-12-pre&room=lab&day=2026-03-12"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-11",
+              "label": "2026-03-11 · 周三",
+              "count": 3,
+              "deliveredCount": 1,
+              "status": "busy",
+              "reports": [
+                {
+                  "reportId": "2026-03-11-pre",
+                  "title": "2026-03-11 08:30 盘前预测（正式定稿）",
+                  "taskName": "A股港股早盘推演",
+                  "status": "delivered",
+                  "meta": "2026-03-11 · 周三 · A股港股早盘推演 · 已推送",
+                  "excerpt": "> 用途：金融助理群正式版",
+                  "href": "./kuba-report-view.html?report=2026-03-11-pre&room=lab&day=2026-03-11"
+                },
+                {
+                  "reportId": "2026-03-11-pre-blocked",
+                  "title": "2026-03-11 盘前正式链路（C 步）blocked 记录",
+                  "taskName": "A股港股早盘推演",
+                  "status": "blocked",
+                  "meta": "2026-03-11 · 周三 · A股港股早盘推演 · 已推送",
+                  "excerpt": "- 时间：2026-03-11 07:4x Asia/Shanghai",
+                  "href": "./kuba-report-view.html?report=2026-03-11-pre-blocked&room=lab&day=2026-03-11"
+                },
+                {
+                  "reportId": "2026-03-11-post-blocked",
+                  "title": "2026-03-11 盘后复盘 C 步 blocked",
+                  "taskName": "A股港股收盘市场总结及推演准确度打分",
+                  "status": "blocked",
+                  "meta": "2026-03-11 · 周三 · A股港股收盘市场总结及推演准确度打分 · blocked",
+                  "excerpt": "verdict=blocked",
+                  "href": "./kuba-report-view.html?report=2026-03-11-post-blocked&room=lab&day=2026-03-11"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-10",
+              "label": "2026-03-10 · 周二",
+              "count": 5,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-10-mid",
+                  "title": "2026-03-10 午盘推演（补发修复版）",
+                  "taskName": "午盘小结及推演",
+                  "status": "completed",
+                  "meta": "2026-03-10 · 周二 · 午盘小结及推演 · 已生成",
+                  "excerpt": "## 一、上午结论",
+                  "href": "./kuba-report-view.html?report=2026-03-10-mid&room=lab&day=2026-03-10"
+                },
+                {
+                  "reportId": "2026-03-10-pre",
+                  "title": "2026-03-10 盘前预测",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-10 · 周二 · A股港股早盘推演 · 已生成",
+                  "excerpt": "## 核心观点",
+                  "href": "./kuba-report-view.html?report=2026-03-10-pre&room=lab&day=2026-03-10"
+                },
+                {
+                  "reportId": "2026-03-10-post",
+                  "title": "2026-03-10 盘后复盘（补发修复版）",
+                  "taskName": "A股港股收盘市场总结及推演准确度打分",
+                  "status": "completed",
+                  "meta": "2026-03-10 · 周二 · A股港股收盘市场总结及推演准确度打分 · 已生成",
+                  "excerpt": "## 一、收盘结论",
+                  "href": "./kuba-report-view.html?report=2026-03-10-post&room=lab&day=2026-03-10"
+                },
+                {
+                  "reportId": "2026-03-10-e2e2-us-open-final",
+                  "title": "2026-03-10 美股开盘 E2E2 staged sim 正式稿（测试产物）",
+                  "taskName": "美股开盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-10 · 周二 · 美股开盘推演 · 已生成",
+                  "excerpt": "> 说明：本文件仅用于 E2E staged sim C 步测试，不覆盖正式文件，不外发。",
+                  "href": "./kuba-report-view.html?report=2026-03-10-e2e2-us-open-final&room=lab&day=2026-03-10"
+                },
+                {
+                  "reportId": "2026-03-10-us-open-final",
+                  "title": "2026-03-10 美股开盘推演｜21:22补发修复版",
+                  "taskName": "美股开盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-10 · 周二 · 美股开盘推演 · 已生成",
+                  "excerpt": "【核心判断】",
+                  "href": "./kuba-report-view.html?report=2026-03-10-us-open-final&room=lab&day=2026-03-10"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-09",
+              "label": "2026-03-09 · 周一",
+              "count": 3,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-09-mid",
+                  "title": "2026-03-09 午盘推演",
+                  "taskName": "午盘小结及推演",
+                  "status": "completed",
+                  "meta": "2026-03-09 · 周一 · 午盘小结及推演 · 已生成",
+                  "excerpt": "## 一、结论先行",
+                  "href": "./kuba-report-view.html?report=2026-03-09-mid&room=lab&day=2026-03-09"
+                },
+                {
+                  "reportId": "2026-03-09-pre",
+                  "title": "2026-03-09 盘前预测（10:15 修正版）",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-09 · 周一 · A股港股早盘推演 · 已生成",
+                  "excerpt": "> 说明：该任务原计划用于 08:00 预热，但本次实际执行时间为 10:08 后，因此本文保留“盘前判断框架”，并用 10:15 左右已出现的市场快照校正结论。更适合作为今天早盘风险定位与后续复盘底稿。",
+                  "href": "./kuba-report-view.html?report=2026-03-09-pre&room=lab&day=2026-03-09"
+                },
+                {
+                  "reportId": "2026-03-09-us-open",
+                  "title": "2026-03-09 美股开盘推演（21:00 正式版）",
+                  "taskName": "美股开盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-09 · 周一 · 美股开盘推演 · 已生成",
+                  "excerpt": "## 核心判断",
+                  "href": "./kuba-report-view.html?report=2026-03-09-us-open&room=lab&day=2026-03-09"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-07",
+              "label": "2026-03-07 · 周六",
+              "count": 2,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-07-pre",
+                  "title": "📈 盘前预测 2026-03-07",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-07 · 周六 · A股港股早盘推演 · 已生成",
+                  "excerpt": "## 🎯 核心观点",
+                  "href": "./kuba-report-view.html?report=2026-03-07-pre&room=lab&day=2026-03-07"
+                },
+                {
+                  "reportId": "2026-03-07",
+                  "title": "📊 盘后复盘 2026-03-07",
+                  "taskName": "📊 盘后复盘 2026-03-07",
+                  "status": "completed",
+                  "meta": "2026-03-07 · 周六 · 已生成",
+                  "excerpt": "## 今日收盘",
+                  "href": "./kuba-report-view.html?report=2026-03-07&room=lab&day=2026-03-07"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-06",
+              "label": "2026-03-06 · 周五",
+              "count": 2,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-06-pre",
+                  "title": "盘前预测 2026-03-06",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-06 · 周五 · A股港股早盘推演 · 已生成",
+                  "excerpt": "## 核心观点",
+                  "href": "./kuba-report-view.html?report=2026-03-06-pre&room=lab&day=2026-03-06"
+                },
+                {
+                  "reportId": "2026-03-06",
+                  "title": "盘后复盘 2026-03-06",
+                  "taskName": "盘后复盘 2026-03-06",
+                  "status": "completed",
+                  "meta": "2026-03-06 · 周五 · 已生成",
+                  "excerpt": "## 今日收盘",
+                  "href": "./kuba-report-view.html?report=2026-03-06&room=lab&day=2026-03-06"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-05",
+              "label": "2026-03-05 · 周四",
+              "count": 2,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-05-pre",
+                  "title": "盘前预测 2026-03-05",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-05 · 周四 · A股港股早盘推演 · 已生成",
+                  "excerpt": "## 核心观点",
+                  "href": "./kuba-report-view.html?report=2026-03-05-pre&room=lab&day=2026-03-05"
+                },
+                {
+                  "reportId": "2026-03-05",
+                  "title": "盘后复盘 2026-03-05",
+                  "taskName": "盘后复盘 2026-03-05",
+                  "status": "completed",
+                  "meta": "2026-03-05 · 周四 · 已生成",
+                  "excerpt": "## 今日收盘",
+                  "href": "./kuba-report-view.html?report=2026-03-05&room=lab&day=2026-03-05"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "历史推送时间线",
           "layout": "timeline",
           "items": [
             {
@@ -506,14 +756,6 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-05.md",
               "excerpt": "## 今日收盘",
               "href": "./kuba-report-view.html?report=2026-03-05&room=lab&day=2026-03-05"
-            },
-            {
-              "title": "盘前预测 2026-03-05",
-              "status": "completed",
-              "meta": "2026-03-05 · 周四 · A股港股早盘推演 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-05-pre.md",
-              "excerpt": "## 核心观点",
-              "href": "./kuba-report-view.html?report=2026-03-05-pre&room=lab&day=2026-03-05"
             }
           ]
         },

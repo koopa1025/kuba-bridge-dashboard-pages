@@ -1,0 +1,15 @@
+{
+  "updatedAt": "2026-03-14T09:38:48.276351+00:00",
+  "source": "scripts/generate_kuba_status.py",
+  "reportId": "2026-03-11-post-blocked",
+  "dateKey": "2026-03-11",
+  "dateLabel": "2026-03-11 · 周三",
+  "title": "2026-03-11 盘后复盘 C 步 blocked",
+  "taskName": "A股港股收盘市场总结及推演准确度打分",
+  "status": "blocked",
+  "meta": "2026-03-11 · 周三 · A股港股收盘市场总结及推演准确度打分 · blocked",
+  "sourcePath": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-11-post-blocked.md",
+  "sendStatusPath": null,
+  "markdown": "# 2026-03-11 盘后复盘 C 步 blocked\n\nverdict=blocked\nfallback_used=true\ncaptain_review_verdict=blocked\ncaptain_review_path=../workspace/memory/2026-03-11-post-captain-review.md\n\n## blocked reason\n正式盘后 C 步未执行正式定稿。\n\n根据 `../workspace/memory/2026-03-11-post-captain-review.md`，船长验收结论为 `verdict=blocked`，且明确要求不得进入 formal。根因是正式阶段所需的四个前置依赖仍未落盘。\n\n缺失文件：\n- `memory/2026-03-11-post-a-close.json`\n- `memory/2026-03-11-post-hk-close.json`\n- `memory/2026-03-11-post-preflight.json`\n- `memory/2026-03-11-post-review-draft.md`\n\n## checks performed\n- 已读取 `../workspace/memory/2026-03-11-post-captain-review.md`，确认 `verdict=blocked`、`formal_entry_allowed=no`。\n- 已检查 `workspace-expert-1/memory` 下四个 formal 前置依赖，结果均不存在。\n- 已确认当前仅保留 blocked 记录，不生成正式稿，也不生成对群外发稿。\n\n## action taken\n- 按规则 1 停止正式稿生成，不硬写 `post.md`。\n- 未生成 `memory/2026-03-11-post-group-draft.md`，因为 formal 准入未通过。\n- 未向金融助理群发送任何消息。\n- 本文件作为 C 步 blocked 记录，供 main 与后续排障引用。\n\n## remaining risks\n- 若 A/B 步产物随后补齐，必须重新触发船长验收，再重新执行 C 步正式定稿。\n- 若产物实际存在于其他路径但未按约定命名，当前 formal 仍视为断链。\n- 在未补齐依赖前，主 Agent 无法安全地统一外发正式盘后稿。\n",
+  "html": "<h1>2026-03-11 盘后复盘 C 步 blocked</h1>\n<p>verdict=blocked fallback_used=true captain_review_verdict=blocked captain_review_path=../workspace/memory/2026-03-11-post-captain-review.md</p>\n<h2>blocked reason</h2>\n<p>正式盘后 C 步未执行正式定稿。</p>\n<p>根据 <code>../workspace/memory/2026-03-11-post-captain-review.md</code>，船长验收结论为 <code>verdict=blocked</code>，且明确要求不得进入 formal。根因是正式阶段所需的四个前置依赖仍未落盘。</p>\n<p>缺失文件：</p>\n<ul><li><code>memory/2026-03-11-post-a-close.json</code></li><li><code>memory/2026-03-11-post-hk-close.json</code></li><li><code>memory/2026-03-11-post-preflight.json</code></li><li><code>memory/2026-03-11-post-review-draft.md</code></li></ul>\n<h2>checks performed</h2>\n<ul><li>已读取 <code>../workspace/memory/2026-03-11-post-captain-review.md</code>，确认 <code>verdict=blocked</code>、<code>formal_entry_allowed=no</code>。</li><li>已检查 <code>workspace-expert-1/memory</code> 下四个 formal 前置依赖，结果均不存在。</li><li>已确认当前仅保留 blocked 记录，不生成正式稿，也不生成对群外发稿。</li></ul>\n<h2>action taken</h2>\n<ul><li>按规则 1 停止正式稿生成，不硬写 <code>post.md</code>。</li><li>未生成 <code>memory/2026-03-11-post-group-draft.md</code>，因为 formal 准入未通过。</li><li>未向金融助理群发送任何消息。</li><li>本文件作为 C 步 blocked 记录，供 main 与后续排障引用。</li></ul>\n<h2>remaining risks</h2>\n<ul><li>若 A/B 步产物随后补齐，必须重新触发船长验收，再重新执行 C 步正式定稿。</li><li>若产物实际存在于其他路径但未按约定命名，当前 formal 仍视为断链。</li><li>在未补齐依赖前，主 Agent 无法安全地统一外发正式盘后稿。</li></ul>"
+}
