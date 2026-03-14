@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T16:16:34.076570+00:00",
+  "updatedAt": "2026-03-14T16:17:38.844719+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -89,39 +89,39 @@
               "note": "agent=expert-1"
             },
             {
-              "title": "美股收盘总结及推演打分-20分钟排查",
+              "title": "美股收盘总结及推演打分-30分钟排查",
               "status": "none",
-              "meta": "50 7 * * 2-6 (Asia/Shanghai)",
+              "meta": "0 8 * * 2-6 (Asia/Shanghai)",
               "note": "agent=main"
             },
             {
-              "title": "A股港股早盘推演-20分钟排查",
+              "title": "A股港股早盘推演-30分钟排查",
               "status": "none",
-              "meta": "35 8 * * 1-5 (Asia/Shanghai)",
+              "meta": "45 8 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
             {
-              "title": "午盘小结及推演-20分钟排查",
+              "title": "午盘小结及推演-30分钟排查",
               "status": "none",
-              "meta": "35 12 * * 1-5 (Asia/Shanghai)",
+              "meta": "45 12 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
             {
-              "title": "A股港股收盘市场总结及推演准确度打分-20分钟排查",
+              "title": "A股港股收盘市场总结及推演准确度打分-30分钟排查",
               "status": "none",
-              "meta": "50 16 * * 1-5 (Asia/Shanghai)",
+              "meta": "0 17 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
             {
-              "title": "美股开盘推演-20分钟排查",
+              "title": "美股开盘推演-30分钟排查",
               "status": "none",
-              "meta": "50 20 * * 1-5 (Asia/Shanghai)",
+              "meta": "0 21 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
             {
-              "title": "一周全市场复盘及量化逻辑迭代-20分钟排查",
+              "title": "一周全市场复盘及量化逻辑迭代-30分钟排查",
               "status": "none",
-              "meta": "20 9 * * 6 (Asia/Shanghai)",
+              "meta": "30 9 * * 6 (Asia/Shanghai)",
               "note": "agent=main"
             }
           ]
@@ -181,18 +181,18 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "current-focus.md",
-              "status": "ok",
-              "meta": "03-15 00:15 · 43490 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
-              "excerpt": "# current-focus.md"
-            },
-            {
               "title": "2026-03-15.md",
               "status": "ok",
-              "meta": "03-15 00:15 · 1625 B",
+              "meta": "03-15 00:17 · 2425 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
               "excerpt": "# 2026-03-15"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-15 00:17 · 43490 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
             },
             {
               "title": "2026-03-14.md",
@@ -1192,18 +1192,18 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "current-focus.md",
-              "status": "ok",
-              "meta": "03-15 00:15 · 43490 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
-              "excerpt": "# current-focus.md"
-            },
-            {
               "title": "2026-03-15.md",
               "status": "ok",
-              "meta": "03-15 00:15 · 1625 B",
+              "meta": "03-15 00:17 · 2425 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
               "excerpt": "# 2026-03-15"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-15 00:17 · 43490 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
             },
             {
               "title": "2026-03-14.md",
