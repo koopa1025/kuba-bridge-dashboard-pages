@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T16:13:23.160576+00:00",
+  "updatedAt": "2026-03-14T16:15:30.126484+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 22% · warn 3",
+              "value": "船长 Token 22% · warn 2",
               "tone": "wait"
             }
           ]
@@ -1069,7 +1069,7 @@
         },
         {
           "label": "安全告警",
-          "value": "3",
+          "value": "2",
           "tone": "alert"
         },
         {
