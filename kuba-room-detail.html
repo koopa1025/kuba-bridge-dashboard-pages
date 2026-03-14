@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>库巴号 · 舱室详情</title>
+  <style>
+    :root{
+      --ink:#172233;
+      --muted:#607087;
+      --bg:#f4ede2;
+      --bg2:#e1efe6;
+      --panel:rgba(255,255,255,.80);
+      --line:rgba(23,34,51,.10);
+      --ok:#2d8a57;
+      --busy:#266db3;
+      --wait:#c58b12;
+      --alert:#c14736;
+      --shadow:0 24px 50px rgba(40,47,63,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:"Avenir Next","PingFang SC","Noto Sans SC",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.8), transparent 40%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .shell{
+      width:min(1180px, calc(100vw - 28px));
+      margin:0 auto;
+      padding:28px 0 46px;
+    }
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .back{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(23,34,51,.12);
+      background:rgba(255,255,255,.74);
+      box-shadow:0 10px 24px rgba(28,37,52,.10);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:700;
+    }
+    .stamp{
+      font-size:12px;
+      color:var(--muted);
+      text-align:right;
+      line-height:1.6;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:1.25fr .95fr;
+      gap:18px;
+      align-items:stretch;
+      margin-bottom:18px;
+    }
+    .hero-card,
+    .section{
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+    .hero-card{
+      padding:24px 24px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -50px -80px auto;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.68), transparent 72%);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      background:rgba(23,34,51,.06);
+      color:#33455f;
+    }
+    .eyebrow .icon{font-size:18px}
+    h1{
+      margin:18px 0 8px;
+      font-size:40px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+    .role{
+      font-size:15px;
+      font-weight:700;
+      color:#33455f;
+      margin-bottom:12px;
+    }
+    .summary{
+      margin:0;
+      max-width:60ch;
+      line-height:1.7;
+      color:#495a71;
+      font-size:15px;
+    }
+    .status-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:18px;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.04em;
+    }
+    .status-ok{background:rgba(45,138,87,.14); color:var(--ok)}
+    .status-busy{background:rgba(38,109,179,.14); color:var(--busy)}
+    .status-wait{background:rgba(197,139,18,.14); color:var(--wait)}
+    .status-alert{background:rgba(193,71,54,.14); color:var(--alert)}
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+    .metric{
+      border-radius:22px;
+      padding:16px 16px 14px;
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+    }
+    .metric-label{
+      font-size:12px;
+      color:#667892;
+      margin-bottom:8px;
+      font-weight:700;
+    }
+    .metric-value{
+      font-size:24px;
+      line-height:1.2;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+    .tone-ok{color:var(--ok)}
+    .tone-busy{color:var(--busy)}
+    .tone-wait{color:var(--wait)}
+    .tone-alert{color:var(--alert)}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+    }
+    .section{
+      padding:20px;
+      min-height:160px;
+    }
+    .section h2{
+      margin:0 0 6px;
+      font-size:20px;
+      line-height:1.2;
+    }
+    .section-note{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:16px;
+    }
+    .fact-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    .fact{
+      border-radius:18px;
+      padding:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+    }
+    .fact-label{
+      font-size:12px;
+      color:#667892;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    .fact-value{
+      font-size:15px;
+      line-height:1.55;
+      font-weight:800;
+    }
+    .fact-note{
+      margin-top:8px;
+      font-size:12px;
+      color:#7a8797;
+      line-height:1.5;
+    }
+    .timeline{
+      display:grid;
+      gap:12px;
+    }
+    .log-item{
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+      padding:14px 14px 12px;
+    }
+    .log-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:6px;
+    }
+    .log-title{
+      font-size:15px;
+      font-weight:900;
+      line-height:1.45;
+      word-break:break-word;
+    }
+    .log-badge{
+      flex:0 0 auto;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.04em;
+      background:rgba(23,34,51,.08);
+      color:#44566f;
+    }
+    .log-badge.status-delivered,.log-badge.status-ok,.log-badge.status-enabled{background:rgba(45,138,87,.14);color:var(--ok)}
+    .log-badge.status-busy{background:rgba(38,109,179,.14);color:var(--busy)}
+    .log-badge.status-wait{background:rgba(197,139,18,.14);color:var(--wait)}
+    .log-badge.status-alert,.log-badge.status-blocked,.log-badge.status-disabled{background:rgba(193,71,54,.14);color:var(--alert)}
+    .log-meta{
+      font-size:12px;
+      color:#6c7d93;
+      line-height:1.5;
+      word-break:break-word;
+    }
+    .log-excerpt,
+    .log-path,
+    .log-note{
+      margin-top:8px;
+      font-size:13px;
+      line-height:1.6;
+      color:#4a5c73;
+      word-break:break-word;
+    }
+    .empty{
+      padding:20px;
+      border-radius:18px;
+      border:1px dashed var(--line);
+      color:#6c7d93;
+      font-size:14px;
+    }
+    @media (max-width: 980px){
+      .hero,
+      .grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 720px){
+      .shell{width:min(100vw - 18px, 100%); padding-top:18px}
+      .topbar{flex-direction:column; align-items:flex-start}
+      h1{font-size:30px}
+      .metrics,
+      .fact-grid{grid-template-columns:1fr}
+      .hero-card,
+      .section{border-radius:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="back" href="./kuba-bridge-dashboard-v5.html">← 返回库巴号总览</a>
+      <div class="stamp" id="stamp">正在读取舱室日志...</div>
+    </div>
+
+    <div class="hero">
+      <section class="hero-card">
+        <div class="eyebrow"><span class="icon" id="room-icon">🧭</span><span>库巴号 · 舱室详情</span></div>
+        <h1 id="room-title">加载中</h1>
+        <div class="role" id="room-role">正在同步角色信息</div>
+        <p class="summary" id="room-summary">正在从状态源读取当前舱室结构。</p>
+        <div class="status-pill status-busy" id="room-status">同步中</div>
+      </section>
+      <section class="hero-card">
+        <div class="eyebrow"><span class="icon">📦</span><span>核心指标</span></div>
+        <div class="metrics" id="metrics"></div>
+      </section>
+    </div>
+
+    <main class="grid" id="sections"></main>
+  </div>
+
+  <script>
+    const DETAIL_SOURCE_URL = './data/kuba-room-details.json';
+    const STATUS_LABELS = {
+      ok: '正常',
+      busy: '执行中',
+      wait: '高负荷',
+      alert: '告警',
+      delivered: '已推送',
+      blocked: '阻塞',
+      enabled: '启用中',
+      disabled: '停用',
+      completed: '已完成'
+    };
+
+    function roomIdFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('room') || 'throne';
+    }
+
+    function renderMetric(item) {
+      return `
+        <article class="metric">
+          <div class="metric-label">${item.label || ''}</div>
+          <div class="metric-value tone-${item.tone || 'neutral'}">${item.value || ''}</div>
+        </article>
+      `;
+    }
+
+    function renderFact(item) {
+      return `
+        <article class="fact">
+          <div class="fact-label">${item.label || ''}</div>
+          <div class="fact-value tone-${item.tone || 'neutral'}">${item.value || ''}</div>
+          ${item.note ? `<div class="fact-note">${item.note}</div>` : ''}
+        </article>
+      `;
+    }
+
+    function renderTimeline(items) {
+      if (!items || !items.length) {
+        return '<div class="empty">暂时还没有接入这部分日志。</div>';
+      }
+      return `<div class="timeline">${items.map((item) => `
+        <article class="log-item">
+          <div class="log-top">
+            <div class="log-title">${item.title || ''}</div>
+            <div class="log-badge status-${item.status || 'ok'}">${STATUS_LABELS[item.status] || item.status || '记录'}</div>
+          </div>
+          <div class="log-meta">${item.meta || ''}</div>
+          ${item.excerpt ? `<div class="log-excerpt">${item.excerpt}</div>` : ''}
+          ${item.note ? `<div class="log-note">${item.note}</div>` : ''}
+          ${item.path ? `<div class="log-path">${item.path}</div>` : ''}
+        </article>
+      `).join('')}</div>`;
+    }
+
+    function renderSection(section) {
+      const content = section.layout === 'timeline'
+        ? renderTimeline(section.items)
+        : `<div class="fact-grid">${(section.items || []).map(renderFact).join('')}</div>`;
+      return `
+        <section class="section">
+          <h2>${section.title || ''}</h2>
+          ${section.note ? `<div class="section-note">${section.note}</div>` : ''}
+          ${content}
+        </section>
+      `;
+    }
+
+    function renderRoom(room, payload) {
+      document.title = `库巴号 · ${room.title}`;
+      document.getElementById('stamp').textContent = `状态源：${payload.source} · 更新于 ${payload.updatedAt}`;
+      document.getElementById('room-icon').textContent = room.icon || '🧭';
+      document.getElementById('room-title').textContent = room.title || '未知舱室';
+      document.getElementById('room-role').textContent = room.role || '';
+      document.getElementById('room-summary').textContent = room.summary || '';
+      const statusEl = document.getElementById('room-status');
+      statusEl.className = `status-pill status-${room.status || 'ok'}`;
+      statusEl.textContent = STATUS_LABELS[room.status] || room.status || '正常';
+      document.getElementById('metrics').innerHTML = (room.metrics || []).map(renderMetric).join('');
+      document.getElementById('sections').innerHTML = (room.sections || []).map(renderSection).join('');
+    }
+
+    async function boot() {
+      try {
+        const res = await fetch(`${DETAIL_SOURCE_URL}?ts=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const payload = await res.json();
+        const roomId = roomIdFromQuery();
+        const room = (payload.rooms || []).find((item) => item.roomId === roomId) || payload.rooms?.[0];
+        if (!room) throw new Error('No room detail found');
+        renderRoom(room, payload);
+      } catch (err) {
+        document.getElementById('room-title').textContent = '舱室详情加载失败';
+        document.getElementById('room-role').textContent = String(err.message || err);
+        document.getElementById('room-summary').textContent = '请先运行状态同步脚本，确认 kuba-room-details.json 已生成。';
+        document.getElementById('metrics').innerHTML = '<div class="empty">没有读到详情数据。</div>';
+        document.getElementById('sections').innerHTML = '';
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>

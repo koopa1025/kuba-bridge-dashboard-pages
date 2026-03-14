@@ -246,12 +246,26 @@
       margin-top:18px;
     }
     .room-panel{
+      display:block;
+      position:relative;
       padding:12px 14px;
       border-radius:20px;
       background:rgba(255,255,255,.66);
       border:1px solid rgba(36,42,52,.10);
       box-shadow:0 10px 26px rgba(34,44,66,.10);
       backdrop-filter:blur(10px);
+      color:inherit;
+      text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .room-panel:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 30px rgba(34,44,66,.16);
+      border-color:rgba(36,42,52,.18);
+    }
+    .room-panel:focus-visible{
+      outline:3px solid rgba(54,113,206,.34);
+      outline-offset:3px;
     }
     .room-panel .rp-head{
       display:flex;justify-content:space-between;align-items:center;
@@ -278,6 +292,17 @@
       background:rgba(0,0,0,.04);font-size:10px;
     }
     .rp-line span:last-child{font-weight:800}
+    .rp-line span:last-child.tone-ok{color:var(--ok)}
+    .rp-line span:last-child.tone-wait{color:var(--warn)}
+    .rp-line span:last-child.tone-alert{color:var(--alert)}
+    .rp-line span:last-child.tone-busy{color:#175f88}
+    .rp-foot{
+      margin-top:8px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.04em;
+      color:#4a5c7a;
+    }
 
     /* === KEYFRAMES === */
     @keyframes furnace-glow{
@@ -421,7 +446,7 @@
 
     <!-- Room status panels -->
     <div class="panels">
-      <div class="room-panel" data-character="bowser" data-room="throne">
+      <a class="room-panel" data-character="bowser" data-room="throne" href="./kuba-room-detail.html?room=throne">
         <div class="rp-head">
           <span class="rp-icon">👑</span>
           <span class="rp-title">王座室</span>
@@ -429,13 +454,14 @@
         </div>
         <div class="rp-role">库巴大王 · 最高决策</div>
         <div class="rp-lines">
-          <div class="rp-line"><span>当前主线</span><span>8 舱室接真数据</span></div>
-          <div class="rp-line"><span>正式基线</span><span>20:38 已冻结</span></div>
-          <div class="rp-line"><span>正式版本</span><span>9c2bbf2</span></div>
+          <div class="rp-line"><span>当前主线</span><span>舱室页 + 日志结构化</span></div>
+          <div class="rp-line"><span>正式基线</span><span>2026-03-14</span></div>
+          <div class="rp-line"><span>决策焦点</span><span>霸金实验室 / 动力室</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-character="ghost-princess" data-room="captain">
+      <a class="room-panel" data-character="ghost-princess" data-room="captain" href="./kuba-room-detail.html?room=captain">
         <div class="rp-head">
           <span class="rp-icon">👻</span>
           <span class="rp-title">船长室</span>
@@ -443,13 +469,14 @@
         </div>
         <div class="rp-role">幽灵公主 · 调度统筹</div>
         <div class="rp-lines">
-          <div class="rp-line"><span>当前任务</span><span>舱室卡接真数据</span></div>
-          <div class="rp-line"><span>会话负载</span><span>80.9k / 200k</span></div>
-          <div class="rp-line"><span>活跃时间</span><span>just now</span></div>
+          <div class="rp-line"><span>当前任务</span><span>舱室二级页改造</span></div>
+          <div class="rp-line"><span>会话负载</span><span>163.3k / 200k</span></div>
+          <div class="rp-line"><span>剩余 Token</span><span class="tone-alert">18%</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-character="peach" data-room="guest">
+      <a class="room-panel" data-character="peach" data-room="guest" href="./kuba-room-detail.html?room=guest">
         <div class="rp-head">
           <span class="rp-icon">🌸</span>
           <span class="rp-title">碧琪贵宾室</span>
@@ -458,26 +485,28 @@
         <div class="rp-role">碧琪公主 · 生活助理</div>
         <div class="rp-lines">
           <div class="rp-line"><span>常驻 cron</span><span>0 条</span></div>
-          <div class="rp-line"><span>心跳状态</span><span>disabled</span></div>
+          <div class="rp-line"><span>启用中</span><span>0</span></div>
           <div class="rp-line"><span>当前状态</span><span>待命中</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-character="lab-koopa" data-room="lab">
+      <a class="room-panel" data-character="lab-koopa" data-room="lab" href="./kuba-room-detail.html?room=lab">
         <div class="rp-head">
           <span class="rp-icon">💰</span>
           <span class="rp-title">霸金实验室</span>
-          <span class="pill alert">异常</span>
+          <span class="pill busy">执行中</span>
         </div>
         <div class="rp-role">小库巴 · 研究分析</div>
         <div class="rp-lines">
-          <div class="rp-line"><span>cron 任务</span><span>8 条 / 启用 0</span></div>
-          <div class="rp-line"><span>最近状态</span><span>7 error / 0 ok</span></div>
-          <div class="rp-line"><span>关键卡点</span><span>Message failed</span></div>
+          <div class="rp-line"><span>cron 任务</span><span>6 条 / 启用 6</span></div>
+          <div class="rp-line"><span>历史推送</span><span>可查看全部任务</span></div>
+          <div class="rp-line"><span>最近状态</span><span>0 error / 1 ok</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-character="manmangui" data-room="firstmate">
+      <a class="room-panel" data-character="manmangui" data-room="firstmate" href="./kuba-room-detail.html?room=firstmate">
         <div class="rp-head">
           <span class="rp-icon">🐢</span>
           <span class="rp-title">大副室</span>
@@ -486,41 +515,44 @@
         <div class="rp-role">慢慢龟 · 系统巡检</div>
         <div class="rp-lines">
           <div class="rp-line"><span>常驻 cron</span><span>0 条</span></div>
-          <div class="rp-line"><span>心跳状态</span><span>disabled</span></div>
-          <div class="rp-line"><span>当前工位</span><span>系统管家群</span></div>
+          <div class="rp-line"><span>启用中</span><span>0</span></div>
+          <div class="rp-line"><span>默认职责</span><span>技能装配 / 巡检</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-room="engine">
+      <a class="room-panel" data-room="engine" href="./kuba-room-detail.html?room=engine">
         <div class="rp-head">
           <span class="rp-icon">🔥</span>
           <span class="rp-title">动力室</span>
-          <span class="pill ok">空闲正常</span>
+          <span class="pill alert">故障</span>
         </div>
         <div class="rp-role">系统核心 · Gateway / 模型与上下文底座</div>
         <div class="rp-lines">
-          <div class="rp-line"><span>Gateway</span><span>reachable 20ms</span></div>
-          <div class="rp-line"><span>当前模型</span><span>crs/gpt-5.4</span></div>
-          <div class="rp-line"><span>剩余 Token</span><span>29%</span></div>
+          <div class="rp-line"><span>Gateway</span><span>reachable 36ms</span></div>
+          <div class="rp-line"><span>当前模型</span><span>gpt-5.4</span></div>
+          <div class="rp-line"><span>剩余 Token</span><span class="tone-alert">18%</span></div>
           <div class="rp-line"><span>服务模式</span><span>LaunchAgent running</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-room="deck">
+      <a class="room-panel" data-room="deck" href="./kuba-room-detail.html?room=deck">
         <div class="rp-head">
           <span class="rp-icon">⚔️</span>
           <span class="rp-title">前甲板</span>
-          <span class="pill alert">告警</span>
+          <span class="pill alert">故障</span>
         </div>
         <div class="rp-role">通讯炮位 · 消息与通道</div>
         <div class="rp-lines">
-          <div class="rp-line"><span>Feishu 通道</span><span>ON · 2 / 2</span></div>
-          <div class="rp-line"><span>回执链路</span><span>多任务 Message failed</span></div>
-          <div class="rp-line"><span>安全告警</span><span>4 warn</span></div>
+          <div class="rp-line"><span>Feishu 通道</span><span>configured · 2</span></div>
+          <div class="rp-line"><span>安全告警</span><span class="tone-alert">1</span></div>
+          <div class="rp-line"><span>系统事件队列</span><span>0</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
 
-      <div class="room-panel" data-room="quarters">
+      <a class="room-panel" data-room="quarters" href="./kuba-room-detail.html?room=quarters">
         <div class="rp-head">
           <span class="rp-icon">🛏️</span>
           <span class="rp-title">生活区</span>
@@ -532,7 +564,8 @@
           <div class="rp-line"><span>检索状态</span><span>vector + fts ready</span></div>
           <div class="rp-line"><span>缓存状态</span><span>cache on (3)</span></div>
         </div>
-      </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
     </div>
   </section>
 
@@ -612,11 +645,14 @@
       if (!panel) return;
       const titleEl = panel.querySelector('.rp-title');
       const roleEl = panel.querySelector('.rp-role');
+      const iconEl = panel.querySelector('.rp-icon');
       const pillEl = panel.querySelector('.pill');
       const linesEl = panel.querySelector('.rp-lines');
 
+      if (room.detailHref) panel.setAttribute('href', room.detailHref);
       if (titleEl) titleEl.textContent = room.title || '';
       if (roleEl) roleEl.textContent = room.role || '';
+      if (iconEl && room.icon) iconEl.textContent = room.icon;
       if (pillEl) {
         pillEl.classList.remove('ok', 'busy', 'wait', 'alert');
         const status = room.status || 'ok';
@@ -632,6 +668,7 @@
           const right = document.createElement('span');
           left.textContent = line.label || '';
           right.textContent = line.value || '';
+          if (line.tone) right.classList.add(`tone-${line.tone}`);
           row.append(left, right);
           linesEl.appendChild(row);
         });
