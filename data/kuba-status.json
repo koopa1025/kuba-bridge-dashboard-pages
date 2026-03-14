@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T06:10:00.394276+00:00",
+  "updatedAt": "2026-03-14T06:11:04.476320+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，已经开始接入轻量状态源",
@@ -138,7 +138,7 @@
       "lines": [
         {
           "label": "Gateway",
-          "value": "reachable 35ms"
+          "value": "reachable 36ms"
         },
         {
           "label": "当前模型",
