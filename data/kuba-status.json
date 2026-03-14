@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T02:56:31.528600+00:00",
+  "updatedAt": "2026-03-14T02:57:35.402386+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，已经开始接入轻量状态源",
@@ -58,7 +58,7 @@
         },
         {
           "label": "会话负载",
-          "value": "144,369 / 200,000"
+          "value": "143,690 / 200,000"
         },
         {
           "label": "剩余 Token",
