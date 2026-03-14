@@ -263,6 +263,83 @@
       color:#4a5c73;
       word-break:break-word;
     }
+    .log-title-link,
+    .report-link{
+      text-decoration:none;
+    }
+    .log-title-link:hover,
+    .report-link:hover{
+      text-decoration:underline;
+    }
+    .day-groups{
+      display:grid;
+      gap:12px;
+    }
+    .day-group{
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+      overflow:hidden;
+    }
+    .day-group summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .day-group summary::-webkit-details-marker{display:none}
+    .day-meta{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      color:#52637a;
+      font-size:12px;
+      font-weight:700;
+    }
+    .day-title{
+      font-size:16px;
+      font-weight:900;
+      line-height:1.4;
+    }
+    .day-body{
+      padding:0 14px 14px;
+      display:grid;
+      gap:10px;
+    }
+    .report-card{
+      display:block;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.86);
+      padding:14px;
+      text-decoration:none;
+      box-shadow:0 10px 24px rgba(28,37,52,.06);
+    }
+    .report-card:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 28px rgba(28,37,52,.10);
+    }
+    .report-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .report-title{
+      font-size:15px;
+      font-weight:900;
+      line-height:1.45;
+    }
+    .report-excerpt{
+      margin-top:8px;
+      color:#54657b;
+      font-size:13px;
+      line-height:1.65;
+    }
     .empty{
       padding:20px;
       border-radius:18px;
@@ -288,7 +365,7 @@
 <body>
   <div class="shell">
     <div class="topbar">
-      <a class="back" href="./kuba-bridge-dashboard-v5.html">← 返回库巴号总览</a>
+      <a class="back" href="./">← 返回库巴号总览</a>
       <div class="stamp" id="stamp">正在读取舱室日志...</div>
     </div>
 
@@ -320,7 +397,7 @@
       blocked: '阻塞',
       enabled: '启用中',
       disabled: '停用',
-      completed: '已完成'
+      completed: '已生成'
     };
 
     function roomIdFromQuery() {
@@ -354,7 +431,7 @@
       return `<div class="timeline">${items.map((item) => `
         <article class="log-item">
           <div class="log-top">
-            <div class="log-title">${item.title || ''}</div>
+            <div class="log-title">${item.href ? `<a class="log-title-link" href="${item.href}">${item.title || ''}</a>` : (item.title || '')}</div>
             <div class="log-badge status-${item.status || 'ok'}">${STATUS_LABELS[item.status] || item.status || '记录'}</div>
           </div>
           <div class="log-meta">${item.meta || ''}</div>
@@ -365,10 +442,45 @@
       `).join('')}</div>`;
     }
 
+    function renderReportDays(days) {
+      if (!days || !days.length) {
+        return '<div class="empty">还没有生成可浏览的报告列表。</div>';
+      }
+      return `<div class="day-groups">${days.map((day, index) => `
+        <details class="day-group" id="day-${day.dateKey}" ${index === 0 ? 'open' : ''}>
+          <summary>
+            <div>
+              <div class="day-title">${day.label || day.dateKey || ''}</div>
+              <div class="day-meta">
+                <span>${day.count || 0} 个任务</span>
+                <span>已推送 ${day.deliveredCount || 0}</span>
+              </div>
+            </div>
+            <div class="log-badge status-${day.status || 'completed'}">${STATUS_LABELS[day.status] || day.status || '记录'}</div>
+          </summary>
+          <div class="day-body">${(day.reports || []).map((item) => `
+            <a class="report-card report-link" href="${item.href}">
+              <div class="report-head">
+                <div>
+                  <div class="report-title">${item.title || ''}</div>
+                  <div class="log-meta">${item.meta || ''}</div>
+                </div>
+                <div class="log-badge status-${item.status || 'completed'}">${STATUS_LABELS[item.status] || item.status || '记录'}</div>
+              </div>
+              ${item.excerpt ? `<div class="report-excerpt">${item.excerpt}</div>` : ''}
+            </a>
+          `).join('')}</div>
+        </details>
+      `).join('')}</div>`;
+    }
+
     function renderSection(section) {
-      const content = section.layout === 'timeline'
-        ? renderTimeline(section.items)
-        : `<div class="fact-grid">${(section.items || []).map(renderFact).join('')}</div>`;
+      let content = `<div class="fact-grid">${(section.items || []).map(renderFact).join('')}</div>`;
+      if (section.layout === 'timeline') {
+        content = renderTimeline(section.items);
+      } else if (section.layout === 'report-days') {
+        content = renderReportDays(section.items);
+      }
       return `
         <section class="section">
           <h2>${section.title || ''}</h2>
