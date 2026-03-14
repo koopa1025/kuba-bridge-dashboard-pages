@@ -1,17 +1,17 @@
 {
-  "updatedAt": "2026-03-14T09:11:22.886932+00:00",
+  "updatedAt": "2026-03-14T09:12:27.423743+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
-    "title": "现在的库巴号，已经开始接入轻量状态源",
-    "subtitle": "页面已开始直接读取本机状态 JSON，后续刷新只需要更新状态源，不再重写整页。",
+    "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
+    "subtitle": "主页保留 8 舱室态势，点击后进入二级页面看具体日志、任务历史与当前链路。",
     "items": [
       {
         "label": "当前阶段",
-        "value": "前端直连状态 JSON"
+        "value": "8 舱室 + 二级日志页"
       },
       {
         "label": "正式基线",
-        "value": "2026-03-14 00:52 / 8483ac7"
+        "value": "2026-03-14 / 舱室分层"
       },
       {
         "label": "系统主状态",
@@ -19,7 +19,7 @@
       },
       {
         "label": "当前风险",
-        "value": "expert-1 error 0 · warn 1"
+        "value": "船长 Token 18% · warn 1"
       }
     ]
   },
@@ -29,19 +29,21 @@
       "roomId": "throne",
       "title": "王座室",
       "role": "库巴大王 · 最高决策",
+      "icon": "👑",
       "status": "busy",
+      "detailHref": "./kuba-room-detail.html?room=throne",
       "lines": [
         {
           "label": "当前主线",
-          "value": "轻量状态源接入"
+          "value": "舱室页 + 日志结构化"
         },
         {
           "label": "正式基线",
-          "value": "2026-03-14 00:52"
+          "value": "2026-03-14"
         },
         {
-          "label": "正式版本",
-          "value": "8483ac7"
+          "label": "决策焦点",
+          "value": "霸金实验室 / 动力室"
         }
       ]
     },
@@ -50,11 +52,13 @@
       "roomId": "captain",
       "title": "船长室",
       "role": "幽灵公主 · 调度统筹",
+      "icon": "👻",
       "status": "wait",
+      "detailHref": "./kuba-room-detail.html?room=captain",
       "lines": [
         {
           "label": "当前任务",
-          "value": "状态源自动刷新"
+          "value": "舱室二级页改造"
         },
         {
           "label": "会话负载",
@@ -62,7 +66,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "18%"
+          "value": "18%",
+          "tone": "alert"
         }
       ]
     },
@@ -71,7 +76,9 @@
       "roomId": "guest",
       "title": "碧琪贵宾室",
       "role": "碧琪公主 · 生活助理",
+      "icon": "🌸",
       "status": "ok",
+      "detailHref": "./kuba-room-detail.html?room=guest",
       "lines": [
         {
           "label": "常驻 cron",
@@ -92,19 +99,21 @@
       "roomId": "lab",
       "title": "霸金实验室",
       "role": "小库巴 · 研究分析",
-      "status": "ok",
+      "icon": "💰",
+      "status": "busy",
+      "detailHref": "./kuba-room-detail.html?room=lab",
       "lines": [
         {
           "label": "cron 任务",
           "value": "6 条 / 启用 6"
         },
         {
-          "label": "最近状态",
-          "value": "0 error / 1 ok"
+          "label": "历史推送",
+          "value": "16 条可追溯任务"
         },
         {
-          "label": "模型",
-          "value": "gpt-5.4"
+          "label": "最近状态",
+          "value": "0 error / 1 ok"
         }
       ]
     },
@@ -113,7 +122,9 @@
       "roomId": "firstmate",
       "title": "大副室",
       "role": "慢慢龟 · 系统巡检",
+      "icon": "🐢",
       "status": "ok",
+      "detailHref": "./kuba-room-detail.html?room=firstmate",
       "lines": [
         {
           "label": "常驻 cron",
@@ -124,8 +135,8 @@
           "value": "0"
         },
         {
-          "label": "当前工位",
-          "value": "系统管家群"
+          "label": "默认职责",
+          "value": "技能装配 / 巡检收口"
         }
       ]
     },
@@ -134,7 +145,9 @@
       "roomId": "engine",
       "title": "动力室",
       "role": "系统核心 · Gateway / 模型与上下文底座",
-      "status": "ok",
+      "icon": "🔥",
+      "status": "alert",
+      "detailHref": "./kuba-room-detail.html?room=engine",
       "lines": [
         {
           "label": "Gateway",
@@ -146,7 +159,12 @@
         },
         {
           "label": "剩余 Token",
-          "value": "18%"
+          "value": "18%",
+          "tone": "alert"
+        },
+        {
+          "label": "服务模式",
+          "value": "LaunchAgent running"
         }
       ]
     },
@@ -155,7 +173,9 @@
       "roomId": "deck",
       "title": "前甲板",
       "role": "通讯炮位 · 消息与通道",
+      "icon": "⚔️",
       "status": "alert",
+      "detailHref": "./kuba-room-detail.html?room=deck",
       "lines": [
         {
           "label": "Feishu 通道",
@@ -176,7 +196,9 @@
       "roomId": "quarters",
       "title": "生活区",
       "role": "内务缓冲 · 记忆底仓",
+      "icon": "🛏️",
       "status": "ok",
+      "detailHref": "./kuba-room-detail.html?room=quarters",
       "lines": [
         {
           "label": "Memory",

@@ -1,0 +1,973 @@
+{
+  "updatedAt": "2026-03-14T09:12:27.423886+00:00",
+  "source": "scripts/generate_kuba_status.py",
+  "rooms": [
+    {
+      "roomId": "throne",
+      "title": "王座室",
+      "role": "库巴大王 · 最高决策",
+      "icon": "👑",
+      "status": "busy",
+      "summary": "总览全船战略、正式基线和当前主线推进。",
+      "metrics": [
+        {
+          "label": "当前主线",
+          "value": "舱室页 + 日志结构化",
+          "tone": "busy"
+        },
+        {
+          "label": "正式基线",
+          "value": "2026-03-14",
+          "tone": "neutral"
+        },
+        {
+          "label": "激活任务",
+          "value": "expert-1 6 / main 6",
+          "tone": "ok"
+        }
+      ],
+      "sections": [
+        {
+          "title": "总览快照",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "当前阶段",
+              "value": "8 舱室 + 二级日志页",
+              "tone": "neutral"
+            },
+            {
+              "label": "系统主状态",
+              "value": "Gateway 在线 · Feishu 2 account(s)",
+              "tone": "neutral"
+            },
+            {
+              "label": "当前风险",
+              "value": "船长 Token 18% · warn 1",
+              "tone": "wait"
+            }
+          ]
+        },
+        {
+          "title": "当前正式任务编排",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "美股收盘总结及推演打分-7:30",
+              "status": "none",
+              "meta": "30 7 * * 2-6 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "A股港股早盘推演-8:15",
+              "status": "none",
+              "meta": "15 8 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "午盘小结及推演-12:15",
+              "status": "none",
+              "meta": "15 12 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "A股港股收盘市场总结及推演准确度打分-16:30",
+              "status": "none",
+              "meta": "30 16 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "美股开盘推演-20:30",
+              "status": "none",
+              "meta": "30 20 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "一周全市场复盘及量化逻辑迭代-周六9:00",
+              "status": "正常",
+              "meta": "0 9 * * 6 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "美股收盘总结及推演打分-20分钟排查",
+              "status": "none",
+              "meta": "50 7 * * 2-6 (Asia/Shanghai)",
+              "note": "agent=main"
+            },
+            {
+              "title": "A股港股早盘推演-20分钟排查",
+              "status": "none",
+              "meta": "35 8 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=main"
+            },
+            {
+              "title": "午盘小结及推演-20分钟排查",
+              "status": "none",
+              "meta": "35 12 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=main"
+            },
+            {
+              "title": "A股港股收盘市场总结及推演准确度打分-20分钟排查",
+              "status": "none",
+              "meta": "50 16 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=main"
+            },
+            {
+              "title": "美股开盘推演-20分钟排查",
+              "status": "none",
+              "meta": "50 20 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=main"
+            },
+            {
+              "title": "一周全市场复盘及量化逻辑迭代-20分钟排查",
+              "status": "none",
+              "meta": "20 9 * * 6 (Asia/Shanghai)",
+              "note": "agent=main"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "captain",
+      "title": "船长室",
+      "role": "幽灵公主 · 调度统筹",
+      "icon": "👻",
+      "status": "wait",
+      "summary": "负责任务交接、群推执行和会话负荷调度。",
+      "metrics": [
+        {
+          "label": "主会话负载",
+          "value": "163,345 / 200,000",
+          "tone": "wait"
+        },
+        {
+          "label": "剩余 Token",
+          "value": "18%",
+          "tone": "alert"
+        },
+        {
+          "label": "金融助理群会话",
+          "value": "30,969",
+          "tone": "neutral"
+        }
+      ],
+      "sections": [
+        {
+          "title": "调度快照",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "当前任务",
+              "value": "舱室二级页改造",
+              "tone": "neutral"
+            },
+            {
+              "label": "主会话 sessionKey",
+              "value": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "tone": "neutral",
+              "note": "主会话也是霸金实验室交办目标"
+            },
+            {
+              "label": "剩余 Token",
+              "value": "18%",
+              "tone": "alert",
+              "note": "动力室同阈值显示"
+            }
+          ]
+        },
+        {
+          "title": "近期落档",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "2026-03-14.md",
+              "status": "ok",
+              "meta": "03-14 16:51 · 11456 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14.md",
+              "excerpt": "# 2026-03-14"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-14 16:45 · 42555 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-14-mx-skills.md",
+              "status": "ok",
+              "meta": "03-14 16:08 · 11736 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
+              "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
+            },
+            {
+              "title": "2026-03-14-stock-screen.md",
+              "status": "ok",
+              "meta": "03-14 16:06 · 2503 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-stock-screen.md",
+              "excerpt": "# Session: 2026-03-14 08:06:31 UTC"
+            },
+            {
+              "title": "2026-03-13.md",
+              "status": "ok",
+              "meta": "03-14 02:02 · 60274 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-13.md",
+              "excerpt": "# 2026-03-13"
+            },
+            {
+              "title": "2026-03-12-long-task-progress.md",
+              "status": "ok",
+              "meta": "03-13 00:46 · 6357 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-long-task-progress.md",
+              "excerpt": "# Session: 2026-03-12 16:46:04 UTC"
+            },
+            {
+              "title": "2026-03-12.md",
+              "status": "ok",
+              "meta": "03-12 23:42 · 30784 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12.md",
+              "excerpt": "## 霸金实验室实时行情主源升级（00:00 后延续到凌晨）"
+            },
+            {
+              "title": "2026-03-12-session-reset.md",
+              "status": "ok",
+              "meta": "03-12 17:16 · 7960 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-session-reset.md",
+              "excerpt": "# Session: 2026-03-12 09:16:02 UTC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "guest",
+      "title": "碧琪贵宾室",
+      "role": "碧琪公主 · 生活助理",
+      "icon": "🌸",
+      "status": "ok",
+      "summary": "生活助理工位，当前以待命和后续接入为主。",
+      "metrics": [
+        {
+          "label": "常驻 cron",
+          "value": "0",
+          "tone": "ok"
+        },
+        {
+          "label": "启用中",
+          "value": "0",
+          "tone": "neutral"
+        },
+        {
+          "label": "当前状态",
+          "value": "待命中",
+          "tone": "ok"
+        }
+      ],
+      "sections": [
+        {
+          "title": "工位说明",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "当前状态",
+              "value": "暂无独立任务链",
+              "tone": "neutral"
+            },
+            {
+              "label": "接入方式",
+              "value": "后续可补健康 / 作息 / 生活日志页",
+              "tone": "neutral"
+            },
+            {
+              "label": "目前策略",
+              "value": "主页保留状态位，详情页先给结构位",
+              "tone": "neutral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "lab",
+      "title": "霸金实验室",
+      "role": "小库巴 · 研究分析",
+      "icon": "💰",
+      "status": "busy",
+      "summary": "查看历史推送任务、任务编排、日报产物和周复盘交付链。",
+      "metrics": [
+        {
+          "label": "主任务数",
+          "value": "6",
+          "tone": "busy"
+        },
+        {
+          "label": "历史任务",
+          "value": "16",
+          "tone": "neutral"
+        },
+        {
+          "label": "最近 run 状态",
+          "value": "ok 1 / error 0",
+          "tone": "ok"
+        }
+      ],
+      "sections": [
+        {
+          "title": "现行推送任务表",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "美股收盘总结及推演打分-7:30",
+              "status": "enabled",
+              "meta": "30 7 * * 2-6 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "A股港股早盘推演-8:15",
+              "status": "enabled",
+              "meta": "15 8 * * 1-5 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "午盘小结及推演-12:15",
+              "status": "enabled",
+              "meta": "15 12 * * 1-5 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "A股港股收盘市场总结及推演准确度打分-16:30",
+              "status": "enabled",
+              "meta": "30 16 * * 1-5 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "美股开盘推演-20:30",
+              "status": "enabled",
+              "meta": "30 20 * * 1-5 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "一周全市场复盘及量化逻辑迭代-周六9:00",
+              "status": "enabled",
+              "meta": "0 9 * * 6 (Asia/Shanghai)",
+              "note": "last=ok"
+            }
+          ]
+        },
+        {
+          "title": "历史推送任务",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "2026-03-14-weekly-full-review.md",
+              "status": "delivered",
+              "meta": "2026-03-14 · 一周全市场复盘及量化逻辑迭代 · 已推送",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-14-weekly-full-review.md",
+              "excerpt": "# 一周全市场复盘及量化逻辑迭代（2026-03-14）",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-weekly-full-send-status.json"
+            },
+            {
+              "title": "2026-03-12-pre.md",
+              "status": "delivered",
+              "meta": "2026-03-12 · A股港股早盘推演 · 已推送",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-12-pre.md",
+              "excerpt": "# 2026-03-12 早盘正式定稿（C 步）",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-pre-send-status.json"
+            },
+            {
+              "title": "2026-03-11-pre.md",
+              "status": "delivered",
+              "meta": "2026-03-11 · A股港股早盘推演 · 已推送",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-11-pre.md",
+              "excerpt": "# 2026-03-11 08:30 盘前预测（正式定稿）",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-pre-send-status.json"
+            },
+            {
+              "title": "2026-03-11-pre-blocked.md",
+              "status": "blocked",
+              "meta": "2026-03-11 · A股港股早盘推演 · blocked",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-11-pre-blocked.md",
+              "excerpt": "# 2026-03-11 盘前正式链路（C 步）blocked 记录",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-pre-send-status.json"
+            },
+            {
+              "title": "2026-03-11-post-blocked.md",
+              "status": "blocked",
+              "meta": "2026-03-11 · A股港股收盘市场总结及推演准确度打分 · blocked",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-11-post-blocked.md",
+              "excerpt": "# 2026-03-11 盘后复盘 C 步 blocked"
+            },
+            {
+              "title": "2026-03-10-us-open-final.md",
+              "status": "completed",
+              "meta": "2026-03-10 · 美股开盘推演 · final · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-us-open-final.md",
+              "excerpt": "# 2026-03-10 美股开盘推演｜21:22补发修复版"
+            },
+            {
+              "title": "2026-03-10-pre.md",
+              "status": "completed",
+              "meta": "2026-03-10 · A股港股早盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-pre.md",
+              "excerpt": "# 2026-03-10 盘前预测"
+            },
+            {
+              "title": "2026-03-10-post.md",
+              "status": "completed",
+              "meta": "2026-03-10 · A股港股收盘市场总结及推演准确度打分 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-post.md",
+              "excerpt": "# 2026-03-10 盘后复盘（补发修复版）"
+            },
+            {
+              "title": "2026-03-10-mid.md",
+              "status": "completed",
+              "meta": "2026-03-10 · 午盘小结及推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-mid.md",
+              "excerpt": "# 2026-03-10 午盘推演（补发修复版）"
+            },
+            {
+              "title": "2026-03-10-e2e2-us-open-final.md",
+              "status": "completed",
+              "meta": "2026-03-10 · 美股开盘推演 · final · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-e2e2-us-open-final.md",
+              "excerpt": "# 2026-03-10 美股开盘 E2E2 staged sim 正式稿（测试产物）"
+            },
+            {
+              "title": "2026-03-09-us-open.md",
+              "status": "completed",
+              "meta": "2026-03-09 · 美股开盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-09-us-open.md",
+              "excerpt": "# 2026-03-09 美股开盘推演（21:00 正式版）"
+            },
+            {
+              "title": "2026-03-09-pre.md",
+              "status": "completed",
+              "meta": "2026-03-09 · A股港股早盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-09-pre.md",
+              "excerpt": "# 2026-03-09 盘前预测（10:15 修正版）"
+            },
+            {
+              "title": "2026-03-09-mid.md",
+              "status": "completed",
+              "meta": "2026-03-09 · 午盘小结及推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-09-mid.md",
+              "excerpt": "# 2026-03-09 午盘推演"
+            },
+            {
+              "title": "2026-03-07-pre.md",
+              "status": "completed",
+              "meta": "2026-03-07 · A股港股早盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-07-pre.md",
+              "excerpt": "# 📈 盘前预测 2026-03-07"
+            },
+            {
+              "title": "2026-03-06-pre.md",
+              "status": "completed",
+              "meta": "2026-03-06 · A股港股早盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-06-pre.md",
+              "excerpt": "# 盘前预测 2026-03-06"
+            },
+            {
+              "title": "2026-03-05-pre.md",
+              "status": "completed",
+              "meta": "2026-03-05 · A股港股早盘推演 · 未见 send-status",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-05-pre.md",
+              "excerpt": "# 盘前预测 2026-03-05"
+            }
+          ]
+        },
+        {
+          "title": "日报产物目录",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "2026-03-14/runtime.json",
+              "status": "ok",
+              "meta": "03-14 16:38",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/runtime.json"
+            },
+            {
+              "title": "2026-03-14/91-new-rules.json",
+              "status": "ok",
+              "meta": "03-14 16:35",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/91-new-rules.json"
+            },
+            {
+              "title": "2026-03-14/90-review-feedback.json",
+              "status": "ok",
+              "meta": "03-14 16:35",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/90-review-feedback.json"
+            },
+            {
+              "title": "2026-03-14/tasks/weekly-full-review-qc.json",
+              "status": "ok",
+              "meta": "03-14 16:35",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/tasks/weekly-full-review-qc.json"
+            },
+            {
+              "title": "2026-03-14/tasks/weekly-full-review-packet.json",
+              "status": "ok",
+              "meta": "03-14 16:35",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/tasks/weekly-full-review-packet.json"
+            },
+            {
+              "title": "2026-03-14/weekly-source-summary.json",
+              "status": "ok",
+              "meta": "03-14 16:25",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-14/weekly-source-summary.json"
+            },
+            {
+              "title": "2026-03-13/factor-summary.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/factor-summary.json"
+            },
+            {
+              "title": "2026-03-13/factor-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/factor-events.json"
+            },
+            {
+              "title": "2026-03-13/cross-market-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/cross-market-events.json"
+            },
+            {
+              "title": "2026-03-13/ai-news-radar-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/ai-news-radar-events.json"
+            },
+            {
+              "title": "2026-03-13/hk-hard-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/hk-hard-events.json"
+            },
+            {
+              "title": "2026-03-13/us-hard-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/us-hard-events.json"
+            },
+            {
+              "title": "2026-03-13/cn-hard-events.json",
+              "status": "ok",
+              "meta": "03-13 12:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-13/cn-hard-events.json"
+            },
+            {
+              "title": "2026-03-12/factor-summary.json",
+              "status": "ok",
+              "meta": "03-12 13:25",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-12/factor-summary.json"
+            },
+            {
+              "title": "2026-03-12/factor-events.json",
+              "status": "ok",
+              "meta": "03-12 13:25",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-12/factor-events.json"
+            },
+            {
+              "title": "2026-03-12/cn-hard-events.json",
+              "status": "ok",
+              "meta": "03-12 13:25",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-12/cn-hard-events.json"
+            },
+            {
+              "title": "2026-03-12/us-hard-events.json",
+              "status": "ok",
+              "meta": "03-12 13:15",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-12/us-hard-events.json"
+            },
+            {
+              "title": "2026-03-12/ai-news-radar-events.json",
+              "status": "ok",
+              "meta": "03-12 13:13",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-12/ai-news-radar-events.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "firstmate",
+      "title": "大副室",
+      "role": "慢慢龟 · 系统巡检",
+      "icon": "🐢",
+      "status": "ok",
+      "summary": "巡检、技能装配和系统收口默认由大副处理。",
+      "metrics": [
+        {
+          "label": "常驻 cron",
+          "value": "0",
+          "tone": "ok"
+        },
+        {
+          "label": "启用中",
+          "value": "0",
+          "tone": "neutral"
+        },
+        {
+          "label": "默认职责",
+          "value": "技能装配 / 巡检",
+          "tone": "busy"
+        }
+      ],
+      "sections": [
+        {
+          "title": "当前工位",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "当前工位",
+              "value": "系统管家群",
+              "tone": "neutral"
+            },
+            {
+              "label": "固定规则",
+              "value": "安装 / 装配 skills 默认交给大副",
+              "tone": "neutral"
+            },
+            {
+              "label": "状态",
+              "value": "待接下一次运维 / skill 装配任务",
+              "tone": "neutral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "engine",
+      "title": "动力室",
+      "role": "系统核心 · Gateway / 模型与上下文底座",
+      "icon": "🔥",
+      "status": "alert",
+      "summary": "聚焦 Gateway、模型与 Token 剩余量。",
+      "metrics": [
+        {
+          "label": "Gateway",
+          "value": "36ms",
+          "tone": "ok"
+        },
+        {
+          "label": "当前模型",
+          "value": "gpt-5.4",
+          "tone": "neutral"
+        },
+        {
+          "label": "剩余 Token",
+          "value": "18%",
+          "tone": "alert"
+        }
+      ],
+      "sections": [
+        {
+          "title": "动力室阈值规则",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "绿色",
+              "value": "剩余 Token > 70%",
+              "tone": "ok",
+              "note": "主页与详情页统一使用这套阈值"
+            },
+            {
+              "label": "黄色",
+              "value": "30% < 剩余 Token <= 70%",
+              "tone": "wait",
+              "note": "主页与详情页统一使用这套阈值"
+            },
+            {
+              "label": "红色",
+              "value": "剩余 Token <= 30%",
+              "tone": "alert",
+              "note": "主页与详情页统一使用这套阈值"
+            }
+          ]
+        },
+        {
+          "title": "当前运行快照",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "Gateway",
+              "value": "reachable 36ms",
+              "tone": "ok"
+            },
+            {
+              "label": "主会话负载",
+              "value": "163,345 / 200,000",
+              "tone": "neutral"
+            },
+            {
+              "label": "剩余 Token",
+              "value": "18%",
+              "tone": "alert"
+            },
+            {
+              "label": "服务模式",
+              "value": "LaunchAgent running",
+              "tone": "neutral"
+            }
+          ]
+        },
+        {
+          "title": "近期会话负荷",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "告警",
+              "meta": "used 82% · remain 18%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
+              "status": "高负荷",
+              "meta": "used 51% · remain 49%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:cron:5ecdc973-ea3d-455c-8be7-761181a0b43e",
+              "status": "高负荷",
+              "meta": "used 64% · remain 36%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:cron:5ecdc973-ea3d-455c-8be7-761181a0b43e:run:648a54d4-d9da-4d5e-928c-97af71d071b3",
+              "status": "高负荷",
+              "meta": "used 64% · remain 36%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "status": "正常",
+              "meta": "used 15% · remain 85%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
+              "status": "正常",
+              "meta": "used 15% · remain 85%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_a22ff7da23ff46288b61481577ae7d7b",
+              "status": "正常",
+              "meta": "used 8% · remain 92%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:main",
+              "status": "高负荷",
+              "meta": "used 37% · remain 63%",
+              "note": "gpt-5.4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "deck",
+      "title": "前甲板",
+      "role": "通讯炮位 · 消息与通道",
+      "icon": "⚔️",
+      "status": "alert",
+      "summary": "集中看 Feishu 通道、群推状态和安全告警。",
+      "metrics": [
+        {
+          "label": "Feishu 账户",
+          "value": "2",
+          "tone": "busy"
+        },
+        {
+          "label": "安全告警",
+          "value": "1",
+          "tone": "alert"
+        },
+        {
+          "label": "队列长度",
+          "value": "0",
+          "tone": "neutral"
+        }
+      ],
+      "sections": [
+        {
+          "title": "通道快照",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "Feishu 通道",
+              "value": "configured",
+              "tone": "neutral"
+            },
+            {
+              "label": "账户数",
+              "value": "2",
+              "tone": "neutral"
+            },
+            {
+              "label": "系统事件队列",
+              "value": "0",
+              "tone": "ok"
+            }
+          ]
+        },
+        {
+          "title": "最近推送记录",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "一周全市场复盘及量化逻辑迭代",
+              "status": "delivered",
+              "meta": "03-14 16:40 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-weekly-full-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-14-weekly-full-review.md"
+            },
+            {
+              "title": "2026-03-12-pre-send-status.json",
+              "status": "delivered",
+              "meta": "03-12 08:40 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-pre-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-12-pre.md"
+            },
+            {
+              "title": "2026-03-11-mid-send-status.json",
+              "status": "alert",
+              "meta": "03-11 12:44 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-mid-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-mid-captain-review.md"
+            },
+            {
+              "title": "2026-03-11-pre-send-status.json",
+              "status": "delivered",
+              "meta": "03-11 09:50 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-pre-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-11-pre.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "roomId": "quarters",
+      "title": "生活区",
+      "role": "内务缓冲 · 记忆底仓",
+      "icon": "🛏️",
+      "status": "ok",
+      "summary": "查看 memory、缓存和近期落档文件。",
+      "metrics": [
+        {
+          "label": "Memory 文件",
+          "value": "2",
+          "tone": "ok"
+        },
+        {
+          "label": "Chunks",
+          "value": "2",
+          "tone": "neutral"
+        },
+        {
+          "label": "缓存",
+          "value": "3",
+          "tone": "busy"
+        }
+      ],
+      "sections": [
+        {
+          "title": "记忆底仓状态",
+          "layout": "facts",
+          "items": [
+            {
+              "label": "Memory",
+              "value": "2 files / 2 chunks",
+              "tone": "neutral"
+            },
+            {
+              "label": "向量检索",
+              "value": "ready",
+              "tone": "ok"
+            },
+            {
+              "label": "全文检索",
+              "value": "ready",
+              "tone": "ok"
+            },
+            {
+              "label": "缓存条目",
+              "value": "3",
+              "tone": "neutral"
+            }
+          ]
+        },
+        {
+          "title": "近期记忆文件",
+          "layout": "timeline",
+          "items": [
+            {
+              "title": "2026-03-14.md",
+              "status": "ok",
+              "meta": "03-14 16:51 · 11456 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14.md",
+              "excerpt": "# 2026-03-14"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-14 16:45 · 42555 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-14-mx-skills.md",
+              "status": "ok",
+              "meta": "03-14 16:08 · 11736 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
+              "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
+            },
+            {
+              "title": "2026-03-14-stock-screen.md",
+              "status": "ok",
+              "meta": "03-14 16:06 · 2503 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-stock-screen.md",
+              "excerpt": "# Session: 2026-03-14 08:06:31 UTC"
+            },
+            {
+              "title": "2026-03-13.md",
+              "status": "ok",
+              "meta": "03-14 02:02 · 60274 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-13.md",
+              "excerpt": "# 2026-03-13"
+            },
+            {
+              "title": "2026-03-12-long-task-progress.md",
+              "status": "ok",
+              "meta": "03-13 00:46 · 6357 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-long-task-progress.md",
+              "excerpt": "# Session: 2026-03-12 16:46:04 UTC"
+            },
+            {
+              "title": "2026-03-12.md",
+              "status": "ok",
+              "meta": "03-12 23:42 · 30784 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12.md",
+              "excerpt": "## 霸金实验室实时行情主源升级（00:00 后延续到凌晨）"
+            },
+            {
+              "title": "2026-03-12-session-reset.md",
+              "status": "ok",
+              "meta": "03-12 17:16 · 7960 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-session-reset.md",
+              "excerpt": "# Session: 2026-03-12 09:16:02 UTC"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
