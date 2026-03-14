@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-14T13:05:11.115459+00:00",
+  "updatedAt": "2026-03-14T13:06:15.669418+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -933,7 +933,7 @@
       "metrics": [
         {
           "label": "Gateway",
-          "value": "37ms",
+          "value": "35ms",
           "tone": "ok"
         },
         {
@@ -978,7 +978,7 @@
           "items": [
             {
               "label": "Gateway",
-              "value": "reachable 37ms",
+              "value": "reachable 35ms",
               "tone": "ok"
             },
             {
