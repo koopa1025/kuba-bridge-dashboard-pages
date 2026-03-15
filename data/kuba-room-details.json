@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T02:20:54.546814+00:00",
+  "updatedAt": "2026-03-15T04:42:56.030092+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1004,8 +1004,8 @@
           "items": [
             {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "正常",
-              "meta": "used 22% · remain 78%",
+              "status": "高负荷",
+              "meta": "used 41% · remain 59%",
               "note": "gpt-5.4"
             },
             {
