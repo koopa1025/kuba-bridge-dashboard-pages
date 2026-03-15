@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T08:16:14.188259+00:00",
+  "updatedAt": "2026-03-15T14:04:23.842926+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 86% · warn 1",
+              "value": "船长 Token 67% · warn 1",
               "tone": "wait"
             }
           ]
@@ -138,13 +138,13 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "27,334 / 200,000",
+          "value": "65,005 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "86%",
-          "tone": "ok"
+          "value": "67%",
+          "tone": "wait"
         },
         {
           "label": "金融助理群会话",
@@ -170,8 +170,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "86%",
-              "tone": "ok",
+              "value": "67%",
+              "tone": "wait",
               "note": "动力室同阈值显示"
             }
           ]
@@ -943,8 +943,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "86%",
-          "tone": "ok"
+          "value": "67%",
+          "tone": "wait"
         }
       ],
       "sections": [
@@ -983,13 +983,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "27,334 / 200,000",
+              "value": "65,005 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "86%",
-              "tone": "ok"
+              "value": "67%",
+              "tone": "wait"
             },
             {
               "label": "服务模式",
@@ -1004,8 +1004,8 @@
           "items": [
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "正常",
-              "meta": "used 14% · remain 86%",
+              "status": "高负荷",
+              "meta": "used 33% · remain 67%",
               "note": "gpt-5.4"
             },
             {
