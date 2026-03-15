@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T15:59:18.481821+00:00",
+  "updatedAt": "2026-03-15T16:20:36.690923+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -181,6 +181,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-15-feishu-doc.md",
+              "status": "ok",
+              "meta": "03-16 00:20 · 3386 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-feishu-doc.md",
+              "excerpt": "# Session: 2026-03-15 16:20:12 UTC"
+            },
+            {
               "title": "2026-03-15.md",
               "status": "ok",
               "meta": "03-15 23:19 · 5970 B",
@@ -228,13 +235,6 @@
               "meta": "03-14 16:08 · 11736 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
               "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
-            },
-            {
-              "title": "2026-03-14-stock-screen.md",
-              "status": "ok",
-              "meta": "03-14 16:06 · 2503 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-stock-screen.md",
-              "excerpt": "# Session: 2026-03-14 08:06:31 UTC"
             }
           ]
         }
@@ -1003,15 +1003,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "高负荷",
-              "meta": "used 59% · remain 41%",
+              "title": "agent:main:main",
+              "status": "正常",
+              "meta": "used 12% · remain 88%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:main:main",
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "高负荷",
-              "meta": "used 34% · remain 66%",
+              "meta": "used 59% · remain 41%",
               "note": "gpt-5.4"
             },
             {
@@ -1192,6 +1192,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-15-feishu-doc.md",
+              "status": "ok",
+              "meta": "03-16 00:20 · 3386 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-feishu-doc.md",
+              "excerpt": "# Session: 2026-03-15 16:20:12 UTC"
+            },
+            {
               "title": "2026-03-15.md",
               "status": "ok",
               "meta": "03-15 23:19 · 5970 B",
@@ -1239,13 +1246,6 @@
               "meta": "03-14 16:08 · 11736 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
               "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
-            },
-            {
-              "title": "2026-03-14-stock-screen.md",
-              "status": "ok",
-              "meta": "03-14 16:06 · 2503 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-stock-screen.md",
-              "excerpt": "# Session: 2026-03-14 08:06:31 UTC"
             }
           ]
         }
