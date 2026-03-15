@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T02:05:14.485364+00:00",
+  "updatedAt": "2026-03-15T02:16:42.957553+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -62,7 +62,7 @@
         },
         {
           "label": "会话负载",
-          "value": "26,733 / 200,000"
+          "value": "26,677 / 200,000"
         },
         {
           "label": "剩余 Token",
