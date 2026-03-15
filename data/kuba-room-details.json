@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T16:22:43.715189+00:00",
+  "updatedAt": "2026-03-15T16:25:52.832180+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 39% · warn 2",
+              "value": "船长 Token 87% · warn 2",
               "tone": "wait"
             }
           ]
@@ -138,17 +138,17 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "122,371 / 200,000",
+          "value": "26,099 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "39%",
-          "tone": "wait"
+          "value": "87%",
+          "tone": "ok"
         },
         {
           "label": "金融助理群会话",
-          "value": "30,969",
+          "value": "26,682",
           "tone": "neutral"
         }
       ],
@@ -170,8 +170,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "39%",
-              "tone": "wait",
+              "value": "87%",
+              "tone": "ok",
               "note": "动力室同阈值显示"
             }
           ]
@@ -181,11 +181,32 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-15-session-greeting.md",
+              "status": "ok",
+              "meta": "03-16 00:24 · 955 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-session-greeting.md",
+              "excerpt": "# Session: 2026-03-15 16:24:48 UTC"
+            },
+            {
+              "title": "2026-03-15-ai-desk-pet.md",
+              "status": "ok",
+              "meta": "03-16 00:24 · 16677 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-ai-desk-pet.md",
+              "excerpt": "# Session: 2026-03-15 16:24:18 UTC"
+            },
+            {
               "title": "2026-03-15-feishu-doc.md",
               "status": "ok",
-              "meta": "03-16 00:20 · 3386 B",
+              "meta": "03-16 00:23 · 8209 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-feishu-doc.md",
-              "excerpt": "# Session: 2026-03-15 16:20:12 UTC"
+              "excerpt": "# Session: 2026-03-15 16:23:22 UTC"
+            },
+            {
+              "title": "2026-03-16.md",
+              "status": "ok",
+              "meta": "03-16 00:22 · 817 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
+              "excerpt": "# 2026-03-16"
             },
             {
               "title": "2026-03-15.md",
@@ -214,27 +235,6 @@
               "meta": "03-15 10:03 · 43961 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
               "excerpt": "# current-focus.md"
-            },
-            {
-              "title": "2026-03-14-1628.md",
-              "status": "ok",
-              "meta": "03-15 00:28 · 14529 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-1628.md",
-              "excerpt": "# Session: 2026-03-14 16:28:26 UTC"
-            },
-            {
-              "title": "2026-03-14.md",
-              "status": "ok",
-              "meta": "03-15 00:12 · 17990 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14.md",
-              "excerpt": "# 2026-03-14"
-            },
-            {
-              "title": "2026-03-14-mx-skills.md",
-              "status": "ok",
-              "meta": "03-14 16:08 · 11736 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
-              "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
             }
           ]
         }
@@ -943,8 +943,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "39%",
-          "tone": "wait"
+          "value": "87%",
+          "tone": "ok"
         }
       ],
       "sections": [
@@ -983,13 +983,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "122,371 / 200,000",
+              "value": "26,099 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "39%",
-              "tone": "wait"
+              "value": "87%",
+              "tone": "ok"
             },
             {
               "label": "服务模式",
@@ -1003,21 +1003,27 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
+              "status": "正常",
+              "meta": "used 13% · remain 87%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "高负荷",
-              "meta": "used 63% · remain 37%",
+              "status": "正常",
+              "meta": "used 13% · remain 87%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "高负荷",
-              "meta": "used 61% · remain 39%",
+              "status": "正常",
+              "meta": "used 13% · remain 87%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "正常",
-              "meta": "used 6% · remain 94%",
+              "meta": "used 8% · remain 92%",
               "note": "gpt-5.4"
             },
             {
@@ -1030,12 +1036,6 @@
               "title": "agent:expert-1:cron:5ecdc973-ea3d-455c-8be7-761181a0b43e",
               "status": "高负荷",
               "meta": "used 64% · remain 36%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
-              "status": "正常",
-              "meta": "used 15% · remain 85%",
               "note": "gpt-5.4"
             },
             {
@@ -1192,11 +1192,32 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-15-session-greeting.md",
+              "status": "ok",
+              "meta": "03-16 00:24 · 955 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-session-greeting.md",
+              "excerpt": "# Session: 2026-03-15 16:24:48 UTC"
+            },
+            {
+              "title": "2026-03-15-ai-desk-pet.md",
+              "status": "ok",
+              "meta": "03-16 00:24 · 16677 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-ai-desk-pet.md",
+              "excerpt": "# Session: 2026-03-15 16:24:18 UTC"
+            },
+            {
               "title": "2026-03-15-feishu-doc.md",
               "status": "ok",
-              "meta": "03-16 00:20 · 3386 B",
+              "meta": "03-16 00:23 · 8209 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-feishu-doc.md",
-              "excerpt": "# Session: 2026-03-15 16:20:12 UTC"
+              "excerpt": "# Session: 2026-03-15 16:23:22 UTC"
+            },
+            {
+              "title": "2026-03-16.md",
+              "status": "ok",
+              "meta": "03-16 00:22 · 817 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
+              "excerpt": "# 2026-03-16"
             },
             {
               "title": "2026-03-15.md",
@@ -1225,27 +1246,6 @@
               "meta": "03-15 10:03 · 43961 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
               "excerpt": "# current-focus.md"
-            },
-            {
-              "title": "2026-03-14-1628.md",
-              "status": "ok",
-              "meta": "03-15 00:28 · 14529 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-1628.md",
-              "excerpt": "# Session: 2026-03-14 16:28:26 UTC"
-            },
-            {
-              "title": "2026-03-14.md",
-              "status": "ok",
-              "meta": "03-15 00:12 · 17990 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14.md",
-              "excerpt": "# 2026-03-14"
-            },
-            {
-              "title": "2026-03-14-mx-skills.md",
-              "status": "ok",
-              "meta": "03-14 16:08 · 11736 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-mx-skills.md",
-              "excerpt": "# Session: 2026-03-14 08:08:20 UTC"
             }
           ]
         }
