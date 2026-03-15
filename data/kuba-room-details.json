@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T14:49:26.727425+00:00",
+  "updatedAt": "2026-03-15T15:59:18.481821+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 54% · warn 1",
+              "value": "船长 Token 39% · warn 2",
               "tone": "wait"
             }
           ]
@@ -138,12 +138,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "92,125 / 200,000",
+          "value": "122,371 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "54%",
+          "value": "39%",
           "tone": "wait"
         },
         {
@@ -170,7 +170,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "54%",
+              "value": "39%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -183,7 +183,7 @@
             {
               "title": "2026-03-15.md",
               "status": "ok",
-              "meta": "03-15 22:48 · 4934 B",
+              "meta": "03-15 23:19 · 5970 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
               "excerpt": "# 2026-03-15"
             },
@@ -943,7 +943,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "54%",
+          "value": "39%",
           "tone": "wait"
         }
       ],
@@ -983,12 +983,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "92,125 / 200,000",
+              "value": "122,371 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "54%",
+              "value": "39%",
               "tone": "wait"
             },
             {
@@ -1003,21 +1003,27 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "高负荷",
-              "meta": "used 46% · remain 54%",
+              "meta": "used 59% · remain 41%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "title": "agent:main:main",
               "status": "高负荷",
-              "meta": "used 44% · remain 56%",
+              "meta": "used 34% · remain 66%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "正常",
-              "meta": "used 6% · remain 94%",
+              "meta": "used 7% · remain 93%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 61% · remain 39%",
               "note": "gpt-5.4"
             },
             {
@@ -1036,12 +1042,6 @@
               "title": "agent:main:feishu:group:oc_a22ff7da23ff46288b61481577ae7d7b",
               "status": "正常",
               "meta": "used 8% · remain 92%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:main",
-              "status": "高负荷",
-              "meta": "used 37% · remain 63%",
               "note": "gpt-5.4"
             },
             {
@@ -1069,7 +1069,7 @@
         },
         {
           "label": "安全告警",
-          "value": "1",
+          "value": "2",
           "tone": "alert"
         },
         {
@@ -1194,7 +1194,7 @@
             {
               "title": "2026-03-15.md",
               "status": "ok",
-              "meta": "03-15 22:48 · 4934 B",
+              "meta": "03-15 23:19 · 5970 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
               "excerpt": "# 2026-03-15"
             },
