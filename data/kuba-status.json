@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T17:26:33.551634+00:00",
+  "updatedAt": "2026-03-15T17:38:03.406089+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -19,7 +19,7 @@
       },
       {
         "label": "当前风险",
-        "value": "船长 Token 49% · warn 1"
+        "value": "船长 Token 49% · warn 2"
       }
     ]
   },
@@ -183,7 +183,7 @@
         },
         {
           "label": "安全告警",
-          "value": "1"
+          "value": "2"
         },
         {
           "label": "系统事件队列",
