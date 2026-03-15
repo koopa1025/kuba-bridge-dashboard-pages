@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T17:38:03.406232+00:00",
+  "updatedAt": "2026-03-15T17:40:09.786081+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 49% · warn 2",
+              "value": "船长 Token 51% · warn 2",
               "tone": "wait"
             }
           ]
@@ -138,12 +138,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "101,402 / 200,000",
+          "value": "97,702 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "49%",
+          "value": "51%",
           "tone": "wait"
         },
         {
@@ -170,7 +170,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "49%",
+              "value": "51%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -943,7 +943,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "49%",
+          "value": "51%",
           "tone": "wait"
         }
       ],
@@ -983,12 +983,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "101,402 / 200,000",
+              "value": "97,702 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "49%",
+              "value": "51%",
               "tone": "wait"
             },
             {
@@ -1005,7 +1005,7 @@
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
-              "meta": "used 51% · remain 49%",
+              "meta": "used 49% · remain 51%",
               "note": "gpt-5.4"
             },
             {
