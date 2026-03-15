@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T17:02:30.884958+00:00",
+  "updatedAt": "2026-03-15T17:06:41.615525+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -181,18 +181,18 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-16.md",
+              "status": "ok",
+              "meta": "03-16 01:06 · 6830 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
+              "excerpt": "# 2026-03-16"
+            },
+            {
               "title": "current-focus.md",
               "status": "ok",
               "meta": "03-16 00:57 · 44479 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
               "excerpt": "# current-focus.md"
-            },
-            {
-              "title": "2026-03-16.md",
-              "status": "ok",
-              "meta": "03-16 00:57 · 4409 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
-              "excerpt": "# 2026-03-16"
             },
             {
               "title": "2026-03-15-session-greeting.md",
@@ -1192,18 +1192,18 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-16.md",
+              "status": "ok",
+              "meta": "03-16 01:06 · 6830 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
+              "excerpt": "# 2026-03-16"
+            },
+            {
               "title": "current-focus.md",
               "status": "ok",
               "meta": "03-16 00:57 · 44479 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
               "excerpt": "# current-focus.md"
-            },
-            {
-              "title": "2026-03-16.md",
-              "status": "ok",
-              "meta": "03-16 00:57 · 4409 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
-              "excerpt": "# 2026-03-16"
             },
             {
               "title": "2026-03-15-session-greeting.md",
