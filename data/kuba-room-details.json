@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-15T01:59:59.945301+00:00",
+  "updatedAt": "2026-03-15T02:04:10.871532+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -181,25 +181,25 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-15 10:03 · 43961 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-15.md",
+              "status": "ok",
+              "meta": "03-15 10:03 · 3109 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
+              "excerpt": "# 2026-03-15"
+            },
+            {
               "title": "2026-03-14-1628.md",
               "status": "ok",
               "meta": "03-15 00:28 · 14529 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-1628.md",
               "excerpt": "# Session: 2026-03-14 16:28:26 UTC"
-            },
-            {
-              "title": "2026-03-15.md",
-              "status": "ok",
-              "meta": "03-15 00:17 · 2425 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
-              "excerpt": "# 2026-03-15"
-            },
-            {
-              "title": "current-focus.md",
-              "status": "ok",
-              "meta": "03-15 00:17 · 43490 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
-              "excerpt": "# current-focus.md"
             },
             {
               "title": "2026-03-14.md",
@@ -1005,7 +1005,7 @@
             {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "正常",
-              "meta": "used 6% · remain 94%",
+              "meta": "used 15% · remain 85%",
               "note": "gpt-5.4"
             },
             {
@@ -1192,25 +1192,25 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-15 10:03 · 43961 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-15.md",
+              "status": "ok",
+              "meta": "03-15 10:03 · 3109 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
+              "excerpt": "# 2026-03-15"
+            },
+            {
               "title": "2026-03-14-1628.md",
               "status": "ok",
               "meta": "03-15 00:28 · 14529 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-1628.md",
               "excerpt": "# Session: 2026-03-14 16:28:26 UTC"
-            },
-            {
-              "title": "2026-03-15.md",
-              "status": "ok",
-              "meta": "03-15 00:17 · 2425 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15.md",
-              "excerpt": "# 2026-03-15"
-            },
-            {
-              "title": "current-focus.md",
-              "status": "ok",
-              "meta": "03-15 00:17 · 43490 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
-              "excerpt": "# current-focus.md"
             },
             {
               "title": "2026-03-14.md",
