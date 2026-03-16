@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T01:35:07.427291+00:00",
+  "updatedAt": "2026-03-16T01:36:11.711218+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 19% · warn 2",
+              "value": "船长 Token 40% · warn 2",
               "tone": "wait"
             }
           ]
@@ -145,18 +145,18 @@
       "title": "船长室",
       "role": "幽灵公主 · 调度统筹",
       "icon": "👻",
-      "status": "wait",
+      "status": "busy",
       "summary": "负责任务交接、群推执行和会话负荷调度。",
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "161,756 / 200,000",
+          "value": "120,558 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "19%",
-          "tone": "alert"
+          "value": "40%",
+          "tone": "wait"
         },
         {
           "label": "金融助理群会话",
@@ -182,8 +182,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "19%",
-              "tone": "alert",
+              "value": "40%",
+              "tone": "wait",
               "note": "动力室同阈值显示"
             }
           ]
@@ -980,8 +980,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "19%",
-          "tone": "alert"
+          "value": "40%",
+          "tone": "wait"
         }
       ],
       "sections": [
@@ -1020,13 +1020,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "161,756 / 200,000",
+              "value": "120,558 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "19%",
-              "tone": "alert"
+              "value": "40%",
+              "tone": "wait"
             },
             {
               "label": "服务模式",
@@ -1040,6 +1040,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 60% · remain 40%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:main:cron:cb52f164-7fe7-48b0-85a7-e41a1ab14a0c:run:1e245046-3c5c-4408-9fb3-a681cc6cd021",
               "status": "正常",
               "meta": "used 5% · remain 95%",
@@ -1049,12 +1055,6 @@
               "title": "agent:main:cron:406edc61-4ed9-4810-bb6f-46feb3fe3b7c:run:4b572c7d-7da4-4a25-9e81-bf6c098145d0",
               "status": "正常",
               "meta": "used 6% · remain 94%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "告警",
-              "meta": "used 81% · remain 19%",
               "note": "gpt-5.4"
             },
             {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T01:33:00.666349+00:00",
+  "updatedAt": "2026-03-16T01:36:11.711075+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -19,7 +19,7 @@
       },
       {
         "label": "当前风险",
-        "value": "船长 Token 19% · warn 2"
+        "value": "船长 Token 40% · warn 2"
       }
     ]
   },
@@ -53,7 +53,7 @@
       "title": "船长室",
       "role": "幽灵公主 · 调度统筹",
       "icon": "👻",
-      "status": "wait",
+      "status": "busy",
       "detailHref": "./kuba-room-detail.html?room=captain",
       "lines": [
         {
@@ -62,12 +62,12 @@
         },
         {
           "label": "会话负载",
-          "value": "161,756 / 200,000"
+          "value": "120,558 / 200,000"
         },
         {
           "label": "剩余 Token",
-          "value": "19%",
-          "tone": "alert"
+          "value": "40%",
+          "tone": "wait"
         }
       ]
     },
@@ -159,8 +159,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "19%",
-          "tone": "alert"
+          "value": "40%",
+          "tone": "wait"
         },
         {
           "label": "服务模式",
