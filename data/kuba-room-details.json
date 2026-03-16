@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T23:56:01.724344+00:00",
+  "updatedAt": "2026-03-16T23:57:05.576230+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -148,7 +148,7 @@
         },
         {
           "label": "金融助理群会话",
-          "value": "38,561",
+          "value": "44,000",
           "tone": "neutral"
         }
       ],
@@ -1063,7 +1063,7 @@
             {
               "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
               "status": "正常",
-              "meta": "used 19% · remain 81%",
+              "meta": "used 22% · remain 78%",
               "note": "gpt-5.4"
             },
             {
