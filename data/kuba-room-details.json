@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T04:38:17.338800+00:00",
+  "updatedAt": "2026-03-16T04:44:34.587790+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1049,6 +1049,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
+              "status": "高负荷",
+              "meta": "used 33% · remain 67%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "高负荷",
               "meta": "used 57% · remain 43%",
@@ -1070,12 +1076,6 @@
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c:run:5b103b7a-bfa2-45f2-b1f8-dfa7d7f67a45",
               "status": "高负荷",
               "meta": "used 67% · remain 33%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "高负荷",
-              "meta": "used 33% · remain 67%",
               "note": "gpt-5.4"
             },
             {
