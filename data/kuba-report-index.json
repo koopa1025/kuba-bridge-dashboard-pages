@@ -1,7 +1,25 @@
 {
-  "updatedAt": "2026-03-14T09:38:48.276351+00:00",
+  "updatedAt": "2026-03-16T01:33:00.671576+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
+    {
+      "dateKey": "2026-03-16",
+      "label": "2026-03-16 · 周一",
+      "count": 1,
+      "deliveredCount": 1,
+      "status": "delivered",
+      "reports": [
+        {
+          "reportId": "2026-03-16-a-hk-open",
+          "title": "A股港股早盘推演（正式版，延迟补发）",
+          "taskName": "A股港股早盘推演",
+          "status": "delivered",
+          "meta": "2026-03-16 · 周一 · A股港股早盘推演 · 已推送",
+          "excerpt": "> market_date: 2026-03-16",
+          "href": "./kuba-report-view.html?report=2026-03-16-a-hk-open&room=lab&day=2026-03-16"
+        }
+      ]
+    },
     {
       "dateKey": "2026-03-14",
       "label": "2026-03-14 · 周六",
