@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T16:23:23.436977+00:00",
+  "updatedAt": "2026-03-16T16:27:37.626240+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -15,7 +15,7 @@
       },
       {
         "label": "系统主状态",
-        "value": "Gateway 在线 · Feishu 2 account(s)"
+        "value": "Gateway 在线 · Feishu 3 account(s)"
       },
       {
         "label": "当前风险",
@@ -179,7 +179,7 @@
       "lines": [
         {
           "label": "Feishu 通道",
-          "value": "configured · 2 account(s)"
+          "value": "configured · 3 account(s)"
         },
         {
           "label": "安全告警",

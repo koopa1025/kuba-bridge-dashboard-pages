@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-16T16:24:28.776909+00:00",
+  "updatedAt": "2026-03-16T16:27:37.626410+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -38,7 +38,7 @@
             },
             {
               "label": "系统主状态",
-              "value": "Gateway 在线 · Feishu 2 account(s)",
+              "value": "Gateway 在线 · Feishu 3 account(s)",
               "tone": "neutral"
             },
             {
@@ -1113,7 +1113,7 @@
       "metrics": [
         {
           "label": "Feishu 账户",
-          "value": "2",
+          "value": "3",
           "tone": "busy"
         },
         {
@@ -1139,7 +1139,7 @@
             },
             {
               "label": "账户数",
-              "value": "2",
+              "value": "3",
               "tone": "neutral"
             },
             {
