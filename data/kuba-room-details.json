@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T16:47:07.518239+00:00",
+  "updatedAt": "2026-03-17T16:50:15.929242+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 47% · warn 2",
+              "value": "船长 Token 43% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,12 +174,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "105,590 / 200,000",
+          "value": "114,629 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "47%",
+          "value": "43%",
           "tone": "wait"
         },
         {
@@ -206,7 +206,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "47%",
+              "value": "43%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -1087,7 +1087,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "47%",
+          "value": "43%",
           "tone": "wait"
         }
       ],
@@ -1127,12 +1127,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "105,590 / 200,000",
+              "value": "114,629 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "47%",
+              "value": "43%",
               "tone": "wait"
             },
             {
@@ -1153,16 +1153,16 @@
               "note": "gemini-3-pro-preview"
             },
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "高负荷",
-              "meta": "used 53% · remain 47%",
+              "meta": "used 39% · remain 61%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "正常",
-              "meta": "used 17% · remain 83%",
-              "note": "claude-opus-4-6"
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 57% · remain 43%",
+              "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
