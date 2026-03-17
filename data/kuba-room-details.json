@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T16:35:31.129100+00:00",
+  "updatedAt": "2026-03-17T16:36:34.962311+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 94% · warn 2",
+              "value": "船长 Token 50% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,13 +174,13 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "11,407 / 200,000",
+          "value": "100,965 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "94%",
-          "tone": "ok"
+          "value": "50%",
+          "tone": "wait"
         },
         {
           "label": "金融助理群会话",
@@ -206,8 +206,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "94%",
-              "tone": "ok",
+              "value": "50%",
+              "tone": "wait",
               "note": "动力室同阈值显示"
             }
           ]
@@ -217,18 +217,18 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-18.md",
+              "status": "ok",
+              "meta": "03-18 00:36 · 2639 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
+              "excerpt": "# 2026-03-18 Daily Log"
+            },
+            {
               "title": "2026-03-17-1634.md",
               "status": "ok",
               "meta": "03-18 00:34 · 9652 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
               "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
-            },
-            {
-              "title": "2026-03-18.md",
-              "status": "ok",
-              "meta": "03-18 00:31 · 2387 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
-              "excerpt": "# 2026-03-18 Daily Log"
             },
             {
               "title": "2026-03-17.md",
@@ -1087,8 +1087,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "94%",
-          "tone": "ok"
+          "value": "50%",
+          "tone": "wait"
         }
       ],
       "sections": [
@@ -1127,13 +1127,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "11,407 / 200,000",
+              "value": "100,965 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "94%",
-              "tone": "ok"
+              "value": "50%",
+              "tone": "wait"
             },
             {
               "label": "服务模式",
@@ -1148,8 +1148,8 @@
           "items": [
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "正常",
-              "meta": "used 6% · remain 94%",
+              "status": "高负荷",
+              "meta": "used 50% · remain 50%",
               "note": "gpt-5.4"
             },
             {
@@ -1318,17 +1318,17 @@
       "metrics": [
         {
           "label": "Memory 文件",
-          "value": "53",
+          "value": "55",
           "tone": "ok"
         },
         {
           "label": "Chunks",
-          "value": "473",
+          "value": "484",
           "tone": "neutral"
         },
         {
           "label": "缓存",
-          "value": "499",
+          "value": "510",
           "tone": "busy"
         }
       ],
@@ -1339,7 +1339,7 @@
           "items": [
             {
               "label": "Memory",
-              "value": "53 files / 473 chunks",
+              "value": "55 files / 484 chunks",
               "tone": "neutral"
             },
             {
@@ -1354,7 +1354,7 @@
             },
             {
               "label": "缓存条目",
-              "value": "499",
+              "value": "510",
               "tone": "neutral"
             }
           ]
@@ -1364,18 +1364,18 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-18.md",
+              "status": "ok",
+              "meta": "03-18 00:36 · 2639 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
+              "excerpt": "# 2026-03-18 Daily Log"
+            },
+            {
               "title": "2026-03-17-1634.md",
               "status": "ok",
               "meta": "03-18 00:34 · 9652 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
               "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
-            },
-            {
-              "title": "2026-03-18.md",
-              "status": "ok",
-              "meta": "03-18 00:31 · 2387 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
-              "excerpt": "# 2026-03-18 Daily Log"
             },
             {
               "title": "2026-03-17.md",
