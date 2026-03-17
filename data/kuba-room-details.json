@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T01:30:01.452696+00:00",
+  "updatedAt": "2026-03-17T02:32:34.052485+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 16% · warn 2",
+              "value": "船长 Token 86% · warn 2",
               "tone": "wait"
             }
           ]
@@ -133,18 +133,18 @@
       "title": "船长室",
       "role": "幽灵公主 · 调度统筹",
       "icon": "👻",
-      "status": "wait",
+      "status": "busy",
       "summary": "负责任务交接、群推执行和会话负荷调度。",
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "167,488 / 200,000",
+          "value": "28,972 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "16%",
-          "tone": "alert"
+          "value": "86%",
+          "tone": "ok"
         },
         {
           "label": "金融助理群会话",
@@ -170,8 +170,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "16%",
-              "tone": "alert",
+              "value": "86%",
+              "tone": "ok",
               "note": "动力室同阈值显示"
             }
           ]
@@ -180,6 +180,13 @@
           "title": "近期落档",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-17-push-failure.md",
+              "status": "ok",
+              "meta": "03-17 10:31 · 7188 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-push-failure.md",
+              "excerpt": "# Session: 2026-03-17 02:31:30 UTC"
+            },
             {
               "title": "2026-03-17.md",
               "status": "ok",
@@ -228,13 +235,6 @@
               "meta": "03-16 13:22 · 8444 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-morning-push.md",
               "excerpt": "# Session: 2026-03-16 05:22:23 UTC"
-            },
-            {
-              "title": "2026-03-15-session-greeting.md",
-              "status": "ok",
-              "meta": "03-16 00:24 · 955 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-session-greeting.md",
-              "excerpt": "# Session: 2026-03-15 16:24:48 UTC"
             }
           ]
         }
@@ -1021,8 +1021,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "16%",
-          "tone": "alert"
+          "value": "86%",
+          "tone": "ok"
         }
       ],
       "sections": [
@@ -1061,13 +1061,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "167,488 / 200,000",
+              "value": "28,972 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "16%",
-              "tone": "alert"
+              "value": "86%",
+              "tone": "ok"
             },
             {
               "label": "服务模式",
@@ -1082,8 +1082,8 @@
           "items": [
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "告警",
-              "meta": "used 84% · remain 16%",
+              "status": "正常",
+              "meta": "used 14% · remain 86%",
               "note": "gpt-5.4"
             },
             {
@@ -1298,6 +1298,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-17-push-failure.md",
+              "status": "ok",
+              "meta": "03-17 10:31 · 7188 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-push-failure.md",
+              "excerpt": "# Session: 2026-03-17 02:31:30 UTC"
+            },
+            {
               "title": "2026-03-17.md",
               "status": "ok",
               "meta": "03-17 08:40 · 9039 B",
@@ -1345,13 +1352,6 @@
               "meta": "03-16 13:22 · 8444 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-morning-push.md",
               "excerpt": "# Session: 2026-03-16 05:22:23 UTC"
-            },
-            {
-              "title": "2026-03-15-session-greeting.md",
-              "status": "ok",
-              "meta": "03-16 00:24 · 955 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-15-session-greeting.md",
-              "excerpt": "# Session: 2026-03-15 16:24:48 UTC"
             }
           ]
         }
