@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T00:37:53.794747+00:00",
+  "updatedAt": "2026-03-17T00:39:59.503732+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1183,10 +1183,11 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "A股港股早盘推演",
+              "title": "2026-03-17-a-hk-open-send-status.json",
               "status": "alert",
-              "meta": "03-17 08:35 · pending_main_delivery",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-open-send-status.json"
+              "meta": "03-17 08:39 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-open-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-open.md"
             },
             {
               "title": "2026-03-16-us-close-score-send-status.json",
