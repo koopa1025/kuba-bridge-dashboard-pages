@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T04:47:08.711841+00:00",
+  "updatedAt": "2026-03-17T05:01:41.019205+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -132,7 +132,7 @@
             },
             {
               "title": "午盘小结及推演-45分钟保底",
-              "status": "none",
+              "status": "正常",
               "meta": "0 13 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -1127,6 +1127,18 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:main:cron:06be2d2f-1075-4d8e-bea8-5c6e42d36ef4",
+              "status": "正常",
+              "meta": "used 9% · remain 91%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:06be2d2f-1075-4d8e-bea8-5c6e42d36ef4:run:6c1a06e4-d4ba-4b99-84c1-ec04f6adcf16",
+              "status": "正常",
+              "meta": "used 9% · remain 91%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "高负荷",
               "meta": "used 40% · remain 60%",
@@ -1160,18 +1172,6 @@
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c:run:1531c5d1-3375-4262-aaf3-98948f117935",
               "status": "高负荷",
               "meta": "used 57% · remain 43%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
-              "status": "高负荷",
-              "meta": "used 55% · remain 45%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:e5623d6c-e324-4949-ba11-b95558b5dde7",
-              "status": "高负荷",
-              "meta": "used 33% · remain 67%",
               "note": "gpt-5.4"
             }
           ]
