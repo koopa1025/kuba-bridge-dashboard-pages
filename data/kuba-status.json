@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T16:34:26.626950+00:00",
+  "updatedAt": "2026-03-17T16:35:31.128963+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -19,7 +19,7 @@
       },
       {
         "label": "当前风险",
-        "value": "船长 Token 70% · warn 2"
+        "value": "船长 Token 94% · warn 2"
       }
     ]
   },
@@ -62,12 +62,12 @@
         },
         {
           "label": "会话负载",
-          "value": "59,954 / 200,000"
+          "value": "11,407 / 200,000"
         },
         {
           "label": "剩余 Token",
-          "value": "70%",
-          "tone": "wait"
+          "value": "94%",
+          "tone": "ok"
         }
       ]
     },
@@ -155,12 +155,12 @@
         },
         {
           "label": "当前模型",
-          "value": "claude-opus-4-6"
+          "value": "gpt-5.4"
         },
         {
           "label": "剩余 Token",
-          "value": "70%",
-          "tone": "wait"
+          "value": "94%",
+          "tone": "ok"
         },
         {
           "label": "服务模式",

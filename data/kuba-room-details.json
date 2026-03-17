@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T16:34:26.627093+00:00",
+  "updatedAt": "2026-03-17T16:35:31.129100+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 70% · warn 2",
+              "value": "船长 Token 94% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,13 +174,13 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "59,954 / 200,000",
+          "value": "11,407 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "70%",
-          "tone": "wait"
+          "value": "94%",
+          "tone": "ok"
         },
         {
           "label": "金融助理群会话",
@@ -206,8 +206,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "70%",
-              "tone": "wait",
+              "value": "94%",
+              "tone": "ok",
               "note": "动力室同阈值显示"
             }
           ]
@@ -216,6 +216,13 @@
           "title": "近期落档",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-17-1634.md",
+              "status": "ok",
+              "meta": "03-18 00:34 · 9652 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
+              "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
+            },
             {
               "title": "2026-03-18.md",
               "status": "ok",
@@ -264,13 +271,6 @@
               "meta": "03-16 22:50 · 8543 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-timeout-debug.md",
               "excerpt": "# Session: 2026-03-16 14:50:13 UTC"
-            },
-            {
-              "title": "2026-03-16.md",
-              "status": "ok",
-              "meta": "03-16 17:45 · 37207 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
-              "excerpt": "# 2026-03-16"
             }
           ]
         }
@@ -1082,13 +1082,13 @@
         },
         {
           "label": "当前模型",
-          "value": "claude-opus-4-6",
+          "value": "gpt-5.4",
           "tone": "neutral"
         },
         {
           "label": "剩余 Token",
-          "value": "70%",
-          "tone": "wait"
+          "value": "94%",
+          "tone": "ok"
         }
       ],
       "sections": [
@@ -1127,13 +1127,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "59,954 / 200,000",
+              "value": "11,407 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "70%",
-              "tone": "wait"
+              "value": "94%",
+              "tone": "ok"
             },
             {
               "label": "服务模式",
@@ -1148,9 +1148,9 @@
           "items": [
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "高负荷",
-              "meta": "used 30% · remain 70%",
-              "note": "claude-opus-4-6"
+              "status": "正常",
+              "meta": "used 6% · remain 94%",
+              "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
@@ -1364,6 +1364,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-17-1634.md",
+              "status": "ok",
+              "meta": "03-18 00:34 · 9652 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
+              "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
+            },
+            {
               "title": "2026-03-18.md",
               "status": "ok",
               "meta": "03-18 00:31 · 2387 B",
@@ -1411,13 +1418,6 @@
               "meta": "03-16 22:50 · 8543 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-timeout-debug.md",
               "excerpt": "# Session: 2026-03-16 14:50:13 UTC"
-            },
-            {
-              "title": "2026-03-16.md",
-              "status": "ok",
-              "meta": "03-16 17:45 · 37207 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16.md",
-              "excerpt": "# 2026-03-16"
             }
           ]
         }
