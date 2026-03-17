@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T15:14:33.561815+00:00",
+  "updatedAt": "2026-03-17T15:15:39.473894+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -219,7 +219,7 @@
             {
               "title": "2026-03-17.md",
               "status": "ok",
-              "meta": "03-17 22:52 · 18097 B",
+              "meta": "03-17 23:15 · 18990 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
               "excerpt": "# 2026-03-17"
             },
@@ -1147,15 +1147,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "高负荷",
-              "meta": "used 30% · remain 70%",
-              "note": "gpt-5.4"
-            },
-            {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
               "status": "高负荷",
               "meta": "used 54% · remain 46%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 30% · remain 70%",
               "note": "gpt-5.4"
             },
             {
@@ -1366,7 +1366,7 @@
             {
               "title": "2026-03-17.md",
               "status": "ok",
-              "meta": "03-17 22:52 · 18097 B",
+              "meta": "03-17 23:15 · 18990 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
               "excerpt": "# 2026-03-17"
             },
