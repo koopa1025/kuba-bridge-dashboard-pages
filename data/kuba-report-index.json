@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T02:46:11.523853+00:00",
+  "updatedAt": "2026-03-17T03:09:13.533466+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
     {
@@ -24,8 +24,8 @@
       "dateKey": "2026-03-16",
       "label": "2026-03-16 · 周一",
       "count": 5,
-      "deliveredCount": 5,
-      "status": "delivered",
+      "deliveredCount": 4,
+      "status": "busy",
       "reports": [
         {
           "reportId": "2026-03-16-a-hk-close-score",
@@ -67,8 +67,8 @@
           "reportId": "2026-03-16-us-close-score",
           "title": "美股收盘总结及推演打分（2026-03-16）",
           "taskName": "美股收盘总结及推演打分",
-          "status": "delivered",
-          "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已推送",
+          "status": "completed",
+          "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已生成",
           "excerpt": "## 0. 首屏 TL;DR",
           "href": "./kuba-report-view.html?report=2026-03-16-us-close-score&room=lab&day=2026-03-16"
         }

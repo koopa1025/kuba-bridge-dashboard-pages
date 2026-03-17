@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T02:59:50.025549+00:00",
+  "updatedAt": "2026-03-17T03:09:13.528138+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -308,7 +308,7 @@
         },
         {
           "label": "已推送",
-          "value": "9",
+          "value": "8",
           "tone": "ok"
         }
       ],
@@ -382,8 +382,8 @@
               "dateKey": "2026-03-16",
               "label": "2026-03-16 · 周一",
               "count": 5,
-              "deliveredCount": 5,
-              "status": "delivered",
+              "deliveredCount": 4,
+              "status": "busy",
               "reports": [
                 {
                   "reportId": "2026-03-16-a-hk-close-score",
@@ -425,8 +425,8 @@
                   "reportId": "2026-03-16-us-close-score",
                   "title": "美股收盘总结及推演打分（2026-03-16）",
                   "taskName": "美股收盘总结及推演打分",
-                  "status": "delivered",
-                  "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已推送",
+                  "status": "completed",
+                  "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已生成",
                   "excerpt": "## 0. 首屏 TL;DR",
                   "href": "./kuba-report-view.html?report=2026-03-16-us-close-score&room=lab&day=2026-03-16"
                 }
@@ -692,8 +692,8 @@
             },
             {
               "title": "美股收盘总结及推演打分（2026-03-16）",
-              "status": "delivered",
-              "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已推送",
+              "status": "completed",
+              "meta": "2026-03-16 · 周一 · 美股收盘总结及推演打分 · 已生成",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-us-close-score.md",
               "excerpt": "## 0. 首屏 TL;DR",
               "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-close-score-send-status.json",
@@ -1183,18 +1183,25 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "午盘小结及推演",
+              "status": "delivered",
+              "meta": "03-17 11:08 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-midday.md"
+            },
+            {
+              "title": "2026-03-16-us-close-score-send-status.json",
+              "status": "alert",
+              "meta": "03-17 11:08 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-close-score-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-us-close-score.md"
+            },
+            {
               "title": "2026-03-17-a-hk-open-send-status.json",
               "status": "delivered",
               "meta": "03-17 10:45 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-open-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-open.md"
-            },
-            {
-              "title": "2026-03-16-us-close-score-send-status.json",
-              "status": "delivered",
-              "meta": "03-17 08:14 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-close-score-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-us-close-score.md"
             },
             {
               "title": "美股开盘推演",
@@ -1209,13 +1216,6 @@
               "meta": "03-16 16:51 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-a-hk-close-score-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-a-hk-close-score.md"
-            },
-            {
-              "title": "午盘小结及推演",
-              "status": "delivered",
-              "meta": "03-16 12:53 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-midday.md"
             },
             {
               "title": "A股港股早盘推演",
