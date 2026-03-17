@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T00:43:10.810587+00:00",
+  "updatedAt": "2026-03-17T00:45:16.773500+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -148,7 +148,7 @@
         },
         {
           "label": "金融助理群会话",
-          "value": "75,728",
+          "value": "83,925",
           "tone": "neutral"
         }
       ],
@@ -1081,15 +1081,27 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7",
+              "title": "agent:main:cron:e5623d6c-e324-4949-ba11-b95558b5dde7",
               "status": "正常",
-              "meta": "used 7% · remain 93%",
+              "meta": "used 15% · remain 85%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:e5623d6c-e324-4949-ba11-b95558b5dde7:run:9a1b7482-c6c7-4418-a1e0-3a7af3444605",
+              "status": "正常",
+              "meta": "used 15% · remain 85%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
               "status": "高负荷",
-              "meta": "used 38% · remain 62%",
+              "meta": "used 42% · remain 58%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7",
+              "status": "正常",
+              "meta": "used 7% · remain 93%",
               "note": "gpt-5.4"
             },
             {
@@ -1114,18 +1126,6 @@
               "title": "agent:main:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "高负荷",
               "meta": "used 30% · remain 70%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "高负荷",
-              "meta": "used 50% · remain 50%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:a920f41d-e30d-49f7-bacc-48d97ae20092",
-              "status": "正常",
-              "meta": "used 23% · remain 77%",
               "note": "gpt-5.4"
             }
           ]
