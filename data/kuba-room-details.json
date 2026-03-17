@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T16:33:22.705680+00:00",
+  "updatedAt": "2026-03-17T16:34:26.627093+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -174,7 +174,7 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "59,301 / 200,000",
+          "value": "59,954 / 200,000",
           "tone": "wait"
         },
         {
@@ -1127,7 +1127,7 @@
             },
             {
               "label": "主会话负载",
-              "value": "59,301 / 200,000",
+              "value": "59,954 / 200,000",
               "tone": "neutral"
             },
             {
@@ -1147,15 +1147,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "正常",
-              "meta": "used 17% · remain 83%",
-              "note": "claude-opus-4-6"
-            },
-            {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
               "meta": "used 30% · remain 70%",
+              "note": "claude-opus-4-6"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "status": "正常",
+              "meta": "used 17% · remain 83%",
               "note": "claude-opus-4-6"
             },
             {
