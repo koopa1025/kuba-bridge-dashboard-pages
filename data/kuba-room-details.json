@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T08:30:24.497029+00:00",
+  "updatedAt": "2026-03-17T08:50:27.280892+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -72,7 +72,7 @@
             },
             {
               "title": "A股港股收盘市场总结及推演准确度打分-16:30",
-              "status": "正常",
+              "status": "error",
               "meta": "30 16 * * 1-5 (Asia/Shanghai)",
               "note": "agent=expert-1"
             },
@@ -375,7 +375,7 @@
               "title": "A股港股收盘市场总结及推演准确度打分-16:30",
               "status": "enabled",
               "meta": "30 16 * * 1-5 (Asia/Shanghai)",
-              "note": "last=ok"
+              "note": "last=error"
             },
             {
               "title": "美股开盘推演-20:30",
