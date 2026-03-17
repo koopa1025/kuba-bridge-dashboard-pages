@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T14:10:51.199254+00:00",
+  "updatedAt": "2026-03-17T14:20:16.019026+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 36% · warn 2",
+              "value": "船长 Token 72% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,13 +174,13 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "127,124 / 200,000",
+          "value": "55,426 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "36%",
-          "tone": "wait"
+          "value": "72%",
+          "tone": "ok"
         },
         {
           "label": "金融助理群会话",
@@ -206,8 +206,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "36%",
-              "tone": "wait",
+              "value": "72%",
+              "tone": "ok",
               "note": "动力室同阈值显示"
             }
           ]
@@ -219,7 +219,7 @@
             {
               "title": "2026-03-17.md",
               "status": "ok",
-              "meta": "03-17 19:44 · 15505 B",
+              "meta": "03-17 22:19 · 17090 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
               "excerpt": "# 2026-03-17"
             },
@@ -1087,8 +1087,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "36%",
-          "tone": "wait"
+          "value": "72%",
+          "tone": "ok"
         }
       ],
       "sections": [
@@ -1127,13 +1127,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "127,124 / 200,000",
+              "value": "55,426 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "36%",
-              "tone": "wait"
+              "value": "72%",
+              "tone": "ok"
             },
             {
               "label": "服务模式",
@@ -1147,15 +1147,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "正常",
-              "meta": "used 23% · remain 77%",
+              "meta": "used 28% · remain 72%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "高负荷",
-              "meta": "used 64% · remain 36%",
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "status": "正常",
+              "meta": "used 23% · remain 77%",
               "note": "gpt-5.4"
             },
             {
@@ -1366,7 +1366,7 @@
             {
               "title": "2026-03-17.md",
               "status": "ok",
-              "meta": "03-17 19:44 · 15505 B",
+              "meta": "03-17 22:19 · 17090 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
               "excerpt": "# 2026-03-17"
             },
