@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T00:18:00.890542+00:00",
+  "updatedAt": "2026-03-17T00:20:06.846930+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -825,8 +825,38 @@
             {
               "title": "2026-03-17/factor-summary.json",
               "status": "ok",
-              "meta": "03-17 08:17",
+              "meta": "03-17 08:19",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/factor-summary.json"
+            },
+            {
+              "title": "2026-03-17/ai-news-radar-events.json",
+              "status": "ok",
+              "meta": "03-17 08:19",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/ai-news-radar-events.json"
+            },
+            {
+              "title": "2026-03-17/cross-market-events.json",
+              "status": "ok",
+              "meta": "03-17 08:19",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/cross-market-events.json"
+            },
+            {
+              "title": "2026-03-17/hk-hard-events.json",
+              "status": "ok",
+              "meta": "03-17 08:19",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/hk-hard-events.json"
+            },
+            {
+              "title": "2026-03-17/cn-hard-events.json",
+              "status": "ok",
+              "meta": "03-17 08:19",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/cn-hard-events.json"
+            },
+            {
+              "title": "2026-03-17/us-hard-events.json",
+              "status": "ok",
+              "meta": "03-17 08:19",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/us-hard-events.json"
             },
             {
               "title": "2026-03-16/runtime.json",
@@ -899,36 +929,6 @@
               "status": "ok",
               "meta": "03-16 08:33",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/14-opportunity-candidates.json"
-            },
-            {
-              "title": "2026-03-16/10-engine-state.json",
-              "status": "ok",
-              "meta": "03-16 08:33",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/10-engine-state.json"
-            },
-            {
-              "title": "2026-03-16/00-factor-input-summary.json",
-              "status": "ok",
-              "meta": "03-16 08:33",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/00-factor-input-summary.json"
-            },
-            {
-              "title": "2026-03-16/factor-summary.json",
-              "status": "ok",
-              "meta": "03-16 08:18",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/factor-summary.json"
-            },
-            {
-              "title": "2026-03-16/factor-events.json",
-              "status": "ok",
-              "meta": "03-16 08:18",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/factor-events.json"
-            },
-            {
-              "title": "2026-03-16/cross-market-events.json",
-              "status": "ok",
-              "meta": "03-16 08:18",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/cross-market-events.json"
             }
           ]
         }
