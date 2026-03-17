@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T05:04:50.656908+00:00",
+  "updatedAt": "2026-03-17T08:10:32.936991+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -202,7 +202,7 @@
       "lines": [
         {
           "label": "Memory",
-          "value": "47 files / 417 chunks"
+          "value": "51 files / 454 chunks"
         },
         {
           "label": "检索状态",
@@ -210,7 +210,7 @@
         },
         {
           "label": "缓存状态",
-          "value": "cache on (440)"
+          "value": "cache on (478)"
         }
       ]
     }
