@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T15:22:06.588111+00:00",
+  "updatedAt": "2026-03-17T15:24:14.276324+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1318,17 +1318,17 @@
       "metrics": [
         {
           "label": "Memory 文件",
-          "value": "52",
+          "value": "53",
           "tone": "ok"
         },
         {
           "label": "Chunks",
-          "value": "467",
+          "value": "473",
           "tone": "neutral"
         },
         {
           "label": "缓存",
-          "value": "492",
+          "value": "499",
           "tone": "busy"
         }
       ],
@@ -1339,7 +1339,7 @@
           "items": [
             {
               "label": "Memory",
-              "value": "52 files / 467 chunks",
+              "value": "53 files / 473 chunks",
               "tone": "neutral"
             },
             {
@@ -1354,7 +1354,7 @@
             },
             {
               "label": "缓存条目",
-              "value": "492",
+              "value": "499",
               "tone": "neutral"
             }
           ]
