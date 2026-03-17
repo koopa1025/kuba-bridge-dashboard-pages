@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T04:30:19.286327+00:00",
+  "updatedAt": "2026-03-17T04:31:22.937478+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -696,6 +696,7 @@
               "meta": "2026-03-17 · 周二 · 已生成",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-midday.md",
               "excerpt": "> market_date: 2026-03-17",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-midday-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-17-midday&room=lab&day=2026-03-17"
             },
             {
@@ -1098,13 +1099,13 @@
             {
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c",
               "status": "高负荷",
-              "meta": "used 67% · remain 33%",
+              "meta": "used 57% · remain 43%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c:run:1531c5d1-3375-4262-aaf3-98948f117935",
               "status": "高负荷",
-              "meta": "used 67% · remain 33%",
+              "meta": "used 57% · remain 43%",
               "note": "gpt-5.4"
             },
             {
@@ -1193,6 +1194,13 @@
           "items": [
             {
               "title": "午盘小结及推演",
+              "status": "alert",
+              "meta": "03-17 12:31 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-midday-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-midday.md"
+            },
+            {
+              "title": "午盘小结及推演",
               "status": "delivered",
               "meta": "03-17 11:08 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
@@ -1239,13 +1247,6 @@
               "meta": "03-14 16:40 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-14-weekly-full-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-14-weekly-full-review.md"
-            },
-            {
-              "title": "2026-03-12-pre-send-status.json",
-              "status": "delivered",
-              "meta": "03-12 08:40 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-12-pre-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-12-pre.md"
             }
           ]
         }
