@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T04:15:44.862203+00:00",
+  "updatedAt": "2026-03-17T04:29:15.527975+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -303,7 +303,7 @@
         },
         {
           "label": "历史任务",
-          "value": "25",
+          "value": "26",
           "tone": "neutral"
         },
         {
@@ -363,9 +363,9 @@
             {
               "dateKey": "2026-03-17",
               "label": "2026-03-17 · 周二",
-              "count": 1,
+              "count": 2,
               "deliveredCount": 1,
-              "status": "delivered",
+              "status": "busy",
               "reports": [
                 {
                   "reportId": "2026-03-17-a-hk-open",
@@ -375,6 +375,15 @@
                   "meta": "2026-03-17 · 周二 · A股港股早盘推演 · 已推送",
                   "excerpt": "> market_date: 2026-03-17",
                   "href": "./kuba-report-view.html?report=2026-03-17-a-hk-open&room=lab&day=2026-03-17"
+                },
+                {
+                  "reportId": "2026-03-17-midday",
+                  "title": "午盘小结及推演",
+                  "taskName": "午盘小结及推演",
+                  "status": "completed",
+                  "meta": "2026-03-17 · 周二 · 已生成",
+                  "excerpt": "> market_date: 2026-03-17",
+                  "href": "./kuba-report-view.html?report=2026-03-17-midday&room=lab&day=2026-03-17"
                 }
               ]
             },
@@ -682,6 +691,14 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "午盘小结及推演",
+              "status": "completed",
+              "meta": "2026-03-17 · 周二 · 已生成",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-midday.md",
+              "excerpt": "> market_date: 2026-03-17",
+              "href": "./kuba-report-view.html?report=2026-03-17-midday&room=lab&day=2026-03-17"
+            },
+            {
               "title": "A股港股早盘推演（正式版）",
               "status": "delivered",
               "meta": "2026-03-17 · 周二 · A股港股早盘推演 · 已推送",
@@ -826,14 +843,6 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-09-us-open.md",
               "excerpt": "## 核心判断",
               "href": "./kuba-report-view.html?report=2026-03-09-us-open&room=lab&day=2026-03-09"
-            },
-            {
-              "title": "2026-03-09 盘前预测（10:15 修正版）",
-              "status": "completed",
-              "meta": "2026-03-09 · 周一 · A股港股早盘推演 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-09-pre.md",
-              "excerpt": "> 说明：该任务原计划用于 08:00 预热，但本次实际执行时间为 10:08 后，因此本文保留“盘前判断框架”，并用 10:15 左右已出现的市场快照校正结论。更适合作为今天早盘风险定位与后续复盘底稿。",
-              "href": "./kuba-report-view.html?report=2026-03-09-pre&room=lab&day=2026-03-09"
             }
           ]
         },
@@ -842,16 +851,28 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-17/runtime.json",
+              "status": "ok",
+              "meta": "03-17 12:28",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/runtime.json"
+            },
+            {
+              "title": "2026-03-17/tasks/midday-qc.json",
+              "status": "ok",
+              "meta": "03-17 12:28",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/midday-qc.json"
+            },
+            {
+              "title": "2026-03-17/tasks/midday-packet.json",
+              "status": "ok",
+              "meta": "03-17 12:28",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/midday-packet.json"
+            },
+            {
               "title": "2026-03-17/hk-hard-events.json",
               "status": "ok",
               "meta": "03-17 10:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/hk-hard-events.json"
-            },
-            {
-              "title": "2026-03-17/runtime.json",
-              "status": "ok",
-              "meta": "03-17 08:36",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/runtime.json"
             },
             {
               "title": "2026-03-17/tasks/a-hk-open-qc.json",
@@ -936,18 +957,6 @@
               "status": "ok",
               "meta": "03-16 16:47",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/tasks/a-hk-close-score-packet.json"
-            },
-            {
-              "title": "2026-03-16/tasks/midday-qc.json",
-              "status": "ok",
-              "meta": "03-16 12:25",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/tasks/midday-qc.json"
-            },
-            {
-              "title": "2026-03-16/tasks/midday-packet.json",
-              "status": "ok",
-              "meta": "03-16 12:25",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/tasks/midday-packet.json"
             }
           ]
         }
@@ -1081,6 +1090,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "告警",
+              "meta": "used 71% · remain 29%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c",
               "status": "高负荷",
               "meta": "used 67% · remain 33%",
@@ -1090,12 +1105,6 @@
               "title": "agent:expert-1:cron:688921a1-03c8-465e-b195-d59131635b4c:run:1531c5d1-3375-4262-aaf3-98948f117935",
               "status": "高负荷",
               "meta": "used 67% · remain 33%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "告警",
-              "meta": "used 71% · remain 29%",
               "note": "gpt-5.4"
             },
             {
