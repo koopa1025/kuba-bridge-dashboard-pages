@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T00:35:46.053446+00:00",
+  "updatedAt": "2026-03-17T00:37:53.794601+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -113,7 +113,7 @@
         },
         {
           "label": "最近状态",
-          "value": "1 error / 5 ok"
+          "value": "0 error / 6 ok"
         }
       ]
     },
