@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T02:32:34.052485+00:00",
+  "updatedAt": "2026-03-17T02:43:00.785895+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 86% · warn 2",
+              "value": "船长 Token 60% · warn 2",
               "tone": "wait"
             }
           ]
@@ -138,17 +138,17 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "28,972 / 200,000",
+          "value": "80,682 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "86%",
-          "tone": "ok"
+          "value": "60%",
+          "tone": "wait"
         },
         {
           "label": "金融助理群会话",
-          "value": "93,732",
+          "value": "110,082",
           "tone": "neutral"
         }
       ],
@@ -170,8 +170,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "86%",
-              "tone": "ok",
+              "value": "60%",
+              "tone": "wait",
               "note": "动力室同阈值显示"
             }
           ]
@@ -842,6 +842,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-17/hk-hard-events.json",
+              "status": "ok",
+              "meta": "03-17 10:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/hk-hard-events.json"
+            },
+            {
               "title": "2026-03-17/runtime.json",
               "status": "ok",
               "meta": "03-17 08:36",
@@ -876,12 +882,6 @@
               "status": "ok",
               "meta": "03-17 08:19",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/cross-market-events.json"
-            },
-            {
-              "title": "2026-03-17/hk-hard-events.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/hk-hard-events.json"
             },
             {
               "title": "2026-03-17/cn-hard-events.json",
@@ -1021,8 +1021,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "86%",
-          "tone": "ok"
+          "value": "60%",
+          "tone": "wait"
         }
       ],
       "sections": [
@@ -1061,13 +1061,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "28,972 / 200,000",
+              "value": "80,682 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "86%",
-              "tone": "ok"
+              "value": "60%",
+              "tone": "wait"
             },
             {
               "label": "服务模式",
@@ -1081,15 +1081,21 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "正常",
-              "meta": "used 14% · remain 86%",
+              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
+              "status": "高负荷",
+              "meta": "used 42% · remain 58%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
               "status": "高负荷",
-              "meta": "used 47% · remain 53%",
+              "meta": "used 55% · remain 45%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 40% · remain 60%",
               "note": "gpt-5.4"
             },
             {
@@ -1120,12 +1126,6 @@
               "title": "agent:expert-1:cron:8bc91ca0-8e29-46e8-a29e-d8046e6773fe",
               "status": "高负荷",
               "meta": "used 50% · remain 50%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "高负荷",
-              "meta": "used 30% · remain 70%",
               "note": "gpt-5.4"
             }
           ]
@@ -1185,7 +1185,7 @@
             {
               "title": "2026-03-17-a-hk-open-send-status.json",
               "status": "alert",
-              "meta": "03-17 08:39 · n/a",
+              "meta": "03-17 10:38 · n/a",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-open-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-open.md"
             },
