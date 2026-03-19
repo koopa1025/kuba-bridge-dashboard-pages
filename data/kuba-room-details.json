@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-17T17:00:44.936557+00:00",
+  "updatedAt": "2026-03-19T00:15:09.524225+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 41% · warn 2",
+              "value": "船长 Token 37% · warn 2",
               "tone": "wait"
             }
           ]
@@ -60,7 +60,7 @@
             },
             {
               "title": "A股港股早盘推演-8:15",
-              "status": "正常",
+              "status": "error",
               "meta": "15 8 * * 1-5 (Asia/Shanghai)",
               "note": "agent=expert-1"
             },
@@ -96,7 +96,7 @@
             },
             {
               "title": "A股港股早盘推演-30分钟排查",
-              "status": "正常",
+              "status": "error",
               "meta": "45 8 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -126,7 +126,7 @@
             },
             {
               "title": "A股港股早盘推演-45分钟保底",
-              "status": "none",
+              "status": "error",
               "meta": "0 9 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -138,7 +138,7 @@
             },
             {
               "title": "A股港股收盘市场总结及推演准确度打分-45分钟保底",
-              "status": "none",
+              "status": "正常",
               "meta": "15 17 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -150,7 +150,7 @@
             },
             {
               "title": "美股收盘总结及推演打分-45分钟保底",
-              "status": "none",
+              "status": "error",
               "meta": "15 8 * * 2-6 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -174,12 +174,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "117,846 / 200,000",
+          "value": "125,137 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "41%",
+          "value": "37%",
           "tone": "wait"
         },
         {
@@ -206,7 +206,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "41%",
+              "value": "37%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -217,60 +217,60 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-19.md",
+              "status": "ok",
+              "meta": "03-19 01:24 · 9336 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19.md",
+              "excerpt": "## 00:16 模型路由与会话切换状态"
+            },
+            {
+              "title": "2026-03-18-ai-coding.md",
+              "status": "ok",
+              "meta": "03-19 00:50 · 12426 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-ai-coding.md",
+              "excerpt": "# Session: 2026-03-18 16:50:38 UTC"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-19 00:40 · 46493 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-18-cron-cleanup.md",
+              "status": "ok",
+              "meta": "03-19 00:34 · 8943 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-cron-cleanup.md",
+              "excerpt": "# Session: 2026-03-18 16:34:10 UTC"
+            },
+            {
               "title": "2026-03-18.md",
               "status": "ok",
-              "meta": "03-18 00:57 · 4061 B",
+              "meta": "03-18 18:18 · 19671 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
               "excerpt": "# 2026-03-18 Daily Log"
             },
             {
-              "title": "2026-03-17-1634.md",
+              "title": "2026-03-18-feishu-fix.md",
               "status": "ok",
-              "meta": "03-18 00:34 · 9652 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
-              "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
+              "meta": "03-18 17:38 · 13349 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-feishu-fix.md",
+              "excerpt": "# Session: 2026-03-18 09:38:01 UTC"
             },
             {
-              "title": "2026-03-17.md",
+              "title": "2026-03-18-0212.md",
               "status": "ok",
-              "meta": "03-17 23:15 · 18990 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
-              "excerpt": "# 2026-03-17"
+              "meta": "03-18 10:12 · 21248 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-0212.md",
+              "excerpt": "# Session: 2026-03-18 02:12:20 UTC"
             },
             {
-              "title": "2026-03-17-skill-install.md",
+              "title": "2026-03-17-kuba-library.md",
               "status": "ok",
-              "meta": "03-17 22:21 · 2290 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-skill-install.md",
-              "excerpt": "# Session: 2026-03-17 14:21:18 UTC"
-            },
-            {
-              "title": "2026-03-17-life-model-switch.md",
-              "status": "ok",
-              "meta": "03-17 18:40 · 11742 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-life-model-switch.md",
-              "excerpt": "# Session: 2026-03-17 10:40:45 UTC"
-            },
-            {
-              "title": "2026-03-17-push-failure.md",
-              "status": "ok",
-              "meta": "03-17 10:31 · 7188 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-push-failure.md",
-              "excerpt": "# Session: 2026-03-17 02:31:30 UTC"
-            },
-            {
-              "title": "2026-03-16-github-projects.md",
-              "status": "ok",
-              "meta": "03-17 00:36 · 7539 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-github-projects.md",
-              "excerpt": "# Session: 2026-03-16 16:36:03 UTC"
-            },
-            {
-              "title": "2026-03-16-timeout-debug.md",
-              "status": "ok",
-              "meta": "03-16 22:50 · 8543 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-timeout-debug.md",
-              "excerpt": "# Session: 2026-03-16 14:50:13 UTC"
+              "meta": "03-18 05:21 · 4361 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-kuba-library.md",
+              "excerpt": "# Session: 2026-03-17 21:21:45 UTC"
             }
           ]
         }
@@ -339,12 +339,12 @@
         },
         {
           "label": "历史任务",
-          "value": "28",
+          "value": "30",
           "tone": "neutral"
         },
         {
           "label": "已推送",
-          "value": "11",
+          "value": "12",
           "tone": "ok"
         }
       ],
@@ -363,7 +363,7 @@
               "title": "A股港股早盘推演-8:15",
               "status": "enabled",
               "meta": "15 8 * * 1-5 (Asia/Shanghai)",
-              "note": "last=ok"
+              "note": "last=error"
             },
             {
               "title": "午盘小结及推演-12:15",
@@ -396,6 +396,42 @@
           "layout": "report-days",
           "note": "先按日期看当天任务列表，再点进单篇报告看完整网页化内容。",
           "items": [
+            {
+              "dateKey": "2026-03-19",
+              "label": "2026-03-19 · 周四",
+              "count": 1,
+              "deliveredCount": 1,
+              "status": "delivered",
+              "reports": [
+                {
+                  "reportId": "2026-03-19-us-close-score",
+                  "title": "美股收盘总结及推演打分（2026-03-19 / 对应美股 2026-03-18 收盘）",
+                  "taskName": "美股收盘总结及推演打分",
+                  "status": "delivered",
+                  "meta": "2026-03-19 · 周四 · 美股收盘总结及推演打分 · 已推送",
+                  "excerpt": "## 0. 首屏 TL;DR",
+                  "href": "./kuba-report-view.html?report=2026-03-19-us-close-score&room=lab&day=2026-03-19"
+                }
+              ]
+            },
+            {
+              "dateKey": "2026-03-18",
+              "label": "2026-03-18 · 周三",
+              "count": 1,
+              "deliveredCount": 0,
+              "status": "completed",
+              "reports": [
+                {
+                  "reportId": "2026-03-18-us-close-score",
+                  "title": "美股收盘总结及推演打分（2026-03-18）",
+                  "taskName": "美股收盘总结及推演打分",
+                  "status": "completed",
+                  "meta": "2026-03-18 · 周三 · 美股收盘总结及推演打分 · 已生成",
+                  "excerpt": "## 0. 首屏 TL;DR",
+                  "href": "./kuba-report-view.html?report=2026-03-18-us-close-score&room=lab&day=2026-03-18"
+                }
+              ]
+            },
             {
               "dateKey": "2026-03-17",
               "label": "2026-03-17 · 周二",
@@ -745,6 +781,23 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "美股收盘总结及推演打分（2026-03-19 / 对应美股 2026-03-18 收盘）",
+              "status": "delivered",
+              "meta": "2026-03-19 · 周四 · 美股收盘总结及推演打分 · 已推送",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-us-close-score.md",
+              "excerpt": "## 0. 首屏 TL;DR",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-us-close-score-send-status.json",
+              "href": "./kuba-report-view.html?report=2026-03-19-us-close-score&room=lab&day=2026-03-19"
+            },
+            {
+              "title": "美股收盘总结及推演打分（2026-03-18）",
+              "status": "completed",
+              "meta": "2026-03-18 · 周三 · 美股收盘总结及推演打分 · 已生成",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-18-us-close-score.md",
+              "excerpt": "## 0. 首屏 TL;DR",
+              "href": "./kuba-report-view.html?report=2026-03-18-us-close-score&room=lab&day=2026-03-18"
+            },
+            {
               "title": "美股开盘推演（2026-03-17）",
               "status": "delivered",
               "meta": "2026-03-17 · 周二 · 美股开盘推演 · 已推送",
@@ -884,22 +937,6 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-e2e2-us-open-final.md",
               "excerpt": "> 说明：本文件仅用于 E2E staged sim C 步测试，不覆盖正式文件，不外发。",
               "href": "./kuba-report-view.html?report=2026-03-10-e2e2-us-open-final&room=lab&day=2026-03-10"
-            },
-            {
-              "title": "2026-03-10 盘后复盘（补发修复版）",
-              "status": "completed",
-              "meta": "2026-03-10 · 周二 · A股港股收盘市场总结及推演准确度打分 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-post.md",
-              "excerpt": "## 一、收盘结论",
-              "href": "./kuba-report-view.html?report=2026-03-10-post&room=lab&day=2026-03-10"
-            },
-            {
-              "title": "2026-03-10 盘前预测",
-              "status": "completed",
-              "meta": "2026-03-10 · 周二 · A股港股早盘推演 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-pre.md",
-              "excerpt": "## 核心观点",
-              "href": "./kuba-report-view.html?report=2026-03-10-pre&room=lab&day=2026-03-10"
             }
           ]
         },
@@ -907,6 +944,102 @@
           "title": "日报产物目录",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-19/runtime.json",
+              "status": "ok",
+              "meta": "03-19 08:01",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/runtime.json"
+            },
+            {
+              "title": "2026-03-19/tasks/us-close-score-packet.json",
+              "status": "ok",
+              "meta": "03-19 07:43",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-packet.json"
+            },
+            {
+              "title": "2026-03-19/tasks/us-close-score-qc.json",
+              "status": "ok",
+              "meta": "03-19 07:43",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-qc.json"
+            },
+            {
+              "title": "2026-03-18/runtime.json",
+              "status": "ok",
+              "meta": "03-18 21:03",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/runtime.json"
+            },
+            {
+              "title": "2026-03-18/tasks/us-close-score-qc.json",
+              "status": "ok",
+              "meta": "03-18 07:42",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/tasks/us-close-score-qc.json"
+            },
+            {
+              "title": "2026-03-18/tasks/us-close-score-packet.json",
+              "status": "ok",
+              "meta": "03-18 07:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/tasks/us-close-score-packet.json"
+            },
+            {
+              "title": "2026-03-18/factor-summary.json",
+              "status": "ok",
+              "meta": "03-18 06:08",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/factor-summary.json"
+            },
+            {
+              "title": "2026-03-18/factor-events.json",
+              "status": "ok",
+              "meta": "03-18 06:08",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/factor-events.json"
+            },
+            {
+              "title": "2026-03-18/rumor-events.json",
+              "status": "ok",
+              "meta": "03-18 06:08",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/rumor-events.json"
+            },
+            {
+              "title": "2026-03-18/industry-validation-events.json",
+              "status": "ok",
+              "meta": "03-18 06:08",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/industry-validation-events.json"
+            },
+            {
+              "title": "2026-03-18/flow-structure-events.json",
+              "status": "ok",
+              "meta": "03-18 06:08",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/flow-structure-events.json"
+            },
+            {
+              "title": "2026-03-18/cross-market-events.json",
+              "status": "ok",
+              "meta": "03-18 05:48",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/cross-market-events.json"
+            },
+            {
+              "title": "2026-03-18/ai-news-radar-events.json",
+              "status": "ok",
+              "meta": "03-18 05:48",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/ai-news-radar-events.json"
+            },
+            {
+              "title": "2026-03-18/hk-hard-events.json",
+              "status": "ok",
+              "meta": "03-18 05:48",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/hk-hard-events.json"
+            },
+            {
+              "title": "2026-03-18/cn-hard-events.json",
+              "status": "ok",
+              "meta": "03-18 05:48",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/cn-hard-events.json"
+            },
+            {
+              "title": "2026-03-18/us-hard-events.json",
+              "status": "ok",
+              "meta": "03-18 05:48",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/us-hard-events.json"
+            },
             {
               "title": "2026-03-17/runtime.json",
               "status": "ok",
@@ -918,102 +1051,6 @@
               "status": "ok",
               "meta": "03-17 20:44",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/us-open-packet.json"
-            },
-            {
-              "title": "2026-03-17/tasks/us-open-qc.json",
-              "status": "ok",
-              "meta": "03-17 20:44",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/us-open-qc.json"
-            },
-            {
-              "title": "2026-03-17/tasks/a-hk-close-score-qc.json",
-              "status": "ok",
-              "meta": "03-17 19:55",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/a-hk-close-score-qc.json"
-            },
-            {
-              "title": "2026-03-17/tasks/a-hk-close-score-packet.json",
-              "status": "ok",
-              "meta": "03-17 19:54",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/a-hk-close-score-packet.json"
-            },
-            {
-              "title": "2026-03-17/tasks/midday-qc.json",
-              "status": "ok",
-              "meta": "03-17 12:28",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/midday-qc.json"
-            },
-            {
-              "title": "2026-03-17/tasks/midday-packet.json",
-              "status": "ok",
-              "meta": "03-17 12:28",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/midday-packet.json"
-            },
-            {
-              "title": "2026-03-17/hk-hard-events.json",
-              "status": "ok",
-              "meta": "03-17 10:41",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/hk-hard-events.json"
-            },
-            {
-              "title": "2026-03-17/tasks/a-hk-open-qc.json",
-              "status": "ok",
-              "meta": "03-17 08:35",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/a-hk-open-qc.json"
-            },
-            {
-              "title": "2026-03-17/tasks/a-hk-open-packet.json",
-              "status": "ok",
-              "meta": "03-17 08:35",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/tasks/a-hk-open-packet.json"
-            },
-            {
-              "title": "2026-03-17/factor-summary.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/factor-summary.json"
-            },
-            {
-              "title": "2026-03-17/ai-news-radar-events.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/ai-news-radar-events.json"
-            },
-            {
-              "title": "2026-03-17/cross-market-events.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/cross-market-events.json"
-            },
-            {
-              "title": "2026-03-17/cn-hard-events.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/cn-hard-events.json"
-            },
-            {
-              "title": "2026-03-17/us-hard-events.json",
-              "status": "ok",
-              "meta": "03-17 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-17/us-hard-events.json"
-            },
-            {
-              "title": "2026-03-16/runtime.json",
-              "status": "ok",
-              "meta": "03-17 07:40",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/runtime.json"
-            },
-            {
-              "title": "2026-03-16/tasks/us-close-score-qc.json",
-              "status": "ok",
-              "meta": "03-17 07:39",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/tasks/us-close-score-qc.json"
-            },
-            {
-              "title": "2026-03-16/tasks/us-close-score-packet.json",
-              "status": "ok",
-              "meta": "03-17 07:39",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-16/tasks/us-close-score-packet.json"
             }
           ]
         }
@@ -1087,7 +1124,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "41%",
+          "value": "37%",
           "tone": "wait"
         }
       ],
@@ -1127,12 +1164,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "117,846 / 200,000",
+              "value": "125,137 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "41%",
+              "value": "37%",
               "tone": "wait"
             },
             {
@@ -1147,51 +1184,51 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:life-1:feishu:direct:ou_876b1c6d3565ce52410c04e844ebe3d2",
+              "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7",
               "status": "正常",
-              "meta": "used 6% · remain 94%",
-              "note": "gemini-3-pro-preview"
+              "meta": "used 7% · remain 93%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7:run:8427768a-bb57-4fe6-8722-66742ca81bef",
+              "status": "正常",
+              "meta": "used 7% · remain 93%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:a920f41d-e30d-49f7-bacc-48d97ae20092",
+              "status": "正常",
+              "meta": "used 15% · remain 85%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:a920f41d-e30d-49f7-bacc-48d97ae20092:run:6b10a489-26cb-4c85-9728-b335a5d647b2",
+              "status": "正常",
+              "meta": "used 15% · remain 85%",
+              "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
-              "meta": "used 59% · remain 41%",
+              "meta": "used 63% · remain 37%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "title": "agent:expert-1:cron:8bc91ca0-8e29-46e8-a29e-d8046e6773fe",
               "status": "高负荷",
-              "meta": "used 39% · remain 61%",
+              "meta": "used 44% · remain 56%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:cron:8bc91ca0-8e29-46e8-a29e-d8046e6773fe:run:b573fed7-4060-4bca-9f56-2afcf7eaba82",
+              "status": "高负荷",
+              "meta": "used 44% · remain 56%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "正常",
-              "meta": "used 13% · remain 87%",
-              "note": "claude-opus-4-6"
-            },
-            {
-              "title": "agent:main:cron:7839cc5d-e4aa-4457-b41d-e80f9e2faf90",
-              "status": "正常",
-              "meta": "used 17% · remain 83%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:7839cc5d-e4aa-4457-b41d-e80f9e2faf90:run:18d578ba-1822-40af-9fc5-558fa2c1bcd2",
-              "status": "正常",
-              "meta": "used 17% · remain 83%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:41a44d24-af95-44b5-b4ec-df35a6ad20e1",
-              "status": "正常",
-              "meta": "used 27% · remain 73%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:41a44d24-af95-44b5-b4ec-df35a6ad20e1:run:b47c8bf6-e2ed-4350-86b7-8cfe81e18356",
-              "status": "正常",
-              "meta": "used 27% · remain 73%",
+              "status": "高负荷",
+              "meta": "used 38% · remain 62%",
               "note": "gpt-5.4"
             }
           ]
@@ -1249,6 +1286,34 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "美股收盘总结及推演打分",
+              "status": "delivered",
+              "meta": "03-19 07:45 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-us-close-score-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-us-close-score.md"
+            },
+            {
+              "title": "美股开盘推演",
+              "status": "alert",
+              "meta": "03-18 21:15 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-us-open-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-18-us-open.md"
+            },
+            {
+              "title": "A股港股收盘市场总结及推演准确度打分",
+              "status": "alert",
+              "meta": "03-18 17:15 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-a-hk-close-score-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-18-a-hk-close-score.md"
+            },
+            {
+              "title": "午盘小结及推演",
+              "status": "alert",
+              "meta": "03-18 13:00 · n/a",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-midday-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-18-midday.md"
+            },
+            {
               "title": "美股开盘推演",
               "status": "delivered",
               "meta": "03-17 20:50 · delivered",
@@ -1275,34 +1340,6 @@
               "meta": "03-17 11:08 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-midday.md"
-            },
-            {
-              "title": "2026-03-16-us-close-score-send-status.json",
-              "status": "alert",
-              "meta": "03-17 11:08 · n/a",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-close-score-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-us-close-score.md"
-            },
-            {
-              "title": "2026-03-17-a-hk-open-send-status.json",
-              "status": "delivered",
-              "meta": "03-17 10:45 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-open-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-open.md"
-            },
-            {
-              "title": "美股开盘推演",
-              "status": "delivered",
-              "meta": "03-16 20:50 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-open-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-us-open.md"
-            },
-            {
-              "title": "A股港股收盘市场总结及推演准确度打分",
-              "status": "delivered",
-              "meta": "03-16 16:51 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-a-hk-close-score-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-a-hk-close-score.md"
             }
           ]
         }
@@ -1318,17 +1355,17 @@
       "metrics": [
         {
           "label": "Memory 文件",
-          "value": "55",
+          "value": "60",
           "tone": "ok"
         },
         {
           "label": "Chunks",
-          "value": "485",
+          "value": "547",
           "tone": "neutral"
         },
         {
           "label": "缓存",
-          "value": "513",
+          "value": "585",
           "tone": "busy"
         }
       ],
@@ -1339,7 +1376,7 @@
           "items": [
             {
               "label": "Memory",
-              "value": "55 files / 485 chunks",
+              "value": "60 files / 547 chunks",
               "tone": "neutral"
             },
             {
@@ -1354,7 +1391,7 @@
             },
             {
               "label": "缓存条目",
-              "value": "513",
+              "value": "585",
               "tone": "neutral"
             }
           ]
@@ -1364,60 +1401,60 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-19.md",
+              "status": "ok",
+              "meta": "03-19 01:24 · 9336 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19.md",
+              "excerpt": "## 00:16 模型路由与会话切换状态"
+            },
+            {
+              "title": "2026-03-18-ai-coding.md",
+              "status": "ok",
+              "meta": "03-19 00:50 · 12426 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-ai-coding.md",
+              "excerpt": "# Session: 2026-03-18 16:50:38 UTC"
+            },
+            {
+              "title": "current-focus.md",
+              "status": "ok",
+              "meta": "03-19 00:40 · 46493 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/current-focus.md",
+              "excerpt": "# current-focus.md"
+            },
+            {
+              "title": "2026-03-18-cron-cleanup.md",
+              "status": "ok",
+              "meta": "03-19 00:34 · 8943 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-cron-cleanup.md",
+              "excerpt": "# Session: 2026-03-18 16:34:10 UTC"
+            },
+            {
               "title": "2026-03-18.md",
               "status": "ok",
-              "meta": "03-18 00:57 · 4061 B",
+              "meta": "03-18 18:18 · 19671 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
               "excerpt": "# 2026-03-18 Daily Log"
             },
             {
-              "title": "2026-03-17-1634.md",
+              "title": "2026-03-18-feishu-fix.md",
               "status": "ok",
-              "meta": "03-18 00:34 · 9652 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-1634.md",
-              "excerpt": "# Session: 2026-03-17 16:34:31 UTC"
+              "meta": "03-18 17:38 · 13349 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-feishu-fix.md",
+              "excerpt": "# Session: 2026-03-18 09:38:01 UTC"
             },
             {
-              "title": "2026-03-17.md",
+              "title": "2026-03-18-0212.md",
               "status": "ok",
-              "meta": "03-17 23:15 · 18990 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17.md",
-              "excerpt": "# 2026-03-17"
+              "meta": "03-18 10:12 · 21248 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-0212.md",
+              "excerpt": "# Session: 2026-03-18 02:12:20 UTC"
             },
             {
-              "title": "2026-03-17-skill-install.md",
+              "title": "2026-03-17-kuba-library.md",
               "status": "ok",
-              "meta": "03-17 22:21 · 2290 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-skill-install.md",
-              "excerpt": "# Session: 2026-03-17 14:21:18 UTC"
-            },
-            {
-              "title": "2026-03-17-life-model-switch.md",
-              "status": "ok",
-              "meta": "03-17 18:40 · 11742 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-life-model-switch.md",
-              "excerpt": "# Session: 2026-03-17 10:40:45 UTC"
-            },
-            {
-              "title": "2026-03-17-push-failure.md",
-              "status": "ok",
-              "meta": "03-17 10:31 · 7188 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-push-failure.md",
-              "excerpt": "# Session: 2026-03-17 02:31:30 UTC"
-            },
-            {
-              "title": "2026-03-16-github-projects.md",
-              "status": "ok",
-              "meta": "03-17 00:36 · 7539 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-github-projects.md",
-              "excerpt": "# Session: 2026-03-16 16:36:03 UTC"
-            },
-            {
-              "title": "2026-03-16-timeout-debug.md",
-              "status": "ok",
-              "meta": "03-16 22:50 · 8543 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-timeout-debug.md",
-              "excerpt": "# Session: 2026-03-16 14:50:13 UTC"
+              "meta": "03-18 05:21 · 4361 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-kuba-library.md",
+              "excerpt": "# Session: 2026-03-17 21:21:45 UTC"
             }
           ]
         }
