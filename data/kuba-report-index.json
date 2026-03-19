@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-03-19T08:48:03.005298+00:00",
+  "updatedAt": "2026-03-19T09:06:00.012530+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
     {
       "dateKey": "2026-03-19",
       "label": "2026-03-19 · 周四",
       "count": 4,
-      "deliveredCount": 3,
-      "status": "busy",
+      "deliveredCount": 4,
+      "status": "delivered",
       "reports": [
         {
           "reportId": "2026-03-19-a-hk-close-score",
           "title": "A股港股收盘市场总结及推演准确度打分",
           "taskName": "A股港股收盘市场总结及推演准确度打分",
-          "status": "completed",
-          "meta": "2026-03-19 · 周四 · 已生成",
+          "status": "delivered",
+          "meta": "2026-03-19 · 周四 · 已推送",
           "excerpt": "> 市场日期：2026-03-19",
           "href": "./kuba-report-view.html?report=2026-03-19-a-hk-close-score&room=lab&day=2026-03-19"
         },

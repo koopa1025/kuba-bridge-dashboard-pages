@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T09:04:55.812113+00:00",
+  "updatedAt": "2026-03-19T09:06:00.006293+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -344,7 +344,7 @@
         },
         {
           "label": "已推送",
-          "value": "14",
+          "value": "15",
           "tone": "ok"
         }
       ],
@@ -400,15 +400,15 @@
               "dateKey": "2026-03-19",
               "label": "2026-03-19 · 周四",
               "count": 4,
-              "deliveredCount": 3,
-              "status": "busy",
+              "deliveredCount": 4,
+              "status": "delivered",
               "reports": [
                 {
                   "reportId": "2026-03-19-a-hk-close-score",
                   "title": "A股港股收盘市场总结及推演准确度打分",
                   "taskName": "A股港股收盘市场总结及推演准确度打分",
-                  "status": "completed",
-                  "meta": "2026-03-19 · 周四 · 已生成",
+                  "status": "delivered",
+                  "meta": "2026-03-19 · 周四 · 已推送",
                   "excerpt": "> 市场日期：2026-03-19",
                   "href": "./kuba-report-view.html?report=2026-03-19-a-hk-close-score&room=lab&day=2026-03-19"
                 },
@@ -836,10 +836,11 @@
             },
             {
               "title": "A股港股收盘市场总结及推演准确度打分",
-              "status": "completed",
-              "meta": "2026-03-19 · 周四 · 已生成",
+              "status": "delivered",
+              "meta": "2026-03-19 · 周四 · 已推送",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-a-hk-close-score.md",
               "excerpt": "> 市场日期：2026-03-19",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-a-hk-close-score-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-19-a-hk-close-score&room=lab&day=2026-03-19"
             },
             {
@@ -1212,15 +1213,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "高负荷",
-              "meta": "used 67% · remain 33%",
+              "title": "agent:expert-1:cron:e01c3e68-c06d-4181-8770-f1dd96ef8e1d",
+              "status": "正常",
+              "meta": "used 21% · remain 79%",
               "note": "gpt-5.4"
             },
             {
-              "title": "agent:expert-1:cron:e01c3e68-c06d-4181-8770-f1dd96ef8e1d",
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
-              "meta": "used 64% · remain 36%",
+              "meta": "used 67% · remain 33%",
               "note": "gpt-5.4"
             },
             {
@@ -1314,6 +1315,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "A股港股收盘市场总结及推演准确度打分",
+              "status": "delivered",
+              "meta": "03-19 17:05 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-a-hk-close-score-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-a-hk-close-score.md"
+            },
+            {
               "title": "午盘小结及推演",
               "status": "delivered",
               "meta": "03-19 12:35 · delivered",
@@ -1361,13 +1369,6 @@
               "meta": "03-17 20:50 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-us-open-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-us-open.md"
-            },
-            {
-              "title": "A股港股收盘市场总结及推演准确度打分",
-              "status": "delivered",
-              "meta": "03-17 20:00 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-close-score-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-close-score.md"
             }
           ]
         }
