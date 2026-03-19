@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T04:16:31.364341+00:00",
+  "updatedAt": "2026-03-19T04:30:01.872766+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -339,7 +339,7 @@
         },
         {
           "label": "历史任务",
-          "value": "31",
+          "value": "32",
           "tone": "neutral"
         },
         {
@@ -399,9 +399,9 @@
             {
               "dateKey": "2026-03-19",
               "label": "2026-03-19 · 周四",
-              "count": 2,
+              "count": 3,
               "deliveredCount": 2,
-              "status": "delivered",
+              "status": "busy",
               "reports": [
                 {
                   "reportId": "2026-03-19-a-hk-open",
@@ -411,6 +411,15 @@
                   "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已推送",
                   "excerpt": "> market_date: 2026-03-19",
                   "href": "./kuba-report-view.html?report=2026-03-19-a-hk-open&room=lab&day=2026-03-19"
+                },
+                {
+                  "reportId": "2026-03-19-midday",
+                  "title": "午盘小结及推演（正式版）",
+                  "taskName": "午盘小结及推演",
+                  "status": "completed",
+                  "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已生成",
+                  "excerpt": "> market_date: 2026-03-19",
+                  "href": "./kuba-report-view.html?report=2026-03-19-midday&room=lab&day=2026-03-19"
                 },
                 {
                   "reportId": "2026-03-19-us-close-score",
@@ -799,6 +808,14 @@
               "href": "./kuba-report-view.html?report=2026-03-19-us-close-score&room=lab&day=2026-03-19"
             },
             {
+              "title": "午盘小结及推演（正式版）",
+              "status": "completed",
+              "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已生成",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-midday.md",
+              "excerpt": "> market_date: 2026-03-19",
+              "href": "./kuba-report-view.html?report=2026-03-19-midday&room=lab&day=2026-03-19"
+            },
+            {
               "title": "A股港股早盘推演（正式版）",
               "status": "delivered",
               "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已推送",
@@ -939,14 +956,6 @@
               "excerpt": "> 用途：金融助理群正式版",
               "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-11-pre-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-11-pre&room=lab&day=2026-03-11"
-            },
-            {
-              "title": "2026-03-10 美股开盘推演｜21:22补发修复版",
-              "status": "completed",
-              "meta": "2026-03-10 · 周二 · 美股开盘推演 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-us-open-final.md",
-              "excerpt": "【核心判断】",
-              "href": "./kuba-report-view.html?report=2026-03-10-us-open-final&room=lab&day=2026-03-10"
             }
           ]
         },
