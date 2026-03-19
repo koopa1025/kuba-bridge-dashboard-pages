@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T14:34:55.885155+00:00",
+  "updatedAt": "2026-03-19T14:57:52.446301+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 26% · warn 2",
+              "value": "船长 Token 84% · warn 2",
               "tone": "wait"
             }
           ]
@@ -169,18 +169,18 @@
       "title": "船长室",
       "role": "幽灵公主 · 调度统筹",
       "icon": "👻",
-      "status": "wait",
+      "status": "busy",
       "summary": "负责任务交接、群推执行和会话负荷调度。",
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "147,614 / 200,000",
+          "value": "31,856 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "26%",
-          "tone": "alert"
+          "value": "84%",
+          "tone": "ok"
         },
         {
           "label": "金融助理群会话",
@@ -206,8 +206,8 @@
             },
             {
               "label": "剩余 Token",
-              "value": "26%",
-              "tone": "alert",
+              "value": "84%",
+              "tone": "ok",
               "note": "动力室同阈值显示"
             }
           ]
@@ -216,6 +216,13 @@
           "title": "近期落档",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-19-model-switch.md",
+              "status": "ok",
+              "meta": "03-19 22:54 · 3660 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-model-switch.md",
+              "excerpt": "# Session: 2026-03-19 14:54:55 UTC"
+            },
             {
               "title": "2026-03-19.md",
               "status": "ok",
@@ -264,13 +271,6 @@
               "meta": "03-18 10:12 · 21248 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-0212.md",
               "excerpt": "# Session: 2026-03-18 02:12:20 UTC"
-            },
-            {
-              "title": "2026-03-17-kuba-library.md",
-              "status": "ok",
-              "meta": "03-18 05:21 · 4361 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-kuba-library.md",
-              "excerpt": "# Session: 2026-03-17 21:21:45 UTC"
             }
           ]
         }
@@ -1162,8 +1162,8 @@
         },
         {
           "label": "剩余 Token",
-          "value": "26%",
-          "tone": "alert"
+          "value": "84%",
+          "tone": "ok"
         }
       ],
       "sections": [
@@ -1202,13 +1202,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "147,614 / 200,000",
+              "value": "31,856 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "26%",
-              "tone": "alert"
+              "value": "84%",
+              "tone": "ok"
             },
             {
               "label": "服务模式",
@@ -1229,8 +1229,8 @@
             },
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
-              "status": "告警",
-              "meta": "used 74% · remain 26%",
+              "status": "正常",
+              "meta": "used 16% · remain 84%",
               "note": "gpt-5.4"
             },
             {
@@ -1393,17 +1393,17 @@
       "metrics": [
         {
           "label": "Memory 文件",
-          "value": "61",
+          "value": "62",
           "tone": "ok"
         },
         {
           "label": "Chunks",
-          "value": "569",
+          "value": "573",
           "tone": "neutral"
         },
         {
           "label": "缓存",
-          "value": "622",
+          "value": "626",
           "tone": "busy"
         }
       ],
@@ -1414,7 +1414,7 @@
           "items": [
             {
               "label": "Memory",
-              "value": "61 files / 569 chunks",
+              "value": "62 files / 573 chunks",
               "tone": "neutral"
             },
             {
@@ -1429,7 +1429,7 @@
             },
             {
               "label": "缓存条目",
-              "value": "622",
+              "value": "626",
               "tone": "neutral"
             }
           ]
@@ -1438,6 +1438,13 @@
           "title": "近期记忆文件",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-19-model-switch.md",
+              "status": "ok",
+              "meta": "03-19 22:54 · 3660 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-model-switch.md",
+              "excerpt": "# Session: 2026-03-19 14:54:55 UTC"
+            },
             {
               "title": "2026-03-19.md",
               "status": "ok",
@@ -1486,13 +1493,6 @@
               "meta": "03-18 10:12 · 21248 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-0212.md",
               "excerpt": "# Session: 2026-03-18 02:12:20 UTC"
-            },
-            {
-              "title": "2026-03-17-kuba-library.md",
-              "status": "ok",
-              "meta": "03-18 05:21 · 4361 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-kuba-library.md",
-              "excerpt": "# Session: 2026-03-17 21:21:45 UTC"
             }
           ]
         }
