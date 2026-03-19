@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T00:37:05.084105+00:00",
+  "updatedAt": "2026-03-19T00:41:15.278975+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 37% · warn 2",
+              "value": "船长 Token 35% · warn 2",
               "tone": "wait"
             }
           ]
@@ -60,7 +60,7 @@
             },
             {
               "title": "A股港股早盘推演-8:15",
-              "status": "error",
+              "status": "正常",
               "meta": "15 8 * * 1-5 (Asia/Shanghai)",
               "note": "agent=expert-1"
             },
@@ -150,7 +150,7 @@
             },
             {
               "title": "美股收盘总结及推演打分-45分钟保底",
-              "status": "error",
+              "status": "正常",
               "meta": "15 8 * * 2-6 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -174,12 +174,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "125,137 / 200,000",
+          "value": "129,350 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "37%",
+          "value": "35%",
           "tone": "wait"
         },
         {
@@ -206,7 +206,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "37%",
+              "value": "35%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -344,7 +344,7 @@
         },
         {
           "label": "已推送",
-          "value": "12",
+          "value": "13",
           "tone": "ok"
         }
       ],
@@ -363,7 +363,7 @@
               "title": "A股港股早盘推演-8:15",
               "status": "enabled",
               "meta": "15 8 * * 1-5 (Asia/Shanghai)",
-              "note": "last=error"
+              "note": "last=ok"
             },
             {
               "title": "午盘小结及推演-12:15",
@@ -400,15 +400,15 @@
               "dateKey": "2026-03-19",
               "label": "2026-03-19 · 周四",
               "count": 2,
-              "deliveredCount": 1,
-              "status": "busy",
+              "deliveredCount": 2,
+              "status": "delivered",
               "reports": [
                 {
                   "reportId": "2026-03-19-a-hk-open",
                   "title": "A股港股早盘推演（正式版）",
                   "taskName": "A股港股早盘推演",
-                  "status": "completed",
-                  "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已生成",
+                  "status": "delivered",
+                  "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已推送",
                   "excerpt": "> market_date: 2026-03-19",
                   "href": "./kuba-report-view.html?report=2026-03-19-a-hk-open&room=lab&day=2026-03-19"
                 },
@@ -800,10 +800,11 @@
             },
             {
               "title": "A股港股早盘推演（正式版）",
-              "status": "completed",
-              "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已生成",
+              "status": "delivered",
+              "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已推送",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-a-hk-open.md",
               "excerpt": "> market_date: 2026-03-19",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-a-hk-open-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-19-a-hk-open&room=lab&day=2026-03-19"
             },
             {
@@ -956,7 +957,7 @@
             {
               "title": "2026-03-19/runtime.json",
               "status": "ok",
-              "meta": "03-19 08:36",
+              "meta": "03-19 08:38",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/runtime.json"
             },
             {
@@ -1133,7 +1134,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "37%",
+          "value": "35%",
           "tone": "wait"
         }
       ],
@@ -1173,12 +1174,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "125,137 / 200,000",
+              "value": "129,350 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "37%",
+              "value": "35%",
               "tone": "wait"
             },
             {
@@ -1195,19 +1196,31 @@
             {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
-              "meta": "used 63% · remain 37%",
+              "meta": "used 65% · remain 35%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:429f02b0-a1f4-421f-aee0-34b954649c3b",
+              "status": "正常",
+              "meta": "used 14% · remain 86%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:429f02b0-a1f4-421f-aee0-34b954649c3b:run:b83814e3-9a99-452d-bbde-b629bb22e2fa",
+              "status": "正常",
+              "meta": "used 14% · remain 86%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7",
-              "status": "正常",
-              "meta": "used 7% · remain 93%",
+              "status": "高负荷",
+              "meta": "used 62% · remain 38%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:expert-1:cron:687fc240-c6ef-483b-8cd2-30e2960a93d7:run:8427768a-bb57-4fe6-8722-66742ca81bef",
-              "status": "正常",
-              "meta": "used 7% · remain 93%",
+              "status": "高负荷",
+              "meta": "used 62% · remain 38%",
               "note": "gpt-5.4"
             },
             {
@@ -1226,18 +1239,6 @@
               "title": "agent:expert-1:cron:8bc91ca0-8e29-46e8-a29e-d8046e6773fe",
               "status": "高负荷",
               "meta": "used 44% · remain 56%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:expert-1:cron:8bc91ca0-8e29-46e8-a29e-d8046e6773fe:run:b573fed7-4060-4bca-9f56-2afcf7eaba82",
-              "status": "高负荷",
-              "meta": "used 44% · remain 56%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "高负荷",
-              "meta": "used 38% · remain 62%",
               "note": "gpt-5.4"
             }
           ]
@@ -1295,6 +1296,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "A股港股早盘推演",
+              "status": "delivered",
+              "meta": "03-19 08:39 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-a-hk-open-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-a-hk-open.md"
+            },
+            {
               "title": "美股收盘总结及推演打分",
               "status": "delivered",
               "meta": "03-19 07:45 · delivered",
@@ -1342,13 +1350,6 @@
               "meta": "03-17 12:32 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-midday-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-midday.md"
-            },
-            {
-              "title": "午盘小结及推演",
-              "status": "delivered",
-              "meta": "03-17 11:08 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-midday.md"
             }
           ]
         }
