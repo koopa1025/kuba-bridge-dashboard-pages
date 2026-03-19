@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T13:16:47.668025+00:00",
+  "updatedAt": "2026-03-19T14:09:57.413244+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1222,6 +1222,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "告警",
+              "meta": "used 70% · remain 30%",
+              "note": "gpt-5.4"
+            },
+            {
               "title": "agent:main:cron:7839cc5d-e4aa-4457-b41d-e80f9e2faf90",
               "status": "正常",
               "meta": "used 10% · remain 90%",
@@ -1259,12 +1265,6 @@
             },
             {
               "title": "agent:main:cron:40d0aef8-df2c-49e6-943a-5fe1184e0719",
-              "status": "正常",
-              "meta": "used 10% · remain 90%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:40d0aef8-df2c-49e6-943a-5fe1184e0719:run:44ba3dd9-86bf-4969-8378-ea947bc58e6b",
               "status": "正常",
               "meta": "used 10% · remain 90%",
               "note": "gpt-5.4"
@@ -1393,17 +1393,17 @@
       "metrics": [
         {
           "label": "Memory 文件",
-          "value": "60",
+          "value": "61",
           "tone": "ok"
         },
         {
           "label": "Chunks",
-          "value": "547",
+          "value": "569",
           "tone": "neutral"
         },
         {
           "label": "缓存",
-          "value": "585",
+          "value": "622",
           "tone": "busy"
         }
       ],
@@ -1414,7 +1414,7 @@
           "items": [
             {
               "label": "Memory",
-              "value": "60 files / 547 chunks",
+              "value": "61 files / 569 chunks",
               "tone": "neutral"
             },
             {
@@ -1429,7 +1429,7 @@
             },
             {
               "label": "缓存条目",
-              "value": "585",
+              "value": "622",
               "tone": "neutral"
             }
           ]
