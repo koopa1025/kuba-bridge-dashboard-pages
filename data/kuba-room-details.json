@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T12:49:37.449460+00:00",
+  "updatedAt": "2026-03-19T12:50:41.184368+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -78,7 +78,7 @@
             },
             {
               "title": "美股开盘推演-20:30",
-              "status": "正常",
+              "status": "error",
               "meta": "30 20 * * 1-5 (Asia/Shanghai)",
               "note": "agent=expert-1"
             },
@@ -381,7 +381,7 @@
               "title": "美股开盘推演-20:30",
               "status": "enabled",
               "meta": "30 20 * * 1-5 (Asia/Shanghai)",
-              "note": "last=ok"
+              "note": "last=error"
             },
             {
               "title": "一周全市场复盘及量化逻辑迭代-周六9:00",
@@ -982,6 +982,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-19/tasks/us-open-packet.json",
+              "status": "ok",
+              "meta": "03-19 20:49",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-open-packet.json"
+            },
+            {
               "title": "2026-03-19/runtime.json",
               "status": "ok",
               "meta": "03-19 20:32",
@@ -1082,12 +1088,6 @@
               "status": "ok",
               "meta": "03-19 07:43",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-packet.json"
-            },
-            {
-              "title": "2026-03-19/tasks/us-close-score-qc.json",
-              "status": "ok",
-              "meta": "03-19 07:43",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-qc.json"
             }
           ]
         }
