@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T04:32:09.343494+00:00",
+  "updatedAt": "2026-03-19T04:33:13.090445+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -964,6 +964,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-19/runtime.json",
+              "status": "ok",
+              "meta": "03-19 12:32",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/runtime.json"
+            },
+            {
               "title": "2026-03-19/tasks/midday-qc.json",
               "status": "ok",
               "meta": "03-19 12:31",
@@ -974,12 +980,6 @@
               "status": "ok",
               "meta": "03-19 12:31",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/midday-packet.json"
-            },
-            {
-              "title": "2026-03-19/runtime.json",
-              "status": "ok",
-              "meta": "03-19 12:16",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/runtime.json"
             },
             {
               "title": "2026-03-19/tasks/a-hk-open-qc.json",
