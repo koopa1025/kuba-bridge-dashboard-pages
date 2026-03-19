@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-03-19T04:30:01.879309+00:00",
+  "updatedAt": "2026-03-19T04:36:22.674833+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
     {
       "dateKey": "2026-03-19",
       "label": "2026-03-19 · 周四",
       "count": 3,
-      "deliveredCount": 2,
-      "status": "busy",
+      "deliveredCount": 3,
+      "status": "delivered",
       "reports": [
         {
           "reportId": "2026-03-19-a-hk-open",
@@ -22,8 +22,8 @@
           "reportId": "2026-03-19-midday",
           "title": "午盘小结及推演（正式版）",
           "taskName": "午盘小结及推演",
-          "status": "completed",
-          "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已生成",
+          "status": "delivered",
+          "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已推送",
           "excerpt": "> market_date: 2026-03-19",
           "href": "./kuba-report-view.html?report=2026-03-19-midday&room=lab&day=2026-03-19"
         },

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T04:35:19.038991+00:00",
+  "updatedAt": "2026-03-19T04:36:22.668677+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -344,7 +344,7 @@
         },
         {
           "label": "已推送",
-          "value": "13",
+          "value": "14",
           "tone": "ok"
         }
       ],
@@ -400,8 +400,8 @@
               "dateKey": "2026-03-19",
               "label": "2026-03-19 · 周四",
               "count": 3,
-              "deliveredCount": 2,
-              "status": "busy",
+              "deliveredCount": 3,
+              "status": "delivered",
               "reports": [
                 {
                   "reportId": "2026-03-19-a-hk-open",
@@ -416,8 +416,8 @@
                   "reportId": "2026-03-19-midday",
                   "title": "午盘小结及推演（正式版）",
                   "taskName": "午盘小结及推演",
-                  "status": "completed",
-                  "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已生成",
+                  "status": "delivered",
+                  "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已推送",
                   "excerpt": "> market_date: 2026-03-19",
                   "href": "./kuba-report-view.html?report=2026-03-19-midday&room=lab&day=2026-03-19"
                 },
@@ -809,10 +809,11 @@
             },
             {
               "title": "午盘小结及推演（正式版）",
-              "status": "completed",
-              "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已生成",
+              "status": "delivered",
+              "meta": "2026-03-19 · 周四 · 午盘小结及推演 · 已推送",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-midday.md",
               "excerpt": "> market_date: 2026-03-19",
+              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-midday-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-19-midday&room=lab&day=2026-03-19"
             },
             {
@@ -1305,6 +1306,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "午盘小结及推演",
+              "status": "delivered",
+              "meta": "03-19 12:35 · delivered",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-19-midday-send-status.json",
+              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-midday.md"
+            },
+            {
               "title": "A股港股早盘推演",
               "status": "delivered",
               "meta": "03-19 08:39 · delivered",
@@ -1352,13 +1360,6 @@
               "meta": "03-17 20:00 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-a-hk-close-score-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-a-hk-close-score.md"
-            },
-            {
-              "title": "午盘小结及推演",
-              "status": "delivered",
-              "meta": "03-17 12:32 · delivered",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-17-midday-send-status.json",
-              "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-17-midday.md"
             }
           ]
         }
