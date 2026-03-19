@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T00:33:55.535552+00:00",
+  "updatedAt": "2026-03-19T00:36:01.316164+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -339,7 +339,7 @@
         },
         {
           "label": "历史任务",
-          "value": "30",
+          "value": "31",
           "tone": "neutral"
         },
         {
@@ -399,10 +399,19 @@
             {
               "dateKey": "2026-03-19",
               "label": "2026-03-19 · 周四",
-              "count": 1,
+              "count": 2,
               "deliveredCount": 1,
-              "status": "delivered",
+              "status": "busy",
               "reports": [
+                {
+                  "reportId": "2026-03-19-a-hk-open",
+                  "title": "A股港股早盘推演（正式版）",
+                  "taskName": "A股港股早盘推演",
+                  "status": "completed",
+                  "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已生成",
+                  "excerpt": "> market_date: 2026-03-19",
+                  "href": "./kuba-report-view.html?report=2026-03-19-a-hk-open&room=lab&day=2026-03-19"
+                },
                 {
                   "reportId": "2026-03-19-us-close-score",
                   "title": "美股收盘总结及推演打分（2026-03-19 / 对应美股 2026-03-18 收盘）",
@@ -790,6 +799,14 @@
               "href": "./kuba-report-view.html?report=2026-03-19-us-close-score&room=lab&day=2026-03-19"
             },
             {
+              "title": "A股港股早盘推演（正式版）",
+              "status": "completed",
+              "meta": "2026-03-19 · 周四 · A股港股早盘推演 · 已生成",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-a-hk-open.md",
+              "excerpt": "> market_date: 2026-03-19",
+              "href": "./kuba-report-view.html?report=2026-03-19-a-hk-open&room=lab&day=2026-03-19"
+            },
+            {
               "title": "美股收盘总结及推演打分（2026-03-18）",
               "status": "completed",
               "meta": "2026-03-18 · 周三 · 美股收盘总结及推演打分 · 已生成",
@@ -929,14 +946,6 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-us-open-final.md",
               "excerpt": "【核心判断】",
               "href": "./kuba-report-view.html?report=2026-03-10-us-open-final&room=lab&day=2026-03-10"
-            },
-            {
-              "title": "2026-03-10 美股开盘 E2E2 staged sim 正式稿（测试产物）",
-              "status": "completed",
-              "meta": "2026-03-10 · 周二 · 美股开盘推演 · 已生成",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-10-e2e2-us-open-final.md",
-              "excerpt": "> 说明：本文件仅用于 E2E staged sim C 步测试，不覆盖正式文件，不外发。",
-              "href": "./kuba-report-view.html?report=2026-03-10-e2e2-us-open-final&room=lab&day=2026-03-10"
             }
           ]
         },
@@ -944,6 +953,12 @@
           "title": "日报产物目录",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-19/tasks/a-hk-open-qc.json",
+              "status": "ok",
+              "meta": "03-19 08:35",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/a-hk-open-qc.json"
+            },
             {
               "title": "2026-03-19/tasks/a-hk-open-packet.json",
               "status": "ok",
@@ -1045,12 +1060,6 @@
               "status": "ok",
               "meta": "03-18 06:08",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/factor-summary.json"
-            },
-            {
-              "title": "2026-03-18/factor-events.json",
-              "status": "ok",
-              "meta": "03-18 06:08",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/factor-events.json"
             }
           ]
         }
