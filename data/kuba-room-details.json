@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-19T00:24:34.181622+00:00",
+  "updatedAt": "2026-03-19T00:33:55.535552+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -945,6 +945,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-19/tasks/a-hk-open-packet.json",
+              "status": "ok",
+              "meta": "03-19 08:33",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/a-hk-open-packet.json"
+            },
+            {
               "title": "2026-03-19/factor-summary.json",
               "status": "ok",
               "meta": "03-19 08:23",
@@ -1045,12 +1051,6 @@
               "status": "ok",
               "meta": "03-18 06:08",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/factor-events.json"
-            },
-            {
-              "title": "2026-03-18/rumor-events.json",
-              "status": "ok",
-              "meta": "03-18 06:08",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-18/rumor-events.json"
             }
           ]
         }
