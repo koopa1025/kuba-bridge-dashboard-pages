@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T10:42:21.056513+00:00",
+  "updatedAt": "2026-03-20T10:43:25.279354+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1029,6 +1029,30 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-20/routed-candidates.json",
+              "status": "ok",
+              "meta": "03-20 18:42",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
+            },
+            {
+              "title": "2026-03-20/ranked-candidates.json",
+              "status": "ok",
+              "meta": "03-20 18:42",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ranked-candidates.json"
+            },
+            {
+              "title": "2026-03-20/content-pool.json",
+              "status": "ok",
+              "meta": "03-20 18:42",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/content-pool.json"
+            },
+            {
+              "title": "2026-03-20/holdings-watch-events.json",
+              "status": "ok",
+              "meta": "03-20 18:42",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/holdings-watch-events.json"
+            },
+            {
               "title": "2026-03-20/factor-summary.json",
               "status": "ok",
               "meta": "03-20 18:41",
@@ -1041,34 +1065,10 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/factor-events.json"
             },
             {
-              "title": "2026-03-20/routed-candidates.json",
-              "status": "ok",
-              "meta": "03-20 18:41",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
-            },
-            {
-              "title": "2026-03-20/ranked-candidates.json",
-              "status": "ok",
-              "meta": "03-20 18:41",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ranked-candidates.json"
-            },
-            {
-              "title": "2026-03-20/content-pool.json",
-              "status": "ok",
-              "meta": "03-20 18:41",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/content-pool.json"
-            },
-            {
               "title": "2026-03-20/market-movers-events.json",
               "status": "ok",
               "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/market-movers-events.json"
-            },
-            {
-              "title": "2026-03-20/holdings-watch-events.json",
-              "status": "ok",
-              "meta": "03-20 18:41",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/holdings-watch-events.json"
             },
             {
               "title": "2026-03-20/tasks/a-hk-close-score-qc.json",
