@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T09:15:21.229940+00:00",
+  "updatedAt": "2026-03-20T09:16:25.620449+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1270,13 +1270,13 @@
             {
               "title": "agent:main:cron:40d0aef8-df2c-49e6-943a-5fe1184e0719",
               "status": "正常",
-              "meta": "used 10% · remain 90%",
+              "meta": "used 9% · remain 91%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:cron:40d0aef8-df2c-49e6-943a-5fe1184e0719:run:9f52e21e-bce3-4464-baf7-b476e53eaa01",
               "status": "正常",
-              "meta": "used 10% · remain 90%",
+              "meta": "used 9% · remain 91%",
               "note": "gpt-5.4"
             },
             {
