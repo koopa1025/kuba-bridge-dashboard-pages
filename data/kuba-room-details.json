@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T04:34:56.464035+00:00",
+  "updatedAt": "2026-03-20T04:39:09.089145+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1019,6 +1019,12 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-20/runtime.json",
+              "status": "ok",
+              "meta": "03-20 12:34",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/runtime.json"
+            },
+            {
               "title": "2026-03-20/tasks/midday-qc.json",
               "status": "ok",
               "meta": "03-20 12:34",
@@ -1029,12 +1035,6 @@
               "status": "ok",
               "meta": "03-20 12:33",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/midday-packet.json"
-            },
-            {
-              "title": "2026-03-20/runtime.json",
-              "status": "ok",
-              "meta": "03-20 12:15",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/runtime.json"
             },
             {
               "title": "2026-03-20/tasks/a-hk-open-qc.json",
@@ -1260,7 +1260,7 @@
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "告警",
-              "meta": "used 81% · remain 19%",
+              "meta": "used 83% · remain 17%",
               "note": "gpt-5.4"
             },
             {
