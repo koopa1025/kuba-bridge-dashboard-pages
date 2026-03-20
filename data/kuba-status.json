@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T16:05:44.259143+00:00",
+  "updatedAt": "2026-03-20T16:06:49.071845+00:00",
   "source": "scripts/generate_kuba_status.py",
   "overview": {
     "title": "现在的库巴号，正在从总览面板走向舱室级日志结构",
@@ -105,7 +105,7 @@
       "lines": [
         {
           "label": "cron 任务",
-          "value": "7 条 / 启用 7"
+          "value": "11 条 / 启用 11"
         },
         {
           "label": "历史推送",

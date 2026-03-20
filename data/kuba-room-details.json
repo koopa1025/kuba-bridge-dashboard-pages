@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T16:05:44.259287+00:00",
+  "updatedAt": "2026-03-20T16:06:49.071987+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -22,7 +22,7 @@
         },
         {
           "label": "激活任务",
-          "value": "expert-1 7 / main 12",
+          "value": "expert-1 11 / main 12",
           "tone": "ok"
         }
       ],
@@ -164,6 +164,30 @@
               "title": "Alpha Lab P0 source refresh (day/evening 30m)",
               "status": "none",
               "meta": "5,35 7-23 * * * (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "Alpha Lab P0 source refresh (overnight 60m)",
+              "status": "none",
+              "meta": "5 0-5 * * 2-6 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "Alpha Lab P0 market movers (day/evening 15m)",
+              "status": "none",
+              "meta": "10,25,40,55 8-17,20-23 * * 1-5 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "Alpha Lab P0 market movers (overnight 15m)",
+              "status": "none",
+              "meta": "10,25,40,55 0-5 * * 2-6 (Asia/Shanghai)",
+              "note": "agent=expert-1"
+            },
+            {
+              "title": "Alpha Lab P0 rumor refresh (2h)",
+              "status": "none",
+              "meta": "20 8-22/2 * * * (Asia/Shanghai)",
               "note": "agent=expert-1"
             }
           ]
@@ -340,7 +364,7 @@
       "metrics": [
         {
           "label": "主任务数",
-          "value": "7",
+          "value": "11",
           "tone": "busy"
         },
         {
@@ -399,6 +423,30 @@
               "title": "Alpha Lab P0 source refresh (day/evening 30m)",
               "status": "enabled",
               "meta": "5,35 7-23 * * * (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "Alpha Lab P0 source refresh (overnight 60m)",
+              "status": "enabled",
+              "meta": "5 0-5 * * 2-6 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "Alpha Lab P0 market movers (day/evening 15m)",
+              "status": "enabled",
+              "meta": "10,25,40,55 8-17,20-23 * * 1-5 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "Alpha Lab P0 market movers (overnight 15m)",
+              "status": "enabled",
+              "meta": "10,25,40,55 0-5 * * 2-6 (Asia/Shanghai)",
+              "note": "last=none"
+            },
+            {
+              "title": "Alpha Lab P0 rumor refresh (2h)",
+              "status": "enabled",
+              "meta": "20 8-22/2 * * * (Asia/Shanghai)",
               "note": "last=none"
             }
           ]
