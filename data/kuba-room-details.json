@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T13:41:07.115301+00:00",
+  "updatedAt": "2026-03-20T13:42:12.303862+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1287,7 +1287,7 @@
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "告警",
-              "meta": "used 76% · remain 24%",
+              "meta": "used 82% · remain 18%",
               "note": "gpt-5.4"
             },
             {
