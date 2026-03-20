@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T04:33:52.590794+00:00",
+  "updatedAt": "2026-03-20T06:22:15.940484+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
     {
@@ -177,7 +177,7 @@
           "taskName": "A股港股早盘推演",
           "status": "delivered",
           "meta": "2026-03-16 · 周一 · A股港股早盘推演 · 已推送",
-          "excerpt": "> market_date: 2026-03-16",
+          "excerpt": "> 历史说明：本文件包含当时围绕“08:15 预热 / 08:30 定稿 / 08:35 发送”等旧口径的记录，仅保留为历史存档；当前有效规则是：**任务到点开始执行 -> 完成内容产出 -> 通知船长**。",
           "href": "./kuba-report-view.html?report=2026-03-16-a-hk-open&room=lab&day=2026-03-16"
         },
         {
@@ -240,7 +240,7 @@
           "taskName": "A股港股早盘推演",
           "status": "delivered",
           "meta": "2026-03-12 · 周四 · A股港股早盘推演 · 已推送",
-          "excerpt": "> generated_at: 2026-03-12T08:32:28+08:00",
+          "excerpt": "> 历史说明：本文件包含当时围绕“08:15 预热 / 08:30 定稿 / 08:35 发送”等旧口径的记录，仅保留为历史存档；当前有效规则是：**任务到点开始执行 -> 完成内容产出 -> 通知船长**。",
           "href": "./kuba-report-view.html?report=2026-03-12-pre&room=lab&day=2026-03-12"
         }
       ]
@@ -267,7 +267,7 @@
           "taskName": "A股港股早盘推演",
           "status": "blocked",
           "meta": "2026-03-11 · 周三 · A股港股早盘推演 · 已推送",
-          "excerpt": "- 时间：2026-03-11 07:4x Asia/Shanghai",
+          "excerpt": "> 历史说明：本文件包含当时围绕“08:15 预热 / 08:30 定稿 / 08:35 发送”等旧口径的记录，仅保留为历史存档；当前有效规则是：**任务到点开始执行 -> 完成内容产出 -> 通知船长**。",
           "href": "./kuba-report-view.html?report=2026-03-11-pre-blocked&room=lab&day=2026-03-11"
         },
         {
@@ -276,7 +276,7 @@
           "taskName": "A股港股收盘市场总结及推演准确度打分",
           "status": "blocked",
           "meta": "2026-03-11 · 周三 · A股港股收盘市场总结及推演准确度打分 · blocked",
-          "excerpt": "verdict=blocked",
+          "excerpt": "> 历史说明：本文件包含当时围绕“08:15 预热 / 08:30 定稿 / 08:35 发送”等旧口径的记录，仅保留为历史存档；当前有效规则是：**任务到点开始执行 -> 完成内容产出 -> 通知船长**。",
           "href": "./kuba-report-view.html?report=2026-03-11-post-blocked&room=lab&day=2026-03-11"
         }
       ]
