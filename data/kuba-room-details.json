@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T14:35:21.602451+00:00",
+  "updatedAt": "2026-03-20T14:46:05.314710+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1046,6 +1046,24 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-20/routed-candidates.json",
+              "status": "ok",
+              "meta": "03-20 22:45",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
+            },
+            {
+              "title": "2026-03-20/ranked-candidates.json",
+              "status": "ok",
+              "meta": "03-20 22:45",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ranked-candidates.json"
+            },
+            {
+              "title": "2026-03-20/content-pool.json",
+              "status": "ok",
+              "meta": "03-20 22:45",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/content-pool.json"
+            },
+            {
               "title": "2026-03-20/tasks/weekly-full-review-dry-run-qc.json",
               "status": "ok",
               "meta": "03-20 21:59",
@@ -1100,18 +1118,6 @@
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/runtime.json"
             },
             {
-              "title": "2026-03-20/routed-candidates.json",
-              "status": "ok",
-              "meta": "03-20 20:35",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
-            },
-            {
-              "title": "2026-03-20/ranked-candidates.json",
-              "status": "ok",
-              "meta": "03-20 20:35",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ranked-candidates.json"
-            },
-            {
               "title": "2026-03-20/factor-summary.json",
               "status": "ok",
               "meta": "03-20 20:35",
@@ -1122,12 +1128,6 @@
               "status": "ok",
               "meta": "03-20 20:35",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/factor-events.json"
-            },
-            {
-              "title": "2026-03-20/content-pool.json",
-              "status": "ok",
-              "meta": "03-20 20:35",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/content-pool.json"
             },
             {
               "title": "2026-03-20/market-movers-events.json",
