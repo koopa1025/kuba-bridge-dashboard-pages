@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T11:24:28.690830+00:00",
+  "updatedAt": "2026-03-20T11:30:46.798269+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token n/a% · warn 2",
+              "value": "船长 Token 34% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,17 +174,17 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "n/a",
+          "value": "132,089 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "n/a",
-          "tone": "neutral"
+          "value": "34%",
+          "tone": "wait"
         },
         {
           "label": "金融助理群会话",
-          "value": "70,828",
+          "value": "71,626",
           "tone": "neutral"
         }
       ],
@@ -200,14 +200,14 @@
             },
             {
               "label": "主会话 sessionKey",
-              "value": "n/a",
+              "value": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "tone": "neutral",
               "note": "主会话也是霸金实验室交办目标"
             },
             {
               "label": "剩余 Token",
-              "value": "n/a",
-              "tone": "neutral",
+              "value": "34%",
+              "tone": "wait",
               "note": "动力室同阈值显示"
             }
           ]
@@ -1203,13 +1203,13 @@
         },
         {
           "label": "当前模型",
-          "value": "n/a",
+          "value": "gpt-5.4",
           "tone": "neutral"
         },
         {
           "label": "剩余 Token",
-          "value": "n/a",
-          "tone": "neutral"
+          "value": "34%",
+          "tone": "wait"
         }
       ],
       "sections": [
@@ -1248,13 +1248,13 @@
             },
             {
               "label": "主会话负载",
-              "value": "n/a",
+              "value": "132,089 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "n/a",
-              "tone": "neutral"
+              "value": "34%",
+              "tone": "wait"
             },
             {
               "label": "服务模式",
@@ -1270,7 +1270,13 @@
             {
               "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
               "status": "高负荷",
-              "meta": "used 35% · remain 65%",
+              "meta": "used 36% · remain 64%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
+              "status": "高负荷",
+              "meta": "used 66% · remain 34%",
               "note": "gpt-5.4"
             },
             {
@@ -1305,12 +1311,6 @@
             },
             {
               "title": "agent:main:cron:236333d4-7b01-4c0a-9679-8a27e60c3d37",
-              "status": "正常",
-              "meta": "used 13% · remain 87%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:236333d4-7b01-4c0a-9679-8a27e60c3d37:run:2707e645-44c8-4f17-b574-140549e0906c",
               "status": "正常",
               "meta": "used 13% · remain 87%",
               "note": "gpt-5.4"
