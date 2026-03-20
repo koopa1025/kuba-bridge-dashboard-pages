@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T15:01:42.550807+00:00",
+  "updatedAt": "2026-03-20T15:40:37.096339+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1048,7 +1048,7 @@
             {
               "title": "2026-03-20/routed-candidates.json",
               "status": "ok",
-              "meta": "03-20 22:45",
+              "meta": "03-20 23:40",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
             },
             {
