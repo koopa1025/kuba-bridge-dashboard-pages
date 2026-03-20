@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T06:32:00.971808+00:00",
+  "updatedAt": "2026-03-20T07:05:34.610835+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -217,6 +217,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-20-expert1-crs-baseline.md",
+              "status": "ok",
+              "meta": "03-20 15:04 · 2245 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-20-expert1-crs-baseline.md",
+              "excerpt": "# 2026-03-20 小库巴模型切换基线"
+            },
+            {
               "title": "2026-03-20.md",
               "status": "ok",
               "meta": "03-20 08:17 · 6133 B",
@@ -264,13 +271,6 @@
               "meta": "03-19 00:34 · 8943 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-cron-cleanup.md",
               "excerpt": "# Session: 2026-03-18 16:34:10 UTC"
-            },
-            {
-              "title": "2026-03-18.md",
-              "status": "ok",
-              "meta": "03-18 18:18 · 19671 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
-              "excerpt": "# 2026-03-18 Daily Log"
             }
           ]
         }
@@ -1261,13 +1261,13 @@
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "告警",
-              "meta": "used 76% · remain 24%",
+              "meta": "used 93% · remain 7%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "正常",
-              "meta": "used 22% · remain 78%",
+              "status": "告警",
+              "meta": "used 75% · remain 25%",
               "note": "gpt-5.4"
             },
             {
@@ -1476,6 +1476,13 @@
           "layout": "timeline",
           "items": [
             {
+              "title": "2026-03-20-expert1-crs-baseline.md",
+              "status": "ok",
+              "meta": "03-20 15:04 · 2245 B",
+              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-20-expert1-crs-baseline.md",
+              "excerpt": "# 2026-03-20 小库巴模型切换基线"
+            },
+            {
               "title": "2026-03-20.md",
               "status": "ok",
               "meta": "03-20 08:17 · 6133 B",
@@ -1523,13 +1530,6 @@
               "meta": "03-19 00:34 · 8943 B",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18-cron-cleanup.md",
               "excerpt": "# Session: 2026-03-18 16:34:10 UTC"
-            },
-            {
-              "title": "2026-03-18.md",
-              "status": "ok",
-              "meta": "03-18 18:18 · 19671 B",
-              "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-18.md",
-              "excerpt": "# 2026-03-18 Daily Log"
             }
           ]
         }
