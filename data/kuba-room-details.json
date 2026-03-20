@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T06:08:31.850592+00:00",
+  "updatedAt": "2026-03-20T06:09:36.221981+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1259,15 +1259,15 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
-              "status": "正常",
-              "meta": "used 22% · remain 78%",
-              "note": "gpt-5.4"
-            },
-            {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
               "status": "高负荷",
               "meta": "used 67% · remain 33%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_7d81be0e2ec16f6af2901dc0eaca88d2",
+              "status": "正常",
+              "meta": "used 22% · remain 78%",
               "note": "gpt-5.4"
             },
             {
