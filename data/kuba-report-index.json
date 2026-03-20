@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-03-20T06:32:00.979495+00:00",
+  "updatedAt": "2026-03-20T08:46:44.334217+00:00",
   "source": "scripts/generate_kuba_status.py",
   "days": [
     {
       "dateKey": "2026-03-20",
       "label": "2026-03-20 · 周五",
-      "count": 2,
+      "count": 3,
       "deliveredCount": 0,
       "status": "completed",
       "reports": [
@@ -17,6 +17,15 @@
           "meta": "2026-03-20 · 周五 · 午盘小结及推演 · 已生成",
           "excerpt": "## 0. 首屏 TL;DR",
           "href": "./kuba-report-view.html?report=2026-03-20-midday&room=lab&day=2026-03-20"
+        },
+        {
+          "reportId": "2026-03-20-a-hk-close-score",
+          "title": "A股港股收盘市场总结及推演准确度打分",
+          "taskName": "A股港股收盘市场总结及推演准确度打分",
+          "status": "completed",
+          "meta": "2026-03-20 · 周五 · 已生成",
+          "excerpt": "> 市场日期：2026-03-20",
+          "href": "./kuba-report-view.html?report=2026-03-20-a-hk-close-score&room=lab&day=2026-03-20"
         },
         {
           "reportId": "2026-03-20-a-hk-open",
