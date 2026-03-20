@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T11:30:46.798269+00:00",
+  "updatedAt": "2026-03-20T11:31:55.571660+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -43,7 +43,7 @@
             },
             {
               "label": "当前风险",
-              "value": "船长 Token 34% · warn 2",
+              "value": "船长 Token 48% · warn 2",
               "tone": "wait"
             }
           ]
@@ -174,12 +174,12 @@
       "metrics": [
         {
           "label": "主会话负载",
-          "value": "132,089 / 200,000",
+          "value": "104,631 / 200,000",
           "tone": "wait"
         },
         {
           "label": "剩余 Token",
-          "value": "34%",
+          "value": "48%",
           "tone": "wait"
         },
         {
@@ -206,7 +206,7 @@
             },
             {
               "label": "剩余 Token",
-              "value": "34%",
+              "value": "48%",
               "tone": "wait",
               "note": "动力室同阈值显示"
             }
@@ -1208,7 +1208,7 @@
         },
         {
           "label": "剩余 Token",
-          "value": "34%",
+          "value": "48%",
           "tone": "wait"
         }
       ],
@@ -1248,12 +1248,12 @@
             },
             {
               "label": "主会话负载",
-              "value": "132,089 / 200,000",
+              "value": "104,631 / 200,000",
               "tone": "neutral"
             },
             {
               "label": "剩余 Token",
-              "value": "34%",
+              "value": "48%",
               "tone": "wait"
             },
             {
@@ -1268,27 +1268,27 @@
           "layout": "timeline",
           "items": [
             {
-              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
-              "status": "高负荷",
-              "meta": "used 36% · remain 64%",
-              "note": "gpt-5.4"
-            },
-            {
               "title": "agent:main:feishu:direct:ou_889802f5b33dc30fd12120d7b3db93a4",
               "status": "高负荷",
-              "meta": "used 66% · remain 34%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "高负荷",
-              "meta": "used 47% · remain 53%",
+              "meta": "used 52% · remain 48%",
               "note": "gpt-5.4"
             },
             {
               "title": "agent:main:main",
               "status": "正常",
               "meta": "used 12% · remain 88%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
+              "status": "高负荷",
+              "meta": "used 36% · remain 64%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
+              "status": "高负荷",
+              "meta": "used 47% · remain 53%",
               "note": "gpt-5.4"
             },
             {
