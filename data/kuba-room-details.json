@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T12:54:48.834160+00:00",
+  "updatedAt": "2026-03-20T13:10:32.702560+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -114,7 +114,7 @@
             },
             {
               "title": "美股开盘推演-30分钟排查",
-              "status": "error",
+              "status": "正常",
               "meta": "0 21 * * 1-5 (Asia/Shanghai)",
               "note": "agent=main"
             },
@@ -339,12 +339,12 @@
         },
         {
           "label": "历史任务",
-          "value": "39",
+          "value": "40",
           "tone": "neutral"
         },
         {
           "label": "已推送",
-          "value": "18",
+          "value": "19",
           "tone": "ok"
         }
       ],
@@ -399,8 +399,8 @@
             {
               "dateKey": "2026-03-20",
               "label": "2026-03-20 · 周五",
-              "count": 4,
-              "deliveredCount": 1,
+              "count": 5,
+              "deliveredCount": 2,
               "status": "busy",
               "reports": [
                 {
@@ -423,19 +423,28 @@
                 },
                 {
                   "reportId": "2026-03-20-a-hk-open",
-                  "title": "A股港股早盘推演 | 2026-03-20",
+                  "title": "A股港股早盘推演（2026-03-20）",
                   "taskName": "A股港股早盘推演",
                   "status": "completed",
                   "meta": "2026-03-20 · 周五 · A股港股早盘推演 · 已生成",
-                  "excerpt": "- **一句话结论**：今天先交易 A 股光模块核心，不交易广义 AI 风险偏好回归；港股只看核心是否止跌，不碰高 beta。",
+                  "excerpt": "## 0. 首屏 TL;DR",
                   "href": "./kuba-report-view.html?report=2026-03-20-a-hk-open&room=lab&day=2026-03-20"
+                },
+                {
+                  "reportId": "2026-03-20-weekly-full-review-dry-run",
+                  "title": "周末复盘（Dry Run 壳验证，2026-03-20）",
+                  "taskName": "一周全市场复盘及量化逻辑迭代",
+                  "status": "completed",
+                  "meta": "2026-03-20 · 周五 · 一周全市场复盘及量化逻辑迭代 · 已生成",
+                  "excerpt": "> 说明：当前日期仍是周五，以下为最小内容链联调样本，仅用于验证 06-weekly-full-review 模板壳与 QC 口径；不用于真实外发。",
+                  "href": "./kuba-report-view.html?report=2026-03-20-weekly-full-review-dry-run&room=lab&day=2026-03-20"
                 },
                 {
                   "reportId": "2026-03-20-us-open",
                   "title": "美股开盘推演（2026-03-20）",
                   "taskName": "美股开盘推演",
-                  "status": "completed",
-                  "meta": "2026-03-20 · 周五 · 美股开盘推演 · 已生成",
+                  "status": "delivered",
+                  "meta": "2026-03-20 · 周五 · 美股开盘推演 · 已推送",
                   "excerpt": "## 0. 首屏 TL;DR",
                   "href": "./kuba-report-view.html?report=2026-03-20-us-open&room=lab&day=2026-03-20"
                 }
@@ -495,7 +504,7 @@
                 },
                 {
                   "reportId": "2026-03-19-us-close-score",
-                  "title": "美股收盘总结及推演打分（2026-03-19 / 对应美股 2026-03-18 收盘）",
+                  "title": "美股收盘市场总结及推演复盘（2026-03-19 / 对应美股 2026-03-18 收盘）",
                   "taskName": "美股收盘总结及推演打分",
                   "status": "delivered",
                   "meta": "2026-03-19 · 周四 · 美股收盘总结及推演打分 · 已推送",
@@ -872,19 +881,27 @@
           "items": [
             {
               "title": "美股开盘推演（2026-03-20）",
-              "status": "completed",
-              "meta": "2026-03-20 · 周五 · 美股开盘推演 · 已生成",
+              "status": "delivered",
+              "meta": "2026-03-20 · 周五 · 美股开盘推演 · 已推送",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-20-us-open.md",
               "excerpt": "## 0. 首屏 TL;DR",
               "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-20-us-open-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-20-us-open&room=lab&day=2026-03-20"
             },
             {
-              "title": "A股港股早盘推演 | 2026-03-20",
+              "title": "周末复盘（Dry Run 壳验证，2026-03-20）",
+              "status": "completed",
+              "meta": "2026-03-20 · 周五 · 一周全市场复盘及量化逻辑迭代 · 已生成",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-20-weekly-full-review-dry-run.md",
+              "excerpt": "> 说明：当前日期仍是周五，以下为最小内容链联调样本，仅用于验证 06-weekly-full-review 模板壳与 QC 口径；不用于真实外发。",
+              "href": "./kuba-report-view.html?report=2026-03-20-weekly-full-review-dry-run&room=lab&day=2026-03-20"
+            },
+            {
+              "title": "A股港股早盘推演（2026-03-20）",
               "status": "completed",
               "meta": "2026-03-20 · 周五 · A股港股早盘推演 · 已生成",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-20-a-hk-open.md",
-              "excerpt": "- **一句话结论**：今天先交易 A 股光模块核心，不交易广义 AI 风险偏好回归；港股只看核心是否止跌，不碰高 beta。",
+              "excerpt": "## 0. 首屏 TL;DR",
               "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-20-a-hk-open-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-20-a-hk-open&room=lab&day=2026-03-20"
             },
@@ -907,7 +924,7 @@
               "href": "./kuba-report-view.html?report=2026-03-20-midday&room=lab&day=2026-03-20"
             },
             {
-              "title": "美股收盘总结及推演打分（2026-03-19 / 对应美股 2026-03-18 收盘）",
+              "title": "美股收盘市场总结及推演复盘（2026-03-19 / 对应美股 2026-03-18 收盘）",
               "status": "delivered",
               "meta": "2026-03-19 · 周四 · 美股收盘总结及推演打分 · 已推送",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-19-us-close-score.md",
@@ -1021,15 +1038,6 @@
               "excerpt": "## 0. 首屏 TL;DR",
               "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-us-open-send-status.json",
               "href": "./kuba-report-view.html?report=2026-03-16-us-open&room=lab&day=2026-03-16"
-            },
-            {
-              "title": "午盘小结及推演",
-              "status": "delivered",
-              "meta": "2026-03-16 · 周一 · 已推送",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-16-midday.md",
-              "excerpt": "> market_date: 2026-03-16",
-              "note": "/Users/koopa/.openclaw/workspace/memory/2026-03-16-midday-send-status.json",
-              "href": "./kuba-report-view.html?report=2026-03-16-midday&room=lab&day=2026-03-16"
             }
           ]
         },
@@ -1037,6 +1045,42 @@
           "title": "日报产物目录",
           "layout": "timeline",
           "items": [
+            {
+              "title": "2026-03-20/tasks/weekly-full-review-dry-run-qc.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/weekly-full-review-dry-run-qc.json"
+            },
+            {
+              "title": "2026-03-20/tasks/weekly-full-review-dry-run-packet.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/weekly-full-review-dry-run-packet.json"
+            },
+            {
+              "title": "2026-03-19/tasks/us-close-score-qc.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-qc.json"
+            },
+            {
+              "title": "2026-03-19/tasks/us-close-score-packet.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-19/tasks/us-close-score-packet.json"
+            },
+            {
+              "title": "2026-03-20/tasks/midday-qc.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/midday-qc.json"
+            },
+            {
+              "title": "2026-03-20/tasks/a-hk-open-qc.json",
+              "status": "ok",
+              "meta": "03-20 21:07",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/a-hk-open-qc.json"
+            },
             {
               "title": "2026-03-20/tasks/us-open-qc.json",
               "status": "ok",
@@ -1108,42 +1152,6 @@
               "status": "ok",
               "meta": "03-20 19:15",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/a-hk-close-score-packet.json"
-            },
-            {
-              "title": "2026-03-20/tasks/midday-qc.json",
-              "status": "ok",
-              "meta": "03-20 12:34",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/midday-qc.json"
-            },
-            {
-              "title": "2026-03-20/tasks/midday-packet.json",
-              "status": "ok",
-              "meta": "03-20 12:33",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/midday-packet.json"
-            },
-            {
-              "title": "2026-03-20/tasks/a-hk-open-qc.json",
-              "status": "ok",
-              "meta": "03-20 09:29",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/a-hk-open-qc.json"
-            },
-            {
-              "title": "2026-03-20/tasks/a-hk-open-packet.json",
-              "status": "ok",
-              "meta": "03-20 09:29",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/tasks/a-hk-open-packet.json"
-            },
-            {
-              "title": "2026-03-20/industry-validation-events.json",
-              "status": "ok",
-              "meta": "03-20 08:20",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/industry-validation-events.json"
-            },
-            {
-              "title": "2026-03-20/flow-structure-events.json",
-              "status": "ok",
-              "meta": "03-20 08:20",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/flow-structure-events.json"
             }
           ]
         }
@@ -1278,8 +1286,26 @@
           "items": [
             {
               "title": "agent:expert-1:feishu:direct:ou_54e2535e974f21731d61adb68118c150",
-              "status": "高负荷",
-              "meta": "used 66% · remain 34%",
+              "status": "告警",
+              "meta": "used 74% · remain 26%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:expert-1:subagent:6caf2a34-826d-4901-977a-24c9fbaa7147",
+              "status": "告警",
+              "meta": "used 76% · remain 24%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:41a44d24-af95-44b5-b4ec-df35a6ad20e1",
+              "status": "正常",
+              "meta": "used 10% · remain 90%",
+              "note": "gpt-5.4"
+            },
+            {
+              "title": "agent:main:cron:41a44d24-af95-44b5-b4ec-df35a6ad20e1:run:3a5fb0ca-b06c-4114-837d-84fe1f175d30",
+              "status": "正常",
+              "meta": "used 10% · remain 90%",
               "note": "gpt-5.4"
             },
             {
@@ -1304,24 +1330,6 @@
               "title": "agent:expert-1:cron:53bf97e8-fc27-4d1e-b903-45d4532a1ff9:run:93fe24b3-ee4c-4085-ba98-fbaebaa91795",
               "status": "高负荷",
               "meta": "used 56% · remain 44%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:feishu:group:oc_860cbfa5fcc5c4b341c5baa6e120e68e",
-              "status": "正常",
-              "meta": "used 15% · remain 85%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:main",
-              "status": "高负荷",
-              "meta": "used 32% · remain 68%",
-              "note": "gpt-5.4"
-            },
-            {
-              "title": "agent:main:cron:dd9efb45-4dbd-45b3-acd9-fbbe4be80a3e:run:a7f83e7f-6189-4aad-8e89-2866eed857cf",
-              "status": "正常",
-              "meta": "used 6% · remain 94%",
               "note": "gpt-5.4"
             }
           ]
@@ -1380,8 +1388,8 @@
           "items": [
             {
               "title": "美股开盘推演",
-              "status": "alert",
-              "meta": "03-20 20:48 · n/a",
+              "status": "delivered",
+              "meta": "03-20 21:01 · delivered",
               "path": "/Users/koopa/.openclaw/workspace/memory/2026-03-20-us-open-send-status.json",
               "note": "/Users/koopa/.openclaw/workspace-expert-1/memory/2026-03-20-us-open.md"
             },
