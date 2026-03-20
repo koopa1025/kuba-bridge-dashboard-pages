@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-20T10:38:08.401974+00:00",
+  "updatedAt": "2026-03-20T10:42:21.056513+00:00",
   "source": "scripts/generate_kuba_status.py",
   "rooms": [
     {
@@ -1031,31 +1031,43 @@
             {
               "title": "2026-03-20/factor-summary.json",
               "status": "ok",
-              "meta": "03-20 18:21",
+              "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/factor-summary.json"
             },
             {
               "title": "2026-03-20/factor-events.json",
               "status": "ok",
-              "meta": "03-20 18:21",
+              "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/factor-events.json"
+            },
+            {
+              "title": "2026-03-20/routed-candidates.json",
+              "status": "ok",
+              "meta": "03-20 18:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/routed-candidates.json"
+            },
+            {
+              "title": "2026-03-20/ranked-candidates.json",
+              "status": "ok",
+              "meta": "03-20 18:41",
+              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ranked-candidates.json"
             },
             {
               "title": "2026-03-20/content-pool.json",
               "status": "ok",
-              "meta": "03-20 18:21",
+              "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/content-pool.json"
             },
             {
               "title": "2026-03-20/market-movers-events.json",
               "status": "ok",
-              "meta": "03-20 18:21",
+              "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/market-movers-events.json"
             },
             {
               "title": "2026-03-20/holdings-watch-events.json",
               "status": "ok",
-              "meta": "03-20 18:21",
+              "meta": "03-20 18:41",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/holdings-watch-events.json"
             },
             {
@@ -1123,18 +1135,6 @@
               "status": "ok",
               "meta": "03-20 08:19",
               "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/ai-news-radar-events.json"
-            },
-            {
-              "title": "2026-03-20/hk-hard-events.json",
-              "status": "ok",
-              "meta": "03-20 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/hk-hard-events.json"
-            },
-            {
-              "title": "2026-03-20/cn-hard-events.json",
-              "status": "ok",
-              "meta": "03-20 08:19",
-              "path": "/Users/koopa/.openclaw/workspace-expert-1/state/alpha-lab/daily/2026-03-20/cn-hard-events.json"
             }
           ]
         }
