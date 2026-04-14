@@ -1,0 +1,51 @@
+{
+  "source": "prototypes/assets/kuba-reference.jpg",
+  "referenceSize": { "width": 912, "height": 1154 },
+  "phase": "rough-room-crops-for-animation-prep",
+  "notes": [
+    "These are rough room/character crop regions for first-pass animation planning, not final transparent cutouts.",
+    "Final production should replace these with layered transparent assets per character and effect."
+  ],
+  "regions": [
+    {
+      "id": "peach-room",
+      "file": "prototypes/assets/character-crops/peach-room.jpg",
+      "crop": { "y": 170, "x": 98, "height": 360, "width": 220 },
+      "priority": 1,
+      "character": "碧琪公主",
+      "motion": ["blink", "dress-sway", "small-hand-motion"]
+    },
+    {
+      "id": "bowser-room",
+      "file": "prototypes/assets/character-crops/bowser-room.jpg",
+      "crop": { "y": 165, "x": 305, "height": 340, "width": 300 },
+      "priority": 1,
+      "character": "库巴大王",
+      "motion": ["breath", "blink", "lean", "firelight-flicker"]
+    },
+    {
+      "id": "ghost-princess-room",
+      "file": "prototypes/assets/character-crops/ghost-princess-room.jpg",
+      "crop": { "y": 430, "x": 315, "height": 280, "width": 300 },
+      "priority": 1,
+      "character": "幽灵公主",
+      "motion": ["float", "hair-tail-sway", "orb-drift"]
+    },
+    {
+      "id": "lab-koopa-room",
+      "file": "prototypes/assets/character-crops/lab-koopa-room.jpg",
+      "crop": { "y": 175, "x": 605, "height": 340, "width": 260 },
+      "priority": 1,
+      "character": "小库巴",
+      "motion": ["look-down", "look-up", "arm-micro-motion", "coin-glint"]
+    },
+    {
+      "id": "firstmate-room",
+      "file": "prototypes/assets/character-crops/firstmate-room.jpg",
+      "crop": { "y": 560, "x": 330, "height": 220, "width": 260 },
+      "priority": 2,
+      "character": "慢慢龟",
+      "motion": ["look-left-right", "nod", "weight-shift"]
+    }
+  ]
+}

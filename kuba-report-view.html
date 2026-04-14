@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>霸金实验室 · 报告详情</title>
+  <style>
+    :root{
+      --ink:#182436;
+      --muted:#667790;
+      --bg:#f3eadf;
+      --bg2:#dcecdf;
+      --panel:rgba(255,255,255,.82);
+      --line:rgba(24,36,54,.10);
+      --ok:#2d8a57;
+      --busy:#266db3;
+      --wait:#c58b12;
+      --alert:#c14736;
+      --shadow:0 24px 48px rgba(31,42,58,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:"Avenir Next","PingFang SC","Noto Sans SC",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.84), transparent 42%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+    .shell{
+      width:min(1040px, calc(100vw - 28px));
+      margin:0 auto;
+      padding:28px 0 48px;
+    }
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .back{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(24,36,54,.12);
+      background:rgba(255,255,255,.78);
+      box-shadow:0 10px 24px rgba(28,37,52,.10);
+      text-decoration:none;
+      color:inherit;
+      font-size:13px;
+      font-weight:800;
+    }
+    .hero,
+    .paper{
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+    .hero{
+      padding:24px 24px 22px;
+      margin-bottom:18px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      background:rgba(24,36,54,.06);
+      color:#31435d;
+    }
+    h1{
+      margin:16px 0 10px;
+      font-size:38px;
+      line-height:1.12;
+      letter-spacing:-.03em;
+    }
+    .subtitle{
+      font-size:15px;
+      line-height:1.7;
+      color:#51627a;
+      margin:0 0 16px;
+      max-width:62ch;
+    }
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
+    .meta-card{
+      border-radius:18px;
+      padding:14px;
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+    }
+    .meta-label{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    .meta-value{
+      font-size:14px;
+      line-height:1.6;
+      font-weight:800;
+      word-break:break-word;
+    }
+    .status-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+    }
+    .status-ok{background:rgba(45,138,87,.14); color:var(--ok)}
+    .status-busy{background:rgba(38,109,179,.14); color:var(--busy)}
+    .status-wait{background:rgba(197,139,18,.14); color:var(--wait)}
+    .status-alert{background:rgba(193,71,54,.14); color:var(--alert)}
+    .status-delivered{background:rgba(45,138,87,.14); color:var(--ok)}
+    .status-completed{background:rgba(38,109,179,.14); color:var(--busy)}
+    .status-blocked{background:rgba(193,71,54,.14); color:var(--alert)}
+    .paper{
+      padding:28px;
+    }
+    .paper-body{
+      font-size:16px;
+      line-height:1.85;
+      color:#263448;
+    }
+    .paper-body h1,
+    .paper-body h2,
+    .paper-body h3,
+    .paper-body h4{
+      letter-spacing:-.02em;
+      line-height:1.3;
+      margin:1.6em 0 .7em;
+    }
+    .paper-body h1{font-size:34px}
+    .paper-body h2{font-size:28px}
+    .paper-body h3{font-size:22px}
+    .paper-body h4{font-size:18px}
+    .paper-body p{
+      margin:0 0 1em;
+    }
+    .paper-body ul,
+    .paper-body ol{
+      padding-left:1.3em;
+      margin:.2em 0 1.2em;
+    }
+    .paper-body li{
+      margin:.35em 0;
+    }
+    .paper-body blockquote{
+      margin:1em 0;
+      padding:14px 16px;
+      border-left:4px solid rgba(38,109,179,.55);
+      background:rgba(38,109,179,.08);
+      border-radius:14px;
+      color:#42546b;
+    }
+    .paper-body pre{
+      margin:1.2em 0;
+      padding:16px;
+      border-radius:16px;
+      background:#172233;
+      color:#edf3ff;
+      overflow:auto;
+    }
+    .paper-body code{
+      font-family:"SFMono-Regular","JetBrains Mono",monospace;
+      font-size:.92em;
+      background:rgba(24,36,54,.08);
+      padding:.15em .35em;
+      border-radius:6px;
+    }
+    .paper-body pre code{
+      background:none;
+      padding:0;
+    }
+    .paper-body .table-wrap{
+      overflow:auto;
+      margin:1.2em 0;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.84);
+    }
+    .paper-body table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:640px;
+    }
+    .paper-body th,
+    .paper-body td{
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
+      line-height:1.65;
+    }
+    .paper-body th{
+      background:rgba(24,36,54,.06);
+      font-size:13px;
+      font-weight:900;
+    }
+    .paper-body strong{font-weight:900}
+    .loading,
+    .error{
+      padding:20px;
+      border-radius:18px;
+      border:1px dashed var(--line);
+      color:#5b6b81;
+      font-size:15px;
+    }
+    .error{color:var(--alert)}
+    @media (max-width: 860px){
+      .meta-grid{grid-template-columns:repeat(2, minmax(0, 1fr));}
+    }
+    @media (max-width: 720px){
+      .shell{width:min(100vw - 18px, 100%); padding-top:18px}
+      h1{font-size:30px}
+      .hero,
+      .paper{border-radius:24px}
+      .paper{padding:20px}
+      .meta-grid{grid-template-columns:1fr}
+      .paper-body{font-size:15px}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar" id="topbar">
+      <a class="back" id="back-room" href="./kuba-room-detail.html?room=lab">← 返回霸金实验室</a>
+      <a class="back" href="./">← 返回库巴号总览</a>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">💰 霸金实验室 · 报告浏览器</div>
+      <h1 id="title">加载报告中</h1>
+      <p class="subtitle" id="subtitle">正在读取完整报告内容，并适配成网页阅读版。</p>
+      <div class="status-pill status-busy" id="status">同步中</div>
+      <div class="meta-grid" id="meta-grid" style="margin-top:16px"></div>
+    </section>
+
+    <section class="paper">
+      <article class="paper-body" id="paper-body">
+        <div class="loading">正在读取报告正文...</div>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const STATUS_LABELS = {
+      delivered: '已推送',
+      completed: '已生成',
+      blocked: '阻塞',
+      ok: '正常',
+      busy: '执行中',
+      wait: '高负荷',
+      alert: '告警'
+    };
+
+    function query(name, fallback = '') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || fallback;
+    }
+
+    function renderMeta(payload) {
+      const items = [
+        ['日期', payload.dateLabel || payload.dateKey || 'n/a'],
+        ['任务', payload.taskName || 'n/a'],
+        ['源文件', payload.sourcePath || 'n/a'],
+        ['send-status', payload.sendStatusPath || '暂未记录']
+      ];
+      document.getElementById('meta-grid').innerHTML = items.map(([label, value]) => `
+        <div class="meta-card">
+          <div class="meta-label">${label}</div>
+          <div class="meta-value">${value}</div>
+        </div>
+      `).join('');
+    }
+
+    function updateBackLink(payload) {
+      const room = query('room', 'lab');
+      const day = query('day');
+      const anchor = day ? `#day-${day}` : '';
+      document.getElementById('back-room').href = `./kuba-room-detail.html?room=${encodeURIComponent(room)}${anchor}`;
+    }
+
+    async function boot() {
+      const reportId = query('report');
+      if (!reportId) {
+        document.getElementById('title').textContent = '缺少 report 参数';
+        document.getElementById('subtitle').textContent = '链接不完整，无法知道要打开哪篇报告。';
+        document.getElementById('status').className = 'status-pill status-alert';
+        document.getElementById('status').textContent = '打开失败';
+        document.getElementById('paper-body').innerHTML = '<div class="error">请从霸金实验室的任务列表里重新点击进入。</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`./data/reports/${encodeURIComponent(reportId)}.json?ts=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const payload = await res.json();
+        document.title = `霸金实验室 · ${payload.title}`;
+        document.getElementById('title').textContent = payload.title || '未命名报告';
+        document.getElementById('subtitle').textContent = payload.meta || '完整报告已转成网页阅读版。';
+        const statusEl = document.getElementById('status');
+        statusEl.className = `status-pill status-${payload.status || 'completed'}`;
+        statusEl.textContent = STATUS_LABELS[payload.status] || payload.status || '已生成';
+        renderMeta(payload);
+        updateBackLink(payload);
+        document.getElementById('paper-body').innerHTML = payload.html || '<div class="error">报告内容为空。</div>';
+      } catch (err) {
+        document.getElementById('title').textContent = '报告加载失败';
+        document.getElementById('subtitle').textContent = String(err.message || err);
+        document.getElementById('status').className = 'status-pill status-alert';
+        document.getElementById('status').textContent = '读取失败';
+        document.getElementById('paper-body').innerHTML = '<div class="error">没有读到对应的报告数据。请先刷新生成脚本并重新发布。</div>';
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>

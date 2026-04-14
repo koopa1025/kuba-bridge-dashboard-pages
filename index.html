@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>库巴号 · V5 旗舰剖面</title>
+  <style>
+    :root {
+      --font-display:"STKaiti","Kaiti SC","Iowan Old Style","Georgia",serif;
+      --font-body:"Avenir Next","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+      --sky-top:#77a8ee;
+      --sky-mid:#b6d1fb;
+      --sky-bottom:#eef5ff;
+      --ink:#1e2330;
+      --panel:rgba(255,255,255,.82);
+      --panel-dark:rgba(30,35,48,.88);
+      --gold:#f5bf42;
+      --lava:#ff7a1f;
+      --ghost-glow:#89ebff;
+      --green:#73c163;
+      --rose:#f2b1c9;
+      --alert:#d94d59;
+      --ok:#239461;
+      --warn:#d59026;
+      --shadow:0 12px 36px rgba(34,44,66,.18);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:var(--font-body);
+      color:var(--ink);
+      background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 42%,var(--sky-bottom) 100%);
+      min-height:100vh;
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;transition:none!important}
+    }
+
+    /* === LAYOUT === */
+    .page{max-width:1180px;margin:0 auto;padding:20px 16px 44px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:5px 10px;border-radius:999px;
+      font-size:12px;font-weight:700;color:#204162;
+      background:rgba(137,235,255,.18);border:1px solid rgba(32,65,98,.12);
+    }
+    .overview-card{
+      margin-bottom:16px;
+      padding:18px 20px;
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(255,251,244,.92),rgba(255,255,255,.78));
+      border:2px solid rgba(36,42,52,.11);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+    .overview-title{
+      margin-top:12px;
+      font-size:30px;
+      line-height:1.08;
+      font-family:var(--font-display);
+      letter-spacing:.05em;
+    }
+    .overview-sub{
+      margin-top:8px;
+      max-width:760px;
+      font-size:13px;
+      line-height:1.7;
+      color:#495771;
+    }
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
+    .overview-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(36,42,52,.08);
+      color:#233048;
+      font-size:12px;
+    }
+    .overview-k{font-weight:700;color:#5c6880}
+    .overview-v{font-weight:800;text-align:right}
+
+    /* === SHIP STAGE === */
+    .stage{
+      position:relative;
+      border-radius:28px;
+      background:linear-gradient(180deg,rgba(255,255,255,.36),rgba(255,255,255,.18));
+      border:2px solid rgba(36,42,52,.11);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:14px 14px 18px;
+    }
+    .stage-head{margin-bottom:14px;padding:0 4px}
+    .stage-kicker{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#66748b;
+    }
+    .stage-title{margin-top:4px;font-size:28px;font-family:var(--font-display);letter-spacing:.05em}
+    .stage-sub{margin-top:6px;max-width:620px;color:#50607b;font-size:13px;line-height:1.65}
+
+    /* === REFERENCE IMAGE CONTAINER === */
+    .ship-frame{
+      position:relative;
+      width:100%;
+      max-width:820px;
+      margin:0 auto;
+    }
+    .ship-frame img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:20px;
+      box-shadow:0 16px 48px rgba(34,44,66,.22);
+    }
+
+    /* === ANIMATED OVERLAYS ON IMAGE === */
+
+    /* Static glow markers around characters */
+    .hotspot{
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    /* Bowser - throne (seated, upper center) */
+    .hotspot.bowser{
+      width:110px;height:110px;
+      top:20%;left:37%;
+      color:var(--gold);
+      box-shadow:0 0 32px rgba(245,191,66,.32);
+    }
+    /* Turtle hotspot removed; the generated character animation owns this room now. */
+    /* Engine glow (bottom center) */
+    .hotspot.engine{
+      width:110px;height:70px;
+      bottom:4%;left:38%;
+      border-radius:40%;
+      color:var(--lava);
+      box-shadow:0 0 34px rgba(255,122,31,.30);
+      animation:furnace-glow 2.4s ease-in-out infinite;
+    }
+
+    .character-layer{
+      position:absolute;
+      pointer-events:none;
+      z-index:3;
+    }
+    .character-layer img{
+      display:block;
+      width:100%;height:auto;
+    }
+    .character-layer.bowser{
+      width:25.3%;
+      left:49.9%;
+      top:14.5%;
+      transform:translateX(-50%);
+      transform-origin:center bottom;
+      z-index:4;
+    }
+    .character-layer.peach{
+      width:16.1%;
+      left:14.7%;
+      top:29.0%;
+      transform-origin:center bottom;
+      z-index:4;
+    }
+    .character-layer.manmangui{
+      --motion-duration:6.2s;
+      width:5.6%;
+      left:calc(40.8% + 10px);
+      top:59.6%;
+      animation:manmangui-room-walk var(--motion-duration) linear infinite;
+      transform-origin:center bottom;
+    }
+    .character-layer.ghost-princess{
+      --motion-duration:16s;
+      width:17.0%;
+      left:51.0%;
+      top:calc(43.8% - 10px);
+      transform:translateX(-50%);
+      animation:captain-ghost-idle var(--motion-duration) ease-in-out infinite;
+      transform-origin:center center;
+      z-index:4;
+    }
+    .character-layer.is-static{
+      animation:none !important;
+    }
+    .character-layer.lab-koopa{
+      width:9.6%;
+      left:80.6%;
+      top:calc(29.2% + 20px);
+      transform:translateX(-50%);
+      transform-origin:center 72%;
+      clip-path:inset(0 0 22% 0);
+      z-index:4;
+    }
+    .alert-badge-layer{
+      position:absolute;
+      width:3.4%;
+      pointer-events:none;
+      z-index:7;
+      opacity:0;
+    }
+    .alert-badge-layer img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .alert-badge-layer.is-visible{
+      opacity:1;
+    }
+    .alert-badge-layer.bowser{left:50.0%;top:14.4%;transform:translateX(-50%)}
+    .alert-badge-layer.peach{left:17.0%;top:28.5%;transform:translateX(-50%)}
+    .alert-badge-layer.ghost-princess{left:51.0%;top:42.7%;transform:translateX(-50%)}
+    .alert-badge-layer.lab-koopa{left:80.6%;top:29.8%;transform:translateX(-50%)}
+    .alert-badge-layer.manmangui{width:2.9%;left:41.2%;top:59.1%;transform:translateX(-50%)}
+
+    /* Floating coins in vault */
+    .float-coin{
+      position:absolute;
+      width:12px;height:12px;
+      background:radial-gradient(circle,#ffe97a,#d4a017);
+      border-radius:50%;border:1px solid #a07010;
+      box-shadow:0 0 10px rgba(255,233,122,.5);
+      pointer-events:none;
+    }
+    .float-coin.c1{top:28%;right:12%;animation:coin-bob 2.8s ease-in-out infinite}
+    .float-coin.c2{top:34%;right:16%;animation:coin-bob 3.2s ease-in-out infinite;animation-delay:-.6s;width:10px;height:10px}
+    .float-coin.c3{top:38%;right:8%;animation:coin-bob 2.6s ease-in-out infinite;animation-delay:-1.2s;width:14px;height:14px}
+
+    /* === ROOM STATUS PANELS === */
+    .panels{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:18px;
+    }
+    .room-panel{
+      display:block;
+      position:relative;
+      padding:12px 14px;
+      border-radius:20px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(36,42,52,.10);
+      box-shadow:0 10px 26px rgba(34,44,66,.10);
+      backdrop-filter:blur(10px);
+      color:inherit;
+      text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .room-panel:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 30px rgba(34,44,66,.16);
+      border-color:rgba(36,42,52,.18);
+    }
+    .room-panel:focus-visible{
+      outline:3px solid rgba(54,113,206,.34);
+      outline-offset:3px;
+    }
+    .room-panel .rp-head{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:8px;margin-bottom:6px;
+    }
+    .room-panel .rp-icon{font-size:18px}
+    .room-panel .rp-title{font-size:13px;font-weight:800;flex:1}
+    .room-panel .rp-role{font-size:10px;color:#68768d;margin-top:1px}
+    .pill{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:3px 8px;border-radius:999px;
+      font-size:10px;font-weight:800;
+      border:1px solid rgba(0,0,0,.08);
+      white-space:nowrap;
+    }
+    .pill.ok{background:#d8f7e6;color:#0c7148}
+    .pill.busy{background:#dff5ff;color:#175f88}
+    .pill.wait{background:#fff1cf;color:#936012}
+    .pill.alert{background:#ffdadd;color:#a03047}
+    .rp-lines{display:grid;gap:4px;margin-top:4px}
+    .rp-line{
+      display:flex;justify-content:space-between;gap:6px;
+      padding:4px 6px;border-radius:10px;
+      background:rgba(0,0,0,.04);font-size:10px;
+    }
+    .rp-line span:last-child{font-weight:800}
+    .rp-line span:last-child.tone-ok{color:var(--ok)}
+    .rp-line span:last-child.tone-wait{color:var(--warn)}
+    .rp-line span:last-child.tone-alert{color:var(--alert)}
+    .rp-line span:last-child.tone-busy{color:#175f88}
+    .rp-foot{
+      margin-top:8px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.04em;
+      color:#4a5c7a;
+    }
+
+    /* === KEYFRAMES === */
+    @keyframes furnace-glow{
+      0%,100%{box-shadow:0 0 22px rgba(255,122,31,.22);opacity:.7}
+      50%{box-shadow:0 0 42px rgba(255,122,31,.42);opacity:1}
+    }
+    @keyframes ghost-float-1{
+      0%,100%{transform:translate(0,0)}
+      25%{transform:translate(6px,-8px)}
+      50%{transform:translate(-2px,-14px)}
+      75%{transform:translate(-7px,-5px)}
+    }
+    @keyframes ghost-float-2{
+      0%,100%{transform:translate(0,0)}
+      30%{transform:translate(-5px,-10px)}
+      60%{transform:translate(4px,-6px)}
+      85%{transform:translate(2px,2px)}
+    }
+    @keyframes ghost-float-3{
+      0%,100%{transform:translate(0,0)}
+      20%{transform:translate(4px,-6px)}
+      50%{transform:translate(-6px,-12px)}
+      80%{transform:translate(-2px,-3px)}
+    }
+    @keyframes coin-bob{
+      0%,100%{transform:translateY(0) rotate(0deg);opacity:.7}
+      50%{transform:translateY(-8px) rotate(180deg);opacity:1}
+    }
+    @keyframes turtle-patrol{
+      0%,100%{transform:translateX(0)}
+      18%{transform:translateX(-12px)}
+      52%{transform:translateX(18px)}
+      78%{transform:translateX(-8px)}
+    }
+    @keyframes manmangui-room-walk{
+      0%{transform:translateX(-12px) scaleX(1)}
+      8%{transform:translateX(-12px) scaleX(1)}
+      44%{transform:translateX(24px) scaleX(1)}
+      50%{transform:translateX(24px) scaleX(1)}
+      54%{transform:translateX(24px) scaleX(-1)}
+      90%{transform:translateX(-12px) scaleX(-1)}
+      96%{transform:translateX(-12px) scaleX(-1)}
+      100%{transform:translateX(-12px) scaleX(1)}
+    }
+    @keyframes captain-ghost-idle{
+      0%,100%{transform:translateX(-50%) translateY(0)}
+      25%{transform:translateX(-50%) translateY(-4px)}
+      50%{transform:translateX(-50%) translateY(-7px)}
+      75%{transform:translateX(-50%) translateY(-3px)}
+    }
+
+    /* === RESPONSIVE === */
+    @media(max-width:900px){
+      .overview-grid{grid-template-columns:1fr}
+      .panels{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:600px){
+      .page{padding:10px 8px 28px}
+      .overview-title{font-size:24px}
+      .stage-title{font-size:22px}
+      .stage{padding:12px 12px 16px}
+      .panels{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      .room-panel{padding:10px 10px;border-radius:16px}
+      .room-panel .rp-head{align-items:flex-start}
+      .room-panel .rp-title{font-size:12px}
+      .room-panel .rp-role,.rp-line{font-size:9px}
+      .pill{padding:2px 6px;font-size:9px}
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <section class="overview-card">
+    <div class="eyebrow">🚢 库巴号 / 当前核心信息</div>
+    <div class="overview-title" data-overview-title>现在的库巴号，已经开始接入真实运行状态</div>
+    <div class="overview-sub" data-overview-subtitle>当前正式页已经不再只放概念文案，而是开始把真实系统状态挂进舱室卡：Gateway 在线、Feishu 通道可用、memory 检索已就绪，但 cron 仍全部暂停，expert-1 的任务链路和回执链路仍有明显故障面。</div>
+    <div class="overview-grid">
+      <div class="overview-line" data-overview-item="0"><span class="overview-k">当前阶段</span><span class="overview-v">8 舱室接入真实数据</span></div>
+      <div class="overview-line" data-overview-item="1"><span class="overview-k">正式基线</span><span class="overview-v">20:38 / 9c2bbf2</span></div>
+      <div class="overview-line" data-overview-item="2"><span class="overview-k">系统主状态</span><span class="overview-v">Gateway 在线 · Feishu 2/2</span></div>
+      <div class="overview-line" data-overview-item="3"><span class="overview-k">当前风险</span><span class="overview-v">cron 全停 · expert-1 多处报错</span></div>
+    </div>
+  </section>
+
+  <!-- SHIP STAGE -->
+  <section class="stage">
+    <div class="stage-head">
+      <div class="stage-kicker">Ship Structure</div>
+      <div class="stage-title">库巴号主船体结构</div>
+      <div class="stage-sub">中间只保留船体结构主视觉，角色继续待在各自房间里，所有额外说明尽量退出主画面。</div>
+    </div>
+
+    <div class="ship-frame">
+      <img src="assets/kuba-reference-clean-v6.png" alt="库巴号剖面参考原画" />
+
+      <!-- Character glow hotspots -->
+      <div class="hotspot engine"></div>
+
+      <div class="character-layer bowser" data-character="bowser" data-default-src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" data-static-src="assets/generated/bowser-throne-user-set-v7-no-fire/frame-1.png" data-fast-src="assets/generated/bowser-throne-user-set-v9-fast150/bowser-throne-user-set-v9-fast150.png">
+        <img src="assets/generated/bowser-throne-user-set-v7-no-fire/bowser-throne-user-set-v7-no-fire.png" alt="库巴王王座动效" />
+      </div>
+
+      <div class="character-layer peach" data-character="peach" data-default-src="assets/generated/peach/peach-twirl.png" data-static-src="assets/generated/peach/frame-1.png" data-fast-src="assets/generated/peach-fast150/peach-twirl-fast150.png">
+        <img src="assets/generated/peach/peach-twirl.png" alt="碧琪公主转身动效" />
+      </div>
+
+      <div class="character-layer ghost-princess" data-character="ghost-princess" data-default-src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" data-static-src="assets/generated/ghost-princess-user-set-v3-slower30/frame-1.png" data-fast-src="assets/generated/ghost-princess-user-set-v5-fast150/ghost-princess-user-set-v5-fast150.png" data-motion-duration="16s">
+        <img src="assets/generated/ghost-princess-user-set-v3-slower30/ghost-princess-user-set-v3-slower30.png" alt="幽灵公主动效" />
+      </div>
+
+      <div class="character-layer lab-koopa" data-character="lab-koopa" data-default-src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" data-static-src="assets/generated/lab-koopa-user-set-v4-slower/frame-1.png" data-fast-src="assets/generated/lab-koopa-user-set-v6-fast150/lab-koopa-user-set-v6-fast150.png">
+        <img src="assets/generated/lab-koopa-user-set-v4-slower/lab-koopa-user-set-v4-slower.png" alt="小库巴奋笔疾书动效" />
+      </div>
+
+      <div class="character-layer manmangui" data-character="manmangui" data-default-src="assets/generated/manmangui/manmangui-walk.png" data-static-src="assets/generated/manmangui/frame-1.png" data-fast-src="assets/generated/manmangui-fast150/manmangui-walk-fast150.png" data-motion-duration="6.2s">
+        <img src="assets/generated/manmangui/manmangui-walk.png" alt="慢慢龟走动动画" />
+      </div>
+
+      <div class="alert-badge-layer bowser" data-character="bowser">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer peach" data-character="peach">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer ghost-princess" data-character="ghost-princess">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer lab-koopa" data-character="lab-koopa">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+      <div class="alert-badge-layer manmangui" data-character="manmangui">
+        <img src="assets/generated/alert-icon-v7-user-ref-plus50/alert-icon-v7-user-ref-plus50.png" alt="" />
+      </div>
+
+      <!-- Floating coins in vault area -->
+      <div class="float-coin c1"></div>
+      <div class="float-coin c2"></div>
+      <div class="float-coin c3"></div>
+    </div>
+
+    <!-- Room status panels -->
+    <div class="panels">
+      <a class="room-panel" data-character="bowser" data-room="throne" href="./kuba-room-detail.html?room=throne">
+        <div class="rp-head">
+          <span class="rp-icon">👑</span>
+          <span class="rp-title">王座室</span>
+          <span class="pill busy">推进中</span>
+        </div>
+        <div class="rp-role">库巴大王 · 最高决策</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>当前主线</span><span>舱室页 + 日志结构化</span></div>
+          <div class="rp-line"><span>正式基线</span><span>2026-03-14</span></div>
+          <div class="rp-line"><span>决策焦点</span><span>霸金实验室 / 动力室</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-character="ghost-princess" data-room="captain" href="./kuba-room-detail.html?room=captain">
+        <div class="rp-head">
+          <span class="rp-icon">👻</span>
+          <span class="rp-title">船长室</span>
+          <span class="pill wait">高负荷</span>
+        </div>
+        <div class="rp-role">幽灵公主 · 调度统筹</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>当前任务</span><span>舱室二级页改造</span></div>
+          <div class="rp-line"><span>会话负载</span><span>163.3k / 200k</span></div>
+          <div class="rp-line"><span>剩余 Token</span><span class="tone-alert">18%</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-character="peach" data-room="guest" href="./kuba-room-detail.html?room=guest">
+        <div class="rp-head">
+          <span class="rp-icon">🌸</span>
+          <span class="rp-title">碧琪贵宾室</span>
+          <span class="pill ok">空闲正常</span>
+        </div>
+        <div class="rp-role">碧琪公主 · 生活助理</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>常驻 cron</span><span>0 条</span></div>
+          <div class="rp-line"><span>启用中</span><span>0</span></div>
+          <div class="rp-line"><span>当前状态</span><span>待命中</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-character="lab-koopa" data-room="lab" href="./kuba-room-detail.html?room=lab">
+        <div class="rp-head">
+          <span class="rp-icon">💰</span>
+          <span class="rp-title">霸金实验室</span>
+          <span class="pill busy">执行中</span>
+        </div>
+        <div class="rp-role">小库巴 · 研究分析</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>cron 任务</span><span>6 条 / 启用 6</span></div>
+          <div class="rp-line"><span>历史推送</span><span>可查看全部任务</span></div>
+          <div class="rp-line"><span>最近状态</span><span>0 error / 1 ok</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-character="manmangui" data-room="firstmate" href="./kuba-room-detail.html?room=firstmate">
+        <div class="rp-head">
+          <span class="rp-icon">🐢</span>
+          <span class="rp-title">大副室</span>
+          <span class="pill ok">空闲正常</span>
+        </div>
+        <div class="rp-role">慢慢龟 · 系统巡检</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>常驻 cron</span><span>0 条</span></div>
+          <div class="rp-line"><span>启用中</span><span>0</span></div>
+          <div class="rp-line"><span>默认职责</span><span>技能装配 / 巡检</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-room="engine" href="./kuba-room-detail.html?room=engine">
+        <div class="rp-head">
+          <span class="rp-icon">🔥</span>
+          <span class="rp-title">动力室</span>
+          <span class="pill alert">故障</span>
+        </div>
+        <div class="rp-role">系统核心 · Gateway / 模型与上下文底座</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>Gateway</span><span>reachable 36ms</span></div>
+          <div class="rp-line"><span>当前模型</span><span>gpt-5.4</span></div>
+          <div class="rp-line"><span>剩余 Token</span><span class="tone-alert">18%</span></div>
+          <div class="rp-line"><span>服务模式</span><span>LaunchAgent running</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-room="deck" href="./kuba-room-detail.html?room=deck">
+        <div class="rp-head">
+          <span class="rp-icon">⚔️</span>
+          <span class="rp-title">前甲板</span>
+          <span class="pill alert">故障</span>
+        </div>
+        <div class="rp-role">通讯炮位 · 消息与通道</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>Feishu 通道</span><span>configured · 2</span></div>
+          <div class="rp-line"><span>安全告警</span><span class="tone-alert">1</span></div>
+          <div class="rp-line"><span>系统事件队列</span><span>0</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+
+      <a class="room-panel" data-room="quarters" href="./kuba-room-detail.html?room=quarters">
+        <div class="rp-head">
+          <span class="rp-icon">🛏️</span>
+          <span class="rp-title">生活区</span>
+          <span class="pill ok">空闲正常</span>
+        </div>
+        <div class="rp-role">内务缓冲 · 记忆底仓</div>
+        <div class="rp-lines">
+          <div class="rp-line"><span>Memory</span><span>2 files / 2 chunks</span></div>
+          <div class="rp-line"><span>检索状态</span><span>vector + fts ready</span></div>
+          <div class="rp-line"><span>缓存状态</span><span>cache on (3)</span></div>
+        </div>
+        <div class="rp-foot">点击进入二级日志页 →</div>
+      </a>
+    </div>
+  </section>
+
+
+</div>
+  <script>
+    const STATUS_SOURCE_URL = './data/kuba-status.json';
+    const STATUS_REFRESH_MS = 60000;
+    const STATUS_PILL_LABELS = Object.freeze({
+      ok: '空闲正常',
+      busy: '执行中',
+      wait: '高负荷',
+      alert: '故障',
+    });
+    const STATUS_MODE_MAP = Object.freeze({
+      ok: 'default',
+      busy: 'default',
+      wait: 'fast',
+      alert: 'alert',
+    });
+
+    function speedUpDuration(rawValue, factor) {
+      const match = String(rawValue || '').trim().match(/^([\d.]+)(ms|s)$/);
+      if (!match) return rawValue;
+      const value = Number(match[1]);
+      const unit = match[2];
+      const nextValue = value / factor;
+      if (unit === 'ms') return `${Math.round(nextValue)}ms`;
+      return `${nextValue.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}s`;
+    }
+
+    function applyCharacterMode(layer, mode) {
+      const img = layer.querySelector('img');
+      if (!img) return;
+
+      const defaultSrc = layer.dataset.defaultSrc || img.getAttribute('src');
+      const staticSrc = layer.dataset.staticSrc || defaultSrc;
+      const fastSrc = layer.dataset.fastSrc || defaultSrc;
+      const motionDuration = layer.dataset.motionDuration;
+
+      const isStatic = mode === 'static' || mode === 'alert';
+      layer.classList.toggle('is-static', isStatic);
+
+      if (motionDuration) {
+        const nextDuration = mode === 'fast' ? speedUpDuration(motionDuration, 1.5) : motionDuration;
+        layer.style.setProperty('--motion-duration', nextDuration);
+      }
+
+      if (mode === 'static' || mode === 'alert') {
+        img.setAttribute('src', staticSrc);
+      } else if (mode === 'fast') {
+        img.setAttribute('src', fastSrc);
+      } else {
+        img.setAttribute('src', defaultSrc);
+      }
+    }
+
+    function renderOverview(overview) {
+      if (!overview) return;
+      const titleEl = document.querySelector('[data-overview-title]');
+      const subtitleEl = document.querySelector('[data-overview-subtitle]');
+      if (titleEl && overview.title) titleEl.textContent = overview.title;
+      if (subtitleEl && overview.subtitle) subtitleEl.textContent = overview.subtitle;
+
+      (overview.items || []).forEach((item, index) => {
+        const line = document.querySelector(`[data-overview-item="${index}"]`);
+        if (!line) return;
+        const k = line.querySelector('.overview-k');
+        const v = line.querySelector('.overview-v');
+        if (k) k.textContent = item.label || '';
+        if (v) v.textContent = item.value || '';
+      });
+    }
+
+    function renderRoom(room) {
+      const panel = document.querySelector(`.room-panel[data-room="${room.roomId}"]`);
+      if (!panel) return;
+      const titleEl = panel.querySelector('.rp-title');
+      const roleEl = panel.querySelector('.rp-role');
+      const iconEl = panel.querySelector('.rp-icon');
+      const pillEl = panel.querySelector('.pill');
+      const linesEl = panel.querySelector('.rp-lines');
+
+      if (room.detailHref) panel.setAttribute('href', room.detailHref);
+      if (titleEl) titleEl.textContent = room.title || '';
+      if (roleEl) roleEl.textContent = room.role || '';
+      if (iconEl && room.icon) iconEl.textContent = room.icon;
+      if (pillEl) {
+        pillEl.classList.remove('ok', 'busy', 'wait', 'alert');
+        const status = room.status || 'ok';
+        pillEl.classList.add(status);
+        pillEl.textContent = STATUS_PILL_LABELS[status] || status;
+      }
+      if (linesEl) {
+        linesEl.innerHTML = '';
+        (room.lines || []).forEach((line) => {
+          const row = document.createElement('div');
+          row.className = 'rp-line';
+          const left = document.createElement('span');
+          const right = document.createElement('span');
+          left.textContent = line.label || '';
+          right.textContent = line.value || '';
+          if (line.tone) right.classList.add(`tone-${line.tone}`);
+          row.append(left, right);
+          linesEl.appendChild(row);
+        });
+      }
+    }
+
+    function renderStatusPayload(payload) {
+      if (!payload) return;
+      renderOverview(payload.overview);
+      (payload.rooms || []).forEach(renderRoom);
+      syncCharacterStates();
+    }
+
+    async function fetchStatusPayload() {
+      const url = `${STATUS_SOURCE_URL}?ts=${Date.now()}`;
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`status fetch failed: ${response.status}`);
+      return response.json();
+    }
+
+    async function refreshDashboardStatus() {
+      try {
+        const payload = await fetchStatusPayload();
+        renderStatusPayload(payload);
+      } catch (error) {
+        console.warn('[kuba-status] refresh failed', error);
+      }
+    }
+
+    function syncCharacterStates() {
+      document.querySelectorAll('.room-panel[data-character]').forEach((panel) => {
+        const character = panel.dataset.character;
+        const pill = panel.querySelector('.pill');
+        if (!character || !pill) return;
+
+        const stateClass = ['ok', 'busy', 'wait', 'alert'].find((name) => pill.classList.contains(name));
+        const mode = STATUS_MODE_MAP[stateClass] || 'default';
+        const layer = document.querySelector(`.character-layer[data-character="${character}"]`);
+        const badge = document.querySelector(`.alert-badge-layer[data-character="${character}"]`);
+        if (badge) badge.classList.toggle('is-visible', mode === 'alert');
+        if (!layer) return;
+        applyCharacterMode(layer, mode);
+      });
+    }
+
+    refreshDashboardStatus();
+    window.setInterval(refreshDashboardStatus, STATUS_REFRESH_MS);
+    window.syncCharacterStates = syncCharacterStates;
+    window.refreshDashboardStatus = refreshDashboardStatus;
+  </script>
+</body>
+</html>
