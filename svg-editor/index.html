@@ -336,6 +336,9 @@ body {
     <button class="btn" id="btn-undo" title="撤销 Ctrl+Z">↩</button>
     <button class="btn" id="btn-redo" title="重做 Ctrl+Y">↪</button>
     <button class="btn" id="btn-duplicate" title="复制选中 Ctrl+D">复制</button>
+    <button class="btn" id="btn-group" title="成组 Ctrl+G">成组</button>
+    <button class="btn" id="btn-ungroup" title="解组 Ctrl+Shift+G">解组</button>
+    <button class="btn" id="btn-autogroup" title="自动检测分组">自动分组</button>
     <button class="btn btn-primary" id="btn-export">导出 SVG</button>
     <button class="btn" id="btn-preview" title="预览 (P)">👁 预览</button>
   </div>
@@ -361,14 +364,18 @@ body {
           选中元素查看属性<br><br>
           <b>操作提示：</b><br>
           · 单击选中元素<br>
+          · Shift+点击 多选<br>
           · 拖拽移动位置<br>
           · 方向键微调 1px<br>
           · Shift+方向键 10px<br>
           · 双击编辑文字<br>
+          · Ctrl+G 成组<br>
+          · Ctrl+Shift+G 解组<br>
           · Ctrl+D 复制元素<br>
           · Delete 删除元素<br>
           · Ctrl+Z 撤销<br>
-          · Ctrl+Y 重做
+          · Ctrl+Y 重做<br>
+          · P 预览
         </p>
       </div>
     </div>
@@ -403,6 +410,7 @@ body {
 // ========== State ==========
 let svgRoot = null;
 let selectedEl = null;
+let selectedEls = []; // 多选列表
 let dragState = null;
 let currentTool = 'select';
 let history = [];
@@ -464,6 +472,7 @@ function loadSVGContent(svgText) {
 
   // Reset state
   selectedEl = null;
+  selectedEls = [];
   history = [];
   historyIndex = -1;
   saveHistory();
@@ -477,10 +486,8 @@ function loadSVGContent(svgText) {
 // ========== Make Elements Interactive ==========
 function makeInteractive() {
   if (!svgRoot) return;
-  // Target groups, rects, circles, ellipses, text, paths, lines
   const elements = svgRoot.querySelectorAll('rect, circle, ellipse, text, g, path, line, polyline, polygon');
   elements.forEach(el => {
-    // Skip defs elements and the background rect
     if (el.closest('defs') || el.closest('marker')) return;
     if (el.tagName === 'rect' && el.getAttribute('width') === '960' && el.getAttribute('height')) return;
 
@@ -497,7 +504,6 @@ function selectElement(el) {
 
   selectedEl = el;
 
-  // Highlight
   if (el.tagName === 'g') {
     const shapes = el.querySelectorAll('rect, circle, ellipse, path');
     shapes.forEach(s => {
@@ -517,7 +523,6 @@ function selectElement(el) {
 
 function deselectAll() {
   if (!svgRoot) return;
-  // Remove all outlines
   svgRoot.querySelectorAll('[style*="outline"]').forEach(el => {
     el.style.outline = '';
     el.style.outlineOffset = '';
@@ -531,14 +536,38 @@ function onElementMouseDown(e) {
   if (currentTool !== 'select') return;
   e.stopPropagation();
 
-  // Find the best target (prefer parent <g> if it's a group)
+  // Find the best target: walk up to find the highest meaningful <g>
   let target = e.target;
-  // Walk up to find meaningful group
+  let candidate = target;
   let parent = target.parentElement;
-  if (parent && parent.tagName === 'g' && parent !== svgRoot) {
-    target = parent;
+  while (parent && parent.tagName === 'g' && parent !== svgRoot) {
+    candidate = parent;
+    parent = parent.parentElement;
+  }
+  if (candidate.tagName === 'g' && candidate !== svgRoot) {
+    target = candidate;
+  } else if (target.parentElement && target.parentElement.tagName === 'g' && target.parentElement !== svgRoot) {
+    target = target.parentElement;
   }
 
+  // Multi-select with Shift
+  if (e.shiftKey) {
+    if (selectedEls.includes(target)) {
+      selectedEls = selectedEls.filter(el => el !== target);
+      target.style.outline = '';
+      target.style.outlineOffset = '';
+    } else {
+      selectedEls.push(target);
+      highlightElement(target);
+    }
+    selectedEl = selectedEls[selectedEls.length - 1] || null;
+    updatePanel();
+    updateStatusSelection();
+    return;
+  }
+
+  // Single select - clear multi
+  selectedEls = [target];
   selectElement(target);
 
   // Start drag
@@ -550,14 +579,30 @@ function onElementMouseDown(e) {
 
   dragState = {
     el: target,
+    elements: selectedEls.length > 1 ? selectedEls : [target],
     startX: svgPt.x,
     startY: svgPt.y,
-    origPositions: getElementPositions(target),
+    origPositions: selectedEls.length > 1
+      ? selectedEls.map(el => ({ el, positions: getElementPositions(el) }))
+      : [{ el: target, positions: getElementPositions(target) }],
     moved: false
   };
 
   document.addEventListener('mousemove', onDragMove);
   document.addEventListener('mouseup', onDragEnd);
+}
+
+function highlightElement(el) {
+  if (el.tagName === 'g') {
+    const shapes = el.querySelectorAll('rect, circle, ellipse, path, line');
+    if (shapes.length > 0) {
+      shapes[0].style.outline = '2px dashed #2563eb';
+      shapes[0].style.outlineOffset = '3px';
+    }
+  } else {
+    el.style.outline = '2px dashed #2563eb';
+    el.style.outlineOffset = '3px';
+  }
 }
 
 function onDragMove(e) {
@@ -572,12 +617,11 @@ function onDragMove(e) {
   let dx = svgPt.x - dragState.startX;
   let dy = svgPt.y - dragState.startY;
 
-  // Snap to grid (hold Shift for free movement)
   if (!e.shiftKey) {
     const snapSize = 10;
-    const orig = dragState.origPositions[0];
-    const baseX = orig.x ?? orig.cx ?? orig.x1 ?? 0;
-    const baseY = orig.y ?? orig.cy ?? orig.y1 ?? 0;
+    const firstPos = dragState.origPositions[0].positions[0];
+    const baseX = firstPos.x ?? firstPos.cx ?? firstPos.x1 ?? 0;
+    const baseY = firstPos.y ?? firstPos.cy ?? firstPos.y1 ?? 0;
     const newX = Math.round((baseX + dx) / snapSize) * snapSize;
     const newY = Math.round((baseY + dy) / snapSize) * snapSize;
     dx = newX - baseX;
@@ -586,7 +630,9 @@ function onDragMove(e) {
 
   if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
     dragState.moved = true;
-    moveElement(dragState.el, dragState.origPositions, dx, dy);
+    dragState.origPositions.forEach(item => {
+      moveElement(item.el, item.positions, dx, dy);
+    });
     updatePanel();
   }
 }
@@ -657,23 +703,18 @@ function applyDelta(el, orig, dx, dy) {
 }
 
 function offsetPath(d, dx, dy) {
-  // Offset all numeric coordinates in path data
   return d.replace(/([MLCQSTAHVZmlcqstahvz]?)([^MLCQSTAHVZmlcqstahvz]*)/g, (match, cmd, nums) => {
     if (!nums.trim()) return match;
     if (cmd === 'H' || cmd === 'h') {
-      // Horizontal: only x offset
       const values = nums.trim().split(/[\s,]+/).map(Number);
       return cmd + ' ' + values.map(v => cmd === 'H' ? v + dx : v).join(' ');
     }
     if (cmd === 'V' || cmd === 'v') {
-      // Vertical: only y offset
       const values = nums.trim().split(/[\s,]+/).map(Number);
       return cmd + ' ' + values.map(v => cmd === 'V' ? v + dy : v).join(' ');
     }
     if ('mlcsqta'.includes((cmd || '').toLowerCase()) || !cmd) {
-      // For relative commands (lowercase), don't offset
       if (cmd && cmd === cmd.toLowerCase() && cmd !== '') return match;
-      // For absolute commands, offset all x,y pairs
       const values = nums.trim().split(/[\s,]+/).map(Number);
       const result = values.map((v, i) => v + (i % 2 === 0 ? dx : dy));
       return (cmd || '') + ' ' + result.join(',');
@@ -687,7 +728,6 @@ function onElementDblClick(e) {
   e.stopPropagation();
   let target = e.target;
   if (target.tagName !== 'text') {
-    // Find text within group
     const txt = target.querySelector ? target.querySelector('text') : null;
     if (txt) target = txt;
     else return;
@@ -732,14 +772,18 @@ function updatePanel() {
           选中元素查看属性<br><br>
           <b>操作提示：</b><br>
           · 单击选中元素<br>
+          · Shift+点击 多选<br>
           · 拖拽移动位置<br>
           · 方向键微调 1px<br>
           · Shift+方向键 10px<br>
           · 双击编辑文字<br>
+          · Ctrl+G 成组<br>
+          · Ctrl+Shift+G 解组<br>
           · Ctrl+D 复制元素<br>
           · Delete 删除元素<br>
           · Ctrl+Z 撤销<br>
-          · Ctrl+Y 重做
+          · Ctrl+Y 重做<br>
+          · P 预览
         </p>
       </div>`;
     return;
@@ -749,7 +793,6 @@ function updatePanel() {
   const tag = el.tagName;
   let html = '';
 
-  // Element info
   html += `<div class="panel-section"><h3>元素</h3>
     <div class="prop-row"><span class="prop-label">类型</span><span style="font-size:12px;">${tag}</span></div>`;
   if (el.getAttribute('class')) {
@@ -757,7 +800,6 @@ function updatePanel() {
   }
   html += '</div>';
 
-  // Position
   html += '<div class="panel-section"><h3>位置</h3>';
   if (tag === 'rect' || tag === 'text' || tag === 'image' || tag === 'use') {
     const x = el.getAttribute('x') || '0';
@@ -783,7 +825,6 @@ function updatePanel() {
   }
   html += '</div>';
 
-  // Style
   html += '<div class="panel-section"><h3>样式</h3>';
   const fill = el.getAttribute('fill') || '';
   const stroke = el.getAttribute('stroke') || '';
@@ -804,7 +845,6 @@ function updatePanel() {
   }
   html += '</div>';
 
-  // Text content
   if (tag === 'text') {
     html += '<div class="panel-section"><h3>文字</h3>';
     html += `<div class="prop-row">
@@ -817,7 +857,6 @@ function updatePanel() {
     html += '</div>';
   }
 
-  // Group contents
   if (tag === 'g') {
     const children = el.children.length;
     html += `<div class="panel-section"><h3>分组</h3>
@@ -825,14 +864,12 @@ function updatePanel() {
     </div>`;
   }
 
-  // Actions
   html += `<div class="panel-section">
     <button class="btn btn-danger" style="width:100%;" onclick="deleteSelected()">删除元素</button>
   </div>`;
 
   panel.innerHTML = html;
 
-  // Bind property change events
   panel.querySelectorAll('.prop-input').forEach(input => {
     input.addEventListener('change', onPropChange);
     input.addEventListener('input', (e) => {
@@ -849,7 +886,6 @@ function propRow(label, value, type, prop) {
 }
 
 function colorRow(label, value, prop) {
-  // Convert to hex for color input
   let hex = value;
   if (value.startsWith('rgb')) {
     const m = value.match(/\d+/g);
@@ -891,7 +927,6 @@ function onPropChange(e) {
       break;
   }
 
-  // Sync color inputs with text inputs of same prop
   if (e.target.type === 'color') {
     const sibling = e.target.parentElement.querySelector('input[type="text"]');
     if (sibling) sibling.value = val;
@@ -903,11 +938,9 @@ function onPropChange(e) {
 // ========== History (Undo/Redo) ==========
 function saveHistory() {
   if (!svgRoot) return;
-  // Trim future history
   history = history.slice(0, historyIndex + 1);
   history.push(svgRoot.outerHTML);
   historyIndex = history.length - 1;
-  // Limit history size
   if (history.length > 50) {
     history.shift();
     historyIndex--;
@@ -948,27 +981,220 @@ document.getElementById('btn-redo').onclick = redo;
 // ========== Delete ==========
 function deleteSelected() {
   if (!selectedEl) return;
-  selectedEl.remove();
+  if (selectedEls.length > 1) {
+    selectedEls.forEach(el => el.remove());
+    selectedEls = [];
+  } else {
+    selectedEl.remove();
+  }
   selectedEl = null;
   saveHistory();
   updatePanel();
 }
 
+// ========== Group / Ungroup ==========
+function groupSelected() {
+  const els = selectedEls.length > 1 ? selectedEls : (selectedEl ? [selectedEl] : []);
+  if (els.length < 2) { alert('请先 Shift+点击选中多个元素再成组'); return; }
+
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  els[0].parentNode.insertBefore(g, els[0]);
+  els.forEach(el => {
+    el.style.outline = '';
+    el.style.outlineOffset = '';
+    g.appendChild(el);
+  });
+
+  g.style.cursor = 'pointer';
+  g.addEventListener('mousedown', onElementMouseDown);
+  g.addEventListener('dblclick', onElementDblClick);
+
+  selectedEls = [g];
+  selectElement(g);
+  saveHistory();
+}
+
+function ungroupSelected() {
+  if (!selectedEl || selectedEl.tagName !== 'g') {
+    alert('请先选中一个分组(g)元素');
+    return;
+  }
+  const g = selectedEl;
+  const parent = g.parentNode;
+  const children = Array.from(g.children);
+
+  children.forEach(child => {
+    parent.insertBefore(child, g);
+    child.style.cursor = 'pointer';
+    child.addEventListener('mousedown', onElementMouseDown);
+    child.addEventListener('dblclick', onElementDblClick);
+  });
+  g.remove();
+
+  deselectAll();
+  selectedEls = children;
+  children.forEach(c => highlightElement(c));
+  selectedEl = children[0] || null;
+  saveHistory();
+  updatePanel();
+}
+
+// ========== Auto Group ==========
+function autoGroupNodes() {
+  if (!svgRoot) return;
+
+  let groupCount = 0;
+
+  const directChildren = Array.from(svgRoot.children);
+  const shapes = [];
+  const texts = [];
+  const others = [];
+
+  directChildren.forEach(el => {
+    if (el.tagName === 'defs' || el.tagName === 'style' || el.tagName === 'g') return;
+    if (el.closest('defs') || el.closest('marker')) return;
+    if (['rect', 'circle', 'ellipse'].includes(el.tagName)) {
+      const w = parseFloat(el.getAttribute('width') || 0);
+      const h = parseFloat(el.getAttribute('height') || 0);
+      if (w >= 900 && h >= 600) return;
+      shapes.push(el);
+    } else if (el.tagName === 'text') {
+      texts.push(el);
+    } else if (['path', 'line', 'polyline'].includes(el.tagName)) {
+      others.push(el);
+    }
+  });
+
+  shapes.sort((a, b) => getShapeArea(b) - getShapeArea(a));
+
+  const usedElements = new Set();
+  const groups = [];
+
+  shapes.forEach(shape => {
+    if (usedElements.has(shape)) return;
+    const bbox = getShapeBBox(shape);
+    if (!bbox) return;
+
+    const members = [];
+
+    shapes.forEach(inner => {
+      if (inner === shape || usedElements.has(inner)) return;
+      const innerBbox = getShapeBBox(inner);
+      if (!innerBbox) return;
+      const overlapX = Math.max(0, Math.min(bbox.x + bbox.w, innerBbox.x + innerBbox.w) - Math.max(bbox.x, innerBbox.x));
+      const overlapY = Math.max(0, Math.min(bbox.y + bbox.h, innerBbox.y + innerBbox.h) - Math.max(bbox.y, innerBbox.y));
+      const overlapArea = overlapX * overlapY;
+      const innerArea = innerBbox.w * innerBbox.h;
+      if (innerArea > 0 && overlapArea / innerArea >= 0.7) {
+        members.push(inner);
+      }
+    });
+
+    const textExpand = 20;
+    texts.forEach(t => {
+      if (usedElements.has(t)) return;
+      const tx = parseFloat(t.getAttribute('x') || 0);
+      const ty = parseFloat(t.getAttribute('y') || 0);
+      if (tx >= bbox.x - textExpand && tx <= bbox.x + bbox.w + textExpand &&
+          ty >= bbox.y - textExpand && ty <= bbox.y + bbox.h + textExpand) {
+        members.push(t);
+      }
+    });
+
+    if (members.length > 0) {
+      groups.push({ container: shape, members });
+      usedElements.add(shape);
+      members.forEach(m => usedElements.add(m));
+    }
+  });
+
+  shapes.forEach(shape => {
+    if (usedElements.has(shape)) return;
+    const bbox = getShapeBBox(shape);
+    if (!bbox) return;
+
+    const textExpand = 15;
+    const matchingTexts = texts.filter(t => {
+      if (usedElements.has(t)) return false;
+      const tx = parseFloat(t.getAttribute('x') || 0);
+      const ty = parseFloat(t.getAttribute('y') || 0);
+      return tx >= bbox.x - textExpand && tx <= bbox.x + bbox.w + textExpand &&
+             ty >= bbox.y - textExpand && ty <= bbox.y + bbox.h + textExpand;
+    });
+
+    if (matchingTexts.length > 0) {
+      groups.push({ container: shape, members: matchingTexts });
+      usedElements.add(shape);
+      matchingTexts.forEach(t => usedElements.add(t));
+    }
+  });
+
+  groups.forEach(({ container, members }) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('data-auto-grouped', 'true');
+    container.parentNode.insertBefore(g, container);
+    g.appendChild(container);
+    members.forEach(m => g.appendChild(m));
+
+    g.style.cursor = 'pointer';
+    g.addEventListener('mousedown', onElementMouseDown);
+    g.addEventListener('dblclick', onElementDblClick);
+    groupCount++;
+  });
+
+  if (groupCount > 0) {
+    saveHistory();
+    makeInteractive();
+    alert(`自动分组完成！创建了 ${groupCount} 个分组。\n现在点击任何节点会整体选中。`);
+  } else {
+    alert('未发现需要分组的裸露元素（可能已经有 <g> 分组了）');
+  }
+}
+
+function getShapeArea(el) {
+  const bbox = getShapeBBox(el);
+  return bbox ? bbox.w * bbox.h : 0;
+}
+
+function getShapeBBox(el) {
+  if (el.tagName === 'rect') {
+    return {
+      x: parseFloat(el.getAttribute('x') || 0),
+      y: parseFloat(el.getAttribute('y') || 0),
+      w: parseFloat(el.getAttribute('width') || 0),
+      h: parseFloat(el.getAttribute('height') || 0)
+    };
+  }
+  if (el.tagName === 'circle') {
+    const cx = parseFloat(el.getAttribute('cx') || 0);
+    const cy = parseFloat(el.getAttribute('cy') || 0);
+    const r = parseFloat(el.getAttribute('r') || 0);
+    return { x: cx - r, y: cy - r, w: r * 2, h: r * 2 };
+  }
+  if (el.tagName === 'ellipse') {
+    const cx = parseFloat(el.getAttribute('cx') || 0);
+    const cy = parseFloat(el.getAttribute('cy') || 0);
+    const rx = parseFloat(el.getAttribute('rx') || 0);
+    const ry = parseFloat(el.getAttribute('ry') || 0);
+    return { x: cx - rx, y: cy - ry, w: rx * 2, h: ry * 2 };
+  }
+  return null;
+}
+
+document.getElementById('btn-group').onclick = groupSelected;
+document.getElementById('btn-ungroup').onclick = ungroupSelected;
+document.getElementById('btn-autogroup').onclick = autoGroupNodes;
+
 // ========== Export ==========
 document.getElementById('btn-export').onclick = () => {
   if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
 
-  // Clean up selection outlines
   deselectAll();
 
-  // Serialize
   const serializer = new XMLSerializer();
   let svgStr = serializer.serializeToString(svgRoot);
-
-  // Add XML declaration
   svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
 
-  // Download
   const blob = new Blob([svgStr], { type: 'image/svg+xml' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -982,19 +1208,32 @@ document.getElementById('btn-export').onclick = () => {
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+  // Preview mode intercepts keys
+  if (document.getElementById('preview-overlay').classList.contains('active')) {
+    if (e.key === 'Escape') { closePreview(); e.preventDefault(); }
+    if (e.key === '+' || e.key === '=') { previewZoom = Math.min(previewZoom + 0.25, 5); updatePreviewZoom(); }
+    if (e.key === '-') { previewZoom = Math.max(previewZoom - 0.25, 0.25); updatePreviewZoom(); }
+    if (e.key === '0') { previewZoom = 1; updatePreviewZoom(); }
+    return;
+  }
+
   if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
   if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+  if (e.ctrlKey && e.key === 'd') { e.preventDefault(); duplicateSelected(); }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'g' || e.key === 'G')) { e.preventDefault(); ungroupSelected(); }
+  else if (e.ctrlKey && (e.key === 'g' || e.key === 'G')) { e.preventDefault(); groupSelected(); }
   if (e.key === 'Delete' || e.key === 'Backspace') {
     if (selectedEl) { e.preventDefault(); deleteSelected(); }
   }
-  if (e.key === 'Escape') deselectAll();
-  if (e.key === 'v' || e.key === 'V') setTool('select');
-  if (e.key === 'h' || e.key === 'H') setTool('pan');
+  if (e.key === 'Escape') { deselectAll(); selectedEls = []; updatePanel(); }
+  if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'v' || e.key === 'V')) setTool('select');
+  if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'h' || e.key === 'H')) setTool('pan');
+  if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'p' || e.key === 'P')) openPreview();
 
-  // Arrow keys to move selected element
+  // Arrow keys
   if (selectedEl && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
     e.preventDefault();
-    const step = e.shiftKey ? 10 : 1; // Shift = 10px 大步移动
+    const step = e.shiftKey ? 10 : 1;
     let dx = 0, dy = 0;
     switch(e.key) {
       case 'ArrowUp':    dy = -step; break;
@@ -1002,8 +1241,11 @@ document.addEventListener('keydown', (e) => {
       case 'ArrowLeft':  dx = -step; break;
       case 'ArrowRight': dx = step;  break;
     }
-    const positions = getElementPositions(selectedEl);
-    moveElement(selectedEl, positions, dx, dy);
+    const targets = selectedEls.length > 1 ? selectedEls : [selectedEl];
+    targets.forEach(el => {
+      const positions = getElementPositions(el);
+      moveElement(el, positions, dx, dy);
+    });
     saveHistory();
     updatePanel();
   }
@@ -1013,6 +1255,7 @@ document.addEventListener('keydown', (e) => {
 canvasArea.addEventListener('mousedown', (e) => {
   if (e.target === canvasArea || e.target === svgRoot) {
     deselectAll();
+    selectedEls = [];
     updatePanel();
   }
 });
@@ -1048,9 +1291,15 @@ function updateStatusSelection() {
     document.getElementById('status-selection').textContent = '未选中';
     return;
   }
+  if (selectedEls.length > 1) {
+    document.getElementById('status-selection').textContent = `选中: ${selectedEls.length} 个元素 (可 Ctrl+G 成组)`;
+    return;
+  }
   let desc = el.tagName;
   if (el.getAttribute('class')) desc += '.' + el.getAttribute('class').split(' ')[0];
+  if (el.getAttribute('id')) desc += '#' + el.getAttribute('id');
   if (el.textContent && el.tagName === 'text') desc += ` "${el.textContent.slice(0,15)}"`;
+  if (el.tagName === 'g') desc += ` (${el.children.length}子元素)`;
   document.getElementById('status-selection').textContent = '选中: ' + desc;
 }
 
@@ -1073,7 +1322,6 @@ document.getElementById('btn-duplicate').onclick = duplicateSelected;
 function duplicateSelected() {
   if (!selectedEl || !svgRoot) return;
   const clone = selectedEl.cloneNode(true);
-  // Offset the clone slightly
   if (clone.tagName === 'g') {
     clone.querySelectorAll('*').forEach(child => {
       if (child.hasAttribute('x')) child.setAttribute('x', parseFloat(child.getAttribute('x')) + 20);
@@ -1198,12 +1446,6 @@ document.getElementById('btn-demo').onclick = () => {
   loadSVGContent(demoSvg);
 };
 
-// ========== Ctrl+D to duplicate ==========
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  if (e.ctrlKey && e.key === 'd') { e.preventDefault(); duplicateSelected(); }
-});
-
 // ========== Load from URL param ==========
 const urlParams = new URLSearchParams(window.location.search);
 const svgUrl = urlParams.get('svg');
@@ -1228,16 +1470,10 @@ document.getElementById('btn-preview').onclick = openPreview;
 function openPreview() {
   if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
 
-  // Clean up selection
   deselectAll();
 
-  // Clone SVG for preview
   const clone = svgRoot.cloneNode(true);
-  clone.style.maxWidth = '';
-  clone.style.height = '';
-  clone.style.outline = '';
   clone.removeAttribute('style');
-  // Remove any editor artifacts
   clone.querySelectorAll('.align-guide').forEach(g => g.remove());
 
   previewContainer.innerHTML = '';
@@ -1342,19 +1578,6 @@ document.getElementById('preview-export-svg').onclick = () => {
   a.click();
   URL.revokeObjectURL(a.href);
 };
-
-// Keyboard shortcut for preview
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  if (previewOverlay.classList.contains('active')) {
-    if (e.key === 'Escape') { closePreview(); e.preventDefault(); }
-    if (e.key === '+' || e.key === '=') { previewZoom = Math.min(previewZoom + 0.25, 5); updatePreviewZoom(); }
-    if (e.key === '-') { previewZoom = Math.max(previewZoom - 0.25, 0.25); updatePreviewZoom(); }
-    if (e.key === '0') { previewZoom = 1; updatePreviewZoom(); }
-    return;
-  }
-  if (e.key === 'p' || e.key === 'P') { if (!e.ctrlKey && !e.metaKey) openPreview(); }
-});
 
 // Mouse wheel zoom in preview
 previewContainer.addEventListener('wheel', (e) => {
