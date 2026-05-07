@@ -251,6 +251,73 @@ body {
   font-size: 11px;
   color: var(--text-muted);
 }
+
+/* Preview modal */
+.preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.preview-overlay.active { display: flex; }
+.preview-toolbar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 10001;
+}
+.preview-toolbar button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  transition: all 0.15s;
+}
+.preview-toolbar button:hover { background: rgba(255,255,255,0.2); }
+.preview-toolbar .btn-close-preview {
+  background: rgba(220,38,38,0.7);
+  border-color: rgba(220,38,38,0.5);
+}
+.preview-toolbar .btn-close-preview:hover { background: rgba(220,38,38,0.9); }
+.preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 60px 40px 40px;
+}
+.preview-container svg {
+  max-width: 90vw;
+  max-height: 85vh;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+}
+.preview-zoom-info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -268,6 +335,7 @@ body {
     <button class="btn" id="btn-redo" title="重做 Ctrl+Y">↪</button>
     <button class="btn" id="btn-duplicate" title="复制选中 Ctrl+D">复制</button>
     <button class="btn btn-primary" id="btn-export">导出 SVG</button>
+    <button class="btn" id="btn-preview" title="预览 (P)">👁 预览</button>
   </div>
 </div>
 
@@ -313,6 +381,21 @@ body {
 </div>
 
 <input type="file" id="file-input" accept=".svg" style="display:none;">
+
+<!-- Preview Modal -->
+<div class="preview-overlay" id="preview-overlay">
+  <div class="preview-toolbar">
+    <button id="preview-zoom-in" title="放大">➕ 放大</button>
+    <button id="preview-zoom-out" title="缩小">➖ 缩小</button>
+    <button id="preview-reset" title="重置缩放">↺ 重置</button>
+    <button id="preview-fit" title="适应窗口">⊡ 适应</button>
+    <button id="preview-export-png" title="导出PNG">📷 导出 PNG</button>
+    <button id="preview-export-svg" title="导出SVG">💾 导出 SVG</button>
+    <button class="btn-close-preview" id="preview-close" title="关闭 (Esc)">✕ 关闭</button>
+  </div>
+  <div class="preview-container" id="preview-container"></div>
+  <div class="preview-zoom-info" id="preview-zoom-info">100%</div>
+</div>
 
 <script>
 // ========== State ==========
@@ -1131,6 +1214,154 @@ if (svgUrl) {
     })
     .catch(err => console.warn('Failed to load SVG from URL:', err));
 }
+
+// ========== Preview Mode ==========
+const previewOverlay = document.getElementById('preview-overlay');
+const previewContainer = document.getElementById('preview-container');
+const previewZoomInfo = document.getElementById('preview-zoom-info');
+let previewZoom = 1;
+
+document.getElementById('btn-preview').onclick = openPreview;
+
+function openPreview() {
+  if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
+
+  // Clean up selection
+  deselectAll();
+
+  // Clone SVG for preview
+  const clone = svgRoot.cloneNode(true);
+  clone.style.maxWidth = '';
+  clone.style.height = '';
+  clone.style.outline = '';
+  clone.removeAttribute('style');
+  // Remove any editor artifacts
+  clone.querySelectorAll('.align-guide').forEach(g => g.remove());
+
+  previewContainer.innerHTML = '';
+  previewContainer.appendChild(clone);
+
+  previewZoom = 1;
+  updatePreviewZoom();
+  previewOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  previewOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+  previewContainer.innerHTML = '';
+}
+
+function updatePreviewZoom() {
+  const svg = previewContainer.querySelector('svg');
+  if (!svg) return;
+  svg.style.transform = `scale(${previewZoom})`;
+  svg.style.transformOrigin = 'center center';
+  previewZoomInfo.textContent = `${Math.round(previewZoom * 100)}%`;
+}
+
+document.getElementById('preview-close').onclick = closePreview;
+document.getElementById('preview-zoom-in').onclick = () => {
+  previewZoom = Math.min(previewZoom + 0.25, 5);
+  updatePreviewZoom();
+};
+document.getElementById('preview-zoom-out').onclick = () => {
+  previewZoom = Math.max(previewZoom - 0.25, 0.25);
+  updatePreviewZoom();
+};
+document.getElementById('preview-reset').onclick = () => {
+  previewZoom = 1;
+  updatePreviewZoom();
+};
+document.getElementById('preview-fit').onclick = () => {
+  const svg = previewContainer.querySelector('svg');
+  if (!svg) return;
+  const vb = svg.viewBox.baseVal;
+  if (!vb || !vb.width) { previewZoom = 1; updatePreviewZoom(); return; }
+  const containerW = previewContainer.clientWidth - 80;
+  const containerH = previewContainer.clientHeight - 80;
+  const scaleW = containerW / vb.width;
+  const scaleH = containerH / vb.height;
+  previewZoom = Math.min(scaleW, scaleH, 3);
+  updatePreviewZoom();
+};
+
+// Export PNG from preview
+document.getElementById('preview-export-png').onclick = () => {
+  const svg = previewContainer.querySelector('svg');
+  if (!svg) return;
+
+  const serializer = new XMLSerializer();
+  const svgStr = serializer.serializeToString(svg);
+  const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(svgBlob);
+
+  const vb = svg.viewBox.baseVal;
+  const width = (vb && vb.width) ? vb.width * 2 : 1920;
+  const height = (vb && vb.height) ? vb.height * 2 : 1400;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+
+  const img = new Image();
+  img.onload = () => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob((blob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName ? fileName.replace('.svg', '.png') : 'export.png';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = url;
+};
+
+// Export SVG from preview
+document.getElementById('preview-export-svg').onclick = () => {
+  const svg = previewContainer.querySelector('svg');
+  if (!svg) return;
+
+  const serializer = new XMLSerializer();
+  let svgStr = serializer.serializeToString(svg);
+  svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
+
+  const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName ? fileName.replace('.svg', '-edited.svg') : 'edited.svg';
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+// Keyboard shortcut for preview
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (previewOverlay.classList.contains('active')) {
+    if (e.key === 'Escape') { closePreview(); e.preventDefault(); }
+    if (e.key === '+' || e.key === '=') { previewZoom = Math.min(previewZoom + 0.25, 5); updatePreviewZoom(); }
+    if (e.key === '-') { previewZoom = Math.max(previewZoom - 0.25, 0.25); updatePreviewZoom(); }
+    if (e.key === '0') { previewZoom = 1; updatePreviewZoom(); }
+    return;
+  }
+  if (e.key === 'p' || e.key === 'P') { if (!e.ctrlKey && !e.metaKey) openPreview(); }
+});
+
+// Mouse wheel zoom in preview
+previewContainer.addEventListener('wheel', (e) => {
+  if (!previewOverlay.classList.contains('active')) return;
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.1 : 0.1;
+  previewZoom = Math.max(0.25, Math.min(5, previewZoom + delta));
+  updatePreviewZoom();
+}, { passive: false });
 </script>
 </body>
 </html>
