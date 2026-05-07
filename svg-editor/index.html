@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVG 微调编辑器 — fireworks-tech-graph</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --danger: #dc2626;
+  --success: #059669;
+  --panel-width: 280px;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  height: 48px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.header h1 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.header .actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: all 0.15s;
+}
+.btn:hover { background: #f1f5f9; }
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.btn-primary:hover { background: #1d4ed8; }
+.btn-danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.btn-danger:hover { background: #fef2f2; }
+
+/* Main layout */
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Canvas area */
+.canvas-area {
+  flex: 1;
+  position: relative;
+  overflow: auto;
+  background: repeating-conic-gradient(#f1f5f9 0% 25%, transparent 0% 50%) 50% / 20px 20px;
+}
+.canvas-area svg {
+  display: block;
+  margin: 20px auto;
+  cursor: default;
+  background: white;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Selection highlight */
+.selected-highlight {
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+/* Properties panel */
+.panel {
+  width: var(--panel-width);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.panel-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.panel-section {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-section h3 {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.prop-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+.prop-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  width: 50px;
+  flex-shrink: 0;
+}
+.prop-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "SF Mono", "Fira Code", monospace;
+  outline: none;
+}
+.prop-input:focus { border-color: var(--accent); }
+.prop-input[type="color"] {
+  width: 32px;
+  height: 28px;
+  padding: 2px;
+  cursor: pointer;
+}
+.prop-input[type="number"] { width: 60px; flex: none; }
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.tool-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 16px;
+  transition: all 0.15s;
+}
+.tool-btn:hover { background: #f1f5f9; }
+.tool-btn.active { background: var(--accent-light); border-color: var(--accent); }
+
+/* Status bar */
+.status-bar {
+  height: 28px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  gap: 16px;
+}
+
+/* Drop overlay */
+.drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 99, 235, 0.08);
+  border: 2px dashed var(--accent);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  pointer-events: none;
+}
+.drop-overlay.active { display: flex; }
+.drop-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--accent);
+  background: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Empty state */
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.empty-state .icon { font-size: 48px; opacity: 0.3; }
+.empty-state p { color: var(--text-muted); font-size: 14px; }
+
+/* Text editing overlay */
+.text-edit-overlay {
+  position: absolute;
+  background: white;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  outline: none;
+  z-index: 200;
+  min-width: 60px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Undo/Redo indicator */
+.history-indicator {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SVG 微调编辑器</h1>
+  <div class="toolbar">
+    <button class="tool-btn active" id="tool-select" title="选择 (V)">↖</button>
+    <button class="tool-btn" id="tool-pan" title="平移 (H)">✋</button>
+  </div>
+  <div class="actions">
+    <button class="btn" id="btn-open">打开 SVG</button>
+    <button class="btn" id="btn-demo">加载示例</button>
+    <button class="btn" id="btn-undo" title="撤销 Ctrl+Z">↩</button>
+    <button class="btn" id="btn-redo" title="重做 Ctrl+Y">↪</button>
+    <button class="btn" id="btn-duplicate" title="复制选中 Ctrl+D">复制</button>
+    <button class="btn btn-primary" id="btn-export">导出 SVG</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="canvas-area" id="canvas-area">
+    <div class="drop-overlay" id="drop-overlay">
+      <span class="drop-text">松开以加载 SVG 文件</span>
+    </div>
+    <div class="empty-state" id="empty-state">
+      <div class="icon">📐</div>
+      <p>拖放 SVG 文件到此处，或点击「打开 SVG」</p>
+      <p style="font-size:12px; color:#94a3b8;">支持 fireworks-tech-graph 生成的所有图表</p>
+    </div>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="panel-header">属性面板</div>
+    <div id="panel-content">
+      <div class="panel-section">
+        <p style="font-size:12px; color:var(--text-muted); padding: 20px 0; text-align:center;">
+          选中元素查看属性<br><br>
+          <b>操作提示：</b><br>
+          · 单击选中元素<br>
+          · 拖拽移动位置<br>
+          · 方向键微调 1px<br>
+          · Shift+方向键 10px<br>
+          · 双击编辑文字<br>
+          · Ctrl+D 复制元素<br>
+          · Delete 删除元素<br>
+          · Ctrl+Z 撤销<br>
+          · Ctrl+Y 重做
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="status-bar">
+  <span id="status-pos">x: 0, y: 0</span>
+  <span id="status-selection">未选中</span>
+  <span class="history-indicator" id="status-history"></span>
+  <span style="margin-left:auto;" id="status-file">未加载文件</span>
+</div>
+
+<input type="file" id="file-input" accept=".svg" style="display:none;">
+
+<script>
+// ========== State ==========
+let svgRoot = null;
+let selectedEl = null;
+let dragState = null;
+let currentTool = 'select';
+let history = [];
+let historyIndex = -1;
+let fileName = '';
+
+const canvasArea = document.getElementById('canvas-area');
+const panel = document.getElementById('panel-content');
+const fileInput = document.getElementById('file-input');
+const emptyState = document.getElementById('empty-state');
+const dropOverlay = document.getElementById('drop-overlay');
+
+// ========== File Loading ==========
+document.getElementById('btn-open').onclick = () => fileInput.click();
+fileInput.onchange = (e) => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+};
+
+// Drag & drop
+canvasArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropOverlay.classList.add('active');
+});
+canvasArea.addEventListener('dragleave', () => {
+  dropOverlay.classList.remove('active');
+});
+canvasArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropOverlay.classList.remove('active');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.svg')) loadFile(file);
+});
+
+function loadFile(file) {
+  fileName = file.name;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    loadSVGContent(e.target.result);
+  };
+  reader.readAsText(file);
+}
+
+function loadSVGContent(svgText) {
+  // Parse SVG
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, 'image/svg+xml');
+  const svg = doc.querySelector('svg');
+  if (!svg) { alert('无法解析 SVG 文件'); return; }
+
+  // Clear canvas
+  emptyState.style.display = 'none';
+  if (svgRoot) svgRoot.remove();
+
+  // Insert into DOM
+  svgRoot = document.adoptNode(svg);
+  svgRoot.style.maxWidth = '100%';
+  svgRoot.style.height = 'auto';
+  canvasArea.appendChild(svgRoot);
+
+  // Reset state
+  selectedEl = null;
+  history = [];
+  historyIndex = -1;
+  saveHistory();
+
+  // Make elements interactive
+  makeInteractive();
+  updateStatusFile();
+  updatePanel();
+}
+
+// ========== Make Elements Interactive ==========
+function makeInteractive() {
+  if (!svgRoot) return;
+  // Target groups, rects, circles, ellipses, text, paths, lines
+  const elements = svgRoot.querySelectorAll('rect, circle, ellipse, text, g, path, line, polyline, polygon');
+  elements.forEach(el => {
+    // Skip defs elements and the background rect
+    if (el.closest('defs') || el.closest('marker')) return;
+    if (el.tagName === 'rect' && el.getAttribute('width') === '960' && el.getAttribute('height')) return;
+
+    el.style.cursor = 'pointer';
+    el.addEventListener('mousedown', onElementMouseDown);
+    el.addEventListener('dblclick', onElementDblClick);
+  });
+}
+
+// ========== Selection ==========
+function selectElement(el) {
+  deselectAll();
+  if (!el) { updatePanel(); return; }
+
+  selectedEl = el;
+
+  // Highlight
+  if (el.tagName === 'g') {
+    const shapes = el.querySelectorAll('rect, circle, ellipse, path');
+    shapes.forEach(s => {
+      s.dataset.origOutline = s.getAttribute('stroke') || '';
+      s.style.outline = '2px dashed #2563eb';
+      s.style.outlineOffset = '3px';
+    });
+  } else {
+    el.dataset.origOutline = el.style.outline || '';
+    el.style.outline = '2px dashed #2563eb';
+    el.style.outlineOffset = '3px';
+  }
+
+  updatePanel();
+  updateStatusSelection();
+}
+
+function deselectAll() {
+  if (!svgRoot) return;
+  // Remove all outlines
+  svgRoot.querySelectorAll('[style*="outline"]').forEach(el => {
+    el.style.outline = '';
+    el.style.outlineOffset = '';
+  });
+  selectedEl = null;
+  updateStatusSelection();
+}
+
+// ========== Drag ==========
+function onElementMouseDown(e) {
+  if (currentTool !== 'select') return;
+  e.stopPropagation();
+
+  // Find the best target (prefer parent <g> if it's a group)
+  let target = e.target;
+  // Walk up to find meaningful group
+  let parent = target.parentElement;
+  if (parent && parent.tagName === 'g' && parent !== svgRoot) {
+    target = parent;
+  }
+
+  selectElement(target);
+
+  // Start drag
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const ctm = svgRoot.getScreenCTM().inverse();
+  const svgPt = pt.matrixTransform(ctm);
+
+  dragState = {
+    el: target,
+    startX: svgPt.x,
+    startY: svgPt.y,
+    origPositions: getElementPositions(target),
+    moved: false
+  };
+
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup', onDragEnd);
+}
+
+function onDragMove(e) {
+  if (!dragState) return;
+
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const ctm = svgRoot.getScreenCTM().inverse();
+  const svgPt = pt.matrixTransform(ctm);
+
+  let dx = svgPt.x - dragState.startX;
+  let dy = svgPt.y - dragState.startY;
+
+  // Snap to grid (hold Shift for free movement)
+  if (!e.shiftKey) {
+    const snapSize = 10;
+    const orig = dragState.origPositions[0];
+    const baseX = orig.x ?? orig.cx ?? orig.x1 ?? 0;
+    const baseY = orig.y ?? orig.cy ?? orig.y1 ?? 0;
+    const newX = Math.round((baseX + dx) / snapSize) * snapSize;
+    const newY = Math.round((baseY + dy) / snapSize) * snapSize;
+    dx = newX - baseX;
+    dy = newY - baseY;
+  }
+
+  if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+    dragState.moved = true;
+    moveElement(dragState.el, dragState.origPositions, dx, dy);
+    updatePanel();
+  }
+}
+
+function onDragEnd() {
+  if (dragState && dragState.moved) {
+    saveHistory();
+  }
+  dragState = null;
+  removeGuides();
+  document.removeEventListener('mousemove', onDragMove);
+  document.removeEventListener('mouseup', onDragEnd);
+}
+
+function getElementPositions(el) {
+  const positions = [];
+  if (el.tagName === 'g') {
+    el.querySelectorAll('*').forEach(child => {
+      positions.push(getPos(child));
+    });
+  } else {
+    positions.push(getPos(el));
+  }
+  return positions;
+}
+
+function getPos(el) {
+  const pos = {};
+  if (el.hasAttribute('x')) pos.x = parseFloat(el.getAttribute('x'));
+  if (el.hasAttribute('y')) pos.y = parseFloat(el.getAttribute('y'));
+  if (el.hasAttribute('cx')) pos.cx = parseFloat(el.getAttribute('cx'));
+  if (el.hasAttribute('cy')) pos.cy = parseFloat(el.getAttribute('cy'));
+  if (el.hasAttribute('x1')) pos.x1 = parseFloat(el.getAttribute('x1'));
+  if (el.hasAttribute('y1')) pos.y1 = parseFloat(el.getAttribute('y1'));
+  if (el.hasAttribute('x2')) pos.x2 = parseFloat(el.getAttribute('x2'));
+  if (el.hasAttribute('y2')) pos.y2 = parseFloat(el.getAttribute('y2'));
+  if (el.hasAttribute('d')) pos.d = el.getAttribute('d');
+  if (el.hasAttribute('points')) pos.points = el.getAttribute('points');
+  pos.tag = el.tagName;
+  pos.el = el;
+  return pos;
+}
+
+function moveElement(el, origPositions, dx, dy) {
+  if (el.tagName === 'g') {
+    let i = 0;
+    el.querySelectorAll('*').forEach(child => {
+      applyDelta(child, origPositions[i], dx, dy);
+      i++;
+    });
+  } else {
+    applyDelta(el, origPositions[0], dx, dy);
+  }
+}
+
+function applyDelta(el, orig, dx, dy) {
+  if ('x' in orig) el.setAttribute('x', orig.x + dx);
+  if ('y' in orig) el.setAttribute('y', orig.y + dy);
+  if ('cx' in orig) el.setAttribute('cx', orig.cx + dx);
+  if ('cy' in orig) el.setAttribute('cy', orig.cy + dy);
+  if ('x1' in orig) el.setAttribute('x1', orig.x1 + dx);
+  if ('y1' in orig) el.setAttribute('y1', orig.y1 + dy);
+  if ('x2' in orig) el.setAttribute('x2', orig.x2 + dx);
+  if ('y2' in orig) el.setAttribute('y2', orig.y2 + dy);
+  if ('d' in orig) {
+    el.setAttribute('d', offsetPath(orig.d, dx, dy));
+  }
+}
+
+function offsetPath(d, dx, dy) {
+  // Offset all numeric coordinates in path data
+  return d.replace(/([MLCQSTAHVZmlcqstahvz]?)([^MLCQSTAHVZmlcqstahvz]*)/g, (match, cmd, nums) => {
+    if (!nums.trim()) return match;
+    if (cmd === 'H' || cmd === 'h') {
+      // Horizontal: only x offset
+      const values = nums.trim().split(/[\s,]+/).map(Number);
+      return cmd + ' ' + values.map(v => cmd === 'H' ? v + dx : v).join(' ');
+    }
+    if (cmd === 'V' || cmd === 'v') {
+      // Vertical: only y offset
+      const values = nums.trim().split(/[\s,]+/).map(Number);
+      return cmd + ' ' + values.map(v => cmd === 'V' ? v + dy : v).join(' ');
+    }
+    if ('mlcsqta'.includes((cmd || '').toLowerCase()) || !cmd) {
+      // For relative commands (lowercase), don't offset
+      if (cmd && cmd === cmd.toLowerCase() && cmd !== '') return match;
+      // For absolute commands, offset all x,y pairs
+      const values = nums.trim().split(/[\s,]+/).map(Number);
+      const result = values.map((v, i) => v + (i % 2 === 0 ? dx : dy));
+      return (cmd || '') + ' ' + result.join(',');
+    }
+    return match;
+  });
+}
+
+// ========== Double-click Text Edit ==========
+function onElementDblClick(e) {
+  e.stopPropagation();
+  let target = e.target;
+  if (target.tagName !== 'text') {
+    // Find text within group
+    const txt = target.querySelector ? target.querySelector('text') : null;
+    if (txt) target = txt;
+    else return;
+  }
+
+  const bbox = target.getBoundingClientRect();
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'text-edit-overlay';
+  input.value = target.textContent;
+  input.style.left = bbox.left + 'px';
+  input.style.top = bbox.top + 'px';
+  input.style.fontSize = (parseFloat(getComputedStyle(target).fontSize) || 14) + 'px';
+  input.style.width = Math.max(bbox.width + 40, 100) + 'px';
+
+  document.body.appendChild(input);
+  input.focus();
+  input.select();
+
+  const finish = () => {
+    if (input.value !== target.textContent) {
+      target.textContent = input.value;
+      saveHistory();
+      updatePanel();
+    }
+    input.remove();
+  };
+
+  input.onblur = finish;
+  input.onkeydown = (ev) => {
+    if (ev.key === 'Enter') finish();
+    if (ev.key === 'Escape') input.remove();
+  };
+}
+
+// ========== Properties Panel ==========
+function updatePanel() {
+  if (!selectedEl) {
+    panel.innerHTML = `
+      <div class="panel-section">
+        <p style="font-size:12px; color:var(--text-muted); padding: 20px 0; text-align:center;">
+          选中元素查看属性<br><br>
+          <b>操作提示：</b><br>
+          · 单击选中元素<br>
+          · 拖拽移动位置<br>
+          · 方向键微调 1px<br>
+          · Shift+方向键 10px<br>
+          · 双击编辑文字<br>
+          · Ctrl+D 复制元素<br>
+          · Delete 删除元素<br>
+          · Ctrl+Z 撤销<br>
+          · Ctrl+Y 重做
+        </p>
+      </div>`;
+    return;
+  }
+
+  const el = selectedEl;
+  const tag = el.tagName;
+  let html = '';
+
+  // Element info
+  html += `<div class="panel-section"><h3>元素</h3>
+    <div class="prop-row"><span class="prop-label">类型</span><span style="font-size:12px;">${tag}</span></div>`;
+  if (el.getAttribute('class')) {
+    html += `<div class="prop-row"><span class="prop-label">class</span><span style="font-size:11px;font-family:monospace;">${el.getAttribute('class')}</span></div>`;
+  }
+  html += '</div>';
+
+  // Position
+  html += '<div class="panel-section"><h3>位置</h3>';
+  if (tag === 'rect' || tag === 'text' || tag === 'image' || tag === 'use') {
+    const x = el.getAttribute('x') || '0';
+    const y = el.getAttribute('y') || '0';
+    html += propRow('x', x, 'number', 'pos-x');
+    html += propRow('y', y, 'number', 'pos-y');
+  }
+  if (tag === 'circle' || tag === 'ellipse') {
+    html += propRow('cx', el.getAttribute('cx') || '0', 'number', 'pos-cx');
+    html += propRow('cy', el.getAttribute('cy') || '0', 'number', 'pos-cy');
+  }
+  if (tag === 'rect') {
+    html += propRow('宽', el.getAttribute('width') || '', 'number', 'dim-w');
+    html += propRow('高', el.getAttribute('height') || '', 'number', 'dim-h');
+    html += propRow('圆角', el.getAttribute('rx') || '0', 'number', 'dim-rx');
+  }
+  if (tag === 'circle') {
+    html += propRow('r', el.getAttribute('r') || '', 'number', 'dim-r');
+  }
+  if (tag === 'ellipse') {
+    html += propRow('rx', el.getAttribute('rx') || '', 'number', 'dim-rx');
+    html += propRow('ry', el.getAttribute('ry') || '', 'number', 'dim-ry');
+  }
+  html += '</div>';
+
+  // Style
+  html += '<div class="panel-section"><h3>样式</h3>';
+  const fill = el.getAttribute('fill') || '';
+  const stroke = el.getAttribute('stroke') || '';
+  const strokeWidth = el.getAttribute('stroke-width') || '';
+  const opacity = el.getAttribute('opacity') || '';
+
+  if (fill && fill !== 'none') {
+    html += colorRow('填充', fill, 'style-fill');
+  }
+  if (stroke) {
+    html += colorRow('描边', stroke, 'style-stroke');
+  }
+  if (strokeWidth) {
+    html += propRow('线宽', strokeWidth, 'number', 'style-sw');
+  }
+  if (opacity) {
+    html += propRow('透明', opacity, 'number', 'style-opacity');
+  }
+  html += '</div>';
+
+  // Text content
+  if (tag === 'text') {
+    html += '<div class="panel-section"><h3>文字</h3>';
+    html += `<div class="prop-row">
+      <input class="prop-input" style="width:100%;" value="${escapeHTML(el.textContent)}" data-prop="text-content">
+    </div>`;
+    const fontSize = el.getAttribute('font-size') || el.style.fontSize || '';
+    if (fontSize) html += propRow('字号', fontSize, 'number', 'text-size');
+    const fontWeight = el.getAttribute('font-weight') || '';
+    if (fontWeight) html += propRow('字重', fontWeight, 'number', 'text-weight');
+    html += '</div>';
+  }
+
+  // Group contents
+  if (tag === 'g') {
+    const children = el.children.length;
+    html += `<div class="panel-section"><h3>分组</h3>
+      <div class="prop-row"><span class="prop-label">子元素</span><span style="font-size:12px;">${children} 个</span></div>
+    </div>`;
+  }
+
+  // Actions
+  html += `<div class="panel-section">
+    <button class="btn btn-danger" style="width:100%;" onclick="deleteSelected()">删除元素</button>
+  </div>`;
+
+  panel.innerHTML = html;
+
+  // Bind property change events
+  panel.querySelectorAll('.prop-input').forEach(input => {
+    input.addEventListener('change', onPropChange);
+    input.addEventListener('input', (e) => {
+      if (e.target.type === 'color') onPropChange(e);
+    });
+  });
+}
+
+function propRow(label, value, type, prop) {
+  return `<div class="prop-row">
+    <span class="prop-label">${label}</span>
+    <input class="prop-input" type="${type}" value="${value}" data-prop="${prop}" step="${type === 'number' ? '1' : ''}">
+  </div>`;
+}
+
+function colorRow(label, value, prop) {
+  // Convert to hex for color input
+  let hex = value;
+  if (value.startsWith('rgb')) {
+    const m = value.match(/\d+/g);
+    if (m) hex = '#' + m.slice(0,3).map(v => parseInt(v).toString(16).padStart(2,'0')).join('');
+  }
+  return `<div class="prop-row">
+    <span class="prop-label">${label}</span>
+    <input class="prop-input" type="color" value="${hex}" data-prop="${prop}">
+    <input class="prop-input" type="text" value="${value}" data-prop="${prop}" style="flex:1;">
+  </div>`;
+}
+
+function onPropChange(e) {
+  if (!selectedEl) return;
+  const prop = e.target.dataset.prop;
+  const val = e.target.value;
+
+  switch(prop) {
+    case 'pos-x': selectedEl.setAttribute('x', val); break;
+    case 'pos-y': selectedEl.setAttribute('y', val); break;
+    case 'pos-cx': selectedEl.setAttribute('cx', val); break;
+    case 'pos-cy': selectedEl.setAttribute('cy', val); break;
+    case 'dim-w': selectedEl.setAttribute('width', val); break;
+    case 'dim-h': selectedEl.setAttribute('height', val); break;
+    case 'dim-r': selectedEl.setAttribute('r', val); break;
+    case 'dim-rx': selectedEl.setAttribute('rx', val); break;
+    case 'dim-ry': selectedEl.setAttribute('ry', val); break;
+    case 'style-fill': selectedEl.setAttribute('fill', val); break;
+    case 'style-stroke': selectedEl.setAttribute('stroke', val); break;
+    case 'style-sw': selectedEl.setAttribute('stroke-width', val); break;
+    case 'style-opacity': selectedEl.setAttribute('opacity', val); break;
+    case 'text-content': selectedEl.textContent = val; break;
+    case 'text-size':
+      selectedEl.setAttribute('font-size', val);
+      selectedEl.style.fontSize = val + 'px';
+      break;
+    case 'text-weight':
+      selectedEl.setAttribute('font-weight', val);
+      break;
+  }
+
+  // Sync color inputs with text inputs of same prop
+  if (e.target.type === 'color') {
+    const sibling = e.target.parentElement.querySelector('input[type="text"]');
+    if (sibling) sibling.value = val;
+  }
+
+  saveHistory();
+}
+
+// ========== History (Undo/Redo) ==========
+function saveHistory() {
+  if (!svgRoot) return;
+  // Trim future history
+  history = history.slice(0, historyIndex + 1);
+  history.push(svgRoot.outerHTML);
+  historyIndex = history.length - 1;
+  // Limit history size
+  if (history.length > 50) {
+    history.shift();
+    historyIndex--;
+  }
+  updateStatusHistory();
+}
+
+function undo() {
+  if (historyIndex <= 0) return;
+  historyIndex--;
+  restoreFromHistory();
+}
+
+function redo() {
+  if (historyIndex >= history.length - 1) return;
+  historyIndex++;
+  restoreFromHistory();
+}
+
+function restoreFromHistory() {
+  deselectAll();
+  const svgText = history[historyIndex];
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, 'image/svg+xml');
+  const newSvg = document.adoptNode(doc.querySelector('svg'));
+  newSvg.style.maxWidth = '100%';
+  newSvg.style.height = 'auto';
+  svgRoot.replaceWith(newSvg);
+  svgRoot = newSvg;
+  makeInteractive();
+  updateStatusHistory();
+  updatePanel();
+}
+
+document.getElementById('btn-undo').onclick = undo;
+document.getElementById('btn-redo').onclick = redo;
+
+// ========== Delete ==========
+function deleteSelected() {
+  if (!selectedEl) return;
+  selectedEl.remove();
+  selectedEl = null;
+  saveHistory();
+  updatePanel();
+}
+
+// ========== Export ==========
+document.getElementById('btn-export').onclick = () => {
+  if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
+
+  // Clean up selection outlines
+  deselectAll();
+
+  // Serialize
+  const serializer = new XMLSerializer();
+  let svgStr = serializer.serializeToString(svgRoot);
+
+  // Add XML declaration
+  svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
+
+  // Download
+  const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName ? fileName.replace('.svg', '-edited.svg') : 'edited.svg';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+// ========== Keyboard Shortcuts ==========
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
+  if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (selectedEl) { e.preventDefault(); deleteSelected(); }
+  }
+  if (e.key === 'Escape') deselectAll();
+  if (e.key === 'v' || e.key === 'V') setTool('select');
+  if (e.key === 'h' || e.key === 'H') setTool('pan');
+
+  // Arrow keys to move selected element
+  if (selectedEl && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+    e.preventDefault();
+    const step = e.shiftKey ? 10 : 1; // Shift = 10px 大步移动
+    let dx = 0, dy = 0;
+    switch(e.key) {
+      case 'ArrowUp':    dy = -step; break;
+      case 'ArrowDown':  dy = step;  break;
+      case 'ArrowLeft':  dx = -step; break;
+      case 'ArrowRight': dx = step;  break;
+    }
+    const positions = getElementPositions(selectedEl);
+    moveElement(selectedEl, positions, dx, dy);
+    saveHistory();
+    updatePanel();
+  }
+});
+
+// ========== Canvas click to deselect ==========
+canvasArea.addEventListener('mousedown', (e) => {
+  if (e.target === canvasArea || e.target === svgRoot) {
+    deselectAll();
+    updatePanel();
+  }
+});
+
+// ========== Tools ==========
+function setTool(tool) {
+  currentTool = tool;
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tool-' + tool).classList.add('active');
+  if (svgRoot) {
+    svgRoot.style.cursor = tool === 'pan' ? 'grab' : 'default';
+  }
+}
+
+document.getElementById('tool-select').onclick = () => setTool('select');
+document.getElementById('tool-pan').onclick = () => setTool('pan');
+
+// ========== Status Bar ==========
+canvasArea.addEventListener('mousemove', (e) => {
+  if (!svgRoot) return;
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const ctm = svgRoot.getScreenCTM();
+  if (!ctm) return;
+  const svgPt = pt.matrixTransform(ctm.inverse());
+  document.getElementById('status-pos').textContent = `x: ${Math.round(svgPt.x)}, y: ${Math.round(svgPt.y)}`;
+});
+
+function updateStatusSelection() {
+  const el = selectedEl;
+  if (!el) {
+    document.getElementById('status-selection').textContent = '未选中';
+    return;
+  }
+  let desc = el.tagName;
+  if (el.getAttribute('class')) desc += '.' + el.getAttribute('class').split(' ')[0];
+  if (el.textContent && el.tagName === 'text') desc += ` "${el.textContent.slice(0,15)}"`;
+  document.getElementById('status-selection').textContent = '选中: ' + desc;
+}
+
+function updateStatusFile() {
+  document.getElementById('status-file').textContent = fileName || '未加载文件';
+}
+
+function updateStatusHistory() {
+  document.getElementById('status-history').textContent =
+    `历史: ${historyIndex + 1}/${history.length}`;
+}
+
+// ========== Utility ==========
+function escapeHTML(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ========== Duplicate ==========
+document.getElementById('btn-duplicate').onclick = duplicateSelected;
+function duplicateSelected() {
+  if (!selectedEl || !svgRoot) return;
+  const clone = selectedEl.cloneNode(true);
+  // Offset the clone slightly
+  if (clone.tagName === 'g') {
+    clone.querySelectorAll('*').forEach(child => {
+      if (child.hasAttribute('x')) child.setAttribute('x', parseFloat(child.getAttribute('x')) + 20);
+      if (child.hasAttribute('y')) child.setAttribute('y', parseFloat(child.getAttribute('y')) + 20);
+      if (child.hasAttribute('cx')) child.setAttribute('cx', parseFloat(child.getAttribute('cx')) + 20);
+      if (child.hasAttribute('cy')) child.setAttribute('cy', parseFloat(child.getAttribute('cy')) + 20);
+    });
+  } else {
+    if (clone.hasAttribute('x')) clone.setAttribute('x', parseFloat(clone.getAttribute('x')) + 20);
+    if (clone.hasAttribute('y')) clone.setAttribute('y', parseFloat(clone.getAttribute('y')) + 20);
+    if (clone.hasAttribute('cx')) clone.setAttribute('cx', parseFloat(clone.getAttribute('cx')) + 20);
+    if (clone.hasAttribute('cy')) clone.setAttribute('cy', parseFloat(clone.getAttribute('cy')) + 20);
+  }
+  selectedEl.parentNode.insertBefore(clone, selectedEl.nextSibling);
+  clone.style.cursor = 'pointer';
+  clone.addEventListener('mousedown', onElementMouseDown);
+  clone.addEventListener('dblclick', onElementDblClick);
+  selectElement(clone);
+  saveHistory();
+}
+
+// ========== Alignment Guides ==========
+function showAlignGuide(x, y) {
+  removeGuides();
+  if (!svgRoot) return;
+  if (x !== null) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x); line.setAttribute('y1', 0);
+    line.setAttribute('x2', x); line.setAttribute('y2', svgRoot.viewBox.baseVal.height || 700);
+    line.setAttribute('stroke', '#2563eb'); line.setAttribute('stroke-width', '0.5');
+    line.setAttribute('stroke-dasharray', '4,4'); line.setAttribute('class', 'align-guide');
+    line.setAttribute('pointer-events', 'none');
+    svgRoot.appendChild(line);
+  }
+  if (y !== null) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', 0); line.setAttribute('y1', y);
+    line.setAttribute('x2', svgRoot.viewBox.baseVal.width || 960); line.setAttribute('y2', y);
+    line.setAttribute('stroke', '#2563eb'); line.setAttribute('stroke-width', '0.5');
+    line.setAttribute('stroke-dasharray', '4,4'); line.setAttribute('class', 'align-guide');
+    line.setAttribute('pointer-events', 'none');
+    svgRoot.appendChild(line);
+  }
+}
+
+function removeGuides() {
+  if (!svgRoot) return;
+  svgRoot.querySelectorAll('.align-guide').forEach(g => g.remove());
+}
+
+// ========== Demo SVG ==========
+document.getElementById('btn-demo').onclick = () => {
+  const demoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 700">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .title { font-size: 24px; font-weight: 700; fill: #1e293b; }
+    .node-label { font-size: 16px; font-weight: 600; fill: #1e293b; }
+    .sub-label { font-size: 13px; font-weight: 400; fill: #64748b; }
+    .arrow-label { font-size: 12px; font-weight: 400; fill: #475569; }
+  </style>
+  <rect width="960" height="700" fill="#ffffff"/>
+  <text x="480" y="50" text-anchor="middle" class="title">AgentLoop Core Architecture</text>
+  <g id="node-user">
+    <circle cx="480" cy="120" r="35" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="480" y="118" text-anchor="middle" class="node-label">User</text>
+    <text x="480" y="135" text-anchor="middle" class="sub-label">Input</text>
+  </g>
+  <g id="node-agent">
+    <rect x="360" y="200" width="240" height="100" rx="12" fill="#f3e8ff" stroke="#7c3aed" stroke-width="3"/>
+    <text x="480" y="235" text-anchor="middle" class="node-label">Agent Loop</text>
+    <text x="480" y="255" text-anchor="middle" class="sub-label">Reasoning Engine</text>
+    <text x="480" y="275" text-anchor="middle" class="sub-label">Plan → Act → Observe</text>
+  </g>
+  <g id="node-memory-short">
+    <rect x="100" y="220" width="180" height="60" rx="8" fill="#dcfce7" stroke="#059669" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <text x="190" y="245" text-anchor="middle" class="node-label">Short-term</text>
+    <text x="190" y="265" text-anchor="middle" class="sub-label">Context Window</text>
+  </g>
+  <g id="node-memory-long">
+    <ellipse cx="190" cy="400" rx="80" ry="50" fill="#dcfce7" stroke="#059669" stroke-width="2.5"/>
+    <text x="190" y="395" text-anchor="middle" class="node-label">Long-term</text>
+    <text x="190" y="415" text-anchor="middle" class="sub-label">Vector Store</text>
+  </g>
+  <g id="node-tools">
+    <rect x="680" y="220" width="160" height="60" rx="8" fill="#fed7aa" stroke="#ea580c" stroke-width="2.5"/>
+    <text x="760" y="245" text-anchor="middle" class="node-label">Tools</text>
+    <text x="760" y="265" text-anchor="middle" class="sub-label">Functions</text>
+  </g>
+  <g id="node-output">
+    <rect x="390" y="500" width="180" height="70" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="480" y="525" text-anchor="middle" class="node-label">Response</text>
+    <text x="480" y="545" text-anchor="middle" class="sub-label">Action / Output</text>
+  </g>
+  <line x1="480" y1="155" x2="480" y2="200" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="480" y="180" text-anchor="middle" class="arrow-label">query</text>
+  <path d="M 360,250 L 280,250" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="320" y="240" text-anchor="middle" class="arrow-label">read</text>
+  <path d="M 600,250 L 680,250" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="640" y="240" text-anchor="middle" class="arrow-label">call</text>
+  <path d="M 680,260 L 600,260" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="640" y="275" text-anchor="middle" class="arrow-label">result</text>
+  <line x1="480" y1="300" x2="480" y2="500" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="490" y="400" class="arrow-label">generate</text>
+  <path d="M 240,380 Q 240,320 360,280" stroke="#059669" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <text x="295" y="329" text-anchor="middle" class="arrow-label">retrieve</text>
+</svg>`;
+  fileName = 'demo-agentloop.svg';
+  loadSVGContent(demoSvg);
+};
+
+// ========== Ctrl+D to duplicate ==========
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.ctrlKey && e.key === 'd') { e.preventDefault(); duplicateSelected(); }
+});
+
+// ========== Load from URL param ==========
+const urlParams = new URLSearchParams(window.location.search);
+const svgUrl = urlParams.get('svg');
+if (svgUrl) {
+  fetch(svgUrl)
+    .then(r => r.text())
+    .then(text => {
+      fileName = svgUrl.split('/').pop();
+      loadSVGContent(text);
+    })
+    .catch(err => console.warn('Failed to load SVG from URL:', err));
+}
+</script>
+</body>
+</html>
