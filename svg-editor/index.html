@@ -1787,8 +1787,8 @@ previewContainer.addEventListener('wheel', (e) => {
   <div class="publish-dialog">
     <h3>🚀 发布到线上</h3>
     <p>将当前编辑结果提交到 GitHub Pages，发布后所有人打开链接都是最新版本。</p>
-    <label>GitHub Personal Access Token (需 repo 权限)</label>
-    <input type="password" id="publish-token" placeholder="ghp_xxxxxxxx" />
+    <label>访问密码</label>
+    <input type="password" id="publish-token" placeholder="请输入团队共享密码" />
     <label>提交说明 (可选)</label>
     <input type="text" id="publish-msg" placeholder="update: 修改了..." value="update: 编辑器在线修改" />
     <div class="publish-status" id="publish-status"></div>
@@ -1881,9 +1881,9 @@ const BRANCH = 'main';
 
 document.getElementById('btn-publish').onclick = () => {
   if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
-  // Pre-fill token from localStorage if saved
-  const savedToken = localStorage.getItem('svg-editor-gh-token');
-  if (savedToken) document.getElementById('publish-token').value = savedToken;
+  // Pre-fill password from sessionStorage
+  const savedPwd = sessionStorage.getItem('svg-editor-pwd');
+  if (savedPwd) document.getElementById('publish-token').value = savedPwd;
   document.getElementById('publish-modal').classList.add('active');
 };
 
@@ -1891,26 +1891,57 @@ document.getElementById('publish-cancel').onclick = () => {
   document.getElementById('publish-modal').classList.remove('active');
 };
 
+// ========== Crypto helpers (decrypt token with password) ==========
+async function deriveKey(password, salt) {
+  const enc = new TextEncoder();
+  const km = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+    km, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+  );
+}
+function b64ToBuf(b64) {
+  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
+async function decryptToken(password) {
+  const resp = await fetch('token-encrypted.json?_t=' + Date.now());
+  if (!resp.ok) throw new Error('未配置加密 token (token-encrypted.json 不存在)');
+  const data = await resp.json();
+  const salt = b64ToBuf(data.salt);
+  const iv = b64ToBuf(data.iv);
+  const ct = b64ToBuf(data.data);
+  const key = await deriveKey(password, salt);
+  try {
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+    return new TextDecoder().decode(plain);
+  } catch (e) {
+    throw new Error('密码错误');
+  }
+}
+
 document.getElementById('publish-confirm').onclick = async () => {
-  const token = document.getElementById('publish-token').value.trim();
+  const password = document.getElementById('publish-token').value.trim();
   const msg = document.getElementById('publish-msg').value.trim() || 'update: 编辑器在线修改';
   const statusEl = document.getElementById('publish-status');
 
-  if (!token) {
-    statusEl.textContent = '❌ 请输入 GitHub Token';
+  if (!password) {
+    statusEl.textContent = '❌ 请输入密码';
     statusEl.className = 'publish-status show error';
     return;
   }
 
-  // Save token for next time
-  localStorage.setItem('svg-editor-gh-token', token);
-
-  statusEl.textContent = '⏳ 正在发布...';
+  statusEl.textContent = '⏳ 验证密码并发布中...';
   statusEl.className = 'publish-status show';
   statusEl.style.background = '#eff6ff';
   statusEl.style.color = '#2563eb';
 
   try {
+    // Decrypt the GitHub token using the password
+    const token = await decryptToken(password);
+
+    // Save password for this session (not localStorage, more secure)
+    sessionStorage.setItem('svg-editor-pwd', password);
+
     // Serialize current SVG
     const serializer = new XMLSerializer();
     let svgStr = serializer.serializeToString(svgRoot);
@@ -1968,7 +1999,7 @@ document.getElementById('publish-confirm').onclick = async () => {
       statusEl.className = 'publish-status show error';
     }
   } catch (e) {
-    statusEl.textContent = `❌ 网络错误: ${e.message}`;
+    statusEl.textContent = `❌ ${e.message}`;
     statusEl.className = 'publish-status show error';
   }
 };
