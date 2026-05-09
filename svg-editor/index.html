@@ -167,14 +167,20 @@ body {
   flex: 1;
   position: relative;
   overflow: auto;
-  background: repeating-conic-gradient(#f1f5f9 0% 25%, transparent 0% 50%) 50% / 20px 20px;
+  background: #ffffff;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
 }
 .canvas-area svg {
   display: block;
-  width: 100%;
-  height: auto;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
   cursor: default;
   background: white;
+  flex: 1;
 }
 
 /* Selection highlight */
@@ -338,56 +344,90 @@ body {
 .preview-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: #ffffff;
   z-index: 9999;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .preview-overlay.active { display: flex; }
 .preview-toolbar {
   position: absolute;
   top: 16px;
   right: 16px;
-  display: flex;
+  display: none;
   gap: 8px;
   z-index: 10001;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
 }
-.preview-overlay:hover .preview-toolbar,
-.preview-toolbar:hover {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
+.preview-toolbar.show {
+  display: flex;
+  animation: toolbar-fade 0.2s ease;
+}
+@keyframes toolbar-fade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .preview-exit-hint {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
   z-index: 10000;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 13px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
+  border: none;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.4);
   backdrop-filter: blur(8px);
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .preview-exit-hint:hover {
-  background: rgba(220,38,38,0.7);
+  background: rgba(220,38,38,0.85);
   color: #fff;
-  border-color: rgba(220,38,38,0.5);
+  transform: scale(1.1);
 }
-.preview-overlay:hover .preview-exit-hint {
-  opacity: 0;
-  pointer-events: none;
+.preview-exit-hint.hidden { display: none; }
+.preview-tool-toggle {
+  position: absolute;
+  top: 12px;
+  right: 56px;
+  z-index: 10000;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.4);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-tool-toggle:hover {
+  background: rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.8);
+}
+.preview-tool-toggle.hidden { display: none; }
+/* When preview has white bg, exit hint colors invert */
+.preview-overlay .preview-exit-hint {
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.4);
+}
+.preview-overlay .preview-exit-hint:hover {
+  background: rgba(220,38,38,0.85);
+  color: #fff;
 }
 .preview-toolbar button {
   padding: 8px 14px;
@@ -413,14 +453,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
-  padding: 16px;
+  overflow: hidden;
+  padding: 0;
+  background: #ffffff;
 }
 .preview-container svg {
   width: 100vw;
-  height: auto;
-  max-height: 100vh;
-  object-fit: contain;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
   background: white;
   border-radius: 0;
   box-shadow: none;
@@ -512,8 +553,9 @@ body {
 
 <!-- Preview Modal -->
 <div class="preview-overlay" id="preview-overlay">
-  <button class="preview-exit-hint" id="preview-exit-hint" title="退出预览 (Esc)">✕ 退出</button>
-  <div class="preview-toolbar">
+  <button class="preview-exit-hint" id="preview-exit-hint" title="退出预览 (Esc)">✕</button>
+  <button class="preview-tool-toggle" id="preview-tool-toggle" title="显示工具栏">⋯</button>
+  <div class="preview-toolbar" id="preview-toolbar">
     <button id="preview-zoom-in" title="放大">➕ 放大</button>
     <button id="preview-zoom-out" title="缩小">➖ 缩小</button>
     <button id="preview-reset" title="重置缩放">↺ 重置</button>
@@ -586,8 +628,11 @@ function loadSVGContent(svgText) {
 
   // Insert into DOM
   svgRoot = document.adoptNode(svg);
-  svgRoot.style.maxWidth = '100%';
-  svgRoot.style.height = 'auto';
+  // Strip inline sizing so CSS can take over (fill canvas)
+  svgRoot.removeAttribute('width');
+  svgRoot.removeAttribute('height');
+  svgRoot.removeAttribute('style');
+  svgRoot.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   canvasArea.appendChild(svgRoot);
 
   // Reset state
@@ -1603,6 +1648,9 @@ function openPreview() {
 
   const clone = svgRoot.cloneNode(true);
   clone.removeAttribute('style');
+  clone.removeAttribute('width');
+  clone.removeAttribute('height');
+  clone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   clone.querySelectorAll('.align-guide').forEach(g => g.remove());
 
   previewContainer.innerHTML = '';
@@ -1611,8 +1659,24 @@ function openPreview() {
   previewZoom = 1;
   updatePreviewZoom();
   previewOverlay.classList.add('active');
+  // Reset toolbar state — start hidden for immersive view
+  document.getElementById('preview-toolbar').classList.remove('show');
   document.body.style.overflow = 'hidden';
 }
+
+// Toggle toolbar visibility
+document.getElementById('preview-tool-toggle').onclick = (e) => {
+  e.stopPropagation();
+  document.getElementById('preview-toolbar').classList.toggle('show');
+};
+
+// Click outside toolbar to dismiss it
+document.getElementById('preview-overlay').addEventListener('click', (e) => {
+  const tb = document.getElementById('preview-toolbar');
+  if (tb.classList.contains('show') && !tb.contains(e.target) && e.target.id !== 'preview-tool-toggle') {
+    tb.classList.remove('show');
+  }
+});
 
 function closePreview() {
   previewOverlay.classList.remove('active');
