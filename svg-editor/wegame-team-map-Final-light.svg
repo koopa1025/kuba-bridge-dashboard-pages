@@ -140,8 +140,8 @@
   <!-- CELLS 区域 -->
   <text x="45" y="441" class="sec-label" style="cursor: pointer;">CELLS</text>
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="140" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;"/>
-    <text x="232.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">知识库(模型安全) 3</text>
+    <rect x="140" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="232.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">知识库(模型安全) 2</text>
     <text x="232.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">thomasjcli</text>
     <text x="232.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">dreamyan</text>
   </g>
@@ -149,10 +149,10 @@
   <rect x="337" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline=""/><text x="429.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">感知 3</text><text x="429.5" y="491" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">samualwang</text><text x="429.5" y="504" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">thomasjcli</text><text x="429.5" y="516" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">starrynie</text>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="534" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;"/>
-    <text x="626.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">记忆与用户画像 3</text>
-    <text x="626.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">leonmhliu</text>
-    <text x="626.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jinbozheng</text>
+    <rect x="530" y="460" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="622.5" y="480" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">记忆与用户画像 2</text>
+    <text x="622.5" y="496" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">leonmhliu</text>
+    <text x="622.5" y="509" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jinbozheng</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
