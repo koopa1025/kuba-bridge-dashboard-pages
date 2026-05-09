@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet" style="max-width: 100%; height: auto;">
   <style>
     text { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
     .sec-label { font-size: 12px; fill: #64748b; font-weight: 700; letter-spacing: 0.12em; }
@@ -44,29 +44,29 @@
 
   <!-- WeGame 项目卡片 - 蓝色系 -->
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="70" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
-    <rect x="70" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;"/>
+    <rect x="70" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#0ea5e9"/>
+    <rect x="70" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;" data-orig-outline=""/>
     <text x="140.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600" style="cursor: pointer;">WeGame</text>
     <text x="200" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
     <text x="140.0" y="282" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">amadeusyu</text>
     <text x="140.0" y="294" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">eliasouyang</text>
-    <text x="140.0" y="306" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">laytonmo</text>
+    <text x="140.0" y="306" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">laytonmo thomasjcli</text>
   </g>
 
   <!-- Store 项目卡片 -->
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="224" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
-    <rect x="224" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;"/>
-    <text x="294.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600" style="cursor: pointer;">Store</text>
-    <text x="354" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">2</text>
-    <text x="294.0" y="282" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">leonmhliu</text>
-    <text x="294.0" y="294" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">colintao</text>
+    <rect x="220" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#0ea5e9"/>
+    <rect x="220" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;" data-orig-outline=""/>
+    <text x="290" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600" style="cursor: pointer;">Store</text>
+    <text x="350" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">2</text>
+    <text x="290" y="282" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">leonmhliu</text>
+    <text x="290" y="294" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">colintao</text>
   </g>
 
   <!-- Developer Portal 项目卡片 -->
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="378" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
-    <rect x="378" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;"/>
+    <rect x="378" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#0ea5e9"/>
+    <rect x="378" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;" data-orig-outline=""/>
     <text x="448.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600" style="cursor: pointer;">Developer Portal</text>
     <text x="508" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
     <text x="448.0" y="282" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">rayhuo</text>
@@ -81,28 +81,28 @@
   </g>
 
   <g transform="translate(577,246)" style="cursor: pointer;">
-    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;"/>
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;" data-orig-outline="#FF6C2F"/>
     <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600" style="cursor: pointer;">Launcher</text>
-    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">planezhang</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">planezhang rerechen</text>
     <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">kennyywu</text>
   </g>
   <g transform="translate(747,246)" style="cursor: pointer;">
-    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;"/>
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;" data-orig-outline="#FF6C2F"/>
     <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600" style="cursor: pointer;">Helper</text>
     <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">hoyupye、fieldpan</text>
-    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">encorehuang、skywli</text>
+    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">encorehuang、skywli、wintersun、myleswang</text>
     <text x="77.5" y="57" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">zackhe、vinwbhuang</text>
   </g>
   <g transform="translate(577,320)" style="cursor: pointer;">
-    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;"/>
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;" data-orig-outline="#FF6C2F"/>
     <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600" style="cursor: pointer;">Activities</text>
-    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">rayhuo</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">rayhuo、wintersun</text>
   </g>
   <g transform="translate(747,320)" style="cursor: pointer;">
-    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;"/>
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)" style="cursor: pointer;" data-orig-outline="#FF6C2F"/>
     <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600" style="cursor: pointer;">高校开黑</text>
     <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">juthyli、rainychen</text>
-    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">alexnhqin</text>
+    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9" style="cursor: pointer;">alexnhqin、starrynie</text>
   </g>
 
   <!-- AI Native 项目 - 紫色系 -->
@@ -123,7 +123,7 @@
     <text x="1270" y="266" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700" style="cursor: pointer;">7</text>
     <text x="1210" y="282" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
     <text x="1210" y="294" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">panezhang、leoyahuang</text>
-    <text x="1210" y="306" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">starrynie、guanzwang</text>
+    <text x="1210" y="306" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">starrynie、guanzwang、Rjuwang</text>
     <text x="1210" y="318" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">eulerwang</text>
   </g>
 
@@ -146,7 +146,7 @@
     <text x="232.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">dreamyan</text>
   </g>
 
-  <rect x="337" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline=""/><text x="429.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">感知 3</text><text x="429.5" y="491" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">samualwang</text><text x="429.5" y="504" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">thomasjcli</text><text x="429.5" y="516" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">starrynie</text>
+  <rect x="337" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline=""/><text x="429.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">感知 3</text><text x="429.5" y="491" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">samualwang</text><text x="429.5" y="504" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">thomasjcli</text><text x="429.5" y="516" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">Rjuwang</text>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
     <rect x="530" y="460" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
@@ -156,9 +156,9 @@
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="731" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;"/>
-    <text x="823.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(评测和进化) 1</text>
-    <text x="823.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan</text>
+    <rect x="730" y="460" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="822.5" y="480" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(评测和进化) 1</text>
+    <text x="822.5" y="496" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
