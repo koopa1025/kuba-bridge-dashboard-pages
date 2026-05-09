@@ -171,10 +171,10 @@ body {
 }
 .canvas-area svg {
   display: block;
-  margin: 20px auto;
+  width: 100%;
+  height: auto;
   cursor: default;
   background: white;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 /* Selection highlight */
@@ -353,6 +353,41 @@ body {
   display: flex;
   gap: 8px;
   z-index: 10001;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+.preview-overlay:hover .preview-toolbar,
+.preview-toolbar:hover {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.preview-exit-hint {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10000;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.preview-exit-hint:hover {
+  background: rgba(220,38,38,0.7);
+  color: #fff;
+  border-color: rgba(220,38,38,0.5);
+}
+.preview-overlay:hover .preview-exit-hint {
+  opacity: 0;
+  pointer-events: none;
 }
 .preview-toolbar button {
   padding: 8px 14px;
@@ -379,12 +414,12 @@ body {
   align-items: center;
   justify-content: center;
   overflow: auto;
-  padding: 48px 0 32px;
+  padding: 16px;
 }
 .preview-container svg {
-  width: 98vw;
+  width: 100vw;
   height: auto;
-  max-height: 92vh;
+  max-height: 100vh;
   object-fit: contain;
   background: white;
   border-radius: 0;
@@ -477,6 +512,7 @@ body {
 
 <!-- Preview Modal -->
 <div class="preview-overlay" id="preview-overlay">
+  <button class="preview-exit-hint" id="preview-exit-hint" title="退出预览 (Esc)">✕ 退出</button>
   <div class="preview-toolbar">
     <button id="preview-zoom-in" title="放大">➕ 放大</button>
     <button id="preview-zoom-out" title="缩小">➖ 缩小</button>
@@ -1593,6 +1629,7 @@ function updatePreviewZoom() {
 }
 
 document.getElementById('preview-close').onclick = closePreview;
+document.getElementById('preview-exit-hint').onclick = closePreview;
 document.getElementById('preview-zoom-in').onclick = () => {
   previewZoom = Math.min(previewZoom + 0.25, 5);
   updatePreviewZoom();
