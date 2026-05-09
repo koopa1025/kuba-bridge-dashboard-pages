@@ -67,6 +67,88 @@ body {
   border-color: var(--accent);
 }
 .btn-primary:hover { background: #1d4ed8; }
+.btn-publish {
+  background: #059669;
+  color: white;
+  border-color: #059669;
+}
+.btn-publish:hover { background: #047857; }
+.save-indicator {
+  font-size: 11px;
+  color: var(--success);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #ecfdf5;
+  opacity: 0.9;
+}
+.save-indicator.saving {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+.save-indicator.error {
+  color: var(--danger);
+  background: #fef2f2;
+}
+/* Publish modal */
+.publish-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+.publish-modal.active { display: flex; }
+.publish-dialog {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 420px;
+  max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.publish-dialog h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.publish-dialog p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.publish-dialog label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--text-muted);
+}
+.publish-dialog input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.publish-dialog .btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.publish-status {
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  display: none;
+}
+.publish-status.show { display: block; }
+.publish-status.success { background: #ecfdf5; color: #059669; }
+.publish-status.error { background: #fef2f2; color: #dc2626; }
 .btn-danger {
   color: var(--danger);
   border-color: var(--danger);
@@ -341,6 +423,8 @@ body {
     <button class="btn" id="btn-autogroup" title="自动检测分组">自动分组</button>
     <button class="btn btn-primary" id="btn-export">导出 SVG</button>
     <button class="btn" id="btn-preview" title="预览 (P)">👁 预览</button>
+    <span class="save-indicator" id="save-indicator" title="自动保存状态">💾 已保存</span>
+    <button class="btn btn-publish" id="btn-publish" title="发布到线上">🚀 发布</button>
   </div>
 </div>
 
@@ -481,6 +565,13 @@ function loadSVGContent(svgText) {
   makeInteractive();
   updateStatusFile();
   updatePanel();
+
+  // Start auto-save observer
+  if (window._svgObserver) window._svgObserver.disconnect();
+  if (window._autoSaveSchedule) {
+    window._svgObserver = new MutationObserver(() => { if (window._autoSaveSchedule) window._autoSaveSchedule(); });
+    window._svgObserver.observe(svgRoot, { childList: true, attributes: true, subtree: true, characterData: true });
+  }
 }
 
 // ========== Make Elements Interactive ==========
@@ -1589,6 +1680,211 @@ previewContainer.addEventListener('wheel', (e) => {
   previewZoom = Math.max(0.25, Math.min(5, previewZoom + delta));
   updatePreviewZoom();
 }, { passive: false });
+</script>
+<!-- Publish Modal -->
+<div class="publish-modal" id="publish-modal">
+  <div class="publish-dialog">
+    <h3>🚀 发布到线上</h3>
+    <p>将当前编辑结果提交到 GitHub Pages，发布后所有人打开链接都是最新版本。</p>
+    <label>GitHub Personal Access Token (需 repo 权限)</label>
+    <input type="password" id="publish-token" placeholder="ghp_xxxxxxxx" />
+    <label>提交说明 (可选)</label>
+    <input type="text" id="publish-msg" placeholder="update: 修改了..." value="update: 编辑器在线修改" />
+    <div class="publish-status" id="publish-status"></div>
+    <div class="btn-row">
+      <button class="btn" id="publish-cancel">取消</button>
+      <button class="btn btn-publish" id="publish-confirm">确认发布</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== Auto-Save to localStorage ==========
+const STORAGE_PREFIX = 'svg-editor-save-';
+
+function getStorageKey() {
+  // Use the svg filename as key, so different files don't overwrite each other
+  const svgParam = new URLSearchParams(window.location.search).get('svg');
+  return STORAGE_PREFIX + (svgParam || fileName || 'default');
+}
+
+function autoSave() {
+  if (!svgRoot) return;
+  const indicator = document.getElementById('save-indicator');
+  indicator.textContent = '💾 保存中...';
+  indicator.className = 'save-indicator saving';
+
+  try {
+    const serializer = new XMLSerializer();
+    const svgStr = serializer.serializeToString(svgRoot);
+    const data = {
+      svg: svgStr,
+      fileName: fileName,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(getStorageKey(), JSON.stringify(data));
+    indicator.textContent = '💾 已保存';
+    indicator.className = 'save-indicator';
+  } catch (e) {
+    indicator.textContent = '⚠️ 保存失败';
+    indicator.className = 'save-indicator error';
+    console.warn('Auto-save failed:', e);
+  }
+}
+
+function loadFromLocalStorage() {
+  const key = getStorageKey();
+  const saved = localStorage.getItem(key);
+  if (!saved) return false;
+
+  try {
+    const data = JSON.parse(saved);
+    if (!data.svg) return false;
+
+    const savedTime = new Date(data.timestamp).toLocaleString('zh-CN');
+    const useLocal = confirm(`发现本地保存的编辑版本 (${savedTime})。\n\n点击"确定"加载本地编辑版本，\n点击"取消"加载服务器原始版本。`);
+    if (useLocal) {
+      fileName = data.fileName || fileName;
+      loadSVGContent(data.svg);
+      return true;
+    }
+  } catch (e) {
+    console.warn('Failed to load from localStorage:', e);
+  }
+  return false;
+}
+
+// Auto-save on any change (debounced)
+let saveTimer = null;
+function scheduleSave() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(autoSave, 1000); // 1 second after last change
+}
+window._autoSaveSchedule = scheduleSave;
+
+// Re-attach observer if SVG already loaded
+if (svgRoot) {
+  window._svgObserver = new MutationObserver(() => { scheduleSave(); });
+  window._svgObserver.observe(svgRoot, { childList: true, attributes: true, subtree: true, characterData: true });
+}
+
+// Also save on beforeunload
+window.addEventListener('beforeunload', () => {
+  if (svgRoot) autoSave();
+});
+
+// ========== Publish to GitHub ==========
+const REPO_OWNER = 'koopa1025';
+const REPO_NAME = 'kuba-bridge-dashboard-pages';
+const BRANCH = 'main';
+
+document.getElementById('btn-publish').onclick = () => {
+  if (!svgRoot) { alert('请先加载 SVG 文件'); return; }
+  // Pre-fill token from localStorage if saved
+  const savedToken = localStorage.getItem('svg-editor-gh-token');
+  if (savedToken) document.getElementById('publish-token').value = savedToken;
+  document.getElementById('publish-modal').classList.add('active');
+};
+
+document.getElementById('publish-cancel').onclick = () => {
+  document.getElementById('publish-modal').classList.remove('active');
+};
+
+document.getElementById('publish-confirm').onclick = async () => {
+  const token = document.getElementById('publish-token').value.trim();
+  const msg = document.getElementById('publish-msg').value.trim() || 'update: 编辑器在线修改';
+  const statusEl = document.getElementById('publish-status');
+
+  if (!token) {
+    statusEl.textContent = '❌ 请输入 GitHub Token';
+    statusEl.className = 'publish-status show error';
+    return;
+  }
+
+  // Save token for next time
+  localStorage.setItem('svg-editor-gh-token', token);
+
+  statusEl.textContent = '⏳ 正在发布...';
+  statusEl.className = 'publish-status show';
+  statusEl.style.background = '#eff6ff';
+  statusEl.style.color = '#2563eb';
+
+  try {
+    // Serialize current SVG
+    const serializer = new XMLSerializer();
+    let svgStr = serializer.serializeToString(svgRoot);
+    svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
+
+    // Determine file path in repo
+    const svgParam = new URLSearchParams(window.location.search).get('svg');
+    const filePath = 'svg-editor/' + (svgParam || fileName || 'untitled.svg');
+
+    // Get current file SHA (needed for update)
+    const getResp = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}?ref=${BRANCH}`,
+      { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } }
+    );
+
+    let sha = null;
+    if (getResp.ok) {
+      const fileData = await getResp.json();
+      sha = fileData.sha;
+    }
+
+    // PUT to update/create file
+    const body = {
+      message: msg,
+      content: btoa(unescape(encodeURIComponent(svgStr))),
+      branch: BRANCH
+    };
+    if (sha) body.sha = sha;
+
+    const putResp = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (putResp.ok) {
+      statusEl.textContent = '✅ 发布成功！GitHub Pages 将在 1-2 分钟内更新。';
+      statusEl.className = 'publish-status show success';
+      // Clear localStorage since it's now in sync
+      localStorage.removeItem(getStorageKey());
+      setTimeout(() => {
+        document.getElementById('publish-modal').classList.remove('active');
+        statusEl.className = 'publish-status';
+      }, 3000);
+    } else {
+      const err = await putResp.json();
+      statusEl.textContent = `❌ 发布失败: ${err.message || putResp.status}`;
+      statusEl.className = 'publish-status show error';
+    }
+  } catch (e) {
+    statusEl.textContent = `❌ 网络错误: ${e.message}`;
+    statusEl.className = 'publish-status show error';
+  }
+};
+
+// ========== Override URL loading to check localStorage first ==========
+// The original URL load happens synchronously above. We patch it:
+if (svgUrl) {
+  // Check if localStorage has a saved version
+  setTimeout(() => {
+    if (!loadFromLocalStorage()) {
+      // Already loaded from URL above, nothing to do
+    }
+  }, 100);
+} else {
+  // No URL param, try loading from localStorage
+  setTimeout(() => { loadFromLocalStorage(); }, 100);
+}
 </script>
 </body>
 </html>
