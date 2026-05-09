@@ -1450,7 +1450,9 @@ document.getElementById('btn-demo').onclick = () => {
 const urlParams = new URLSearchParams(window.location.search);
 const svgUrl = urlParams.get('svg');
 if (svgUrl) {
-  fetch(svgUrl)
+  // Add cache-busting to avoid CDN stale content
+  const bustUrl = svgUrl + (svgUrl.includes('?') ? '&' : '?') + '_t=' + Date.now();
+  fetch(bustUrl)
     .then(r => r.text())
     .then(text => {
       fileName = svgUrl.split('/').pop();
