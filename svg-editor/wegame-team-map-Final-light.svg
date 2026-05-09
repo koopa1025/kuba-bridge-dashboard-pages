@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" width="1600" height="920" style="max-width: 100%; height: auto;">
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .sec-label { font-size: 12px; fill: #64748b; font-weight: 700; letter-spacing: 0.12em; }
+  </style>
+  <defs>
+    <filter id="glow-gold" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#FF6C2F" flood-opacity="0.15"/></filter>
+    <filter id="glow-purple" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#7c3aed" flood-opacity="0.12"/></filter>
+    <filter id="soft" x="-3%" y="-3%" width="106%" height="112%"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/></filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="0.5" opacity="0.6"/></pattern>
+    <linearGradient id="gold-g" x1="0%" x2="100%"><stop offset="0%" stop-color="#FF6C2F" stop-opacity="0.05"/><stop offset="50%" stop-color="#FF8F5C" stop-opacity="0.12"/><stop offset="100%" stop-color="#FF6C2F" stop-opacity="0.05"/></linearGradient>
+    <linearGradient id="purple-g" x1="0%" x2="100%"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.04"/><stop offset="50%" stop-color="#a78bfa" stop-opacity="0.08"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0.04"/></linearGradient>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#f1f5f9"/></linearGradient>
+  </defs>
+  <!-- 浅色背景 -->
+  <rect width="1600" height="920" fill="url(#bg-gradient)"/>
+  <rect width="1600" height="920" fill="url(#grid)"/>
+
+  <!-- Production Mind 顶部横幅 - WeGame橙色主题 -->
+  <g data-auto-grouped="true">
+    <rect x="400" y="30" width="800" height="60" rx="30" fill="url(#gold-g)" stroke="#FF6C2F" stroke-width="1.5" filter="url(#glow-gold)"/>
+    <text x="800" y="56" text-anchor="middle" fill="#c2410c" font-size="14" font-weight="700">Production Mind：决定项目的方向、策略、规划</text>
+    <text x="800" y="78" text-anchor="middle" fill="#9a3412" font-size="11">bubuqian、vitowang、demonliang、phenixwu</text>
+  </g>
+
+  <!-- Technical Principle 紫色横条 -->
+  <g data-auto-grouped="true">
+    <rect x="200" y="118" width="1200" height="58" rx="8" fill="url(#purple-g)" stroke="#a78bfa" stroke-width="1" filter="url(#glow-purple)"/>
+    <rect x="980" y="130" width="125" height="32" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="0.8"/>
+    <rect x="1120" y="130" width="125" height="32" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="0.8"/>
+    <rect x="1260" y="130" width="125" height="32" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="0.8"/>
+    <text x="530" y="140" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="600">Technical Principle &amp; Harness Engineer</text>
+    <text x="530" y="155" text-anchor="middle" fill="#7c3aed" font-size="11">AI Native Developer Paradigm</text>
+    <text x="530" y="168" text-anchor="middle" fill="#6d28d9" font-size="10">phenixwu arvindong</text>
+    <text x="1042.5" y="150" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">PM Agent</text>
+    <text x="1182.5" y="150" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">Agent Swarm</text>
+    <text x="1322.5" y="150" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">Automated Testing</text>
+  </g>
+
+  <!-- 分割线 -->
+  <line x1="40" y1="198" x2="1560" y2="198" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7"/>
+  <text x="45" y="226" class="sec-label">PROJECTS</text>
+
+  <!-- WeGame 项目卡片 - 蓝色系 -->
+  <g data-auto-grouped="true">
+    <rect x="70" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="70" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9"/>
+    <text x="140.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">WeGame</text>
+    <text x="200" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700">3</text>
+    <text x="140.0" y="282" text-anchor="middle" fill="#64748b" font-size="9">amadeusyu</text>
+    <text x="140.0" y="294" text-anchor="middle" fill="#64748b" font-size="9">eliasouyang</text>
+    <text x="140.0" y="306" text-anchor="middle" fill="#64748b" font-size="9">laytonmo</text>
+  </g>
+
+  <!-- Store 项目卡片 -->
+  <g data-auto-grouped="true">
+    <rect x="224" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="224" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9"/>
+    <text x="294.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Store</text>
+    <text x="354" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700">2</text>
+    <text x="294.0" y="282" text-anchor="middle" fill="#64748b" font-size="9">leonmhliu</text>
+    <text x="294.0" y="294" text-anchor="middle" fill="#64748b" font-size="9">colintao</text>
+  </g>
+
+  <!-- Developer Portal 项目卡片 -->
+  <g data-auto-grouped="true">
+    <rect x="378" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="378" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9"/>
+    <text x="448.0" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Developer Portal</text>
+    <text x="508" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700">3</text>
+    <text x="448.0" y="282" text-anchor="middle" fill="#64748b" font-size="9">rayhuo</text>
+    <text x="448.0" y="294" text-anchor="middle" fill="#64748b" font-size="9">manplehuang</text>
+    <text x="448.0" y="306" text-anchor="middle" fill="#64748b" font-size="9">borisbao</text>
+  </g>
+
+  <!-- 项目支持区域 - WeGame橙色点缀 -->
+  <g data-auto-grouped="true">
+    <rect x="557" y="226" width="400" height="175" rx="8" fill="none" stroke="#FF6C2F" stroke-width="1.3" stroke-dasharray="6,3" opacity="0.6"/>
+    <text x="695" y="241" fill="#c2410c" font-size="11" font-weight="600">项目支持  leroyxyli  13</text>
+  </g>
+
+  <g transform="translate(577,246)">
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)"/>
+    <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600">Launcher</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9">planezhang</text>
+    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9">kennyywu</text>
+  </g>
+  <g transform="translate(747,246)">
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)"/>
+    <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600">Helper</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9">hoyupye、fieldpan</text>
+    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9">encorehuang、skywli</text>
+    <text x="77.5" y="57" text-anchor="middle" fill="#78350f" font-size="9">zackhe、vinwbhuang</text>
+  </g>
+  <g transform="translate(577,320)">
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)"/>
+    <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600">Activities</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9">rayhuo</text>
+  </g>
+  <g transform="translate(747,320)">
+    <rect x="0" y="2" width="155" height="60" rx="5" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" transform="skewX(-3)"/>
+    <text x="77.5" y="19" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="600">高校开黑</text>
+    <text x="77.5" y="33" text-anchor="middle" fill="#78350f" font-size="9">juthyli、rainychen</text>
+    <text x="77.5" y="45" text-anchor="middle" fill="#78350f" font-size="9">alexnhqin</text>
+  </g>
+
+  <!-- AI Native 项目 - 紫色系 -->
+  <g data-auto-grouped="true">
+    <rect x="982" y="246" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="982" y="246" width="140" height="3" rx="1.5" fill="#a78bfa"/>
+    <text x="1052.0" y="266" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600">WeGame Agent</text>
+    <text x="1112" y="266" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700">3</text>
+    <text x="1052.0" y="282" text-anchor="middle" fill="#6d28d9" font-size="9">xinyuejin</text>
+    <text x="1052.0" y="294" text-anchor="middle" fill="#6d28d9" font-size="9">zizkazhang</text>
+    <text x="1052.0" y="306" text-anchor="middle" fill="#6d28d9" font-size="9">innohuang</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="1140" y="250" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="1140" y="250" width="140" height="3" rx="1.5" fill="#a78bfa"/>
+    <text x="1210" y="270" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600">单游戏Agent(PoE2)</text>
+    <text x="1270" y="270" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700">7</text>
+    <text x="1210" y="286" text-anchor="middle" fill="#6d28d9" font-size="9">anlanfan、botaocai</text>
+    <text x="1210" y="298" text-anchor="middle" fill="#6d28d9" font-size="9">panezhang、leoyahuang</text>
+    <text x="1210" y="310" text-anchor="middle" fill="#6d28d9" font-size="9">starrynie、guanzwang</text>
+    <text x="1210" y="322" text-anchor="middle" fill="#6d28d9" font-size="9">eulerwang</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="1290" y="246" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)"/>
+    <rect x="1290" y="246" width="140" height="3" rx="1.5" fill="#a78bfa"/>
+    <text x="1360.0" y="266" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600">EchoX</text>
+    <text x="1420" y="266" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700">3</text>
+    <text x="1360.0" y="282" text-anchor="middle" fill="#6d28d9" font-size="9">landyzhao</text>
+    <text x="1360.0" y="294" text-anchor="middle" fill="#6d28d9" font-size="9">polarisliu</text>
+    <text x="1360.0" y="306" text-anchor="middle" fill="#6d28d9" font-size="9">jamesleeli</text>
+  </g>
+
+  <!-- CELLS 区域 -->
+  <text x="45" y="441" class="sec-label">CELLS</text>
+  <g data-auto-grouped="true">
+    <rect x="140" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="232.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">知识库(模型安全) 3</text>
+    <text x="232.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9">thomasjcli</text>
+    <text x="232.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9">dreamyan</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="337" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="429.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">感知 3</text>
+    <text x="429.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9">samualwang</text>
+    <text x="429.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9">thomasjcli</text>
+    <text x="429.5" y="519" text-anchor="middle" fill="#6d28d9" font-size="9">starrynie</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="534" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="626.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">记忆与用户画像 3</text>
+    <text x="626.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9">leonmhliu</text>
+    <text x="626.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9">jinbozheng</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="731" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="823.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">语音智能体(评测和进化) 1</text>
+    <text x="823.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9">anlanfan</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="928" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="1020.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">端侧Agent和模型研究 1</text>
+    <text x="1020.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9">zizkazhang</text>
+  </g>
+
+  <g data-auto-grouped="true">
+    <rect x="1125" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)"/>
+    <text x="1217.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500">……</text>
+  </g>
+
+  <!-- Platform Layer 分割线 -->
+  <line x1="40" y1="546" x2="1560" y2="546" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7"/>
+  <text x="45" y="571" class="sec-label">PLATFORM LAYER</text>
+
+  <!-- Platform Layer 卡片 -->
+  <g data-auto-grouped="true">
+    <rect x="120" y="585" width="1380" height="68" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1" filter="url(#soft)"/>
+    <rect x="142" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <rect x="298" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <rect x="454" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <rect x="610" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <text x="214.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">基础后台服务</text>
+    <text x="370.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">账号(安全、好友、社交)</text>
+    <text x="526.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">数据服务</text>
+    <text x="682.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">支付服务</text>
+    <text x="362" y="671" text-anchor="middle" fill="#64748b" font-size="10">charilezhu  crazyfu yonghaoliu  3人</text>
+    <text x="1042" y="671" text-anchor="middle" fill="#64748b" font-size="10">lieberli  shaohuikong  shupeifei  3人</text>
+  </g>
+  <g data-auto-grouped="true">
+    <rect x="1315" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <text x="1387.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">客户端基础框架</text>
+  </g>
+  <g data-auto-grouped="true">
+    <rect x="766" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <text x="838.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">运营配置</text>
+  </g>
+  <g data-auto-grouped="true">
+    <rect x="922" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <text x="994.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">前端基础设施</text>
+  </g>
+  <g data-auto-grouped="true">
+    <rect x="1078" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+    <text x="1150.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500">Devops &amp; QA</text>
+  </g>
+
+  <!-- 图例 -->
+  <g transform="translate(55, 698)">
+    <text x="0" y="0" fill="#475569" font-size="10" font-weight="600" letter-spacing="0.08em">LEGEND</text>
+    <rect x="0" y="10" width="16" height="10" rx="2" fill="#ffffff" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="22" y="18" fill="#475569" font-size="9">Standard Project</text>
+    <rect x="135" y="10" width="16" height="10" rx="2" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1"/>
+    <text x="157" y="18" fill="#475569" font-size="9">Support Project</text>
+    <rect x="270" y="10" width="16" height="10" rx="2" fill="#faf5ff" stroke="#a78bfa" stroke-width="1"/>
+    <text x="292" y="18" fill="#475569" font-size="9">AI Native Project</text>
+    <rect x="405" y="10" width="16" height="10" rx="2" fill="#faf5ff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="427" y="18" fill="#475569" font-size="9">AI Cell</text>
+    <rect x="485" y="10" width="16" height="10" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <text x="507" y="18" fill="#475569" font-size="9">Platform Service</text>
+  </g>
+  <text x="1550" y="716" text-anchor="end" fill="#94a3b8" font-size="9" opacity="0.7">WeGame Team · 2026-05</text>
+</svg>
