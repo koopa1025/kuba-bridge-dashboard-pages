@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>SVG 微调编辑器 — fireworks-tech-graph</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -478,6 +479,218 @@ body {
   padding: 4px 12px;
   border-radius: 4px;
 }
+
+/* Text editing improvements: multiline textarea */
+textarea.text-edit-overlay {
+  resize: none;
+  min-height: 30px;
+  line-height: 1.3;
+  font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Text format toolbar (floats near selected text) */
+.text-format-bar {
+  position: absolute;
+  background: #1e293b;
+  color: white;
+  border-radius: 8px;
+  padding: 4px;
+  display: none;
+  gap: 2px;
+  z-index: 300;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.text-format-bar.show { display: flex; }
+.text-format-bar button {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  min-width: 32px;
+}
+.text-format-bar button:hover { background: rgba(255,255,255,0.15); }
+.text-format-bar button.active { background: var(--accent); }
+.text-format-bar .sep {
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 4px 2px;
+}
+
+/* Overflow menu for toolbar */
+.overflow-menu {
+  position: absolute;
+  top: 48px;
+  right: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  min-width: 160px;
+}
+.overflow-menu.show { display: flex; }
+.overflow-menu button {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.btn-more { display: none; }
+
+/* Mobile bottom sheet for property panel */
+.panel-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 390;
+}
+.panel-backdrop.show { display: block; }
+
+/* Mobile floating action button for panel */
+.mobile-fab {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+  z-index: 300;
+  cursor: pointer;
+}
+
+/* ============ Responsive: Mobile (< 768px) ============ */
+@media (max-width: 768px) {
+  :root { --panel-width: 100%; }
+
+  .header {
+    height: 52px;
+    padding: 0 10px;
+    gap: 6px;
+    overflow: visible;
+  }
+  .header h1 { display: none; }
+
+  .toolbar { gap: 4px; }
+  .tool-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .actions {
+    gap: 4px;
+  }
+  /* Hide most buttons on mobile, show only critical ones + overflow menu */
+  .actions .btn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .actions .btn-text-only,
+  .actions #btn-demo,
+  .actions #btn-duplicate,
+  .actions #btn-group,
+  .actions #btn-ungroup,
+  .actions #btn-autogroup,
+  .actions #btn-export {
+    display: none;
+  }
+  .save-indicator {
+    display: none;
+  }
+  .btn-more { display: inline-block; }
+
+  /* Panel becomes bottom sheet */
+  .main {
+    flex-direction: column;
+  }
+  .panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 60vh;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.1);
+    transform: translateY(100%);
+    transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 400;
+  }
+  .panel.open {
+    transform: translateY(0);
+  }
+  .panel-header {
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-header::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: #cbd5e1;
+    border-radius: 2px;
+  }
+  .panel-close {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0 4px;
+  }
+
+  .mobile-fab { display: flex; align-items: center; justify-content: center; }
+
+  .status-bar {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .status-bar #status-file {
+    display: none;
+  }
+
+  /* Larger touch targets */
+  .btn, button {
+    min-height: 36px;
+  }
+
+  /* Text format bar - bigger buttons on mobile */
+  .text-format-bar button {
+    padding: 10px 12px;
+    font-size: 15px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Hide panel-close button on desktop */
+.panel-close { display: none; }
+@media (max-width: 768px) { .panel-close { display: block; } }
 </style>
 </head>
 <body>
@@ -501,6 +714,15 @@ body {
     <button class="btn" id="btn-preview" title="预览 (P)">👁 预览</button>
     <span class="save-indicator" id="save-indicator" title="自动保存状态">💾 已保存</span>
     <button class="btn btn-publish" id="btn-publish" title="发布到线上">🚀 发布</button>
+    <button class="btn btn-more" id="btn-more" title="更多">⋯</button>
+  </div>
+  <div class="overflow-menu" id="overflow-menu">
+    <button class="btn" id="m-demo">加载示例</button>
+    <button class="btn" id="m-duplicate">复制选中 (⌘D)</button>
+    <button class="btn" id="m-group">成组 (⌘G)</button>
+    <button class="btn" id="m-ungroup">解组</button>
+    <button class="btn" id="m-autogroup">自动分组</button>
+    <button class="btn" id="m-export">导出 SVG</button>
   </div>
 </div>
 
@@ -517,7 +739,10 @@ body {
   </div>
 
   <div class="panel" id="panel">
-    <div class="panel-header">属性面板</div>
+    <div class="panel-header">
+      <span>属性面板</span>
+      <button class="panel-close" id="panel-close" title="关闭">✕</button>
+    </div>
     <div id="panel-content">
       <div class="panel-section">
         <p style="font-size:12px; color:var(--text-muted); padding: 20px 0; text-align:center;">
@@ -547,6 +772,27 @@ body {
   <span id="status-selection">未选中</span>
   <span class="history-indicator" id="status-history"></span>
   <span style="margin-left:auto;" id="status-file">未加载文件</span>
+</div>
+
+<!-- Mobile floating action button -->
+<button class="mobile-fab" id="mobile-fab" title="属性面板">⚙</button>
+
+<!-- Panel backdrop (mobile) -->
+<div class="panel-backdrop" id="panel-backdrop"></div>
+
+<!-- Floating text format bar (appears on text selection) -->
+<div class="text-format-bar" id="text-format-bar">
+  <button data-fmt="bold" title="加粗">B</button>
+  <button data-fmt="italic" title="斜体"><i>I</i></button>
+  <div class="sep"></div>
+  <button data-fmt="align-left" title="左对齐">⟵</button>
+  <button data-fmt="align-center" title="居中">↔</button>
+  <button data-fmt="align-right" title="右对齐">⟶</button>
+  <div class="sep"></div>
+  <button data-fmt="size-down" title="缩小字号">A-</button>
+  <button data-fmt="size-up" title="放大字号">A+</button>
+  <div class="sep"></div>
+  <button data-fmt="edit" title="编辑文字">✎</button>
 </div>
 
 <input type="file" id="file-input" accept=".svg" style="display:none;">
@@ -899,12 +1145,20 @@ function offsetPath(d, dx, dy) {
 function onElementDblClick(e) {
   e.stopPropagation();
   let target = e.target;
-  if (target.tagName !== 'text') {
+  if (target.tagName !== 'text' && target.tagName !== 'tspan') {
     const txt = target.querySelector ? target.querySelector('text') : null;
     if (txt) target = txt;
     else return;
   }
+  if (target.tagName === 'tspan') target = target.parentElement;
 
+  // Use enhanced multi-line text edit if available (loaded later in script)
+  if (typeof enhancedTextEdit === 'function') {
+    enhancedTextEdit(target);
+    return;
+  }
+
+  // Fallback: single-line editor
   const bbox = target.getBoundingClientRect();
   const input = document.createElement('input');
   input.type = 'text';
@@ -2017,6 +2271,435 @@ if (svgUrl) {
   // No URL param, try loading from localStorage
   setTimeout(() => { loadFromLocalStorage(); }, 100);
 }
+
+// ====================================================================
+// ==================== MOBILE ADAPTATION ==============================
+// ====================================================================
+
+// Overflow menu (more button) - wire mobile-visible buttons to their desktop siblings
+const overflowMenu = document.getElementById('overflow-menu');
+const btnMore = document.getElementById('btn-more');
+btnMore.onclick = (e) => {
+  e.stopPropagation();
+  overflowMenu.classList.toggle('show');
+};
+document.addEventListener('click', (e) => {
+  if (!overflowMenu.contains(e.target) && e.target !== btnMore) {
+    overflowMenu.classList.remove('show');
+  }
+});
+// Delegate to original buttons
+const menuMap = {
+  'm-demo': 'btn-demo',
+  'm-duplicate': 'btn-duplicate',
+  'm-group': 'btn-group',
+  'm-ungroup': 'btn-ungroup',
+  'm-autogroup': 'btn-autogroup',
+  'm-export': 'btn-export'
+};
+Object.entries(menuMap).forEach(([mid, tid]) => {
+  const el = document.getElementById(mid);
+  if (el) el.onclick = () => {
+    overflowMenu.classList.remove('show');
+    document.getElementById(tid).click();
+  };
+});
+
+// Mobile FAB: open the property panel as bottom sheet
+const mobileFab = document.getElementById('mobile-fab');
+const panelEl = document.getElementById('panel');
+const panelBackdrop = document.getElementById('panel-backdrop');
+const panelClose = document.getElementById('panel-close');
+
+function openMobilePanel() {
+  panelEl.classList.add('open');
+  panelBackdrop.classList.add('show');
+}
+function closeMobilePanel() {
+  panelEl.classList.remove('open');
+  panelBackdrop.classList.remove('show');
+}
+mobileFab.onclick = openMobilePanel;
+panelBackdrop.onclick = closeMobilePanel;
+if (panelClose) panelClose.onclick = closeMobilePanel;
+
+// Auto-open panel when an element is selected on mobile
+const _origUpdatePanel = updatePanel;
+// Can't override function declarations easily — use a hook via MutationObserver on selection state
+// Instead: auto-open on first selection touch
+let _lastSelTarget = null;
+function maybeAutoOpenPanel() {
+  if (window.innerWidth <= 768 && selectedEl && selectedEl !== _lastSelTarget) {
+    _lastSelTarget = selectedEl;
+    // Don't auto-open on every select; only first time per selection change
+    // Commented out to avoid being too aggressive — user uses FAB instead
+    // openMobilePanel();
+  } else if (!selectedEl) {
+    _lastSelTarget = null;
+  }
+}
+
+// ====================================================================
+// =========== POINTER EVENTS (unified touch + mouse) =================
+// ====================================================================
+
+// Replace mouse events on SVG elements with pointer events for touch support
+const _origMakeInteractive = makeInteractive;
+function enhancePointerEvents() {
+  if (!svgRoot) return;
+  const elements = svgRoot.querySelectorAll('rect, circle, ellipse, text, g, path, line, polyline, polygon');
+  elements.forEach(el => {
+    if (el.closest('defs') || el.closest('marker')) return;
+    // Remove old handlers (may double-bind but that's OK for idempotency)
+    el.addEventListener('touchstart', preventDefaultIfSelecting, { passive: false });
+  });
+}
+function preventDefaultIfSelecting(e) {
+  // Prevent scroll when interacting with SVG elements on touch
+  if (currentTool === 'select') {
+    e.preventDefault();
+  }
+}
+
+// ========== Pinch-to-zoom & pan on canvas (touch) ==========
+const canvasAreaEl = document.getElementById('canvas-area');
+let touchState = null;
+
+canvasAreaEl.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    // Two-finger pinch: enter zoom mode
+    const t1 = e.touches[0], t2 = e.touches[1];
+    const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+    const midX = (t1.clientX + t2.clientX) / 2;
+    const midY = (t1.clientY + t2.clientY) / 2;
+    touchState = { mode: 'pinch', startDist: dist, startScale: canvasScale, midX, midY, scrollLeft: canvasAreaEl.scrollLeft, scrollTop: canvasAreaEl.scrollTop };
+    e.preventDefault();
+  } else if (e.touches.length === 1 && currentTool === 'pan') {
+    const t = e.touches[0];
+    touchState = { mode: 'pan', x: t.clientX, y: t.clientY, scrollLeft: canvasAreaEl.scrollLeft, scrollTop: canvasAreaEl.scrollTop };
+  }
+}, { passive: false });
+
+canvasAreaEl.addEventListener('touchmove', (e) => {
+  if (!touchState) return;
+  if (touchState.mode === 'pinch' && e.touches.length === 2) {
+    const t1 = e.touches[0], t2 = e.touches[1];
+    const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+    const newScale = Math.max(0.3, Math.min(4, touchState.startScale * (dist / touchState.startDist)));
+    setCanvasScale(newScale);
+    e.preventDefault();
+  } else if (touchState.mode === 'pan' && e.touches.length === 1) {
+    const t = e.touches[0];
+    canvasAreaEl.scrollLeft = touchState.scrollLeft - (t.clientX - touchState.x);
+    canvasAreaEl.scrollTop = touchState.scrollTop - (t.clientY - touchState.y);
+    e.preventDefault();
+  }
+}, { passive: false });
+
+canvasAreaEl.addEventListener('touchend', () => { touchState = null; });
+
+// Canvas zoom (applied via transform)
+let canvasScale = 1;
+function setCanvasScale(s) {
+  canvasScale = s;
+  if (svgRoot) {
+    svgRoot.style.transformOrigin = '0 0';
+    svgRoot.style.transform = `scale(${s})`;
+  }
+}
+
+// ====================================================================
+// =========== TEXT EDITING ENHANCEMENTS ==============================
+// ====================================================================
+
+// Replace single-line input editor with multi-line textarea editor
+// Override the double-click handler by re-binding after interactive setup
+function enhancedTextEdit(target) {
+  if (target.tagName !== 'text') {
+    const txt = target.querySelector ? target.querySelector('text') : null;
+    if (txt) target = txt;
+    else return;
+  }
+
+  const bbox = target.getBoundingClientRect();
+  const textarea = document.createElement('textarea');
+  textarea.className = 'text-edit-overlay';
+
+  // Support multi-line: read tspan children or current textContent
+  const tspans = target.querySelectorAll('tspan');
+  let initial;
+  if (tspans.length > 0) {
+    initial = Array.from(tspans).map(t => t.textContent).join('\n');
+  } else {
+    initial = target.textContent;
+  }
+  textarea.value = initial;
+
+  const cs = getComputedStyle(target);
+  const fontSize = parseFloat(cs.fontSize) || 14;
+
+  textarea.style.left = Math.max(bbox.left - 8, 4) + 'px';
+  textarea.style.top = Math.max(bbox.top - 4, 4) + 'px';
+  textarea.style.fontSize = fontSize + 'px';
+  textarea.style.width = Math.max(bbox.width + 80, 160) + 'px';
+  textarea.style.height = Math.max(bbox.height + 16, 40) + 'px';
+  textarea.style.color = target.getAttribute('fill') || cs.fill || '#000';
+  textarea.style.textAlign = ({
+    'start': 'left',
+    'middle': 'center',
+    'end': 'right'
+  })[target.getAttribute('text-anchor') || 'start'] || 'left';
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  // Auto-resize textarea as user types
+  const autoSize = () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.max(40, textarea.scrollHeight + 4) + 'px';
+  };
+  textarea.addEventListener('input', autoSize);
+  autoSize();
+
+  const finish = () => {
+    const newVal = textarea.value;
+    if (newVal !== initial) {
+      applyMultilineText(target, newVal);
+      saveHistory();
+      updatePanel();
+    }
+    textarea.remove();
+  };
+
+  textarea.onblur = finish;
+  textarea.onkeydown = (ev) => {
+    // Enter = newline; Cmd/Ctrl+Enter or Escape = finish
+    if ((ev.metaKey || ev.ctrlKey) && ev.key === 'Enter') {
+      ev.preventDefault();
+      finish();
+    }
+    if (ev.key === 'Escape') {
+      ev.preventDefault();
+      textarea.remove();
+    }
+  };
+}
+
+// Apply multi-line text to an SVG <text>, using <tspan> for each line
+function applyMultilineText(textEl, value) {
+  const lines = value.split('\n');
+  // Preserve original x attribute and font size for line-height computation
+  const x = textEl.getAttribute('x');
+  const fontSize = parseFloat(getComputedStyle(textEl).fontSize) || 14;
+  const lineHeight = fontSize * 1.2;
+
+  // Clear existing content
+  while (textEl.firstChild) textEl.removeChild(textEl.firstChild);
+
+  if (lines.length === 1) {
+    textEl.textContent = lines[0];
+    return;
+  }
+
+  lines.forEach((line, i) => {
+    const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+    tspan.setAttribute('x', x);
+    tspan.setAttribute('dy', i === 0 ? '0' : lineHeight);
+    tspan.textContent = line;
+    textEl.appendChild(tspan);
+  });
+}
+
+// Override the original double-click handler via direct function replacement (above)
+// enhancedTextEdit is now called from within onElementDblClick itself
+
+// Add touch support for long-press → edit text (mobile)
+let _longPressTimer = null;
+canvasAreaEl.addEventListener('touchstart', (e) => {
+  if (e.touches.length !== 1) return;
+  const target = e.target;
+  clearTimeout(_longPressTimer);
+  _longPressTimer = setTimeout(() => {
+    // Long press: trigger dblclick behavior on text element
+    let t = target;
+    if (t.tagName === 'tspan') t = t.parentElement;
+    if (t && t.tagName === 'text') {
+      enhancedTextEdit(t);
+    }
+  }, 600);
+}, { passive: true });
+canvasAreaEl.addEventListener('touchend', () => { clearTimeout(_longPressTimer); });
+canvasAreaEl.addEventListener('touchmove', () => { clearTimeout(_longPressTimer); });
+
+// ====================================================================
+// =========== FLOATING TEXT FORMAT BAR ===============================
+// ====================================================================
+const textFormatBar = document.getElementById('text-format-bar');
+
+function showTextFormatBar(textEl) {
+  if (!textEl) { textFormatBar.classList.remove('show'); return; }
+  const bbox = textEl.getBoundingClientRect();
+  textFormatBar.style.left = Math.max(8, bbox.left + bbox.width / 2 - 160) + 'px';
+  textFormatBar.style.top = Math.max(64, bbox.top - 50) + 'px';
+  textFormatBar.classList.add('show');
+
+  // Update active states
+  textFormatBar.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  const weight = textEl.getAttribute('font-weight') || getComputedStyle(textEl).fontWeight;
+  if (weight === 'bold' || parseInt(weight) >= 600) {
+    textFormatBar.querySelector('[data-fmt="bold"]').classList.add('active');
+  }
+  const italic = textEl.getAttribute('font-style') || getComputedStyle(textEl).fontStyle;
+  if (italic === 'italic') {
+    textFormatBar.querySelector('[data-fmt="italic"]').classList.add('active');
+  }
+  const anchor = textEl.getAttribute('text-anchor') || 'start';
+  const alignMap = { 'start': 'align-left', 'middle': 'align-center', 'end': 'align-right' };
+  const activeBtn = textFormatBar.querySelector(`[data-fmt="${alignMap[anchor]}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+// Hook into selection to show/hide format bar
+function updateFormatBarForSelection() {
+  const sel = selectedEl;
+  if (sel && (sel.tagName === 'text' || sel.tagName === 'tspan')) {
+    const target = sel.tagName === 'tspan' ? sel.parentElement : sel;
+    showTextFormatBar(target);
+  } else {
+    textFormatBar.classList.remove('show');
+  }
+}
+
+// Patch the selection flow
+setInterval(() => {
+  updateFormatBarForSelection();
+  maybeAutoOpenPanel();
+}, 300);
+
+// Format bar button handlers
+textFormatBar.querySelectorAll('button').forEach(btn => {
+  btn.onclick = (e) => {
+    e.stopPropagation();
+    if (!selectedEl) return;
+    let target = selectedEl;
+    if (target.tagName === 'tspan') target = target.parentElement;
+    if (target.tagName !== 'text') return;
+
+    const fmt = btn.dataset.fmt;
+    switch (fmt) {
+      case 'bold': {
+        const curr = target.getAttribute('font-weight') || '';
+        const isBold = curr === 'bold' || parseInt(curr) >= 600;
+        target.setAttribute('font-weight', isBold ? 'normal' : 'bold');
+        break;
+      }
+      case 'italic': {
+        const curr = target.getAttribute('font-style') || '';
+        target.setAttribute('font-style', curr === 'italic' ? 'normal' : 'italic');
+        break;
+      }
+      case 'align-left':
+        target.setAttribute('text-anchor', 'start');
+        break;
+      case 'align-center':
+        target.setAttribute('text-anchor', 'middle');
+        break;
+      case 'align-right':
+        target.setAttribute('text-anchor', 'end');
+        break;
+      case 'size-down': {
+        const cur = parseFloat(getComputedStyle(target).fontSize) || 14;
+        target.setAttribute('font-size', Math.max(6, cur - 1));
+        break;
+      }
+      case 'size-up': {
+        const cur = parseFloat(getComputedStyle(target).fontSize) || 14;
+        target.setAttribute('font-size', Math.min(72, cur + 1));
+        break;
+      }
+      case 'edit':
+        enhancedTextEdit(target);
+        break;
+    }
+    saveHistory();
+    showTextFormatBar(target);
+  };
+});
+
+// ====================================================================
+// =========== SMART ALIGNMENT GUIDES (while dragging) ================
+// ====================================================================
+
+function collectSnapTargets(excludeEls) {
+  if (!svgRoot) return { xs: [], ys: [] };
+  const excluded = new Set();
+  excludeEls.forEach(el => {
+    excluded.add(el);
+    if (el.querySelectorAll) el.querySelectorAll('*').forEach(c => excluded.add(c));
+  });
+  const xs = new Set();
+  const ys = new Set();
+  svgRoot.querySelectorAll('rect, circle, ellipse, text').forEach(el => {
+    if (excluded.has(el)) return;
+    if (el.closest('defs') || el.closest('marker')) return;
+    if (el.tagName === 'rect') {
+      const x = parseFloat(el.getAttribute('x') || 0);
+      const y = parseFloat(el.getAttribute('y') || 0);
+      const w = parseFloat(el.getAttribute('width') || 0);
+      const h = parseFloat(el.getAttribute('height') || 0);
+      xs.add(x); xs.add(x + w); xs.add(x + w / 2);
+      ys.add(y); ys.add(y + h); ys.add(y + h / 2);
+    } else if (el.tagName === 'circle' || el.tagName === 'ellipse') {
+      const cx = parseFloat(el.getAttribute('cx') || 0);
+      const cy = parseFloat(el.getAttribute('cy') || 0);
+      xs.add(cx); ys.add(cy);
+    } else if (el.tagName === 'text') {
+      const x = parseFloat(el.getAttribute('x') || 0);
+      const y = parseFloat(el.getAttribute('y') || 0);
+      xs.add(x); ys.add(y);
+    }
+  });
+  return { xs: Array.from(xs), ys: Array.from(ys) };
+}
+
+function findNearestSnap(value, candidates, threshold = 4) {
+  let best = null, bestDiff = threshold + 1;
+  for (const c of candidates) {
+    const d = Math.abs(c - value);
+    if (d <= threshold && d < bestDiff) { best = c; bestDiff = d; }
+  }
+  return best;
+}
+
+// Intercept drag with capture-phase listener, providing smart-align
+document.addEventListener('mousemove', (e) => {
+  if (!dragState || !svgRoot || e.shiftKey) return;
+  // Compute what the position would snap to
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX; pt.y = e.clientY;
+  const svgPt = pt.matrixTransform(svgRoot.getScreenCTM().inverse());
+  const dx = svgPt.x - dragState.startX;
+  const dy = svgPt.y - dragState.startY;
+  const firstPos = dragState.origPositions[0].positions[0];
+  const baseX = firstPos.x ?? firstPos.cx ?? firstPos.x1 ?? 0;
+  const baseY = firstPos.y ?? firstPos.cy ?? firstPos.y1 ?? 0;
+  const newX = baseX + dx;
+  const newY = baseY + dy;
+
+  const excludeEls = dragState.origPositions.map(p => p.el);
+  const { xs, ys } = collectSnapTargets(excludeEls);
+  const snapX = findNearestSnap(newX, xs);
+  const snapY = findNearestSnap(newY, ys);
+
+  if (snapX !== null || snapY !== null) {
+    showAlignGuide(snapX, snapY);
+  } else {
+    removeGuides();
+  }
+}, true);
+
+console.log('[SVG Editor] Mobile + enhanced text editing loaded');
 </script>
 </body>
 </html>
