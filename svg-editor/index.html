@@ -2040,7 +2040,7 @@ previewContainer.addEventListener('wheel', (e) => {
 <div class="publish-modal" id="publish-modal">
   <div class="publish-dialog">
     <h3>🚀 发布到线上</h3>
-    <p>将当前编辑结果提交到 GitHub Pages，发布后所有人打开链接都是最新版本。</p>
+    <p id="publish-desc">将当前编辑结果提交到 GitHub Pages，发布后生成可分享的外网链接。</p>
     <label>访问密码</label>
     <input type="password" id="publish-token" placeholder="请输入团队共享密码" />
     <label>提交说明 (可选)</label>
@@ -2138,6 +2138,18 @@ document.getElementById('btn-publish').onclick = () => {
   // Pre-fill password from sessionStorage
   const savedPwd = sessionStorage.getItem('svg-editor-pwd');
   if (savedPwd) document.getElementById('publish-token').value = savedPwd;
+  // Reset status
+  const statusEl = document.getElementById('publish-status');
+  statusEl.className = 'publish-status';
+  statusEl.innerHTML = '';
+  // Adjust description based on whether editing an online file or local
+  const svgParam = new URLSearchParams(window.location.search).get('svg');
+  const descEl = document.getElementById('publish-desc');
+  if (svgParam) {
+    descEl.innerHTML = `当前在编辑线上文件 <code style="background:#f1f5f9;padding:2px 4px;border-radius:3px;">${svgParam}</code>，发布后将<b>覆盖更新原文件</b>，原链接内容会变成最新版本。`;
+  } else {
+    descEl.innerHTML = `当前是本地打开的文件，发布将<b>生成一个全新的可分享链接</b>，原文件不会被影响。`;
+  }
   document.getElementById('publish-modal').classList.add('active');
 };
 
@@ -2201,9 +2213,26 @@ document.getElementById('publish-confirm').onclick = async () => {
     let svgStr = serializer.serializeToString(svgRoot);
     svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
 
-    // Determine file path in repo
+    // ===== Determine target file name =====
+    // Rule: if URL has ?svg=xxx, overwrite that file (keep same shareable link).
+    //       Otherwise (local-opened file), create a NEW shareable file under share/
     const svgParam = new URLSearchParams(window.location.search).get('svg');
-    const filePath = 'svg-editor/' + (svgParam || fileName || 'untitled.svg');
+    let filePath, shareName, isNewShare = false;
+
+    if (svgParam) {
+      // Existing online file - overwrite
+      filePath = 'svg-editor/' + svgParam;
+      shareName = svgParam;
+    } else {
+      // Local file - generate a new unique file under share/
+      isNewShare = true;
+      const baseName = (fileName || 'untitled.svg').replace(/\.svg$/i, '').replace(/[^a-zA-Z0-9_\-\u4e00-\u9fa5]+/g, '_');
+      const ts = new Date();
+      const stamp = `${ts.getFullYear()}${String(ts.getMonth()+1).padStart(2,'0')}${String(ts.getDate()).padStart(2,'0')}-${String(ts.getHours()).padStart(2,'0')}${String(ts.getMinutes()).padStart(2,'0')}${String(ts.getSeconds()).padStart(2,'0')}`;
+      const rand = Math.random().toString(36).slice(2, 6);
+      shareName = `share/${baseName}-${stamp}-${rand}.svg`;
+      filePath = 'svg-editor/' + shareName;
+    }
 
     // Get current file SHA (needed for update)
     const getResp = await fetch(
@@ -2239,14 +2268,39 @@ document.getElementById('publish-confirm').onclick = async () => {
     );
 
     if (putResp.ok) {
-      statusEl.textContent = '✅ 发布成功！GitHub Pages 将在 1-2 分钟内更新。';
+      // Build shareable URLs
+      const base = `${location.origin}${location.pathname.replace(/[^/]*$/, '')}`;
+      const viewUrl = `${base}view.html?svg=${encodeURIComponent(shareName)}`;
+      const editUrl = `${base}?svg=${encodeURIComponent(shareName)}`;
+
+      // Show success with copy buttons
+      statusEl.innerHTML = isNewShare
+        ? `✅ 已生成新分享链接（GitHub Pages 1-2 分钟后生效）<br>
+           <div style="margin-top:10px; display:flex; flex-direction:column; gap:8px;">
+             <div style="display:flex; gap:6px; align-items:center;">
+               <span style="font-size:11px; color:#64748b; min-width:48px;">查看：</span>
+               <input type="text" readonly value="${viewUrl}" style="flex:1; padding:4px 6px; font-size:11px; border:1px solid #ddd; border-radius:4px;" onclick="this.select()" />
+               <button type="button" onclick="navigator.clipboard.writeText('${viewUrl}'); this.textContent='✓'; setTimeout(()=>this.textContent='复制',1500);" style="padding:4px 8px; font-size:11px;">复制</button>
+             </div>
+             <div style="display:flex; gap:6px; align-items:center;">
+               <span style="font-size:11px; color:#64748b; min-width:48px;">编辑：</span>
+               <input type="text" readonly value="${editUrl}" style="flex:1; padding:4px 6px; font-size:11px; border:1px solid #ddd; border-radius:4px;" onclick="this.select()" />
+               <button type="button" onclick="navigator.clipboard.writeText('${editUrl}'); this.textContent='✓'; setTimeout(()=>this.textContent='复制',1500);" style="padding:4px 8px; font-size:11px;">复制</button>
+             </div>
+           </div>`
+        : `✅ 发布成功！原链接的内容已更新（1-2 分钟后生效）。`;
       statusEl.className = 'publish-status show success';
-      // Clear localStorage since it's now in sync
       localStorage.removeItem(getStorageKey());
-      setTimeout(() => {
-        document.getElementById('publish-modal').classList.remove('active');
-        statusEl.className = 'publish-status';
-      }, 3000);
+
+      if (isNewShare) {
+        // Don't auto-close: user needs to copy link. Also update browser URL so next publish overwrites.
+        history.replaceState(null, '', `?svg=${encodeURIComponent(shareName)}`);
+      } else {
+        setTimeout(() => {
+          document.getElementById('publish-modal').classList.remove('active');
+          statusEl.className = 'publish-status';
+        }, 3000);
+      }
     } else {
       const err = await putResp.json();
       statusEl.textContent = `❌ 发布失败: ${err.message || putResp.status}`;
