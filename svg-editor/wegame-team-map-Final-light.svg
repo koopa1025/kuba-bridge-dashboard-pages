@@ -58,9 +58,9 @@
     <rect x="220" y="246" width="140" height="86" rx="6" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#0ea5e9"/>
     <rect x="220" y="246" width="140" height="3" rx="1.5" fill="#0ea5e9" style="cursor: pointer;" data-orig-outline=""/>
     <text x="290" y="266" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600" style="cursor: pointer;">Store</text>
-    <text x="350" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">2</text>
+    <text x="350" y="266" text-anchor="end" fill="#0ea5e9" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
     <text x="290" y="282" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">leonmhliu</text>
-    <text x="290" y="294" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;">colintao</text>
+    <text x="290" y="294" text-anchor="middle" fill="#64748b" font-size="9" style="cursor: pointer;"><tspan x="290" dy="0">colintao</tspan><tspan x="290" dy="10.799999999999999">jarethjiang</tspan></text>
   </g>
 
   <!-- Developer Portal 项目卡片 -->
@@ -169,7 +169,7 @@
 
   <g data-auto-grouped="true" style="cursor: pointer;">
     <rect x="1130" y="458" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1222.5" y="478" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1222.5" dy="0">评测体系</tspan><tspan x="1222.5" dy="13.2">thomasjcli</tspan><tspan x="1220" dy="13.2" data-orig-outline="" style="">rjuwang</tspan><tspan x="1222.5" dy="13.2">anlanfan</tspan></text>
+    <text x="1222.5" y="478" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1222.5" dy="0">评测体系 3</tspan><tspan x="1222.5" dy="13.2">thomasjcli</tspan><tspan x="1222.5" dy="13.2">rjuwang</tspan><tspan x="1222.5" dy="13.2">anlanfan</tspan></text>
   </g>
 
   <!-- Platform Layer 分割线 -->
