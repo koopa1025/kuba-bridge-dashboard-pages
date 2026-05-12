@@ -2276,25 +2276,16 @@ document.getElementById('publish-confirm').onclick = async () => {
     );
 
     if (putResp.ok) {
-      // Build shareable URLs
+      // Build shareable URL (editor link only)
       const base = `${location.origin}${location.pathname.replace(/[^/]*$/, '')}`;
-      const viewUrl = `${base}view.html?svg=${encodeURIComponent(shareName)}`;
       const editUrl = `${base}?svg=${encodeURIComponent(shareName)}`;
 
-      // Show success with copy buttons
+      // Show success with copy button
       statusEl.innerHTML = isNewShare
-        ? `✅ 已生成新分享链接（GitHub Pages 1-2 分钟后生效）<br>
-           <div style="margin-top:10px; display:flex; flex-direction:column; gap:8px;">
-             <div style="display:flex; gap:6px; align-items:center;">
-               <span style="font-size:11px; color:#64748b; min-width:48px;">查看：</span>
-               <input type="text" readonly value="${viewUrl}" style="flex:1; padding:4px 6px; font-size:11px; border:1px solid #ddd; border-radius:4px;" onclick="this.select()" />
-               <button type="button" onclick="navigator.clipboard.writeText('${viewUrl}'); this.textContent='✓'; setTimeout(()=>this.textContent='复制',1500);" style="padding:4px 8px; font-size:11px;">复制</button>
-             </div>
-             <div style="display:flex; gap:6px; align-items:center;">
-               <span style="font-size:11px; color:#64748b; min-width:48px;">编辑：</span>
-               <input type="text" readonly value="${editUrl}" style="flex:1; padding:4px 6px; font-size:11px; border:1px solid #ddd; border-radius:4px;" onclick="this.select()" />
-               <button type="button" onclick="navigator.clipboard.writeText('${editUrl}'); this.textContent='✓'; setTimeout(()=>this.textContent='复制',1500);" style="padding:4px 8px; font-size:11px;">复制</button>
-             </div>
+        ? `✅ 已生成分享链接（GitHub Pages 1-2 分钟后生效）<br>
+           <div style="margin-top:10px; display:flex; gap:6px; align-items:center;">
+             <input type="text" readonly value="${editUrl}" style="flex:1; padding:6px 8px; font-size:11px; border:1px solid #ddd; border-radius:4px;" onclick="this.select()" />
+             <button type="button" onclick="navigator.clipboard.writeText('${editUrl}'); this.textContent='✓ 已复制'; setTimeout(()=>this.textContent='复制',1500);" style="padding:6px 12px; font-size:12px;">复制</button>
            </div>`
         : `✅ 发布成功！原链接的内容已更新（1-2 分钟后生效）。`;
       statusEl.className = 'publish-status show success';
