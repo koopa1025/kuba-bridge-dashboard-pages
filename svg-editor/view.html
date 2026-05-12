@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVG 预览</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.viewer-toolbar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+.viewer-toolbar:hover { opacity: 1; }
+.viewer-toolbar button, .viewer-toolbar a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #475569;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.viewer-toolbar button:hover, .viewer-toolbar a:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+.viewer-toolbar .btn-edit {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+.viewer-toolbar .btn-edit:hover {
+  background: #1d4ed8;
+  color: white;
+}
+.svg-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 32px;
+}
+.svg-container svg {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
+.loading, .error {
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
+}
+.error { color: #dc2626; }
+@media (max-width: 768px) {
+  .svg-container { padding: 12px; }
+  .viewer-toolbar { top: 8px; right: 8px; gap: 4px; opacity: 0.7; }
+  .viewer-toolbar button, .viewer-toolbar a {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="viewer-toolbar">
+  <button id="btn-fullscreen" title="全屏">⛶ 全屏</button>
+  <button id="btn-png" title="导出 PNG">📷 PNG</button>
+  <a id="btn-svg" download title="下载 SVG">💾 SVG</a>
+  <a id="btn-edit" class="btn-edit" title="在编辑器中打开">✎ 编辑</a>
+</div>
+
+<div class="svg-container" id="container">
+  <div class="loading">加载中...</div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const svgUrl = params.get('svg');
+const container = document.getElementById('container');
+
+document.getElementById('btn-edit').href = svgUrl ? `./?svg=${encodeURIComponent(svgUrl)}` : './';
+
+if (!svgUrl) {
+  container.innerHTML = '<div class="error">缺少 svg 参数<br>用法: view.html?svg=xxx.svg</div>';
+} else {
+  fetch(svgUrl + (svgUrl.includes('?') ? '&' : '?') + '_t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('文件加载失败: ' + r.status);
+      return r.text();
+    })
+    .then(text => {
+      container.innerHTML = text;
+      const svg = container.querySelector('svg');
+      if (svg) {
+        const blob = new Blob([text], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.getElementById('btn-svg');
+        a.href = url;
+        a.download = svgUrl.split('/').pop() || 'image.svg';
+      }
+    })
+    .catch(err => {
+      container.innerHTML = '<div class="error">❌ ' + err.message + '</div>';
+    });
+}
+
+document.getElementById('btn-png').onclick = () => {
+  const svg = container.querySelector('svg');
+  if (!svg) return;
+  const serializer = new XMLSerializer();
+  const svgStr = serializer.serializeToString(svg);
+  const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(svgBlob);
+
+  const vb = svg.viewBox && svg.viewBox.baseVal;
+  const width = (vb && vb.width) ? vb.width * 2 : 1920;
+  const height = (vb && vb.height) ? vb.height * 2 : 1080;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.onload = () => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+    URL.revokeObjectURL(url);
+    canvas.toBlob((blob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (svgUrl ? svgUrl.split('/').pop().replace('.svg', '') : 'image') + '.png';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = url;
+};
+
+document.getElementById('btn-fullscreen').onclick = () => {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen();
+  }
+};
+</script>
+</body>
+</html>
