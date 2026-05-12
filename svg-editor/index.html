@@ -671,6 +671,10 @@ textarea.text-edit-overlay {
     display: none;
   }
 
+  /* On mobile, file menu button shows only icon */
+  .file-menu-btn span:last-child { display: none; }
+  .file-menu-btn { padding: 6px 10px; }
+
   .actions {
     gap: 4px;
     margin-left: auto;
@@ -680,23 +684,9 @@ textarea.text-edit-overlay {
     padding: 6px 8px;
     font-size: 12px;
   }
-  .actions .btn-text-only,
-  .actions #btn-demo,
-  .actions #btn-open,
-  .actions #btn-undo,
-  .actions #btn-redo,
-  .actions #btn-duplicate,
-  .actions #btn-group,
-  .actions #btn-ungroup,
-  .actions #btn-autogroup,
-  .actions #btn-export,
-  .actions #btn-preview {
-    display: none;
-  }
   .save-indicator {
     display: none;
   }
-  .btn-more { display: inline-block; }
 
   /* Panel becomes bottom sheet */
   .main {
@@ -885,12 +875,60 @@ textarea.text-edit-overlay {
 
 /* Header toolbar (top) — hidden everywhere because dock at bottom replaces it */
 .header .toolbar { display: none; }
-/* Hide redundant action buttons — moved to bottom dock */
-.actions #btn-undo,
-.actions #btn-redo,
-.actions #btn-duplicate,
-.actions #btn-preview {
+
+/* Header redesigned: file menu (left) + title (center) + publish (right) */
+.header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.header .actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.file-menu-wrap { position: relative; }
+.file-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+}
+.file-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
   display: none;
+  flex-direction: column;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  z-index: 600;
+}
+.file-menu.show { display: flex; }
+.file-menu-item {
+  background: transparent;
+  border: none;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.file-menu-item:hover { background: var(--accent-light); }
+.file-menu-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
 }
 
 /* Mobile bottom dock & context action bar — shown on all sizes for unified UX */
@@ -944,33 +982,54 @@ textarea.text-edit-overlay {
 <body>
 
 <div class="header">
-  <h1>SVG 微调编辑器</h1>
-  <div class="toolbar">
-    <button class="tool-btn active" id="tool-select" title="选择 (V)">↖</button>
-    <button class="tool-btn" id="tool-pan" title="平移 (H)">✋</button>
+  <!-- File menu (left) -->
+  <div class="file-menu-wrap">
+    <button class="btn file-menu-btn" id="file-menu-btn" title="文件">
+      <span style="font-size:16px;line-height:1">≡</span>
+      <span style="margin-left:4px">文件</span>
+    </button>
+    <div class="file-menu" id="file-menu">
+      <button class="file-menu-item" id="fm-open">📂 打开 SVG…</button>
+      <button class="file-menu-item" id="fm-demo">✨ 加载示例</button>
+      <div class="file-menu-sep"></div>
+      <button class="file-menu-item" id="fm-export">💾 导出 SVG</button>
+      <button class="file-menu-item" id="fm-preview">👁 预览 (P)</button>
+    </div>
   </div>
+
+  <h1>SVG 编辑器</h1>
+
   <div class="actions">
-    <button class="btn" id="btn-open">打开 SVG</button>
-    <button class="btn" id="btn-demo">加载示例</button>
-    <button class="btn" id="btn-undo" title="撤销 Ctrl+Z">↩</button>
-    <button class="btn" id="btn-redo" title="重做 Ctrl+Y">↪</button>
-    <button class="btn" id="btn-duplicate" title="复制选中 Ctrl+D">复制</button>
-    <button class="btn" id="btn-group" title="成组 Ctrl+G">成组</button>
-    <button class="btn" id="btn-ungroup" title="解组 Ctrl+Shift+G">解组</button>
-    <button class="btn" id="btn-autogroup" title="自动检测分组">自动分组</button>
-    <button class="btn btn-primary" id="btn-export">导出 SVG</button>
-    <button class="btn" id="btn-preview" title="预览 (P)">👁 预览</button>
     <span class="save-indicator" id="save-indicator" title="自动保存状态">💾 已保存</span>
     <button class="btn btn-publish" id="btn-publish" title="发布到线上">🚀 发布</button>
-    <button class="btn btn-more" id="btn-more" title="更多">⋯</button>
   </div>
-  <div class="overflow-menu" id="overflow-menu">
-    <button class="btn" id="m-demo">加载示例</button>
-    <button class="btn" id="m-duplicate">复制选中 (⌘D)</button>
-    <button class="btn" id="m-group">成组 (⌘G)</button>
-    <button class="btn" id="m-ungroup">解组</button>
-    <button class="btn" id="m-autogroup">自动分组</button>
-    <button class="btn" id="m-export">导出 SVG</button>
+
+  <!-- Hidden buttons retained for legacy event hooks (mobile dock + format bar still trigger these) -->
+  <div class="legacy-buttons" style="display:none;">
+    <button id="btn-open"></button>
+    <button id="btn-demo"></button>
+    <button id="btn-undo"></button>
+    <button id="btn-redo"></button>
+    <button id="btn-duplicate"></button>
+    <button id="btn-group"></button>
+    <button id="btn-ungroup"></button>
+    <button id="btn-autogroup"></button>
+    <button id="btn-export"></button>
+    <button id="btn-preview"></button>
+    <button id="btn-more"></button>
+  </div>
+  <div class="overflow-menu" id="overflow-menu" style="display:none;">
+    <button class="btn" id="m-demo"></button>
+    <button class="btn" id="m-duplicate"></button>
+    <button class="btn" id="m-group"></button>
+    <button class="btn" id="m-ungroup"></button>
+    <button class="btn" id="m-autogroup"></button>
+    <button class="btn" id="m-export"></button>
+  </div>
+  <!-- Tool select buttons (kept as hidden anchor for setTool()) -->
+  <div class="legacy-buttons" style="display:none;">
+    <button class="tool-btn active" id="tool-select"></button>
+    <button class="tool-btn" id="tool-pan"></button>
   </div>
 </div>
 
@@ -1027,23 +1086,28 @@ textarea.text-edit-overlay {
 <!-- Mobile floating action button -->
 <button class="mobile-fab" id="mobile-fab" title="属性面板">⚙</button>
 
-<!-- Mobile bottom dock toolbar (Excalidraw-style) -->
+<!-- Bottom dock toolbar (Excalidraw-style) — all editing actions -->
 <div class="mobile-bottom-dock" id="mobile-bottom-dock">
-  <button class="dock-btn" id="mdock-select" title="选择" data-tool="select">↖</button>
-  <button class="dock-btn" id="mdock-pan" title="平移" data-tool="pan">✋</button>
-  <div class="dock-sep"></div>
+  <!-- Tools -->
+  <button class="dock-btn" id="mdock-select" title="选择 (V)" data-tool="select">↖</button>
+  <button class="dock-btn" id="mdock-pan" title="平移 (H)" data-tool="pan">✋</button>
   <button class="dock-btn" id="mdock-text" title="文字 (T)" data-tool="text">A</button>
   <div class="dock-sep"></div>
-  <button class="dock-btn" id="mdock-undo" title="撤销">⤺</button>
-  <button class="dock-btn" id="mdock-redo" title="重做">⤻</button>
+
+  <!-- History -->
+  <button class="dock-btn" id="mdock-undo" title="撤销 (⌘Z)">⤺</button>
+  <button class="dock-btn" id="mdock-redo" title="重做 (⌘Y)">⤻</button>
   <div class="dock-sep"></div>
-  <button class="dock-btn" id="mdock-duplicate" title="复制">⎘</button>
+
+  <!-- Element actions -->
+  <button class="dock-btn" id="mdock-duplicate" title="复制 (⌘D)">⎘</button>
   <button class="dock-btn" id="mdock-delete" title="删除">🗑</button>
   <div class="dock-sep"></div>
-  <button class="dock-btn" id="mdock-preview" title="预览">👁</button>
-  <button class="dock-btn" id="mdock-publish" title="发布">🚀</button>
-  <div class="dock-sep"></div>
-  <button class="dock-btn" id="mdock-more" title="更多">⋯</button>
+
+  <!-- Group operations -->
+  <button class="dock-btn" id="mdock-group" title="成组 (⌘G)">⊞</button>
+  <button class="dock-btn" id="mdock-ungroup" title="解组 (⌘⇧G)">⊟</button>
+  <button class="dock-btn" id="mdock-autogroup" title="自动分组">⚯</button>
 </div>
 
 <!-- Context action bar (floats above selected element on mobile) -->
@@ -3387,11 +3451,9 @@ const dockMap = {
       updatePanel();
     }
   },
-  'mdock-preview': () => { document.getElementById('btn-preview').click(); },
-  'mdock-publish': () => { document.getElementById('btn-publish').click(); },
-  'mdock-more': () => {
-    overflowMenu.classList.toggle('show');
-  }
+  'mdock-group': () => { document.getElementById('btn-group').click(); },
+  'mdock-ungroup': () => { document.getElementById('btn-ungroup').click(); },
+  'mdock-autogroup': () => { document.getElementById('btn-autogroup').click(); }
 };
 Object.entries(dockMap).forEach(([id, fn]) => {
   const el = document.getElementById(id);
@@ -3442,6 +3504,34 @@ document.getElementById('cab-delete').onclick = (e) => {
     else { selectedEl.remove(); selectedEl = null; selectedEls = []; saveHistory(); updatePanel(); }
   }
 };
+
+// ====================================================================
+// =========== FILE MENU (top-left dropdown) ==========================
+// ====================================================================
+const fileMenuBtn = document.getElementById('file-menu-btn');
+const fileMenu = document.getElementById('file-menu');
+fileMenuBtn.onclick = (e) => {
+  e.stopPropagation();
+  fileMenu.classList.toggle('show');
+};
+document.addEventListener('click', (e) => {
+  if (!fileMenu.contains(e.target) && e.target !== fileMenuBtn && !fileMenuBtn.contains(e.target)) {
+    fileMenu.classList.remove('show');
+  }
+});
+const fileMenuMap = {
+  'fm-open': 'btn-open',
+  'fm-demo': 'btn-demo',
+  'fm-export': 'btn-export',
+  'fm-preview': 'btn-preview'
+};
+Object.entries(fileMenuMap).forEach(([fmId, btnId]) => {
+  const fmEl = document.getElementById(fmId);
+  if (fmEl) fmEl.onclick = () => {
+    fileMenu.classList.remove('show');
+    document.getElementById(btnId).click();
+  };
+});
 
 // ====================================================================
 // =========== PROPERTY PANEL TOGGLE (desktop) ========================
