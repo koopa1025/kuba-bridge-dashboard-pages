@@ -2302,7 +2302,13 @@ document.getElementById('publish-confirm').onclick = async () => {
 
       if (isNewShare) {
         // Don't auto-close: user needs to copy link. Also update browser URL so next publish overwrites.
-        history.replaceState(null, '', `?svg=${encodeURIComponent(shareName)}`);
+        try {
+          if (typeof history !== 'undefined' && typeof history.replaceState === 'function') {
+            history.replaceState(null, '', `?svg=${encodeURIComponent(shareName)}`);
+          }
+        } catch (e) {
+          console.warn('[publish] replaceState failed, ignore:', e && e.message);
+        }
       } else {
         setTimeout(() => {
           document.getElementById('publish-modal').classList.remove('active');
