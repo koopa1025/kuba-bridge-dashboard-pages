@@ -15,7 +15,7 @@
   </defs>
   <!-- 浅色背景 -->
   <rect width="1600" height="920" fill="url(#bg-gradient)" style="cursor: pointer;"/>
-  <rect width="1600" height="920" fill="url(#grid)" style="cursor: pointer;" data-orig-outline=""/>
+  <rect width="1600" height="920" fill="url(#grid)" style="cursor: pointer; outline: 2px dashed rgb(37, 99, 235); outline-offset: 3px;" data-orig-outline=""/>
 
   <!-- Production Mind 顶部横幅 - WeGame橙色主题 -->
   <g data-auto-grouped="true" style="cursor: pointer;">
@@ -156,20 +156,20 @@
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="730" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer; outline: 2px dashed rgb(37, 99, 235); outline-offset: 3px;" data-orig-outline="#7c3aed"/>
-    <text x="822.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(评测和进化) 2</text>
+    <rect x="730" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="822.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(自主进化) 2</text>
     <text x="822.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="928" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1020.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
-    <text x="1020.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
+    <rect x="930" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="1022.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
+    <text x="1022.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="1125" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;"/>
-    <text x="1217.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">……</text>
+    <rect x="1130" y="458" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="1222.5" y="478" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1222.5" dy="0">评测体系</tspan><tspan x="1222.5" dy="13.2">thomasjcli</tspan><tspan x="1220" dy="13.2" data-orig-outline="" style="">rjuwang</tspan><tspan x="1222.5" dy="13.2">anlanfan</tspan></text>
   </g>
 
   <!-- Platform Layer 分割线 -->
