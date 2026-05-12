@@ -631,35 +631,38 @@ textarea.text-edit-overlay {
   :root { --panel-width: 100%; }
 
   .header {
-    height: 52px;
-    padding: 0 10px;
-    gap: 6px;
+    height: 44px;
+    padding: 0 8px;
+    gap: 4px;
     overflow: visible;
   }
   .header h1 { display: none; }
 
-  .toolbar { gap: 4px; }
-  .tool-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+  /* Hide top toolbar on mobile — moved to bottom dock */
+  .header .toolbar {
+    display: none;
   }
 
   .actions {
     gap: 4px;
+    margin-left: auto;
   }
-  /* Hide most buttons on mobile, show only critical ones + overflow menu */
+  /* Hide most action buttons on mobile, keep publish + more */
   .actions .btn {
     padding: 6px 8px;
     font-size: 12px;
   }
   .actions .btn-text-only,
   .actions #btn-demo,
+  .actions #btn-open,
+  .actions #btn-undo,
+  .actions #btn-redo,
   .actions #btn-duplicate,
   .actions #btn-group,
   .actions #btn-ungroup,
   .actions #btn-autogroup,
-  .actions #btn-export {
+  .actions #btn-export,
+  .actions #btn-preview {
     display: none;
   }
   .save-indicator {
@@ -719,11 +722,94 @@ textarea.text-edit-overlay {
     padding: 0 4px;
   }
 
-  .mobile-fab { display: flex; align-items: center; justify-content: center; }
+  /* Mobile bottom dock toolbar — Excalidraw style */
+  .mobile-bottom-dock {
+    display: flex !important;
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0);
+    left: 8px;
+    right: 8px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    padding: 6px;
+    gap: 4px;
+    z-index: 300;
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: center;
+    scrollbar-width: none;
+  }
+  .mobile-bottom-dock::-webkit-scrollbar { display: none; }
+  .mobile-bottom-dock .dock-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .mobile-bottom-dock .dock-btn:hover,
+  .mobile-bottom-dock .dock-btn:active {
+    background: var(--accent-light);
+  }
+  .mobile-bottom-dock .dock-btn.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .mobile-bottom-dock .dock-sep {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    flex-shrink: 0;
+    margin: 0 2px;
+  }
+
+  /* Move the FAB above bottom dock */
+  .mobile-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 70px);
+  }
+
+  /* Context action bar floats above selected element */
+  .context-action-bar {
+    position: fixed;
+    background: #1e293b;
+    color: white;
+    border-radius: 8px;
+    padding: 4px;
+    display: none;
+    gap: 2px;
+    z-index: 350;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .context-action-bar.show { display: flex; }
+  .context-action-bar button {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    min-width: 36px;
+  }
+  .context-action-bar button:hover, .context-action-bar button:active { background: rgba(255,255,255,0.15); }
+  .context-action-bar button.danger:hover { background: rgba(220,38,38,0.7); }
 
   .status-bar {
     font-size: 10px;
     padding: 4px 8px;
+    display: none; /* save vertical space on mobile */
   }
   .status-bar #status-file {
     display: none;
@@ -741,7 +827,7 @@ textarea.text-edit-overlay {
     left: 8px !important;
     right: 8px !important;
     top: auto !important;
-    bottom: env(keyboard-inset-height, 16px) !important;
+    bottom: env(keyboard-inset-height, 80px) !important;
     flex-wrap: wrap;
     justify-content: center;
     padding: 8px;
@@ -772,6 +858,10 @@ textarea.text-edit-overlay {
 /* Hide panel-close button on desktop */
 .panel-close { display: none; }
 @media (max-width: 768px) { .panel-close { display: block; } }
+
+/* Mobile bottom dock & context action bar (hidden on desktop) */
+.mobile-bottom-dock { display: none; }
+.context-action-bar { display: none; }
 </style>
 </head>
 <body>
@@ -857,6 +947,33 @@ textarea.text-edit-overlay {
 
 <!-- Mobile floating action button -->
 <button class="mobile-fab" id="mobile-fab" title="属性面板">⚙</button>
+
+<!-- Mobile bottom dock toolbar (Excalidraw-style) -->
+<div class="mobile-bottom-dock" id="mobile-bottom-dock">
+  <button class="dock-btn" id="mdock-select" title="选择" data-tool="select">↖</button>
+  <button class="dock-btn" id="mdock-pan" title="平移" data-tool="pan">✋</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" id="mdock-text" title="文字 (T)" data-tool="text">A</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" id="mdock-undo" title="撤销">⤺</button>
+  <button class="dock-btn" id="mdock-redo" title="重做">⤻</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" id="mdock-duplicate" title="复制">⎘</button>
+  <button class="dock-btn" id="mdock-delete" title="删除">🗑</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" id="mdock-preview" title="预览">👁</button>
+  <button class="dock-btn" id="mdock-publish" title="发布">🚀</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" id="mdock-more" title="更多">⋯</button>
+</div>
+
+<!-- Context action bar (floats above selected element on mobile) -->
+<div class="context-action-bar" id="context-action-bar">
+  <button id="cab-undo" title="撤销">⤺</button>
+  <button id="cab-redo" title="重做">⤻</button>
+  <button id="cab-duplicate" title="复制">⎘</button>
+  <button class="danger" id="cab-delete" title="删除">🗑</button>
+</div>
 
 <!-- Panel backdrop (mobile) -->
 <div class="panel-backdrop" id="panel-backdrop"></div>
@@ -3138,6 +3255,89 @@ canvasAreaEl.addEventListener('click', (e) => {
     setTimeout(() => enhancedTextEdit(t), 50);
   }
 });
+
+// ====================================================================
+// =========== MOBILE BOTTOM DOCK + CONTEXT ACTION BAR ================
+// ====================================================================
+
+// Mobile dock — wire each button to its desktop counterpart
+const dockMap = {
+  'mdock-select': () => { setTool('select'); },
+  'mdock-pan': () => { setTool('pan'); },
+  'mdock-text': () => {
+    textTool = !textTool;
+    document.body.style.cursor = textTool ? 'text' : '';
+    document.getElementById('mdock-text').classList.toggle('active', textTool);
+  },
+  'mdock-undo': () => { document.getElementById('btn-undo').click(); },
+  'mdock-redo': () => { document.getElementById('btn-redo').click(); },
+  'mdock-duplicate': () => { document.getElementById('btn-duplicate').click(); },
+  'mdock-delete': () => {
+    if (selectedEl && typeof deleteSelected === 'function') {
+      deleteSelected();
+    } else if (selectedEl) {
+      selectedEl.remove();
+      selectedEl = null;
+      selectedEls = [];
+      saveHistory();
+      updatePanel();
+    }
+  },
+  'mdock-preview': () => { document.getElementById('btn-preview').click(); },
+  'mdock-publish': () => { document.getElementById('btn-publish').click(); },
+  'mdock-more': () => {
+    overflowMenu.classList.toggle('show');
+  }
+};
+Object.entries(dockMap).forEach(([id, fn]) => {
+  const el = document.getElementById(id);
+  if (el) el.onclick = (e) => { e.stopPropagation(); fn(); };
+});
+
+// Sync select/pan active state when tool changes
+function updateDockActiveState() {
+  const sel = document.getElementById('mdock-select');
+  const pan = document.getElementById('mdock-pan');
+  if (sel) sel.classList.toggle('active', currentTool === 'select');
+  if (pan) pan.classList.toggle('active', currentTool === 'pan');
+}
+setInterval(updateDockActiveState, 300);
+
+// Context action bar — show above selected element on mobile
+const ctxBar = document.getElementById('context-action-bar');
+function updateContextActionBar() {
+  if (window.innerWidth > 768) { ctxBar.classList.remove('show'); return; }
+  if (!selectedEl) { ctxBar.classList.remove('show'); return; }
+  // Only show if selected element is not text (text has its own format bar)
+  if (selectedEl.tagName === 'text' || selectedEl.tagName === 'tspan') { ctxBar.classList.remove('show'); return; }
+  // Position above the selected element
+  let bbox;
+  try {
+    bbox = selectedEl.getBoundingClientRect();
+  } catch (e) { ctxBar.classList.remove('show'); return; }
+
+  const barHeight = 44;
+  let top = bbox.top - barHeight - 6;
+  if (top < 50) top = bbox.bottom + 6;
+  let left = bbox.left + bbox.width / 2 - 90;
+  left = Math.max(8, Math.min(left, window.innerWidth - 188));
+  ctxBar.style.left = left + 'px';
+  ctxBar.style.top = top + 'px';
+  ctxBar.classList.add('show');
+}
+setInterval(updateContextActionBar, 300);
+
+// Wire context action bar buttons
+document.getElementById('cab-undo').onclick = (e) => { e.stopPropagation(); document.getElementById('btn-undo').click(); };
+document.getElementById('cab-redo').onclick = (e) => { e.stopPropagation(); document.getElementById('btn-redo').click(); };
+document.getElementById('cab-duplicate').onclick = (e) => { e.stopPropagation(); document.getElementById('btn-duplicate').click(); };
+document.getElementById('cab-delete').onclick = (e) => {
+  e.stopPropagation();
+  if (selectedEl) {
+    if (typeof deleteSelected === 'function') deleteSelected();
+    else { selectedEl.remove(); selectedEl = null; selectedEls = []; saveHistory(); updatePanel(); }
+  }
+};
 
 // ====================================================================
 // =========== SMART ALIGNMENT GUIDES (while dragging) ================
