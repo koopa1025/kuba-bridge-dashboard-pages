@@ -501,6 +501,61 @@ textarea.text-edit-overlay {
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 .text-format-bar.show { display: flex; }
+.text-format-bar .tfb-select {
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  height: 28px;
+  outline: none;
+}
+.text-format-bar .tfb-select:hover { background: #475569; }
+.text-format-bar .tfb-size { width: 56px; }
+.text-format-bar .tfb-color-swatch {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.3);
+  vertical-align: middle;
+}
+.text-format-bar .text-format-bar { z-index: 301; }
+
+/* Color picker popover */
+.color-popover {
+  position: absolute;
+  display: none;
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 350;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.color-popover.show { display: block; }
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 24px);
+  gap: 6px;
+}
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.1s;
+}
+.color-swatch:hover {
+  transform: scale(1.15);
+  border-color: rgba(255,255,255,0.4);
+}
+.color-swatch.active {
+  border-color: white;
+  box-shadow: 0 0 0 2px var(--accent);
+}
 .text-format-bar button {
   background: transparent;
   border: none;
@@ -680,12 +735,38 @@ textarea.text-edit-overlay {
   }
 
   /* Text format bar - bigger buttons on mobile */
+  .text-format-bar {
+    /* On mobile, become a bottom-sheet style bar pinned above keyboard */
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    bottom: env(keyboard-inset-height, 16px) !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  }
   .text-format-bar button {
     padding: 10px 12px;
     font-size: 15px;
     min-width: 40px;
     min-height: 40px;
   }
+  .text-format-bar .tfb-select {
+    height: 40px;
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+  .color-popover {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 80px !important;
+  }
+  .color-grid { grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .color-swatch { width: 100%; aspect-ratio: 1; height: auto; min-height: 32px; }
 }
 
 /* Hide panel-close button on desktop */
@@ -782,17 +863,38 @@ textarea.text-edit-overlay {
 
 <!-- Floating text format bar (appears on text selection) -->
 <div class="text-format-bar" id="text-format-bar">
-  <button data-fmt="bold" title="加粗">B</button>
-  <button data-fmt="italic" title="斜体"><i>I</i></button>
+  <select class="tfb-select" id="tfb-font" title="字体">
+    <option value="default">默认</option>
+    <option value="sans">无衬线 (PingFang)</option>
+    <option value="serif">衬线 (思源宋)</option>
+    <option value="kai">楷体</option>
+    <option value="mono">等宽 (SF Mono)</option>
+    <option value="hei">黑体 (思源黑)</option>
+  </select>
+  <select class="tfb-select tfb-size" id="tfb-size" title="字号">
+    <option>8</option><option>10</option><option>12</option><option>14</option>
+    <option>16</option><option>18</option><option>20</option><option>24</option>
+    <option>28</option><option>32</option><option>40</option><option>48</option>
+    <option>60</option><option>72</option>
+  </select>
   <div class="sep"></div>
-  <button data-fmt="align-left" title="左对齐">⟵</button>
-  <button data-fmt="align-center" title="居中">↔</button>
-  <button data-fmt="align-right" title="右对齐">⟶</button>
+  <button data-fmt="bold" title="加粗 (⌘B)"><b>B</b></button>
+  <button data-fmt="italic" title="斜体 (⌘I)"><i>I</i></button>
   <div class="sep"></div>
-  <button data-fmt="size-down" title="缩小字号">A-</button>
-  <button data-fmt="size-up" title="放大字号">A+</button>
+  <button data-fmt="align-left" title="左对齐 (⌘L)">⟸</button>
+  <button data-fmt="align-center" title="居中 (⌘E)">↔</button>
+  <button data-fmt="align-right" title="右对齐 (⌘R)">⟹</button>
+  <div class="sep"></div>
+  <button data-fmt="color" title="颜色" id="tfb-color-btn">
+    <span class="tfb-color-swatch" id="tfb-color-swatch" style="background:#1e293b"></span>
+  </button>
   <div class="sep"></div>
   <button data-fmt="edit" title="编辑文字">✎</button>
+</div>
+
+<!-- Color picker popover -->
+<div class="color-popover" id="color-popover">
+  <div class="color-grid" id="color-grid"></div>
 </div>
 
 <input type="file" id="file-input" accept=".svg" style="display:none;">
@@ -2480,76 +2582,249 @@ function setCanvasScale(s) {
 
 // Replace single-line input editor with multi-line textarea editor
 // Override the double-click handler by re-binding after interactive setup
+// =====================================================================
+// =========== ENHANCED TEXT EDITING (Excalidraw-style WYSIWYG) =========
+// =====================================================================
+
+// Font family map
+const FONT_FAMILIES = {
+  'default': 'inherit',
+  'sans': '"PingFang SC","Helvetica Neue",Helvetica,Arial,sans-serif',
+  'serif': '"Source Han Serif SC","Songti SC",Georgia,serif',
+  'kai': '"KaiTi","STKaiti","Kaiti SC",serif',
+  'mono': '"SF Mono","Fira Code",Menlo,Monaco,monospace',
+  'hei': '"Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif'
+};
+
+// Color palette (16 neutral colors)
+const COLOR_PALETTE = [
+  '#000000', '#1e293b', '#475569', '#64748b',
+  '#94a3b8', '#cbd5e1', '#e2e8f0', '#ffffff',
+  '#dc2626', '#ea580c', '#f59e0b', '#16a34a',
+  '#0ea5e9', '#2563eb', '#7c3aed', '#ec4899'
+];
+
+// Detect which font family preset matches a given SVG font-family string
+function detectFontKey(ff) {
+  if (!ff) return 'default';
+  const lower = ff.toLowerCase();
+  if (lower.includes('mono') || lower.includes('fira') || lower.includes('menlo')) return 'mono';
+  if (lower.includes('kai')) return 'kai';
+  if (lower.includes('serif') || lower.includes('song') || lower.includes('georgia')) return 'serif';
+  if (lower.includes('hei') || lower.includes('han sans') || lower.includes('yahei')) return 'hei';
+  if (lower.includes('pingfang') || lower.includes('helvetica') || lower.includes('arial')) return 'sans';
+  return 'default';
+}
+
 function enhancedTextEdit(target) {
+  if (!target) return;
+  if (target.tagName === 'tspan') target = target.parentElement;
   if (target.tagName !== 'text') {
     const txt = target.querySelector ? target.querySelector('text') : null;
-    if (txt) target = txt;
-    else return;
+    if (txt) target = txt; else return;
   }
 
-  const bbox = target.getBoundingClientRect();
+  // Hide source text while editing
+  const origVisibility = target.style.visibility;
+  target.style.visibility = 'hidden';
+
+  // Build textarea
   const textarea = document.createElement('textarea');
   textarea.className = 'text-edit-overlay';
+  textarea.spellcheck = false;
+  textarea.dir = 'auto';
 
-  // Support multi-line: read tspan children or current textContent
+  // Read current content (multiline aware)
   const tspans = target.querySelectorAll('tspan');
-  let initial;
-  if (tspans.length > 0) {
-    initial = Array.from(tspans).map(t => t.textContent).join('\n');
-  } else {
-    initial = target.textContent;
-  }
+  const initial = tspans.length > 0
+    ? Array.from(tspans).map(t => t.textContent).join('\n')
+    : target.textContent;
   textarea.value = initial;
 
-  const cs = getComputedStyle(target);
-  const fontSize = parseFloat(cs.fontSize) || 14;
+  // ----- Position textarea precisely over the SVG text -----
+  // Use getBoundingClientRect on the original text element (in viewport coords)
+  // Then size the textarea so font metrics match: same font-family, font-size, line-height
+  const updatePosition = () => {
+    const bbox = target.getBoundingClientRect();
+    const cs = getComputedStyle(target);
+    const fontSize = parseFloat(cs.fontSize) || 14;
+    const fontFamily = target.getAttribute('font-family') || cs.fontFamily;
+    const fontWeight = target.getAttribute('font-weight') || cs.fontWeight;
+    const fontStyle = target.getAttribute('font-style') || cs.fontStyle;
+    const fillColor = target.getAttribute('fill') || cs.fill || '#000';
+    const anchor = target.getAttribute('text-anchor') || 'start';
 
-  textarea.style.left = Math.max(bbox.left - 8, 4) + 'px';
-  textarea.style.top = Math.max(bbox.top - 4, 4) + 'px';
-  textarea.style.fontSize = fontSize + 'px';
-  textarea.style.width = Math.max(bbox.width + 80, 160) + 'px';
-  textarea.style.height = Math.max(bbox.height + 16, 40) + 'px';
-  textarea.style.color = target.getAttribute('fill') || cs.fill || '#000';
-  textarea.style.textAlign = ({
-    'start': 'left',
-    'middle': 'center',
-    'end': 'right'
-  })[target.getAttribute('text-anchor') || 'start'] || 'left';
+    // Map text-anchor to text-align for textarea
+    const textAlign = ({ 'start': 'left', 'middle': 'center', 'end': 'right' })[anchor] || 'left';
+
+    // Compute textarea position so it overlaps original text:
+    // - For text-anchor=start: textarea.left = bbox.left
+    // - For text-anchor=middle: extend equal width on both sides
+    // - For text-anchor=end: textarea.right = bbox.right
+    let left, width;
+    const minWidth = Math.max(bbox.width, fontSize * 4) + fontSize * 2;
+    if (anchor === 'middle') {
+      const cx = bbox.left + bbox.width / 2;
+      width = minWidth;
+      left = cx - width / 2;
+    } else if (anchor === 'end') {
+      width = minWidth;
+      left = bbox.right - width + fontSize;
+    } else {
+      width = minWidth;
+      left = bbox.left - fontSize / 2;
+    }
+
+    // Vertical: align textarea baseline to text baseline
+    // SVG text y is baseline; bbox.top is roughly cap top
+    const top = bbox.top - fontSize * 0.25;
+
+    Object.assign(textarea.style, {
+      position: 'fixed',
+      left: left + 'px',
+      top: top + 'px',
+      width: width + 'px',
+      minHeight: (fontSize * 1.4) + 'px',
+      fontSize: fontSize + 'px',
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      color: fillColor,
+      textAlign: textAlign,
+      lineHeight: '1.2',
+      padding: '2px 4px',
+      margin: '0',
+      border: '2px dashed #2563eb',
+      borderRadius: '4px',
+      background: 'rgba(255,255,255,0.95)',
+      outline: 'none',
+      resize: 'none',
+      overflow: 'hidden',
+      whiteSpace: 'pre',
+      zIndex: '500',
+      boxSizing: 'content-box'
+    });
+
+    // Auto-size height
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  };
 
   document.body.appendChild(textarea);
+  updatePosition();
   textarea.focus();
-  textarea.select();
+  textarea.setSelectionRange(textarea.value.length, textarea.value.length);
 
-  // Auto-resize textarea as user types
-  const autoSize = () => {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.max(40, textarea.scrollHeight + 4) + 'px';
-  };
-  textarea.addEventListener('input', autoSize);
-  autoSize();
+  // Live update on input
+  textarea.addEventListener('input', updatePosition);
 
-  const finish = () => {
-    const newVal = textarea.value;
-    if (newVal !== initial) {
-      applyMultilineText(target, newVal);
-      saveHistory();
-      updatePanel();
+  // Keep position sync when window resizes / SVG transforms
+  const positionObserver = setInterval(updatePosition, 200);
+
+  let submitted = false;
+  const finish = (cancel) => {
+    if (submitted) return;
+    submitted = true;
+    clearInterval(positionObserver);
+    target.style.visibility = origVisibility;
+    if (!cancel) {
+      const newVal = textarea.value;
+      if (newVal !== initial) {
+        applyMultilineText(target, newVal);
+        saveHistory();
+        updatePanel();
+        // Refresh format bar for new bbox
+        showTextFormatBar(target);
+      }
     }
     textarea.remove();
   };
 
-  textarea.onblur = finish;
+  textarea.onblur = () => finish(false);
   textarea.onkeydown = (ev) => {
-    // Enter = newline; Cmd/Ctrl+Enter or Escape = finish
-    if ((ev.metaKey || ev.ctrlKey) && ev.key === 'Enter') {
-      ev.preventDefault();
-      finish();
-    }
     if (ev.key === 'Escape') {
       ev.preventDefault();
-      textarea.remove();
+      finish(false);
+      return;
+    }
+    if ((ev.metaKey || ev.ctrlKey) && ev.key === 'Enter') {
+      ev.preventDefault();
+      finish(false);
+      return;
+    }
+    if (ev.key === 'Tab') {
+      ev.preventDefault();
+      const start = textarea.selectionStart, end = textarea.selectionEnd;
+      const indent = '  ';
+      textarea.value = textarea.value.slice(0, start) + indent + textarea.value.slice(end);
+      textarea.selectionStart = textarea.selectionEnd = start + indent.length;
+      updatePosition();
+      return;
+    }
+    // Font format shortcuts
+    if ((ev.metaKey || ev.ctrlKey) && !ev.shiftKey && (ev.key === 'b' || ev.key === 'B')) {
+      ev.preventDefault();
+      toggleTextFormat(target, 'bold');
+      updatePosition();
+    }
+    if ((ev.metaKey || ev.ctrlKey) && !ev.shiftKey && (ev.key === 'i' || ev.key === 'I')) {
+      ev.preventDefault();
+      toggleTextFormat(target, 'italic');
+      updatePosition();
+    }
+    // Font size shortcuts: ⌘+Shift+> / <
+    if ((ev.metaKey || ev.ctrlKey) && ev.shiftKey && (ev.key === '>' || ev.key === '.')) {
+      ev.preventDefault();
+      changeTextFontSize(target, +1);
+      updatePosition();
+    }
+    if ((ev.metaKey || ev.ctrlKey) && ev.shiftKey && (ev.key === '<' || ev.key === ',')) {
+      ev.preventDefault();
+      changeTextFontSize(target, -1);
+      updatePosition();
     }
   };
+}
+
+// Helper: toggle bold/italic on a text element
+function toggleTextFormat(textEl, fmt) {
+  if (fmt === 'bold') {
+    const curr = textEl.getAttribute('font-weight') || '';
+    const isBold = curr === 'bold' || parseInt(curr) >= 600;
+    textEl.setAttribute('font-weight', isBold ? 'normal' : 'bold');
+  } else if (fmt === 'italic') {
+    const curr = textEl.getAttribute('font-style') || '';
+    textEl.setAttribute('font-style', curr === 'italic' ? 'normal' : 'italic');
+  }
+}
+
+function changeTextFontSize(textEl, delta) {
+  const cur = parseFloat(textEl.getAttribute('font-size') || getComputedStyle(textEl).fontSize) || 14;
+  textEl.setAttribute('font-size', Math.max(6, Math.min(120, cur + delta)));
+}
+
+function setTextAlign(textEl, anchor) {
+  textEl.setAttribute('text-anchor', anchor);
+  // Sync tspan x attributes
+  textEl.querySelectorAll('tspan').forEach(t => {
+    if (t.hasAttribute('x')) t.setAttribute('x', textEl.getAttribute('x'));
+  });
+}
+
+function setTextColor(textEl, color) {
+  textEl.setAttribute('fill', color);
+  textEl.querySelectorAll('tspan').forEach(t => {
+    if (t.hasAttribute('fill')) t.setAttribute('fill', color);
+  });
+}
+
+function setTextFont(textEl, fontKey) {
+  const family = FONT_FAMILIES[fontKey] || FONT_FAMILIES['default'];
+  if (fontKey === 'default') {
+    textEl.removeAttribute('font-family');
+  } else {
+    textEl.setAttribute('font-family', family);
+  }
 }
 
 // Apply multi-line text to an SVG <text>, using <tspan> for each line
@@ -2602,21 +2877,73 @@ canvasAreaEl.addEventListener('touchmove', () => { clearTimeout(_longPressTimer)
 // =========== FLOATING TEXT FORMAT BAR ===============================
 // ====================================================================
 const textFormatBar = document.getElementById('text-format-bar');
+const tfbFont = document.getElementById('tfb-font');
+const tfbSize = document.getElementById('tfb-size');
+const tfbColorBtn = document.getElementById('tfb-color-btn');
+const tfbColorSwatch = document.getElementById('tfb-color-swatch');
+const colorPopover = document.getElementById('color-popover');
+const colorGrid = document.getElementById('color-grid');
+
+// Build color palette
+COLOR_PALETTE.forEach(c => {
+  const sw = document.createElement('div');
+  sw.className = 'color-swatch';
+  sw.style.background = c;
+  sw.dataset.color = c;
+  sw.onclick = (e) => {
+    e.stopPropagation();
+    if (!selectedEl) return;
+    let target = selectedEl;
+    if (target.tagName === 'tspan') target = target.parentElement;
+    if (target.tagName === 'text') {
+      setTextColor(target, c);
+      saveHistory();
+      tfbColorSwatch.style.background = c;
+      colorPopover.classList.remove('show');
+      // refresh active state
+      colorGrid.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.color === c));
+    }
+  };
+  colorGrid.appendChild(sw);
+});
 
 function showTextFormatBar(textEl) {
-  if (!textEl) { textFormatBar.classList.remove('show'); return; }
-  const bbox = textEl.getBoundingClientRect();
-  textFormatBar.style.left = Math.max(8, bbox.left + bbox.width / 2 - 160) + 'px';
-  textFormatBar.style.top = Math.max(64, bbox.top - 50) + 'px';
+  if (!textEl) { textFormatBar.classList.remove('show'); colorPopover.classList.remove('show'); return; }
+  if (window.innerWidth > 768) {
+    // Desktop: float above the text element
+    const bbox = textEl.getBoundingClientRect();
+    const barWidth = 460; // approximate
+    let left = bbox.left + bbox.width / 2 - barWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - barWidth - 8));
+    let top = bbox.top - 50;
+    if (top < 60) top = bbox.bottom + 8; // flip below if not enough space above
+    textFormatBar.style.position = 'fixed';
+    textFormatBar.style.left = left + 'px';
+    textFormatBar.style.top = top + 'px';
+    textFormatBar.style.bottom = 'auto';
+  }
+  // Mobile: CSS handles the bottom-sheet positioning
   textFormatBar.classList.add('show');
 
-  // Update active states
-  textFormatBar.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-  const weight = textEl.getAttribute('font-weight') || getComputedStyle(textEl).fontWeight;
+  // Sync state to current text element
+  const fontFamily = textEl.getAttribute('font-family') || getComputedStyle(textEl).fontFamily;
+  tfbFont.value = detectFontKey(fontFamily);
+
+  const cs = getComputedStyle(textEl);
+  const fontSize = Math.round(parseFloat(textEl.getAttribute('font-size') || cs.fontSize) || 14);
+  tfbSize.value = fontSize;
+
+  const fillColor = textEl.getAttribute('fill') || cs.fill || '#1e293b';
+  tfbColorSwatch.style.background = fillColor;
+  colorGrid.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.color.toLowerCase() === fillColor.toLowerCase()));
+
+  // Update active states for buttons
+  textFormatBar.querySelectorAll('button[data-fmt]').forEach(b => b.classList.remove('active'));
+  const weight = textEl.getAttribute('font-weight') || cs.fontWeight;
   if (weight === 'bold' || parseInt(weight) >= 600) {
     textFormatBar.querySelector('[data-fmt="bold"]').classList.add('active');
   }
-  const italic = textEl.getAttribute('font-style') || getComputedStyle(textEl).fontStyle;
+  const italic = textEl.getAttribute('font-style') || cs.fontStyle;
   if (italic === 'italic') {
     textFormatBar.querySelector('[data-fmt="italic"]').classList.add('active');
   }
@@ -2634,6 +2961,7 @@ function updateFormatBarForSelection() {
     showTextFormatBar(target);
   } else {
     textFormatBar.classList.remove('show');
+    colorPopover.classList.remove('show');
   }
 }
 
@@ -2643,8 +2971,46 @@ setInterval(() => {
   maybeAutoOpenPanel();
 }, 300);
 
+// Font dropdown
+tfbFont.onchange = () => {
+  if (!selectedEl) return;
+  let target = selectedEl;
+  if (target.tagName === 'tspan') target = target.parentElement;
+  if (target.tagName !== 'text') return;
+  setTextFont(target, tfbFont.value);
+  saveHistory();
+  showTextFormatBar(target);
+};
+
+// Size dropdown
+tfbSize.onchange = () => {
+  if (!selectedEl) return;
+  let target = selectedEl;
+  if (target.tagName === 'tspan') target = target.parentElement;
+  if (target.tagName !== 'text') return;
+  target.setAttribute('font-size', tfbSize.value);
+  saveHistory();
+  showTextFormatBar(target);
+};
+
+// Color button toggles popover
+tfbColorBtn.onclick = (e) => {
+  e.stopPropagation();
+  const rect = tfbColorBtn.getBoundingClientRect();
+  if (window.innerWidth > 768) {
+    colorPopover.style.left = Math.max(8, rect.left - 60) + 'px';
+    colorPopover.style.top = (rect.bottom + 6) + 'px';
+  }
+  colorPopover.classList.toggle('show');
+};
+document.addEventListener('click', (e) => {
+  if (!colorPopover.contains(e.target) && e.target !== tfbColorBtn && !tfbColorBtn.contains(e.target)) {
+    colorPopover.classList.remove('show');
+  }
+});
+
 // Format bar button handlers
-textFormatBar.querySelectorAll('button').forEach(btn => {
+textFormatBar.querySelectorAll('button[data-fmt]').forEach(btn => {
   btn.onclick = (e) => {
     e.stopPropagation();
     if (!selectedEl) return;
@@ -2654,43 +3020,123 @@ textFormatBar.querySelectorAll('button').forEach(btn => {
 
     const fmt = btn.dataset.fmt;
     switch (fmt) {
-      case 'bold': {
-        const curr = target.getAttribute('font-weight') || '';
-        const isBold = curr === 'bold' || parseInt(curr) >= 600;
-        target.setAttribute('font-weight', isBold ? 'normal' : 'bold');
+      case 'bold':
+      case 'italic':
+        toggleTextFormat(target, fmt);
         break;
-      }
-      case 'italic': {
-        const curr = target.getAttribute('font-style') || '';
-        target.setAttribute('font-style', curr === 'italic' ? 'normal' : 'italic');
-        break;
-      }
       case 'align-left':
-        target.setAttribute('text-anchor', 'start');
+        setTextAlign(target, 'start');
         break;
       case 'align-center':
-        target.setAttribute('text-anchor', 'middle');
+        setTextAlign(target, 'middle');
         break;
       case 'align-right':
-        target.setAttribute('text-anchor', 'end');
+        setTextAlign(target, 'end');
         break;
-      case 'size-down': {
-        const cur = parseFloat(getComputedStyle(target).fontSize) || 14;
-        target.setAttribute('font-size', Math.max(6, cur - 1));
-        break;
-      }
-      case 'size-up': {
-        const cur = parseFloat(getComputedStyle(target).fontSize) || 14;
-        target.setAttribute('font-size', Math.min(72, cur + 1));
-        break;
-      }
+      case 'color':
+        // Handled by tfbColorBtn.onclick
+        return;
       case 'edit':
         enhancedTextEdit(target);
-        break;
+        return;
     }
     saveHistory();
     showTextFormatBar(target);
   };
+});
+
+// Global keyboard shortcuts for text formatting (when text element selected)
+document.addEventListener('keydown', (e) => {
+  // Skip if currently editing in a textarea/input
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (!selectedEl) return;
+  let target = selectedEl;
+  if (target.tagName === 'tspan') target = target.parentElement;
+  if (target.tagName !== 'text') return;
+
+  const cmd = e.metaKey || e.ctrlKey;
+  if (!cmd) return;
+
+  if (!e.shiftKey) {
+    if (e.key === 'b' || e.key === 'B') { e.preventDefault(); toggleTextFormat(target, 'bold'); saveHistory(); showTextFormatBar(target); return; }
+    if (e.key === 'i' || e.key === 'I') { e.preventDefault(); toggleTextFormat(target, 'italic'); saveHistory(); showTextFormatBar(target); return; }
+    if (e.key === 'l' || e.key === 'L') { e.preventDefault(); setTextAlign(target, 'start'); saveHistory(); showTextFormatBar(target); return; }
+    if (e.key === 'e' || e.key === 'E') { e.preventDefault(); setTextAlign(target, 'middle'); saveHistory(); showTextFormatBar(target); return; }
+    if (e.key === 'r' || e.key === 'R') { e.preventDefault(); setTextAlign(target, 'end'); saveHistory(); showTextFormatBar(target); return; }
+  } else {
+    if (e.key === '>' || e.key === '.') { e.preventDefault(); changeTextFontSize(target, +1); saveHistory(); showTextFormatBar(target); return; }
+    if (e.key === '<' || e.key === ',') { e.preventDefault(); changeTextFontSize(target, -1); saveHistory(); showTextFormatBar(target); return; }
+  }
+});
+
+// ====================================================================
+// =========== DOUBLE-CLICK EMPTY CANVAS = NEW TEXT ===================
+// ====================================================================
+let textTool = false;
+
+function createTextAt(svgX, svgY) {
+  if (!svgRoot) return null;
+  const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  t.setAttribute('x', svgX);
+  t.setAttribute('y', svgY);
+  t.setAttribute('fill', '#1e293b');
+  t.setAttribute('font-size', '16');
+  t.setAttribute('text-anchor', 'start');
+  t.textContent = '点击编辑';
+  t.style.cursor = 'pointer';
+  // Find a good insertion point (top-level g or root)
+  svgRoot.appendChild(t);
+  // Make interactive
+  t.addEventListener('mousedown', onElementMouseDown);
+  t.addEventListener('dblclick', onElementDblClick);
+  saveHistory();
+  return t;
+}
+
+// Add dblclick on canvas (empty area) to create text
+canvasAreaEl.addEventListener('dblclick', (e) => {
+  if (!svgRoot) return;
+  // Only fire if dblclick is on canvas itself (not on an existing element)
+  if (e.target !== canvasAreaEl && e.target !== svgRoot && e.target.tagName !== 'svg' && !e.target.classList.contains('drop-overlay') && !e.target.classList.contains('empty-state')) return;
+
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const svgPt = pt.matrixTransform(svgRoot.getScreenCTM().inverse());
+  const t = createTextAt(svgPt.x, svgPt.y);
+  if (t) {
+    selectedEl = t;
+    selectedEls = [t];
+    setTimeout(() => enhancedTextEdit(t), 50);
+  }
+});
+
+// T key to toggle text tool (next click creates text)
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (e.key === 't' || e.key === 'T') {
+    textTool = !textTool;
+    document.body.style.cursor = textTool ? 'text' : '';
+  }
+});
+
+// If text tool active, single click creates text
+canvasAreaEl.addEventListener('click', (e) => {
+  if (!textTool || !svgRoot) return;
+  if (e.target !== canvasAreaEl && e.target !== svgRoot && e.target.tagName !== 'svg') return;
+  const pt = svgRoot.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const svgPt = pt.matrixTransform(svgRoot.getScreenCTM().inverse());
+  const t = createTextAt(svgPt.x, svgPt.y);
+  if (t) {
+    selectedEl = t;
+    selectedEls = [t];
+    textTool = false;
+    document.body.style.cursor = '';
+    setTimeout(() => enhancedTextEdit(t), 50);
+  }
 });
 
 // ====================================================================
