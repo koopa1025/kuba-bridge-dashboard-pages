@@ -976,6 +976,37 @@ textarea.text-edit-overlay {
   flex-shrink: 0;
   margin: 0 2px;
 }
+
+/* Custom tooltip — appears on hover/long-press */
+.dock-tooltip {
+  position: fixed;
+  background: #1e293b;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.dock-tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dock-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4px;
+  border: 4px solid transparent;
+  border-top-color: #1e293b;
+}
 .context-action-bar { display: none; }
 </style>
 </head>
@@ -984,7 +1015,7 @@ textarea.text-edit-overlay {
 <div class="header">
   <!-- File menu (left) -->
   <div class="file-menu-wrap">
-    <button class="btn file-menu-btn" id="file-menu-btn" title="文件">
+    <button class="btn file-menu-btn" id="file-menu-btn" data-tip="文件操作">
       <span style="font-size:16px;line-height:1">≡</span>
       <span style="margin-left:4px">文件</span>
     </button>
@@ -1001,7 +1032,7 @@ textarea.text-edit-overlay {
 
   <div class="actions">
     <span class="save-indicator" id="save-indicator" title="自动保存状态">💾 已保存</span>
-    <button class="btn btn-publish" id="btn-publish" title="发布到线上">🚀 发布</button>
+    <button class="btn btn-publish" id="btn-publish" data-tip="发布到线上（生成可分享链接）">🚀 发布</button>
   </div>
 
   <!-- Hidden buttons retained for legacy event hooks (mobile dock + format bar still trigger these) -->
@@ -1073,7 +1104,7 @@ textarea.text-edit-overlay {
     </div>
   </div>
   <!-- Toggle button to show/hide the property panel (desktop only) -->
-  <button class="panel-toggle-btn" id="panel-toggle-btn" title="属性面板 (展开/收起)">⚙</button>
+  <button class="panel-toggle-btn" id="panel-toggle-btn" data-tip="属性面板（展开/收起）">⚙</button>
 </div>
 
 <div class="status-bar">
@@ -1088,26 +1119,24 @@ textarea.text-edit-overlay {
 
 <!-- Bottom dock toolbar (Excalidraw-style) — all editing actions -->
 <div class="mobile-bottom-dock" id="mobile-bottom-dock">
-  <!-- Tools -->
-  <button class="dock-btn" id="mdock-select" title="选择 (V)" data-tool="select">↖</button>
-  <button class="dock-btn" id="mdock-pan" title="平移 (H)" data-tool="pan">✋</button>
-  <button class="dock-btn" id="mdock-text" title="文字 (T)" data-tool="text">A</button>
+  <!-- Add text -->
+  <button class="dock-btn" id="mdock-text" data-tip="添加文字（按 T 键）">T</button>
   <div class="dock-sep"></div>
 
   <!-- History -->
-  <button class="dock-btn" id="mdock-undo" title="撤销 (⌘Z)">⤺</button>
-  <button class="dock-btn" id="mdock-redo" title="重做 (⌘Y)">⤻</button>
+  <button class="dock-btn" id="mdock-undo" data-tip="撤销（⌘Z）">⤺</button>
+  <button class="dock-btn" id="mdock-redo" data-tip="重做（⌘⇧Z）">⤻</button>
   <div class="dock-sep"></div>
 
   <!-- Element actions -->
-  <button class="dock-btn" id="mdock-duplicate" title="复制 (⌘D)">⎘</button>
-  <button class="dock-btn" id="mdock-delete" title="删除">🗑</button>
+  <button class="dock-btn" id="mdock-duplicate" data-tip="复制选中元素（⌘D）">⎘</button>
+  <button class="dock-btn" id="mdock-delete" data-tip="删除选中元素">🗑</button>
   <div class="dock-sep"></div>
 
   <!-- Group operations -->
-  <button class="dock-btn" id="mdock-group" title="成组 (⌘G)">⊞</button>
-  <button class="dock-btn" id="mdock-ungroup" title="解组 (⌘⇧G)">⊟</button>
-  <button class="dock-btn" id="mdock-autogroup" title="自动分组">⚯</button>
+  <button class="dock-btn" id="mdock-group" data-tip="将多选元素成组（⌘G）">⊞</button>
+  <button class="dock-btn" id="mdock-ungroup" data-tip="解组当前组（⌘⇧G）">⊟</button>
+  <button class="dock-btn" id="mdock-autogroup" data-tip="自动检测并分组相关元素">⚯</button>
 </div>
 
 <!-- Context action bar (floats above selected element on mobile) -->
@@ -3430,8 +3459,6 @@ canvasAreaEl.addEventListener('click', (e) => {
 
 // Mobile dock — wire each button to its desktop counterpart
 const dockMap = {
-  'mdock-select': () => { setTool('select'); },
-  'mdock-pan': () => { setTool('pan'); },
   'mdock-text': () => {
     textTool = !textTool;
     document.body.style.cursor = textTool ? 'text' : '';
@@ -3460,14 +3487,61 @@ Object.entries(dockMap).forEach(([id, fn]) => {
   if (el) el.onclick = (e) => { e.stopPropagation(); fn(); };
 });
 
-// Sync select/pan active state when tool changes
-function updateDockActiveState() {
-  const sel = document.getElementById('mdock-select');
-  const pan = document.getElementById('mdock-pan');
-  if (sel) sel.classList.toggle('active', currentTool === 'select');
-  if (pan) pan.classList.toggle('active', currentTool === 'pan');
+// (Tool active state — select/pan buttons removed; dock now has only text tool which manages itself)
+
+// ====================================================================
+// =========== TOOLTIPS for dock & header buttons =====================
+// ====================================================================
+const tooltipEl = document.createElement('div');
+tooltipEl.className = 'dock-tooltip';
+document.body.appendChild(tooltipEl);
+
+let tooltipTimer = null;
+let tooltipTarget = null;
+
+function showTooltip(el, text) {
+  if (!text) return;
+  tooltipEl.textContent = text;
+  const rect = el.getBoundingClientRect();
+  // Position above the element
+  tooltipEl.style.visibility = 'hidden';
+  tooltipEl.classList.add('show');
+  // Force layout to measure
+  const tw = tooltipEl.offsetWidth;
+  const th = tooltipEl.offsetHeight;
+  let left = rect.left + rect.width / 2 - tw / 2;
+  left = Math.max(4, Math.min(left, window.innerWidth - tw - 4));
+  const top = rect.top - th - 8;
+  tooltipEl.style.left = left + 'px';
+  tooltipEl.style.top = top + 'px';
+  tooltipEl.style.visibility = 'visible';
 }
-setInterval(updateDockActiveState, 300);
+function hideTooltip() {
+  tooltipEl.classList.remove('show');
+  tooltipTarget = null;
+  if (tooltipTimer) { clearTimeout(tooltipTimer); tooltipTimer = null; }
+}
+
+// Bind tooltips to all elements with data-tip
+function bindTooltips() {
+  document.querySelectorAll('[data-tip]').forEach(el => {
+    if (el._tipBound) return;
+    el._tipBound = true;
+    el.addEventListener('mouseenter', () => {
+      tooltipTarget = el;
+      const text = el.dataset.tip;
+      tooltipTimer = setTimeout(() => {
+        if (tooltipTarget === el) showTooltip(el, text);
+      }, 400);
+    });
+    el.addEventListener('mouseleave', hideTooltip);
+    el.addEventListener('mousedown', hideTooltip);
+    el.addEventListener('click', hideTooltip);
+  });
+}
+bindTooltips();
+// Re-bind for any dynamically created tooltips
+setInterval(bindTooltips, 1000);
 
 // Context action bar — show above selected element on mobile
 const ctxBar = document.getElementById('context-action-bar');
