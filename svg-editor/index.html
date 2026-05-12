@@ -1308,66 +1308,111 @@ function makeInteractive() {
 
 // ========== Selection ==========
 function selectElement(el) {
-  deselectAll();
-  if (!el) { updatePanel(); return; }
-
+  // Clear all previous highlights (multi-select aware)
+  clearAllSelectionHighlights();
   selectedEl = el;
-
-  if (el.tagName === 'g') {
-    const shapes = el.querySelectorAll('rect, circle, ellipse, path');
-    shapes.forEach(s => {
-      s.dataset.origOutline = s.getAttribute('stroke') || '';
-      s.style.outline = '2px dashed #2563eb';
-      s.style.outlineOffset = '3px';
-    });
-  } else {
-    el.dataset.origOutline = el.style.outline || '';
-    el.style.outline = '2px dashed #2563eb';
-    el.style.outlineOffset = '3px';
-  }
-
+  selectedEls = el ? [el] : [];
+  if (!el) { updatePanel(); updateStatusSelection(); return; }
+  highlightAnchor(el);
   updatePanel();
   updateStatusSelection();
 }
 
 function deselectAll() {
   if (!svgRoot) return;
-  svgRoot.querySelectorAll('[style*="outline"]').forEach(el => {
-    el.style.outline = '';
-    el.style.outlineOffset = '';
-  });
+  clearAllSelectionHighlights();
   selectedEl = null;
+  selectedEls = [];
   updateStatusSelection();
 }
 
 // ========== Drag ==========
+// ========== Selection helpers ==========
+// Find the "selection anchor" for a clicked element.
+// An anchor is the topmost <g data-auto-grouped="true"> ancestor or a manually grouped <g>;
+// otherwise, the element itself.
+//
+// This makes Shift+click consistently select the same conceptual unit ("the group"
+// or "the element"), preventing accidental swaps between parent and child levels.
+function findSelectionAnchor(el) {
+  if (!el || el === svgRoot) return null;
+  // Walk up looking for a meaningful group container
+  let node = el;
+  let bestGroup = null;
+  while (node && node !== svgRoot) {
+    if (node.tagName === 'g') {
+      // A "meaningful" group: has data-auto-grouped, data-group, has multiple children,
+      // OR has a transform / class indicating a logical unit
+      const isMeaningful = node.hasAttribute('data-auto-grouped') ||
+                           node.hasAttribute('data-group') ||
+                           (node.children && node.children.length > 1);
+      if (isMeaningful) bestGroup = node;
+    }
+    node = node.parentElement;
+  }
+  return bestGroup || el;
+}
+
+// Visually highlight a selection anchor (consistent for both elements and groups)
+function highlightAnchor(anchor) {
+  if (!anchor) return;
+  if (anchor.tagName === 'g') {
+    // Highlight all visible shapes in the group with a uniform outline
+    anchor.querySelectorAll('rect, circle, ellipse, path, line, polyline, polygon, text').forEach(child => {
+      if (child.closest('defs') || child.closest('marker')) return;
+      child.style.outline = '2px dashed #2563eb';
+      child.style.outlineOffset = '2px';
+      child.dataset._selOutline = '1';
+    });
+  } else {
+    anchor.style.outline = '2px dashed #2563eb';
+    anchor.style.outlineOffset = '2px';
+    anchor.dataset._selOutline = '1';
+  }
+}
+
+function clearAnchorHighlight(anchor) {
+  if (!anchor) return;
+  if (anchor.tagName === 'g') {
+    anchor.querySelectorAll('[data-_sel-outline]').forEach(child => {
+      child.style.outline = '';
+      child.style.outlineOffset = '';
+      delete child.dataset._selOutline;
+    });
+  } else {
+    anchor.style.outline = '';
+    anchor.style.outlineOffset = '';
+    delete anchor.dataset._selOutline;
+  }
+}
+
+function clearAllSelectionHighlights() {
+  if (!svgRoot) return;
+  svgRoot.querySelectorAll('[data-_sel-outline]').forEach(child => {
+    child.style.outline = '';
+    child.style.outlineOffset = '';
+    delete child.dataset._selOutline;
+  });
+}
+
 function onElementMouseDown(e) {
   if (currentTool !== 'select') return;
   e.stopPropagation();
 
-  // Find the best target: walk up to find the highest meaningful <g>
-  let target = e.target;
-  let candidate = target;
-  let parent = target.parentElement;
-  while (parent && parent.tagName === 'g' && parent !== svgRoot) {
-    candidate = parent;
-    parent = parent.parentElement;
-  }
-  if (candidate.tagName === 'g' && candidate !== svgRoot) {
-    target = candidate;
-  } else if (target.parentElement && target.parentElement.tagName === 'g' && target.parentElement !== svgRoot) {
-    target = target.parentElement;
-  }
+  // Find the unit-level anchor (group or element)
+  const target = findSelectionAnchor(e.target);
+  if (!target) return;
 
-  // Multi-select with Shift
+  // ===== Shift multi-select: toggle the WHOLE anchor unit =====
   if (e.shiftKey) {
-    if (selectedEls.includes(target)) {
-      selectedEls = selectedEls.filter(el => el !== target);
-      target.style.outline = '';
-      target.style.outlineOffset = '';
+    const idx = selectedEls.indexOf(target);
+    if (idx >= 0) {
+      // Already selected → remove it (and clear its highlight)
+      selectedEls.splice(idx, 1);
+      clearAnchorHighlight(target);
     } else {
       selectedEls.push(target);
-      highlightElement(target);
+      highlightAnchor(target);
     }
     selectedEl = selectedEls[selectedEls.length - 1] || null;
     updatePanel();
@@ -1375,11 +1420,21 @@ function onElementMouseDown(e) {
     return;
   }
 
-  // Single select - clear multi
-  selectedEls = [target];
-  selectElement(target);
+  // ===== Single click: replace selection =====
+  // If clicking inside an already-selected group, keep it selected (allow drag)
+  if (selectedEls.includes(target)) {
+    // Already in selection — start drag of full set
+  } else {
+    // Clear all and select just this anchor
+    clearAllSelectionHighlights();
+    selectedEls = [target];
+    selectedEl = target;
+    highlightAnchor(target);
+    updatePanel();
+    updateStatusSelection();
+  }
 
-  // Start drag
+  // ===== Start drag =====
   const pt = svgRoot.createSVGPoint();
   pt.x = e.clientX;
   pt.y = e.clientY;
@@ -1388,12 +1443,10 @@ function onElementMouseDown(e) {
 
   dragState = {
     el: target,
-    elements: selectedEls.length > 1 ? selectedEls : [target],
+    elements: selectedEls.slice(),
     startX: svgPt.x,
     startY: svgPt.y,
-    origPositions: selectedEls.length > 1
-      ? selectedEls.map(el => ({ el, positions: getElementPositions(el) }))
-      : [{ el: target, positions: getElementPositions(target) }],
+    origPositions: selectedEls.map(el => ({ el, positions: getElementPositions(el) })),
     moved: false
   };
 
@@ -1402,16 +1455,8 @@ function onElementMouseDown(e) {
 }
 
 function highlightElement(el) {
-  if (el.tagName === 'g') {
-    const shapes = el.querySelectorAll('rect, circle, ellipse, path, line');
-    if (shapes.length > 0) {
-      shapes[0].style.outline = '2px dashed #2563eb';
-      shapes[0].style.outlineOffset = '3px';
-    }
-  } else {
-    el.style.outline = '2px dashed #2563eb';
-    el.style.outlineOffset = '3px';
-  }
+  // Legacy alias — delegate to anchor highlight
+  highlightAnchor(el);
 }
 
 function onDragMove(e) {
