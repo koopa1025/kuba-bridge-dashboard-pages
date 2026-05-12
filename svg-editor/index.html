@@ -2171,8 +2171,16 @@ function b64ToBuf(b64) {
 }
 async function decryptToken(password) {
   const resp = await fetch('token-encrypted.json?_t=' + Date.now());
-  if (!resp.ok) throw new Error('未配置加密 token (token-encrypted.json 不存在)');
-  const data = await resp.json();
+  if (!resp.ok) throw new Error('无法加载加密 token 文件 (HTTP ' + resp.status + ')');
+  let data;
+  try {
+    data = await resp.json();
+  } catch (e) {
+    throw new Error('加密文件格式错误: ' + e.message);
+  }
+  if (!data.salt || !data.iv || !data.data) {
+    throw new Error('加密文件缺少字段 (salt/iv/data)');
+  }
   const salt = b64ToBuf(data.salt);
   const iv = b64ToBuf(data.iv);
   const ct = b64ToBuf(data.data);
@@ -2181,7 +2189,7 @@ async function decryptToken(password) {
     const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
     return new TextDecoder().decode(plain);
   } catch (e) {
-    throw new Error('密码错误');
+    throw new Error('密码错误 (解密失败)');
   }
 }
 
@@ -2302,12 +2310,19 @@ document.getElementById('publish-confirm').onclick = async () => {
         }, 3000);
       }
     } else {
-      const err = await putResp.json();
-      statusEl.textContent = `❌ 发布失败: ${err.message || putResp.status}`;
+      let errMsg = '未知错误';
+      try {
+        const err = await putResp.json();
+        errMsg = err.message || JSON.stringify(err);
+      } catch (e) {
+        errMsg = `HTTP ${putResp.status} ${putResp.statusText}`;
+      }
+      statusEl.textContent = `❌ 发布失败 (${putResp.status}): ${errMsg}`;
       statusEl.className = 'publish-status show error';
     }
   } catch (e) {
-    statusEl.textContent = `❌ ${e.message}`;
+    console.error('[publish]', e);
+    statusEl.textContent = `❌ ${e.message || '未知错误'}`;
     statusEl.className = 'publish-status show error';
   }
 };
