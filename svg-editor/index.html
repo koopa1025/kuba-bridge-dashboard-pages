@@ -876,6 +876,113 @@ textarea.text-edit-overlay {
 /* Header toolbar (top) — hidden everywhere because dock at bottom replaces it */
 .header .toolbar { display: none; }
 
+/* ============================================================
+   IMMERSIVE LAYOUT: landscape mobile & tiny viewports
+   — hide the entire header bar, promote its actions to floating FABs
+   ============================================================ */
+.landscape-fab {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.landscape-fab:hover { background: var(--accent-light); }
+.landscape-fab-publish {
+  width: auto;
+  padding: 0 14px;
+  border-radius: 20px;
+  background: #059669;
+  color: white;
+  border-color: #059669;
+  font-weight: 500;
+  font-size: 13px;
+  gap: 4px;
+}
+.landscape-fab-publish:hover { background: #047857; }
+
+@media (max-height: 500px), (max-width: 480px) and (orientation: landscape) {
+  /* Hide the entire header — it eats too much vertical space in landscape */
+  .header { display: none !important; }
+  .status-bar { display: none !important; }
+  .panel-toggle-btn { display: none !important; }
+
+  /* Show landscape floating action buttons instead */
+  .landscape-fab { display: inline-flex; }
+  #lfab-menu {
+    top: 10px;
+    left: 10px;
+  }
+  #lfab-panel {
+    top: 10px;
+    right: 58px;
+  }
+  #lfab-publish {
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Canvas takes the whole viewport */
+  .main { flex-direction: row; }
+  .canvas-area {
+    padding-top: 0 !important;
+  }
+
+  /* File menu popover re-anchored to #lfab-menu */
+  .file-menu {
+    top: 56px !important;
+    left: 10px !important;
+  }
+
+  /* Make bottom dock a bit smaller in landscape (cramped) */
+  .mobile-bottom-dock {
+    bottom: 8px !important;
+    padding: 4px !important;
+    gap: 2px !important;
+    border-radius: 10px !important;
+  }
+  .mobile-bottom-dock .dock-btn {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
+  }
+  .mobile-bottom-dock .dock-sep {
+    height: 18px !important;
+    margin: 0 1px !important;
+  }
+
+  /* FAB (properties panel) hidden since we moved it to landscape-fab */
+  .mobile-fab { display: none !important; }
+
+  /* Panel opens from right side, not bottom, in landscape */
+  .panel {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: 280px !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1) !important;
+    border-left: 1px solid var(--border) !important;
+    border-top: none !important;
+  }
+  .panel.open {
+    transform: translateX(0) !important;
+  }
+  .panel-header::before { display: none; }
+}
+
 /* Header redesigned: file menu (left) + title (center) + publish (right) */
 .header h1 {
   flex: 1;
@@ -1116,6 +1223,11 @@ textarea.text-edit-overlay {
 
 <!-- Mobile floating action button -->
 <button class="mobile-fab" id="mobile-fab" title="属性面板">⚙</button>
+
+<!-- Landscape-only floating buttons (replace hidden header) -->
+<button class="landscape-fab" id="lfab-menu" data-tip="文件菜单">≡</button>
+<button class="landscape-fab" id="lfab-panel" data-tip="属性面板">⚙</button>
+<button class="landscape-fab landscape-fab-publish" id="lfab-publish" data-tip="发布到线上">🚀 发布</button>
 
 <!-- Bottom dock toolbar (Excalidraw-style) — all editing actions -->
 <div class="mobile-bottom-dock" id="mobile-bottom-dock">
@@ -3633,8 +3745,26 @@ fileMenuBtn.onclick = (e) => {
   e.stopPropagation();
   fileMenu.classList.toggle('show');
 };
+// Landscape FAB aliases
+const lfabMenu = document.getElementById('lfab-menu');
+const lfabPanel = document.getElementById('lfab-panel');
+const lfabPublish = document.getElementById('lfab-publish');
+if (lfabMenu) lfabMenu.onclick = (e) => {
+  e.stopPropagation();
+  fileMenu.classList.toggle('show');
+};
+if (lfabPanel) lfabPanel.onclick = () => {
+  // Reuse the same panel open logic
+  panelEl.classList.toggle('open');
+  panelEl.classList.toggle('collapsed');
+};
+if (lfabPublish) lfabPublish.onclick = () => {
+  document.getElementById('btn-publish').click();
+};
 document.addEventListener('click', (e) => {
-  if (!fileMenu.contains(e.target) && e.target !== fileMenuBtn && !fileMenuBtn.contains(e.target)) {
+  if (!fileMenu.contains(e.target)
+      && e.target !== fileMenuBtn && !fileMenuBtn.contains(e.target)
+      && e.target !== lfabMenu && !(lfabMenu && lfabMenu.contains(e.target))) {
     fileMenu.classList.remove('show');
   }
 });
