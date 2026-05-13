@@ -1231,8 +1231,13 @@ textarea.text-edit-overlay {
 
 <!-- Bottom dock toolbar (Excalidraw-style) — all editing actions -->
 <div class="mobile-bottom-dock" id="mobile-bottom-dock">
+  <!-- Tools: select / hand -->
+  <button class="dock-btn active" id="mdock-select" data-tip="选择工具（V）— 点选元素、拖动移动元素">↖</button>
+  <button class="dock-btn" id="mdock-hand" data-tip="抓手工具（H/空格）— 拖动整个画布">✋</button>
+  <div class="dock-sep"></div>
+
   <!-- Add text -->
-  <button class="dock-btn" id="mdock-text" data-tip="添加文字（按 T 键）">T</button>
+  <button class="dock-btn" id="mdock-text" data-tip="添加文字（T）">T</button>
   <div class="dock-sep"></div>
 
   <!-- History -->
@@ -1508,6 +1513,8 @@ function clearAllSelectionHighlights() {
 }
 
 function onElementMouseDown(e) {
+  // Hand tool / space held → no element selection, let canvas pan handle it
+  if (currentTool === 'pan' || (typeof spaceHeld !== 'undefined' && spaceHeld)) return;
   if (currentTool !== 'select') return;
   e.stopPropagation();
 
@@ -2256,15 +2263,97 @@ canvasArea.addEventListener('mousedown', (e) => {
 // ========== Tools ==========
 function setTool(tool) {
   currentTool = tool;
-  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tool-' + tool).classList.add('active');
+  // Visual: dock buttons active state
+  const dockSel = document.getElementById('mdock-select');
+  const dockHand = document.getElementById('mdock-hand');
+  if (dockSel) dockSel.classList.toggle('active', tool === 'select');
+  if (dockHand) dockHand.classList.toggle('active', tool === 'pan');
+  // Cursor
   if (svgRoot) {
     svgRoot.style.cursor = tool === 'pan' ? 'grab' : 'default';
   }
+  // Legacy hidden buttons (still wired)
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  const legacy = document.getElementById('tool-' + tool);
+  if (legacy) legacy.classList.add('active');
 }
 
 document.getElementById('tool-select').onclick = () => setTool('select');
 document.getElementById('tool-pan').onclick = () => setTool('pan');
+
+// ========== Hand tool: pan the entire canvas by adjusting viewBox ==========
+let handDrag = null;
+
+function startHandDrag(clientX, clientY) {
+  if (!svgRoot) return;
+  const vb = svgRoot.viewBox.baseVal;
+  if (!vb || vb.width === 0) return;
+  // SVG units per pixel
+  const rect = svgRoot.getBoundingClientRect();
+  const sx = vb.width / rect.width;
+  const sy = vb.height / rect.height;
+  handDrag = {
+    startX: clientX,
+    startY: clientY,
+    origVbX: vb.x,
+    origVbY: vb.y,
+    sx, sy
+  };
+  svgRoot.style.cursor = 'grabbing';
+}
+
+function moveHandDrag(clientX, clientY) {
+  if (!handDrag || !svgRoot) return;
+  const dx = clientX - handDrag.startX;
+  const dy = clientY - handDrag.startY;
+  const vb = svgRoot.viewBox.baseVal;
+  vb.x = handDrag.origVbX - dx * handDrag.sx;
+  vb.y = handDrag.origVbY - dy * handDrag.sy;
+}
+
+function endHandDrag() {
+  handDrag = null;
+  if (svgRoot) svgRoot.style.cursor = currentTool === 'pan' ? 'grab' : 'default';
+}
+
+// Mouse events on canvas — engage hand tool when active OR space held
+document.addEventListener('mousedown', (e) => {
+  if (!svgRoot) return;
+  // Only react if mousedown was on the canvas/SVG itself (not on a UI element)
+  const onCanvas = svgRoot.contains(e.target) || e.target === svgRoot ||
+                   e.target === document.getElementById('canvas-area');
+  if (!onCanvas) return;
+  if (currentTool === 'pan' || spaceHeld) {
+    e.preventDefault();
+    startHandDrag(e.clientX, e.clientY);
+    document.addEventListener('mousemove', onHandMouseMove);
+    document.addEventListener('mouseup', onHandMouseUp);
+  }
+}, true);
+
+function onHandMouseMove(e) { moveHandDrag(e.clientX, e.clientY); }
+function onHandMouseUp() {
+  endHandDrag();
+  document.removeEventListener('mousemove', onHandMouseMove);
+  document.removeEventListener('mouseup', onHandMouseUp);
+}
+
+// Space-to-pan: hold Space to temporarily switch to hand tool (Excalidraw-style)
+let spaceHeld = false;
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space' && !spaceHeld) {
+    spaceHeld = true;
+    if (svgRoot) svgRoot.style.cursor = 'grab';
+    e.preventDefault();
+  }
+});
+document.addEventListener('keyup', (e) => {
+  if (e.code === 'Space') {
+    spaceHeld = false;
+    if (svgRoot) svgRoot.style.cursor = currentTool === 'pan' ? 'grab' : 'default';
+  }
+});
 
 // ========== Status Bar ==========
 canvasArea.addEventListener('mousemove', (e) => {
@@ -3007,9 +3096,11 @@ canvasAreaEl.addEventListener('touchstart', (e) => {
     const midY = (t1.clientY + t2.clientY) / 2;
     touchState = { mode: 'pinch', startDist: dist, startScale: canvasScale, midX, midY, scrollLeft: canvasAreaEl.scrollLeft, scrollTop: canvasAreaEl.scrollTop };
     e.preventDefault();
-  } else if (e.touches.length === 1 && currentTool === 'pan') {
+  } else if (e.touches.length === 1 && (currentTool === 'pan' || spaceHeld)) {
     const t = e.touches[0];
-    touchState = { mode: 'pan', x: t.clientX, y: t.clientY, scrollLeft: canvasAreaEl.scrollLeft, scrollTop: canvasAreaEl.scrollTop };
+    startHandDrag(t.clientX, t.clientY);
+    touchState = { mode: 'pan' };
+    e.preventDefault();
   }
 }, { passive: false });
 
@@ -3023,13 +3114,15 @@ canvasAreaEl.addEventListener('touchmove', (e) => {
     e.preventDefault();
   } else if (touchState.mode === 'pan' && e.touches.length === 1) {
     const t = e.touches[0];
-    canvasAreaEl.scrollLeft = touchState.scrollLeft - (t.clientX - touchState.x);
-    canvasAreaEl.scrollTop = touchState.scrollTop - (t.clientY - touchState.y);
+    moveHandDrag(t.clientX, t.clientY);
     e.preventDefault();
   }
 }, { passive: false });
 
-canvasAreaEl.addEventListener('touchend', () => { touchState = null; });
+canvasAreaEl.addEventListener('touchend', () => {
+  if (touchState && touchState.mode === 'pan') endHandDrag();
+  touchState = null;
+});
 
 // Canvas zoom (applied via transform)
 let canvasScale = 1;
@@ -3616,6 +3709,8 @@ canvasAreaEl.addEventListener('click', (e) => {
 
 // Mobile dock — wire each button to its desktop counterpart
 const dockMap = {
+  'mdock-select': () => { setTool('select'); },
+  'mdock-hand': () => { setTool('pan'); },
   'mdock-text': () => {
     textTool = !textTool;
     document.body.style.cursor = textTool ? 'text' : '';
