@@ -1453,13 +1453,30 @@ function deselectAll() {
 // or "the element"), preventing accidental swaps between parent and child levels.
 function findSelectionAnchor(el) {
   if (!el || el === svgRoot) return null;
+
+  // ===== Group-edit mode override =====
+  // If we're editing a group, clicking inside it selects the individual child element,
+  // not the group as a whole (PowerPoint/WPS behavior).
+  if (editingGroup && isInsideEditingGroup(el)) {
+    // Find the most specific meaningful descendant (still allow nested sub-groups)
+    let node = el;
+    while (node && node !== editingGroup) {
+      if (node.tagName === 'g' && node !== editingGroup) {
+        // A nested group inside the editing group — select it as a unit
+        return node;
+      }
+      // Reached a leaf shape, return it
+      if (node.parentElement === editingGroup) return node;
+      node = node.parentElement;
+    }
+    return el;
+  }
+
   // Walk up looking for a meaningful group container
   let node = el;
   let bestGroup = null;
   while (node && node !== svgRoot) {
     if (node.tagName === 'g') {
-      // A "meaningful" group: has data-auto-grouped, data-group, has multiple children,
-      // OR has a transform / class indicating a logical unit
       const isMeaningful = node.hasAttribute('data-auto-grouped') ||
                            node.hasAttribute('data-group') ||
                            (node.children && node.children.length > 1);
@@ -1470,33 +1487,105 @@ function findSelectionAnchor(el) {
   return bestGroup || el;
 }
 
-// Visually highlight a selection anchor (consistent for both elements and groups)
-function highlightAnchor(anchor) {
-  if (!anchor) return;
-  if (anchor.tagName === 'g') {
-    // Highlight all visible shapes in the group with a uniform outline
-    anchor.querySelectorAll('rect, circle, ellipse, path, line, polyline, polygon, text').forEach(child => {
-      if (child.closest('defs') || child.closest('marker')) return;
-      child.style.outline = '2px dashed #2563eb';
-      child.style.outlineOffset = '2px';
-      child.dataset._selOutline = '1';
-    });
-  } else {
-    anchor.style.outline = '2px dashed #2563eb';
-    anchor.style.outlineOffset = '2px';
-    anchor.dataset._selOutline = '1';
+// ===== Selection bounding-box renderer =====
+// Instead of outlining every child of a group, draw a single dashed rect
+// in viewport-space SVG overlay around the anchor's bbox.
+let selectionOverlay = null; // <g> element on top of svgRoot containing all selection rects
+
+function ensureSelectionOverlay() {
+  if (!svgRoot) return null;
+  if (selectionOverlay && selectionOverlay.parentNode === svgRoot) return selectionOverlay;
+  // Create or recreate overlay group
+  selectionOverlay = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  selectionOverlay.setAttribute('class', 'selection-overlay');
+  selectionOverlay.setAttribute('pointer-events', 'none');
+  svgRoot.appendChild(selectionOverlay);
+  return selectionOverlay;
+}
+
+// Compute the SVG-coordinate bbox for an anchor (works for groups and single elements)
+function getAnchorBBox(anchor) {
+  if (!anchor || !svgRoot) return null;
+  try {
+    // getBBox returns bbox in the element's local SVG coordinate system.
+    // For groups, this gives the union of children.
+    const bb = anchor.getBBox();
+    if (!bb || (bb.width === 0 && bb.height === 0)) return null;
+    return bb;
+  } catch (e) {
+    return null;
   }
 }
 
-function clearAnchorHighlight(anchor) {
-  if (!anchor) return;
-  if (anchor.tagName === 'g') {
-    anchor.querySelectorAll('[data-_sel-outline]').forEach(child => {
-      child.style.outline = '';
-      child.style.outlineOffset = '';
-      delete child.dataset._selOutline;
+// Render a single dashed rect around the anchor in SVG coords
+function highlightAnchor(anchor) {
+  if (!anchor || !svgRoot) return;
+  const overlay = ensureSelectionOverlay();
+  if (!overlay) return;
+  // Avoid duplicate
+  let rect = overlay.querySelector(`[data-anchor-id="${anchorId(anchor)}"]`);
+  if (rect) return; // already highlighted
+  const bb = getAnchorBBox(anchor);
+  if (!bb) {
+    // Fallback: outline the element itself (rare)
+    anchor.style.outline = '2px dashed #2563eb';
+    anchor.style.outlineOffset = '2px';
+    anchor.dataset._selOutline = '1';
+    return;
+  }
+  // Account for any transform on the anchor: getBBox is local, so we map to root via getCTM
+  const ctm = anchor.getCTM ? anchor.getCTM() : null;
+  let x = bb.x, y = bb.y, w = bb.width, h = bb.height;
+  if (ctm && svgRoot.getCTM) {
+    // Transform the four corners of the bbox to the root coord system,
+    // then take the axis-aligned bounding box.
+    const localToRoot = svgRoot.getCTM().inverse().multiply(ctm);
+    const pts = [
+      { x: bb.x, y: bb.y },
+      { x: bb.x + bb.width, y: bb.y },
+      { x: bb.x, y: bb.y + bb.height },
+      { x: bb.x + bb.width, y: bb.y + bb.height }
+    ].map(p => {
+      const pt = svgRoot.createSVGPoint();
+      pt.x = p.x; pt.y = p.y;
+      return pt.matrixTransform(localToRoot);
     });
-  } else {
+    const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+    x = Math.min(...xs); y = Math.min(...ys);
+    w = Math.max(...xs) - x; h = Math.max(...ys) - y;
+  }
+  const pad = 4;
+  rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('x', x - pad);
+  rect.setAttribute('y', y - pad);
+  rect.setAttribute('width', w + pad * 2);
+  rect.setAttribute('height', h + pad * 2);
+  rect.setAttribute('fill', 'none');
+  rect.setAttribute('stroke', '#2563eb');
+  rect.setAttribute('stroke-width', '1.5');
+  rect.setAttribute('stroke-dasharray', '6 4');
+  rect.setAttribute('rx', '3');
+  rect.setAttribute('data-anchor-id', anchorId(anchor));
+  rect.setAttribute('pointer-events', 'none');
+  overlay.appendChild(rect);
+}
+
+// Generate / cache a stable id on the anchor (we don't pollute DOM with attrs we'll need to clean)
+let _anchorCounter = 0;
+function anchorId(anchor) {
+  if (!anchor._anchorId) anchor._anchorId = '_a' + (++_anchorCounter);
+  return anchor._anchorId;
+}
+
+function clearAnchorHighlight(anchor) {
+  if (!anchor || !svgRoot) return;
+  const overlay = svgRoot.querySelector('.selection-overlay');
+  if (overlay) {
+    const r = overlay.querySelector(`[data-anchor-id="${anchorId(anchor)}"]`);
+    if (r) r.remove();
+  }
+  // Also clean fallback inline outline if any
+  if (anchor.dataset && anchor.dataset._selOutline) {
     anchor.style.outline = '';
     anchor.style.outlineOffset = '';
     delete anchor.dataset._selOutline;
@@ -1505,11 +1594,24 @@ function clearAnchorHighlight(anchor) {
 
 function clearAllSelectionHighlights() {
   if (!svgRoot) return;
+  // Remove overlay rects
+  const overlay = svgRoot.querySelector('.selection-overlay');
+  if (overlay) {
+    while (overlay.firstChild) overlay.removeChild(overlay.firstChild);
+  }
+  // Clean any legacy outline marks left over
   svgRoot.querySelectorAll('[data-_sel-outline]').forEach(child => {
     child.style.outline = '';
     child.style.outlineOffset = '';
     delete child.dataset._selOutline;
   });
+}
+
+// Keep overlay rects in sync after drag/move
+function refreshSelectionHighlights() {
+  if (!svgRoot || !selectedEls || selectedEls.length === 0) return;
+  clearAllSelectionHighlights();
+  selectedEls.forEach(el => highlightAnchor(el));
 }
 
 function onElementMouseDown(e) {
@@ -1617,6 +1719,8 @@ function onDragMove(e) {
         dragState.origPositions.forEach(item => {
           moveElement(item.el, item.positions, pdx, pdy);
         });
+        // Refresh selection rect overlay so it follows the drag
+        refreshSelectionHighlights();
         // Skip updatePanel during drag for performance — only update on drag end
       });
     } else {
@@ -1631,6 +1735,7 @@ function onDragEnd() {
     if (dragState.moved) {
       saveHistory();
       updatePanel();
+      refreshSelectionHighlights();
     }
   }
   dragState = null;
@@ -1716,51 +1821,139 @@ function offsetPath(d, dx, dy) {
 }
 
 // ========== Double-click Text Edit ==========
+// ===== Group edit mode (PowerPoint/WPS-style) =====
+// When entering edit mode for a group, future single clicks select children
+// individually instead of selecting the whole group.
+let editingGroup = null;
+
+function enterGroupEditMode(group) {
+  if (!group || group.tagName !== 'g') return;
+  if (editingGroup === group) return;
+  editingGroup = group;
+  clearAllSelectionHighlights();
+  selectedEl = null;
+  selectedEls = [];
+  // Draw a distinctive dashed outline around the group being edited (lighter style)
+  const overlay = ensureSelectionOverlay();
+  if (overlay) {
+    const bb = getAnchorBBox(group);
+    if (bb) {
+      const ctm = group.getCTM ? group.getCTM() : null;
+      let x = bb.x, y = bb.y, w = bb.width, h = bb.height;
+      if (ctm && svgRoot.getCTM) {
+        const localToRoot = svgRoot.getCTM().inverse().multiply(ctm);
+        const pts = [
+          { x: bb.x, y: bb.y },
+          { x: bb.x + bb.width, y: bb.y },
+          { x: bb.x, y: bb.y + bb.height },
+          { x: bb.x + bb.width, y: bb.y + bb.height }
+        ].map(p => {
+          const pt = svgRoot.createSVGPoint(); pt.x = p.x; pt.y = p.y;
+          return pt.matrixTransform(localToRoot);
+        });
+        const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+        x = Math.min(...xs); y = Math.min(...ys);
+        w = Math.max(...xs) - x; h = Math.max(...ys) - y;
+      }
+      const pad = 8;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x - pad);
+      rect.setAttribute('y', y - pad);
+      rect.setAttribute('width', w + pad * 2);
+      rect.setAttribute('height', h + pad * 2);
+      rect.setAttribute('fill', 'none');
+      rect.setAttribute('stroke', '#94a3b8');
+      rect.setAttribute('stroke-width', '1');
+      rect.setAttribute('stroke-dasharray', '3 3');
+      rect.setAttribute('rx', '4');
+      rect.setAttribute('data-edit-group', '1');
+      rect.setAttribute('pointer-events', 'none');
+      overlay.appendChild(rect);
+    }
+  }
+  updateStatusSelection();
+  // Show toast/hint
+  showToast('已进入组编辑模式，点击空白或按 Esc 退出', 1800);
+}
+
+function exitGroupEditMode() {
+  if (!editingGroup) return;
+  editingGroup = null;
+  // Remove the edit-mode rect
+  const overlay = svgRoot && svgRoot.querySelector('.selection-overlay');
+  if (overlay) {
+    overlay.querySelectorAll('[data-edit-group]').forEach(r => r.remove());
+  }
+  updateStatusSelection();
+}
+
+function isInsideEditingGroup(el) {
+  if (!editingGroup) return false;
+  let node = el;
+  while (node) {
+    if (node === editingGroup) return true;
+    node = node.parentElement;
+  }
+  return false;
+}
+
+// Simple toast
+function showToast(msg, duration = 1500) {
+  let toast = document.getElementById('_editor-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = '_editor-toast';
+    Object.assign(toast.style, {
+      position: 'fixed', left: '50%', top: '80px', transform: 'translateX(-50%)',
+      background: 'rgba(30,41,59,0.92)', color: 'white', padding: '8px 14px',
+      borderRadius: '20px', fontSize: '12px', zIndex: '9999',
+      pointerEvents: 'none', transition: 'opacity 0.2s', opacity: '0'
+    });
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, duration);
+}
+
 function onElementDblClick(e) {
   e.stopPropagation();
   let target = e.target;
-  if (target.tagName !== 'text' && target.tagName !== 'tspan') {
-    const txt = target.querySelector ? target.querySelector('text') : null;
-    if (txt) target = txt;
-    else return;
-  }
-  if (target.tagName === 'tspan') target = target.parentElement;
 
-  // Use enhanced multi-line text edit if available (loaded later in script)
-  if (typeof enhancedTextEdit === 'function') {
-    enhancedTextEdit(target);
+  // If double-clicking on text → edit text
+  if (target.tagName === 'text' || target.tagName === 'tspan') {
+    if (target.tagName === 'tspan') target = target.parentElement;
+    if (typeof enhancedTextEdit === 'function') { enhancedTextEdit(target); return; }
+  }
+  // Find containing group: enter group edit mode
+  let group = null;
+  let node = target;
+  while (node && node !== svgRoot) {
+    if (node.tagName === 'g' && (node.hasAttribute('data-auto-grouped') ||
+                                  node.hasAttribute('data-group') ||
+                                  (node.children && node.children.length > 1))) {
+      group = node;
+      break;
+    }
+    node = node.parentElement;
+  }
+  if (group) {
+    enterGroupEditMode(group);
+    // Also select the actual child clicked
+    clearAllSelectionHighlights();
+    selectedEl = target;
+    selectedEls = [target];
+    highlightAnchor(target);
+    updatePanel();
     return;
   }
 
-  // Fallback: single-line editor
-  const bbox = target.getBoundingClientRect();
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.className = 'text-edit-overlay';
-  input.value = target.textContent;
-  input.style.left = bbox.left + 'px';
-  input.style.top = bbox.top + 'px';
-  input.style.fontSize = (parseFloat(getComputedStyle(target).fontSize) || 14) + 'px';
-  input.style.width = Math.max(bbox.width + 40, 100) + 'px';
-
-  document.body.appendChild(input);
-  input.focus();
-  input.select();
-
-  const finish = () => {
-    if (input.value !== target.textContent) {
-      target.textContent = input.value;
-      saveHistory();
-      updatePanel();
-    }
-    input.remove();
-  };
-
-  input.onblur = finish;
-  input.onkeydown = (ev) => {
-    if (ev.key === 'Enter') finish();
-    if (ev.key === 'Escape') input.remove();
-  };
+  // No group → text edit fallback (legacy: try to find text inside)
+  const txt = target.querySelector ? target.querySelector('text') : null;
+  if (txt && typeof enhancedTextEdit === 'function') {
+    enhancedTextEdit(txt);
+  }
 }
 
 // ========== Properties Panel ==========
@@ -2225,7 +2418,10 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Delete' || e.key === 'Backspace') {
     if (selectedEl) { e.preventDefault(); deleteSelected(); }
   }
-  if (e.key === 'Escape') { deselectAll(); selectedEls = []; updatePanel(); }
+  if (e.key === 'Escape') {
+    if (editingGroup) { exitGroupEditMode(); deselectAll(); selectedEls = []; updatePanel(); }
+    else { deselectAll(); selectedEls = []; updatePanel(); }
+  }
   if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'v' || e.key === 'V')) setTool('select');
   if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'h' || e.key === 'H')) setTool('pan');
   if (!e.ctrlKey && !e.shiftKey && !e.metaKey && (e.key === 'p' || e.key === 'P')) openPreview();
@@ -2254,6 +2450,7 @@ document.addEventListener('keydown', (e) => {
 // ========== Canvas click to deselect ==========
 canvasArea.addEventListener('mousedown', (e) => {
   if (e.target === canvasArea || e.target === svgRoot) {
+    if (editingGroup) exitGroupEditMode();
     deselectAll();
     selectedEls = [];
     updatePanel();
