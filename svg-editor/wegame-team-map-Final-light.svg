@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet" style="cursor: default;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet" style="max-width: 100%; height: auto;">
   <style>
     text { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
     .sec-label { font-size: 12px; fill: #64748b; font-weight: 700; letter-spacing: 0.12em; }
@@ -146,88 +146,88 @@
   </g>
 
   <!-- CELLS 区域 -->
-  <text x="45" y="441" class="sec-label" style="cursor: pointer;">AI Infra</text>
+  <text x="47.29363250732422" y="609.9640197753906" class="sec-label" style="cursor: pointer;">AI Infra</text>
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="140" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="232.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">知识库(模型安全) 2</text>
-    <text x="232.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">thomasjcli</text>
-    <text x="232.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">dreamyan</text>
+    <rect x="146.880859375" y="569.3877868652344" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="239.380859375" y="589.3877868652344" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">知识库(模型安全) 2</text>
+    <text x="239.380859375" y="605.3877868652344" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">thomasjcli</text>
+    <text x="239.380859375" y="618.3877868652344" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">dreamyan</text>
   </g>
 
-  <rect x="337" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline=""/><text x="429.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">感知 3</text><text x="429.5" y="491" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">samualwang</text><text x="429.5" y="504" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">thomasjcli</text><text x="429.5" y="516" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">Rjuwang</text>
+  <g data-auto-grouped="true" style="cursor: pointer;"><rect x="367.58172607421875" y="567.8587646484375" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline=""/><text x="460.08172607421875" y="587.8587646484375" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">感知 3</text><text x="460.08172607421875" y="601.8587646484375" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">samualwang</text><text x="460.08172607421875" y="614.8587646484375" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">thomasjcli</text><text x="460.08172607421875" y="626.8587646484375" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;" data-orig-outline="">Rjuwang</text></g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="530" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="622.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">记忆与用户画像 2</text>
-    <text x="622.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">leonmhliu</text>
-    <text x="622.5" y="506" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jinbozheng</text>
-  </g>
-
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="730" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="822.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(自主进化) 2</text>
-    <text x="822.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
+    <rect x="577.4016723632812" y="568.623291015625" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="669.9016723632812" y="588.623291015625" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">记忆与用户画像 2</text>
+    <text x="669.9016723632812" y="604.623291015625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">leonmhliu</text>
+    <text x="669.9016723632812" y="617.623291015625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jinbozheng</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="930" y="457" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1022.5" y="477" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
-    <text x="1022.5" y="493" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
+    <rect x="814.0997314453125" y="569.3878173828125" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="906.5997314453125" y="589.3878173828125" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(自主进化) 2</text>
+    <text x="906.5997314453125" y="605.3878173828125" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="1130" y="458" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1222.5" y="478" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1222.5" dy="0">评测体系 3</tspan><tspan x="1222.5" dy="13.2">thomasjcli</tspan><tspan x="1222.5" dy="13.2">rjuwang</tspan><tspan x="1222.5" dy="13.2">anlanfan</tspan></text>
+    <rect x="1014.0997314453125" y="569.3878173828125" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="1106.5997314453125" y="589.3878173828125" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
+    <text x="1106.5997314453125" y="605.3878173828125" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
+  </g>
+
+  <g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="1214.0997314453125" y="570.3878173828125" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="1306.5997314453125" y="590.3878173828125" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1306.5997314453125" dy="0">评测体系 3</tspan><tspan x="1306.5997314453125" dy="13.2">thomasjcli</tspan><tspan x="1306.5997314453125" dy="13.2">rjuwang</tspan><tspan x="1306.5997314453125" dy="13.2">anlanfan</tspan></text>
   </g>
 
   <!-- Platform Layer 分割线 -->
-  <line x1="40" y1="546" x2="1560" y2="546" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7" style="cursor: pointer;"/>
-  <text x="45" y="571" class="sec-label" style="cursor: pointer;">PLATFORM LAYER</text>
+  <line x1="57.584503173828125" y1="778.4210205078125" x2="1577.5845031738281" y2="778.4210205078125" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7" style="cursor: pointer;"/>
+  <text x="21.299163818359375" y="706.3240966796875" class="sec-label" style="cursor: pointer;">PLATFORM LAYER</text>
 
   <!-- Platform Layer 卡片 -->
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="120" y="585" width="1380" height="68" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <rect x="142" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <rect x="298" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <rect x="454" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <rect x="610" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <text x="214.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">基础后台服务</text>
-    <text x="370.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">账号(安全、好友、社交)</text>
-    <text x="526.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">数据服务</text>
-    <text x="682.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">支付服务</text>
-    <text x="362" y="671" text-anchor="middle" fill="#64748b" font-size="10" style="cursor: pointer;">charilezhu  crazyfu yonghaoliu  3人</text>
-    <text x="1042" y="671" text-anchor="middle" fill="#64748b" font-size="10" style="cursor: pointer;">lieberli  shaohuikong  shupeifei  3人</text>
-  </g>
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="1303" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <text x="1375.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">客户端基础框架</text>
-  </g>
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="831" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <text x="903.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">运营配置</text>
-  </g>
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="986" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <text x="1058.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">前端基础设施</text>
-  </g>
-  <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="1143" y="600" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
-    <text x="1215.5" y="624" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">Devops &amp; QA</text>
-  </g>
+  <g data-group="1" style="cursor: pointer;"><g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="157.46261596679688" y="670.6288452148438" width="1380" height="68" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <rect x="179.46261596679688" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <rect x="335.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <rect x="491.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <rect x="647.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <text x="251.96261596679688" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">基础后台服务</text>
+    <text x="407.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">账号(安全、好友、社交)</text>
+    <text x="563.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">数据服务</text>
+    <text x="719.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">支付服务</text>
+    <text x="399.4626159667969" y="756.6288452148438" text-anchor="middle" fill="#64748b" font-size="10" style="cursor: pointer;">charilezhu  crazyfu yonghaoliu  3人</text>
+    <text x="1079.4626159667969" y="756.6288452148438" text-anchor="middle" fill="#64748b" font-size="10" style="cursor: pointer;">lieberli  shaohuikong  shupeifei  3人</text>
+  </g><g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="868.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <text x="940.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">运营配置</text>
+  </g><g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="1023.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <text x="1095.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">前端基础设施</text>
+  </g><g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="1180.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <text x="1252.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">Devops &amp; QA</text>
+  </g><g data-auto-grouped="true" style="cursor: pointer;">
+    <rect x="1340.4626159667969" y="685.6288452148438" width="145" height="38" rx="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8" style="cursor: pointer;" data-orig-outline="#94a3b8"/>
+    <text x="1412.9626159667969" y="709.6288452148438" text-anchor="middle" fill="#475569" font-size="11" font-weight="500" style="cursor: pointer;">客户端基础框架</text>
+  </g></g>
+  
+  
+  
+  
 
   <!-- 图例 -->
   <g transform="translate(55, 698)" style="cursor: pointer;">
-    <text x="0" y="0" fill="#475569" font-size="10" font-weight="600" letter-spacing="0.08em" style="cursor: pointer;">LEGEND</text>
-    <rect x="0" y="10" width="16" height="10" rx="2" fill="#ffffff" stroke="#0ea5e9" stroke-width="1" style="cursor: pointer;"/>
-    <text x="22" y="18" fill="#475569" font-size="9" style="cursor: pointer;">Standard Project</text>
-    <rect x="135" y="10" width="16" height="10" rx="2" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" style="cursor: pointer;"/>
-    <text x="157" y="18" fill="#475569" font-size="9" style="cursor: pointer;">Support Project</text>
-    <rect x="270" y="10" width="16" height="10" rx="2" fill="#faf5ff" stroke="#a78bfa" stroke-width="1" style="cursor: pointer;"/>
-    <text x="292" y="18" fill="#475569" font-size="9" style="cursor: pointer;">AI Native Project</text>
-    <rect x="405" y="10" width="16" height="10" rx="2" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" style="cursor: pointer;"/>
-    <text x="427" y="18" fill="#475569" font-size="9" style="cursor: pointer;">AI Cell</text>
-    <rect x="485" y="10" width="16" height="10" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" style="cursor: pointer;"/>
-    <text x="507" y="18" fill="#475569" font-size="9" style="cursor: pointer;">Platform Service</text>
+    <text x="-5.351806640625" y="125.385009765625" fill="#475569" font-size="10" font-weight="600" letter-spacing="0.08em" style="cursor: pointer;">LEGEND</text>
+    <rect x="-5.351806640625" y="135.385009765625" width="16" height="10" rx="2" fill="#ffffff" stroke="#0ea5e9" stroke-width="1" style="cursor: pointer;"/>
+    <text x="16.648193359375" y="143.385009765625" fill="#475569" font-size="9" style="cursor: pointer;">Standard Project</text>
+    <rect x="129.648193359375" y="135.385009765625" width="16" height="10" rx="2" fill="#fffbeb" stroke="#FF6C2F" stroke-width="1" style="cursor: pointer;"/>
+    <text x="151.648193359375" y="143.385009765625" fill="#475569" font-size="9" style="cursor: pointer;">Support Project</text>
+    <rect x="264.648193359375" y="135.385009765625" width="16" height="10" rx="2" fill="#faf5ff" stroke="#a78bfa" stroke-width="1" style="cursor: pointer;"/>
+    <text x="286.648193359375" y="143.385009765625" fill="#475569" font-size="9" style="cursor: pointer;">AI Native Project</text>
+    <rect x="399.648193359375" y="135.385009765625" width="16" height="10" rx="2" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" style="cursor: pointer;"/>
+    <text x="421.648193359375" y="143.385009765625" fill="#475569" font-size="9" style="cursor: pointer;">AI Cell</text>
+    <rect x="479.648193359375" y="135.385009765625" width="16" height="10" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" style="cursor: pointer;"/>
+    <text x="501.648193359375" y="143.385009765625" fill="#475569" font-size="9" style="cursor: pointer;">Platform Service</text>
   </g>
-  <text x="1550" y="716" text-anchor="end" fill="#94a3b8" font-size="9" opacity="0.7" style="cursor: pointer;">WeGame Team · 2026-05</text>
+  <text x="1540.8255615234375" y="865.8504638671875" text-anchor="end" fill="#94a3b8" font-size="9" opacity="0.7" style="cursor: pointer;">WeGame Team · 2026-05</text>
 </svg>
