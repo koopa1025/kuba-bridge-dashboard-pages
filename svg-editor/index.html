@@ -1254,6 +1254,11 @@ textarea.text-edit-overlay {
   <button class="dock-btn" id="mdock-group" data-tip="将多选元素成组（⌘G）">⊞</button>
   <button class="dock-btn" id="mdock-ungroup" data-tip="解组当前组（⌘⇧G）">⊟</button>
   <button class="dock-btn" id="mdock-autogroup" data-tip="自动检测并分组相关元素">⚯</button>
+  <div class="dock-sep"></div>
+
+  <!-- Layer order -->
+  <button class="dock-btn" id="mdock-front" data-tip="置顶（图层最上方）">⤴</button>
+  <button class="dock-btn" id="mdock-back" data-tip="置底（图层最下方）">⤵</button>
 </div>
 
 <!-- Context action bar (floats above selected element on mobile) -->
@@ -2235,17 +2240,41 @@ function deleteSelected() {
 }
 
 // ========== Group / Ungroup ==========
+// Ensure text elements are rendered last (= visually on top) within a container.
+// SVG renders later-in-DOM elements above earlier ones, so we move text/tspan to the end.
+function ensureTextOnTop(container) {
+  if (!container) return;
+  // Collect direct child text nodes (and nested groups that contain only text)
+  const texts = Array.from(container.children).filter(c =>
+    c.tagName === 'text' || (c.tagName === 'g' && !c.querySelector('rect, circle, ellipse, path, line, polygon, polyline, image'))
+  );
+  texts.forEach(t => container.appendChild(t));
+}
+
 function groupSelected() {
   const els = selectedEls.length > 1 ? selectedEls : (selectedEl ? [selectedEl] : []);
   if (els.length < 2) { alert('请先 Shift+点击选中多个元素再成组'); return; }
 
   const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.setAttribute('data-group', '1');
   els[0].parentNode.insertBefore(g, els[0]);
-  els.forEach(el => {
+
+  // Add elements in original DOM order, but with text placed last (so it stays on top)
+  const sortedEls = els.slice().sort((a, b) => {
+    const aIsText = a.tagName === 'text' || a.tagName === 'tspan';
+    const bIsText = b.tagName === 'text' || b.tagName === 'tspan';
+    if (aIsText && !bIsText) return 1;   // text → end
+    if (!aIsText && bIsText) return -1;  // non-text → before
+    return 0;
+  });
+  sortedEls.forEach(el => {
     el.style.outline = '';
     el.style.outlineOffset = '';
     g.appendChild(el);
   });
+
+  // Belt-and-suspenders: ensure any nested text inside non-text wrappers gets float-up too
+  ensureTextOnTop(g);
 
   g.style.cursor = 'pointer';
   g.addEventListener('mousedown', onElementMouseDown);
@@ -3975,7 +4004,23 @@ const dockMap = {
   },
   'mdock-group': () => { document.getElementById('btn-group').click(); },
   'mdock-ungroup': () => { document.getElementById('btn-ungroup').click(); },
-  'mdock-autogroup': () => { document.getElementById('btn-autogroup').click(); }
+  'mdock-autogroup': () => { document.getElementById('btn-autogroup').click(); },
+  'mdock-front': () => {
+    const el = selectedEl;
+    if (!el || !el.parentNode) { showToast('请先选中元素'); return; }
+    el.parentNode.appendChild(el);
+    saveHistory();
+    refreshSelectionHighlights();
+    showToast('已置顶');
+  },
+  'mdock-back': () => {
+    const el = selectedEl;
+    if (!el || !el.parentNode) { showToast('请先选中元素'); return; }
+    el.parentNode.insertBefore(el, el.parentNode.firstChild);
+    saveHistory();
+    refreshSelectionHighlights();
+    showToast('已置底');
+  }
 };
 Object.entries(dockMap).forEach(([id, fn]) => {
   const el = document.getElementById(id);
