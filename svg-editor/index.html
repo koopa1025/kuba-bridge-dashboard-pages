@@ -1369,6 +1369,25 @@ function loadFile(file) {
   reader.readAsText(file);
 }
 
+// Helper: clone svgRoot for export and strip editor-only artifacts
+function getCleanSvgString() {
+  if (!svgRoot) return '';
+  const clone = svgRoot.cloneNode(true);
+  clone.querySelectorAll('.selection-overlay').forEach(g => g.remove());
+  clone.querySelectorAll('.align-guide').forEach(g => g.remove());
+  clone.querySelectorAll('[data-_sel-outline]').forEach(el => {
+    el.style.outline = ''; el.style.outlineOffset = '';
+    delete el.dataset._selOutline;
+  });
+  clone.querySelectorAll('[style*="outline"]').forEach(el => {
+    const ol = el.style.outline || '';
+    if (ol.includes('dashed') || ol.includes('#2563eb') || ol.includes('rgb(37, 99, 235)')) {
+      el.style.outline = ''; el.style.outlineOffset = '';
+    }
+  });
+  return new XMLSerializer().serializeToString(clone);
+}
+
 function loadSVGContent(svgText) {
   // Parse SVG
   const parser = new DOMParser();
@@ -1376,9 +1395,27 @@ function loadSVGContent(svgText) {
   const svg = doc.querySelector('svg');
   if (!svg) { alert('无法解析 SVG 文件'); return; }
 
+  // Purge any leftover editor artifacts that might have been saved into the file:
+  // selection-overlay groups, inline outline styles, _selOutline attributes
+  svg.querySelectorAll('.selection-overlay').forEach(g => g.remove());
+  svg.querySelectorAll('[data-_sel-outline]').forEach(el => {
+    el.style.outline = ''; el.style.outlineOffset = '';
+    delete el.dataset._selOutline;
+  });
+  svg.querySelectorAll('[style*="outline"]').forEach(el => {
+    const ol = el.style.outline || '';
+    if (ol.includes('dashed') || ol.includes('#2563eb') || ol.includes('rgb(37, 99, 235)')) {
+      el.style.outline = ''; el.style.outlineOffset = '';
+    }
+  });
+
   // Clear canvas
   emptyState.style.display = 'none';
   if (svgRoot) svgRoot.remove();
+
+  // Reset overlay reference (will be re-created on first selection)
+  selectionOverlay = null;
+  if (typeof editingGroup !== 'undefined') editingGroup = null;
 
   // Insert into DOM
   svgRoot = document.adoptNode(svg);
@@ -1415,6 +1452,8 @@ function makeInteractive() {
   const elements = svgRoot.querySelectorAll('rect, circle, ellipse, text, g, path, line, polyline, polygon');
   elements.forEach(el => {
     if (el.closest('defs') || el.closest('marker')) return;
+    // Skip our own selection overlay — it must never participate in selection
+    if (el.closest('.selection-overlay')) return;
     if (el.tagName === 'rect' && el.getAttribute('width') === '960' && el.getAttribute('height')) return;
 
     el.style.cursor = 'pointer';
@@ -1438,6 +1477,8 @@ function selectElement(el) {
 function deselectAll() {
   if (!svgRoot) return;
   clearAllSelectionHighlights();
+  // Also exit group-edit mode if we were in one (deselect = "I'm done with everything")
+  if (typeof exitGroupEditMode === 'function') exitGroupEditMode();
   selectedEl = null;
   selectedEls = [];
   updateStatusSelection();
@@ -1453,6 +1494,8 @@ function deselectAll() {
 // or "the element"), preventing accidental swaps between parent and child levels.
 function findSelectionAnchor(el) {
   if (!el || el === svgRoot) return null;
+  // Never anchor on the selection overlay
+  if (el.closest && el.closest('.selection-overlay')) return null;
 
   // ===== Group-edit mode override =====
   // If we're editing a group, clicking inside it selects the individual child element,
@@ -1476,7 +1519,7 @@ function findSelectionAnchor(el) {
   let node = el;
   let bestGroup = null;
   while (node && node !== svgRoot) {
-    if (node.tagName === 'g') {
+    if (node.tagName === 'g' && !node.classList.contains('selection-overlay')) {
       const isMeaningful = node.hasAttribute('data-auto-grouped') ||
                            node.hasAttribute('data-group') ||
                            (node.children && node.children.length > 1);
@@ -1594,16 +1637,20 @@ function clearAnchorHighlight(anchor) {
 
 function clearAllSelectionHighlights() {
   if (!svgRoot) return;
-  // Remove overlay rects
+  // Remove only the anchor selection rects (preserve group-edit boundary if present)
   const overlay = svgRoot.querySelector('.selection-overlay');
   if (overlay) {
-    while (overlay.firstChild) overlay.removeChild(overlay.firstChild);
+    overlay.querySelectorAll('[data-anchor-id]').forEach(r => r.remove());
   }
-  // Clean any legacy outline marks left over
-  svgRoot.querySelectorAll('[data-_sel-outline]').forEach(child => {
-    child.style.outline = '';
-    child.style.outlineOffset = '';
-    delete child.dataset._selOutline;
+  // Aggressive cleanup: clear any inline outline left from older versions or stale state.
+  svgRoot.querySelectorAll('[style*="outline"]').forEach(child => {
+    if (child.closest('.selection-overlay')) return;
+    const ol = child.style.outline || '';
+    if (ol.includes('dashed') || ol.includes('#2563eb') || ol.includes('rgb(37, 99, 235)') || child.dataset._selOutline) {
+      child.style.outline = '';
+      child.style.outlineOffset = '';
+      delete child.dataset._selOutline;
+    }
   });
 }
 
@@ -1618,6 +1665,8 @@ function onElementMouseDown(e) {
   // Hand tool / space held → no element selection, let canvas pan handle it
   if (currentTool === 'pan' || (typeof spaceHeld !== 'undefined' && spaceHeld)) return;
   if (currentTool !== 'select') return;
+  // Defensive: never react to clicks on our own selection-overlay (these are non-content visuals)
+  if (e.target && e.target.closest && e.target.closest('.selection-overlay')) return;
   e.stopPropagation();
 
   // Find the unit-level anchor (group or element)
@@ -2384,8 +2433,7 @@ document.getElementById('btn-export').onclick = () => {
 
   deselectAll();
 
-  const serializer = new XMLSerializer();
-  let svgStr = serializer.serializeToString(svgRoot);
+  let svgStr = getCleanSvgString();
   svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
 
   const blob = new Blob([svgStr], { type: 'image/svg+xml' });
@@ -2923,8 +2971,7 @@ function autoSave() {
   indicator.className = 'save-indicator saving';
 
   try {
-    const serializer = new XMLSerializer();
-    const svgStr = serializer.serializeToString(svgRoot);
+    const svgStr = getCleanSvgString();
     const data = {
       svg: svgStr,
       fileName: fileName,
@@ -3069,9 +3116,8 @@ document.getElementById('publish-confirm').onclick = async () => {
     // Save password for this session (not localStorage, more secure)
     sessionStorage.setItem('svg-editor-pwd', password);
 
-    // Serialize current SVG
-    const serializer = new XMLSerializer();
-    let svgStr = serializer.serializeToString(svgRoot);
+    // Serialize current SVG (cleaned of editor artifacts)
+    let svgStr = getCleanSvgString();
     svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgStr;
 
     // ===== Determine target file name =====
