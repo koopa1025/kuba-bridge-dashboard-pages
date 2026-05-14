@@ -29,7 +29,7 @@
 
   <!-- 分割线 -->
   <line x1="40" y1="198" x2="1560" y2="198" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7" style="cursor: pointer;"/>
-  <text x="48.05817413330078" y="440.07200622558594" class="sec-label" style="cursor: pointer;">Online Service</text><text x="33.63478088378906" y="240.7971954345703" class="sec-label" style="cursor: pointer;">AI Native Project</text>
+  <text x="25.12188720703125" y="468.36009216308594" class="sec-label" style="cursor: pointer;">Online Service</text><text x="32.10569763183594" y="264.49803161621094" class="sec-label" style="cursor: pointer;">AI Native Project</text>
 
   <!-- WeGame 项目卡片 - 蓝色系 -->
   <g data-auto-grouped="true" style="cursor: pointer;">
@@ -101,13 +101,13 @@
     <text x="247.70086669921875" y="266.4764404296875" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
     <text x="247.70086669921875" y="278.4764404296875" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">innohuang</text>
   </g><g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="748.3207397460938" y="219.8052978515625" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
-    <rect x="748.3207397460938" y="219.8052978515625" width="140" height="3" rx="1.5" fill="#a78bfa" style="cursor: pointer;"/>
-    <text x="818.3207397460938" y="239.8052978515625" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600" style="cursor: pointer;">WeGame UGC</text>
-    <text x="878.3207397460938" y="239.8052978515625" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
-    <text x="818.3207397460938" y="255.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">vitowang</text>
-    <text x="818.3207397460938" y="267.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;"/>
-    <text x="818.3207397460938" y="279.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;"/>
+    <rect x="727.6780395507812" y="219.8052978515625" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
+    <rect x="727.6780395507812" y="219.8052978515625" width="140" height="3" rx="1.5" fill="#a78bfa" style="cursor: pointer;"/>
+    <text x="797.6780395507812" y="239.8052978515625" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600" style="cursor: pointer;">WeGame UGC</text>
+    <text x="857.6780395507812" y="239.8052978515625" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
+    <text x="797.6780395507812" y="255.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">vitowang</text>
+    <text x="797.6780395507812" y="267.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;"/>
+    <text x="797.6780395507812" y="279.8052978515625" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;"/>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
@@ -122,17 +122,17 @@
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="551.4515991210938" y="220.77011108398438" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
-    <rect x="551.4515991210938" y="220.77011108398438" width="140" height="3" rx="1.5" fill="#a78bfa" style="cursor: pointer;"/>
-    <text x="621.4515991210938" y="240.77011108398438" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600" style="cursor: pointer;">EchoX</text>
-    <text x="681.4515991210938" y="240.77011108398438" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
-    <text x="621.4515991210938" y="256.7701110839844" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">landyzhao</text>
-    <text x="621.4515991210938" y="268.7701110839844" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">polarisliu</text>
-    <text x="621.4515991210938" y="280.7701110839844" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jamesleeli</text>
+    <rect x="533.1025390625" y="220.00558471679688" width="140" height="86" rx="6" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.2" filter="url(#soft)" style="cursor: pointer;"/>
+    <rect x="533.1025390625" y="220.00558471679688" width="140" height="3" rx="1.5" fill="#a78bfa" style="cursor: pointer;"/>
+    <text x="603.1025390625" y="240.00558471679688" text-anchor="middle" fill="#4c1d95" font-size="12" font-weight="600" style="cursor: pointer;">EchoX</text>
+    <text x="663.1025390625" y="240.00558471679688" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="700" style="cursor: pointer;">3</text>
+    <text x="603.1025390625" y="256.0055847167969" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">landyzhao</text>
+    <text x="603.1025390625" y="268.0055847167969" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">polarisliu</text>
+    <text x="603.1025390625" y="280.0055847167969" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">jamesleeli</text>
   </g>
 
   <!-- CELLS 区域 -->
-  <text x="47.29363250732422" y="609.9640197753906" class="sec-label" style="cursor: pointer;">AI Infra</text>
+  <text x="22.828262329101562" y="609.9640197753906" class="sec-label" style="cursor: pointer;">AI Infra</text>
   <g data-auto-grouped="true" style="cursor: pointer;">
     <rect x="146.880859375" y="569.3877868652344" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
     <text x="239.380859375" y="589.3877868652344" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">知识库(模型安全) 2</text>
@@ -150,15 +150,15 @@
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="730.7645263671875" y="567.0941772460938" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="823.2645263671875" y="587.0941772460938" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(自主进化) 2</text>
-    <text x="823.2645263671875" y="603.0941772460938" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
+    <rect x="730.7645263671875" y="569.3877563476562" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="823.2645263671875" y="589.3877563476562" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">语音智能体(自主进化) 2</text>
+    <text x="823.2645263671875" y="605.3877563476562" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">anlanfan、botaocai</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="921.5902099609375" y="570.1524047851562" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1014.0902099609375" y="590.1524047851562" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
-    <text x="1014.0902099609375" y="606.1524047851562" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
+    <rect x="921.5902099609375" y="568.6233520507812" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
+    <text x="1014.0902099609375" y="588.6233520507812" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;">端侧Agent和模型研究 1</text>
+    <text x="1014.0902099609375" y="604.6233520507812" text-anchor="middle" fill="#6d28d9" font-size="9" style="cursor: pointer;">zizkazhang</text>
   </g>
 
   <g data-auto-grouped="true" style="cursor: pointer;">
@@ -166,15 +166,12 @@
     <text x="1207.209228515625" y="591.15234375" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1207.209228515625" dy="0">评测体系 3</tspan><tspan x="1207.209228515625" dy="13.2">thomasjcli</tspan><tspan x="1207.209228515625" dy="13.2">rjuwang</tspan><tspan x="1207.209228515625" dy="13.2">anlanfan</tspan></text>
   </g><g data-auto-grouped="true" style="cursor: pointer;">
     <rect x="1312.083251953125" y="571.2742309570312" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1404.583251953125" y="591.2742309570312" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1404.583251953125" dy="0">Automated Testing</tspan><tspan x="1404.583251953125" dy="13.2"/><tspan x="1404.583251953125" dy="13.2"/><tspan x="1404.583251953125" dy="13.2"/></text>
-  </g><g data-auto-grouped="true" style="cursor: pointer;">
-    <rect x="1508.6925048828125" y="570.6315612792969" width="185" height="64" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1" filter="url(#soft)" style="cursor: pointer;" data-orig-outline="#7c3aed"/>
-    <text x="1601.1925048828125" y="590.6315612792969" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1601.1925048828125" dy="0">Agent Swarm</tspan><tspan x="1601.1925048828125" dy="13.2"/></text>
+    <text x="1404.583251953125" y="591.2742309570312" text-anchor="middle" fill="#5b21b6" font-size="11" font-weight="500" style="cursor: pointer;"><tspan x="1404.583251953125" dy="0">Automated Testing</tspan><tspan x="1404.583251953125" dy="13.2"/><tspan x="1404.583251953125" dy="13.2">witthuang</tspan><tspan x="1404.583251953125" dy="13.2">louieli</tspan></text>
   </g>
 
   <!-- Platform Layer 分割线 -->
   <line x1="57.584503173828125" y1="778.4210205078125" x2="1577.5845031738281" y2="778.4210205078125" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="10,5" opacity="0.7" style="cursor: pointer;"/>
-  <text x="21.299163818359375" y="706.3240966796875" class="sec-label" style="cursor: pointer;">PLATFORM LAYER</text>
+  <text x="21.299163818359375" y="706.3240966796875" class="sec-label" style="cursor: pointer;">PLATFORM</text>
 
   <!-- Platform Layer 卡片 -->
   <g data-group="1" style="cursor: pointer;"><g data-auto-grouped="true" style="cursor: pointer;">
