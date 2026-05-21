@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WeGame Team Map · Hive Stack 2026-05</title>
+  <style>
+    :root {
+      --bg: #eef4f7;
+      --cyan: #43dcff;
+      --cyan-soft: rgba(67, 220, 255, 0.56);
+      --gold: #ffd166;
+      --green: #76e5bb;
+      --purple: #c4a5ff;
+      --white: #f0fbff;
+      --muted: #adc8d7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(67, 178, 225, 0.16), transparent 34%),
+        linear-gradient(145deg, #f7fafb 0%, var(--bg) 58%, #e1ebf0 100%);
+      color: var(--white);
+      font-family: "Inter", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    .frame {
+      width: min(100vw, 1600px);
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(42, 125, 154, 0.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 125, 154, 0.075) 1px, transparent 1px),
+        linear-gradient(145deg, rgba(248, 251, 252, 0.98), rgba(231, 240, 244, 0.98));
+      background-size: 36px 36px, 36px 36px, 100% 100%;
+      border: 1px solid rgba(51, 126, 153, 0.22);
+      box-shadow: 0 28px 70px rgba(22, 54, 73, 0.18);
+    }
+
+    .frame::before, .frame::after {
+      content: ""; position: absolute; pointer-events: none;
+      border: 1px solid rgba(42, 125, 154, 0.16); inset: 18px;
+    }
+    .frame::after { inset: 29px; border-color: rgba(170, 129, 31, 0.14); }
+
+    svg { display: block; width: 100%; height: 100%; }
+
+    .title { fill: #183244; font-size: 30px; font-weight: 780; letter-spacing: 0; }
+    .subtitle { fill: #526f7f; font-size: 14px; }
+    .layer-tag { fill: var(--cyan); font-size: 14px; font-weight: 760; letter-spacing: 1.6px; }
+    .main-label { fill: var(--white); font-size: 22px; font-weight: 780; }
+    .sub-label { fill: #d8eef7; font-size: 13px; }
+    .cell-title { fill: #ffffff; font-size: 14px; font-weight: 760; }
+    .cell-sub { fill: #cfe8f2; font-size: 11px; }
+    .small { fill: #d8eef7; font-size: 11px; }
+    .tiny { fill: var(--muted); font-size: 10px; }
+
+    .gold { fill: var(--gold); }
+    .cyan { fill: var(--cyan); }
+    .green { fill: var(--green); }
+    .purple { fill: var(--purple); }
+
+    .role-label {
+      fill: #f7fbff;
+      stroke: rgba(2, 14, 24, 0.9);
+      stroke-width: 3px;
+      paint-order: stroke fill;
+      font-size: 11px;
+      font-weight: 720;
+    }
+
+    .module-label { fill: #eafaff; font-size: 9px; font-weight: 680; }
+    .module-panel { fill: rgba(4, 23, 38, 0.84); stroke: rgba(67, 220, 255, 0.58); stroke-width: 1; }
+    .module-panel-platform { fill: rgba(15, 23, 42, 0.9); stroke: rgba(148, 163, 184, 0.66); stroke-width: 1; }
+
+    .takeaway-title { font-size: 16px; font-weight: 760; }
+    .takeaway-copy { fill: #d8eef7; font-size: 12px; }
+
+    .panel { fill: rgba(3, 14, 24, 0.9); stroke: rgba(67, 220, 255, 0.45); stroke-width: 1.2; }
+    .panel-gold { fill: rgba(3, 14, 24, 0.9); stroke: rgba(255, 209, 102, 0.52); stroke-width: 1.2; }
+    .panel-purple { fill: rgba(3, 14, 24, 0.9); stroke: rgba(196, 165, 255, 0.55); stroke-width: 1.2; }
+
+    @media (max-width: 900px) { .frame { width: 1600px; } }
+  </style>
+</head>
+<body>
+<main class="frame" aria-label="WeGame Team Map · Hive Stack 视图">
+<svg viewBox="0 0 1600 900" role="img">
+<defs>
+  <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+    <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000814" flood-opacity="0.62"/>
+  </filter>
+
+  <linearGradient id="slabTopLight" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#1f86b4"/>
+    <stop offset="0.55" stop-color="#0f4d78"/>
+    <stop offset="1" stop-color="#082a52"/>
+  </linearGradient>
+  <linearGradient id="slabTopDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#166c9f"/>
+    <stop offset="0.6" stop-color="#0a416c"/>
+    <stop offset="1" stop-color="#041d3d"/>
+  </linearGradient>
+  <linearGradient id="sideLeft" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0f5f90"/>
+    <stop offset="1" stop-color="#031322"/>
+  </linearGradient>
+  <linearGradient id="sideRight" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0a426f"/>
+    <stop offset="1" stop-color="#020a14"/>
+  </linearGradient>
+
+  <!-- Online Service cell (cyan) -->
+  <linearGradient id="cellTop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#1aaee5"/>
+    <stop offset="0.55" stop-color="#0d5c8d"/>
+    <stop offset="1" stop-color="#062c55"/>
+  </linearGradient>
+  <linearGradient id="cellSideL" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0c6e9d"/>
+    <stop offset="1" stop-color="#031728"/>
+  </linearGradient>
+  <linearGradient id="cellSideR" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#074e7f"/>
+    <stop offset="1" stop-color="#020a15"/>
+  </linearGradient>
+
+  <!-- AI Native cell (purple-tinted but in same family) -->
+  <linearGradient id="cellTopP" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b6cff"/>
+    <stop offset="0.55" stop-color="#5a32b8"/>
+    <stop offset="1" stop-color="#2a1758"/>
+  </linearGradient>
+  <linearGradient id="cellSideLP" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#6e3fb8"/>
+    <stop offset="1" stop-color="#150828"/>
+  </linearGradient>
+  <linearGradient id="cellSideRP" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4a268a"/>
+    <stop offset="1" stop-color="#0a0415"/>
+  </linearGradient>
+
+  <!-- Master center cell (gold) - the "task hive command" -->
+  <linearGradient id="cellTopG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fde047"/>
+    <stop offset="0.5" stop-color="#b8862d"/>
+    <stop offset="1" stop-color="#3a2a08"/>
+  </linearGradient>
+  <linearGradient id="cellSideLG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#a37528"/>
+    <stop offset="1" stop-color="#1a1308"/>
+  </linearGradient>
+  <linearGradient id="cellSideRG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#7a5618"/>
+    <stop offset="1" stop-color="#0d0904"/>
+  </linearGradient>
+
+  <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 Z" fill="rgba(67,220,255,0.86)"/>
+  </marker>
+  <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 Z" fill="rgba(255,209,102,0.9)"/>
+  </marker>
+</defs>
+
+<text x="48" y="62" class="title">WeGame Team Map · 2026-05</text>
+<text x="48" y="92" class="subtitle">Production Mind 决策中枢 · 双色 Task Cells（AI Native + Online Service） · AI Infra + Platform 一体化底座</text>
+<g transform="translate(1340 36)">
+  <rect width="212" height="30" class="panel"/>
+  <circle cx="18" cy="15" r="4" fill="#76e5bb" filter="url(#glow)"/>
+  <text x="31" y="20" class="small cyan">HIVE STACK · TEAM MAP</text>
+</g>
+
+<!-- Background depth lines -->
+<g opacity="0.24" fill="none" stroke="rgba(67,220,255,0.25)" stroke-width="1">
+  <path d="M278 740 L800 90 L1322 740"/>
+  <path d="M96 700 L800 110 L1504 700"/>
+  <path d="M415 810 L800 130 L1185 810"/>
+</g>
+
+<!-- ============== Left layer labels ============== -->
+<g>
+  <path d="M48 128 H252 L295 172 L252 236 H48 Z" class="panel-gold"/>
+  <text x="92" y="160" class="layer-tag gold">LAYER 03</text>
+  <text x="92" y="190" class="main-label" style="font-size:22px">Production Mind</text>
+  <text x="92" y="218" class="sub-label">方向 · 策略 · 规划 · 资源</text>
+
+  <path d="M48 398 H252 L295 442 L252 506 H48 Z" class="panel"/>
+  <text x="92" y="430" class="layer-tag">LAYER 02</text>
+  <text x="92" y="460" class="main-label" style="font-size:22px">Task Cells</text>
+  <text x="92" y="488" class="sub-label">AI Native + Online Service</text>
+
+  <path d="M48 674 H252 L295 718 L252 782 H48 Z" class="panel"/>
+  <text x="92" y="706" class="layer-tag">LAYER 01</text>
+  <text x="92" y="736" class="main-label" style="font-size:22px">Infrastructure</text>
+  <text x="92" y="764" class="sub-label">AI Infra + Platform 底座</text>
+</g>
+
+<!-- Connector lines -->
+<g fill="none" stroke-linecap="round">
+  <path d="M295 174 H372" stroke="rgba(255,209,102,0.74)" stroke-width="2" marker-end="url(#arrowGold)"/>
+  <path d="M295 444 H372" stroke="rgba(67,220,255,0.74)" stroke-width="2" marker-end="url(#arrowCyan)"/>
+  <path d="M295 720 H372" stroke="rgba(67,220,255,0.74)" stroke-width="2" marker-end="url(#arrowCyan)"/>
+</g>
+
+<!-- ============== LAYER 01 INFRA SLAB (cyan, drawn first — back) ============== -->
+<g filter="url(#softShadow)">
+  <polygon points="800,620 1120,682 1168,745 800,838 432,745 480,682"
+           fill="rgba(1,8,15,0.72)"/>
+  <polygon points="432,745 800,838 800,896 432,803"
+           fill="url(#sideLeft)" stroke="rgba(67,220,255,0.36)" stroke-width="1.2"/>
+  <polygon points="800,838 1168,745 1168,803 800,896"
+           fill="url(#sideRight)" stroke="rgba(67,220,255,0.3)" stroke-width="1.2"/>
+  <polygon points="480,682 432,745 432,803 480,740"
+           fill="rgba(4,30,52,0.9)" stroke="rgba(67,220,255,0.22)" stroke-width="1"/>
+  <polygon points="1120,682 1168,745 1168,803 1120,740"
+           fill="rgba(3,22,40,0.92)" stroke="rgba(67,220,255,0.2)" stroke-width="1"/>
+  <polygon points="800,620 1120,682 1168,745 800,838 432,745 480,682"
+           fill="url(#slabTopDark)" stroke="rgba(67,220,255,0.9)" stroke-width="2.4" filter="url(#glow)"/>
+
+  <!-- Slab title -->
+  <text x="800" y="650" text-anchor="middle" class="main-label" style="font-size:17px">AI Infra · Platform</text>
+  <text x="800" y="668" text-anchor="middle" class="sub-label" style="font-size:11px">基础设施一体化底座</text>
+
+  <!-- Center module: Agent Swarm (aligned to title axis) -->
+  <g>
+    <rect x="710" y="678" width="180" height="22" rx="5" fill="rgba(4,30,52,0.92)" stroke="rgba(118,229,187,0.9)" stroke-width="1.4" filter="url(#glow)"/>
+    <text x="800" y="693" text-anchor="middle" class="module-label" style="font-size:11px;font-weight:700;fill:#d1fae5">⚙ Agent Swarm · 3 人</text>
+  </g>
+
+  <!-- Section labels -->
+  <text x="624" y="715" text-anchor="middle" class="cell-sub" style="font-size:10px;font-weight:700;fill:#76e5bb">AI INFRA</text>
+  <text x="1020" y="715" text-anchor="middle" class="cell-sub" style="font-size:10px;font-weight:700;fill:#cbd5e1">PLATFORM</text>
+
+  <!-- ===== AI INFRA modules (left half) — 3 cols × 2 rows, rectangle for full text ===== -->
+  <g>
+    <!-- Row 1 (y=720, h=18) -->
+    <rect x="475" y="720" width="98" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="524" y="732" text-anchor="middle" class="module-label" style="font-size:10px">知识库 · 3 人</text>
+
+    <rect x="580" y="720" width="98" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="629" y="732" text-anchor="middle" class="module-label" style="font-size:10px">感知 · 3 人</text>
+
+    <rect x="685" y="720" width="118" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="744" y="732" text-anchor="middle" class="module-label" style="font-size:10px">记忆/画像 · 3 人</text>
+
+    <!-- Row 2 (y=742, h=18) — wider for longer labels, left-shifted to fit -->
+    <rect x="447" y="742" width="138" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="516" y="754" text-anchor="middle" class="module-label" style="font-size:10px">端侧模型 Agent · 2 人</text>
+
+    <rect x="592" y="742" width="118" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="651" y="754" text-anchor="middle" class="module-label" style="font-size:10px">AI 自动化测试 · 3 人</text>
+
+    <rect x="717" y="742" width="170" height="18" rx="4" fill="rgba(4,30,52,0.86)" stroke="rgba(118,229,187,0.6)" stroke-width="0.9"/>
+    <text x="802" y="754" text-anchor="middle" class="module-label" style="font-size:10px">Agent 框架（语音、进化等）</text>
+  </g>
+
+  <!-- ===== PLATFORM modules (right half) — pushed further right to avoid overlap ===== -->
+  <g>
+    <!-- 基础后台服务 · 3 -->
+    <rect x="900" y="722" width="240" height="18" rx="4" fill="rgba(15,23,42,0.92)" stroke="rgba(148,163,184,0.7)" stroke-width="1"/>
+    <text x="1020" y="735" text-anchor="middle" class="module-label" style="font-size:10px;font-weight:700;fill:#e2e8f0">基础后台服务 · 3 人 <tspan style="fill:#94a3b8;font-weight:400;font-size:9px"> 账号·数据·支付</tspan></text>
+
+    <!-- 客户端框架 · 3 -->
+    <rect x="900" y="744" width="240" height="18" rx="4" fill="rgba(15,23,42,0.92)" stroke="rgba(148,163,184,0.7)" stroke-width="1"/>
+    <text x="1020" y="757" text-anchor="middle" class="module-label" style="font-size:10px;font-weight:700;fill:#e2e8f0">客户端框架 · 3 人 <tspan style="fill:#94a3b8;font-weight:400;font-size:9px"> 渲染·工具·SDK·版本</tspan></text>
+  </g>
+</g>
+
+<!-- ============== LAYER 03 PRODUCTION MIND TOP SLAB (cyan, like index.html top) ============== -->
+<g filter="url(#softShadow)">
+  <polygon points="800,62 1040,104 1088,170 800,244 512,170 560,104"
+           fill="rgba(2,10,18,0.82)" opacity="0.7"/>
+  <polygon points="512,170 800,244 800,316 512,242"
+           fill="url(#sideLeft)" stroke="rgba(67,220,255,0.34)" stroke-width="1.2"/>
+  <polygon points="800,244 1088,170 1088,242 800,316"
+           fill="url(#sideRight)" stroke="rgba(67,220,255,0.3)" stroke-width="1.2"/>
+  <polygon points="560,104 512,170 512,242 560,176"
+           fill="rgba(6,41,66,0.9)" stroke="rgba(67,220,255,0.22)" stroke-width="1"/>
+  <polygon points="1040,104 1088,170 1088,242 1040,176"
+           fill="rgba(4,30,55,0.92)" stroke="rgba(67,220,255,0.22)" stroke-width="1"/>
+  <polygon points="800,62 1040,104 1088,170 800,244 512,170 560,104"
+           fill="url(#slabTopLight)" stroke="rgba(255,209,102,0.86)" stroke-width="2.2" filter="url(#glow)"/>
+
+  <!-- Decorative ellipse rings on top -->
+  <ellipse cx="800" cy="154" rx="186" ry="54" fill="none" stroke="rgba(67,220,255,0.42)" stroke-width="1.2"/>
+  <ellipse cx="800" cy="154" rx="132" ry="40" fill="rgba(4,22,36,0.36)" stroke="rgba(67,220,255,0.24)" stroke-width="1"/>
+
+  <!-- 蜂后 PM Agent center — gold ring with chess queen -->
+  <circle cx="800" cy="136" r="32" fill="rgba(255,209,102,0.13)" stroke="rgba(255,209,102,0.86)" stroke-width="2" filter="url(#glow)"/>
+  <text x="800" y="148" text-anchor="middle" style="font-family:Georgia,'Times New Roman','Noto Serif Symbols',serif;font-weight:700;font-size:38px;fill:#ffd166">♛</text>
+  <text x="800" y="184" text-anchor="middle" class="sub-label" style="font-size:12px;fill:#fef3c7">蜂后 PM Agent</text>
+</g>
+
+<!-- Vertical data-rain between top and middle layers -->
+<g opacity="0.42" stroke="rgba(67,220,255,0.7)" stroke-width="1" stroke-dasharray="2 6">
+  <path d="M514 216 V330"/><path d="M590 235 V332"/><path d="M678 254 V335"/>
+  <path d="M800 290 V335"/><path d="M922 254 V335"/><path d="M1010 235 V332"/><path d="M1086 216 V330"/>
+</g>
+
+<!-- ============== LAYER 02 TASK CELLS HONEYCOMB ============== -->
+<!-- 12 cells: 4 purple + 5 mid (4 cyan + ★ master) + 3 cyan bottom. Hex W=160 H=100, dy=75 -->
+<g filter="url(#softShadow)">
+  <g>
+    <polygon points="568,320 648,340 648,400 568,420 488,400 488,340" fill="url(#cellTopP)" stroke="rgba(196,165,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="568" y="356" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">WeGame Agent</text>
+    <text x="568" y="375" text-anchor="middle" class="cell-sub" style="font-size:10.5px">端侧 + 云 · 多端 Agent</text>
+    <text x="568" y="398" text-anchor="middle" class="tiny" style="fill:#c4a5ff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="728,320 808,340 808,400 728,420 648,400 648,340" fill="url(#cellTopP)" stroke="rgba(196,165,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="728" y="356" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">游戏 AI 伴侣</text>
+    <text x="728" y="375" text-anchor="middle" class="cell-sub" style="font-size:10.5px">PoE2 切入，拓展更多游戏</text>
+    <text x="728" y="398" text-anchor="middle" class="tiny" style="fill:#c4a5ff;font-size:11px;font-weight:700">6 人</text>
+  </g>
+  <g>
+    <polygon points="888,320 968,340 968,400 888,420 808,400 808,340" fill="url(#cellTopP)" stroke="rgba(196,165,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="888" y="356" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">代号 EchoX</text>
+    <text x="888" y="375" text-anchor="middle" class="cell-sub" style="font-size:10.5px">桌宠 · 切入 Steam 游戏生态</text>
+    <text x="888" y="398" text-anchor="middle" class="tiny" style="fill:#c4a5ff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="1048,320 1128,340 1128,400 1048,420 968,400 968,340" fill="url(#cellTopP)" stroke="rgba(255,209,102,0.95)" stroke-width="1.8" stroke-dasharray="5,3" filter="url(#glow)"/>
+    <text x="1048" y="356" text-anchor="middle" class="cell-title" style="font-size:12.5px;fill:#fef3c7">AI PGC 生态 <tspan style="fill:#fcd789;font-weight:700">[待定]</tspan></text>
+    <text x="1048" y="378" text-anchor="middle" class="cell-sub" style="font-size:10.5px;fill:#fcd789">围绕 TX 头部游戏</text>
+    <text x="1048" y="396" text-anchor="middle" class="cell-sub" style="font-size:10.5px;fill:#fcd789">打造 PGC 创作者生态</text>
+  </g>
+  <g>
+    <polygon points="488,395 568,415 568,475 488,495 408,475 408,415" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="488" y="431" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">WeGame 框架</text>
+    <text x="488" y="450" text-anchor="middle" class="cell-sub" style="font-size:10.5px">客户端功能迭代</text>
+    <text x="488" y="473" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="648,395 728,415 728,475 648,495 568,475 568,415" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="648" y="431" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">Store</text>
+    <text x="648" y="450" text-anchor="middle" class="cell-sub" style="font-size:10.5px">推荐 · 转化 · 发行</text>
+    <text x="648" y="473" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <!-- ⭐ MASTER: 任务蜂巢 Cells -->
+  <g>
+    <polygon points="808,395 888,415 888,475 808,495 728,475 728,415" fill="url(#cellTopG)" stroke="rgba(255,209,102,1)" stroke-width="3.0" filter="url(#glow)"/>
+    <text x="808" y="433" text-anchor="middle" class="cell-title" style="font-size:14px;font-weight:780;fill:#fef3c7">任务蜂巢 Cells</text>
+    <text x="808" y="453" text-anchor="middle" class="cell-sub" style="font-size:11px;fill:#fef3c7">围绕任务动态组队</text>
+    <text x="808" y="475" text-anchor="middle" class="tiny" style="fill:#fde047;font-size:11px;font-weight:700">人机协同交付</text>
+  </g>
+  <g>
+    <polygon points="968,395 1048,415 1048,475 968,495 888,475 888,415" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="968" y="431" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">Developer Portal</text>
+    <text x="968" y="450" text-anchor="middle" class="cell-sub" style="font-size:10.5px">开发者 · 游戏接入</text>
+    <text x="968" y="473" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="1128,395 1208,415 1208,475 1128,495 1048,475 1048,415" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="1128" y="431" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">Launcher</text>
+    <text x="1128" y="450" text-anchor="middle" class="cell-sub" style="font-size:10.5px">游戏启动器</text>
+    <text x="1128" y="473" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="568,470 648,490 648,550 568,570 488,550 488,490" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="568" y="506" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">Helper</text>
+    <text x="568" y="525" text-anchor="middle" class="cell-sub" style="font-size:10.5px">游戏助手</text>
+    <text x="568" y="548" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">6 人</text>
+  </g>
+  <g>
+    <polygon points="728,470 808,490 808,550 728,570 648,550 648,490" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="728" y="506" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">Activities</text>
+    <text x="728" y="525" text-anchor="middle" class="cell-sub" style="font-size:10.5px">运营活动</text>
+    <text x="728" y="548" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+  <g>
+    <polygon points="888,470 968,490 968,550 888,570 808,550 808,490" fill="url(#cellTop)" stroke="rgba(67,220,255,0.95)" stroke-width="1.8" filter="url(#glow)"/>
+    <text x="888" y="506" text-anchor="middle" class="cell-title" style="font-size:13px;fill:#ffffff">社区</text>
+    <text x="888" y="525" text-anchor="middle" class="cell-sub" style="font-size:10.5px">高校专区 / 开黑社区</text>
+    <text x="888" y="548" text-anchor="middle" class="tiny" style="fill:#43dcff;font-size:11px;font-weight:700">3 人</text>
+  </g>
+</g>
+
+<!-- (Removed: foreground lip — was occluding cells; replaced by cleaner separation) -->
+
+<!-- ============== Decision roles around Maxwell Agent (chess-knight style) ============== -->
+<g>
+  <g transform="translate(678 112)">
+    <circle r="16" fill="rgba(4,22,36,0.58)" stroke="rgba(255,209,102,0.72)" stroke-width="1.5"/>
+    <text y="-26" text-anchor="middle" class="role-label">业务 Leader</text>
+  </g>
+  <g transform="translate(800 82)">
+    <circle r="16" fill="rgba(4,22,36,0.58)" stroke="rgba(255,209,102,0.72)" stroke-width="1.5"/>
+    <text y="-24" text-anchor="middle" class="role-label">WeGame 第一负责人</text>
+  </g>
+  <g transform="translate(922 112)">
+    <circle r="16" fill="rgba(4,22,36,0.58)" stroke="rgba(255,209,102,0.72)" stroke-width="1.5"/>
+    <text y="-26" text-anchor="middle" class="role-label">产品 Leader</text>
+  </g>
+  <g transform="translate(694 176)">
+    <circle r="16" fill="rgba(4,22,36,0.58)" stroke="rgba(255,209,102,0.72)" stroke-width="1.5"/>
+    <text y="40" text-anchor="middle" class="role-label">技术 Leader</text>
+  </g>
+  <g transform="translate(906 176)">
+    <circle r="16" fill="rgba(4,22,36,0.58)" stroke="rgba(255,209,102,0.72)" stroke-width="1.5"/>
+    <text y="40" text-anchor="middle" class="role-label">HRBP</text>
+  </g>
+</g>
+
+<!-- ============== Right callouts ============== -->
+<g>
+  <!-- ===== Top slab callouts (gold, 3 blocks — index.html semantics) ===== -->
+  <!-- 1. 方向与战略 -->
+  <path d="M1088 110 H1244 L1278 60" fill="none" stroke="rgba(255,209,102,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="32" width="252" height="56" class="panel-gold"/>
+  <text x="1306" y="56" class="cell-title gold" style="font-size:13px">方向与战略</text>
+  <text x="1306" y="76" class="small">定义方向与优先级</text>
+
+  <!-- 2. 任务和资源 -->
+  <path d="M1088 150 H1244 L1278 130" fill="none" stroke="rgba(255,209,102,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="100" width="252" height="58" class="panel-gold"/>
+  <text x="1306" y="124" class="cell-title gold" style="font-size:13px">任务和资源</text>
+  <text x="1306" y="144" class="small">发起新的 task，分配最佳执行资源</text>
+
+  <!-- 3. 标准与治理 -->
+  <path d="M1088 200 H1244 L1278 200" fill="none" stroke="rgba(255,209,102,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="170" width="252" height="68" class="panel-gold"/>
+  <text x="1306" y="194" class="cell-title gold" style="font-size:13px">标准与治理</text>
+  <text x="1306" y="214" class="small">制定标准与评估体系</text>
+  <text x="1306" y="230" class="small">维护价值观</text>
+
+  <!-- ===== Middle layer callouts (cyan, 3 blocks) ===== -->
+  <!-- 4. 任务下达 -->
+  <path d="M1145 380 H1252 L1278 370" fill="none" stroke="rgba(67,220,255,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="338" width="252" height="58" class="panel"/>
+  <text x="1306" y="362" class="cell-title cyan" style="font-size:13px">任务下达</text>
+  <text x="1306" y="382" class="small">拆解 · 调度 · 启动</text>
+
+  <!-- 5. 状态追踪 -->
+  <path d="M1145 446 H1278" fill="none" stroke="rgba(67,220,255,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="416" width="252" height="58" class="panel"/>
+  <text x="1306" y="440" class="cell-title cyan" style="font-size:13px">状态追踪</text>
+  <text x="1306" y="460" class="small">进度 · 风险 · 阻塞</text>
+
+  <!-- 6. 交付回流 -->
+  <path d="M1145 512 H1252 L1278 522" fill="none" stroke="rgba(67,220,255,0.72)" stroke-width="2" stroke-dasharray="4 5"/>
+  <rect x="1290" y="494" width="252" height="58" class="panel"/>
+  <text x="1306" y="518" class="cell-title cyan" style="font-size:13px">交付回流</text>
+  <text x="1306" y="538" class="small">结果 · 指标 · 反馈</text>
+</g>
+
+<!-- ============== Bottom takeaways (3 banners, index.html semantics) ============== -->
+<g>
+  <rect x="49" y="848" width="486" height="44" fill="rgba(3,14,23,0.86)" stroke="rgba(118,229,187,0.42)"/>
+  <text x="68" y="867" class="takeaway-title green">组织更扁平</text>
+  <text x="68" y="884" class="takeaway-copy">围绕 Task 动态组建 1-4 人蜂巢小队。</text>
+
+  <rect x="552" y="848" width="486" height="44" fill="rgba(3,14,23,0.86)" stroke="rgba(118,229,187,0.42)"/>
+  <text x="571" y="867" class="takeaway-title green">工作更 AI 原生</text>
+  <text x="571" y="884" class="takeaway-copy">人与 AI Agent 共同完成 Task，而非人和人连续执行。</text>
+
+  <rect x="1055" y="848" width="497" height="44" fill="rgba(3,14,23,0.86)" stroke="rgba(118,229,187,0.42)"/>
+  <text x="1074" y="867" class="takeaway-title green">治理更清晰</text>
+  <text x="1074" y="884" class="takeaway-copy">圆桌与 PM Agent 闭环管理标准、责任、评估和价值观。</text>
+</g>
+
+</svg>
+</main>
+</body>
+</html>
